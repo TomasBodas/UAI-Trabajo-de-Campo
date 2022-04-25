@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UAICampo.BE
+namespace UAICampo.BLL
 {
-    public class Class1
+    class BLL_Login
     {
     }
 }

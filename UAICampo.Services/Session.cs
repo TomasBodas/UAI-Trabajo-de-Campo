@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UAICampo.Abstractions;
 
 namespace UAICampo.Services
 {
@@ -18,8 +19,8 @@ namespace UAICampo.Services
             }
             return SESSION;
         }
-        private User user { get;  set; }
-        public void setUser(User pUser)
+        private IUser user { get;  set; }
+        public void setUser(IUser pUser)
         {
             this.user = pUser;
         }

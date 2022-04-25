@@ -5,11 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using UAICampo.Abstractions;
 
-namespace UAICampo.Services
+namespace UAICampo.DAL
 {
-    public class SessionManager
+    public interface DAL_IDAL<T> : ICrud<T> where T:IEntity
     {
-        public SessionManager() {}
 
     }
 }
