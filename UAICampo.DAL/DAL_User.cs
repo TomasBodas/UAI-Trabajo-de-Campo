@@ -76,6 +76,19 @@ namespace UAICampo.DAL
         }
         #endregion
 
+         public IUser findByUsername(string pUsername)
+         {
+            IUser user = null;
+            foreach (DataRow row in userDataTable.Rows )
+            {
+                if(row["userName"].ToString() == pUsername)
+                {
+                   user = new User(row.ItemArray); 
+                }
+            }
+            return user;
+        }
+
         private void saveToXml(DataTable pDataTable)
         {
             pDataTable.WriteXml("UserDataTable", XmlWriteMode.WriteSchema);

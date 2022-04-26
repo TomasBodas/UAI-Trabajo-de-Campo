@@ -45,6 +45,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UAICampo.Abstractions\UAICampo.Abstractions.csproj">
+      <Project>{623fd6f6-143a-4cf9-9f26-0e52dc20bc00}</Project>
+      <Name>UAICampo.Abstractions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UAICampo.BE\UAICampo.BE.csproj">
       <Project>{e698cd59-3b23-42bf-b465-21166b4bdc5d}</Project>
       <Name>UAICampo.BE</Name>

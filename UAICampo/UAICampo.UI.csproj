@@ -84,6 +84,10 @@
       <Project>{243a3486-4b52-4c2d-8d20-a5b5143e845e}</Project>
       <Name>UAICampo.BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UAICampo.Services\UAICampo.Services.csproj">
+      <Project>{50698019-b4b3-460e-812a-9fb55d03ca70}</Project>
+      <Name>UAICampo.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
