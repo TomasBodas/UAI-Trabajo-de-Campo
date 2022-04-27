@@ -8,6 +8,6 @@ namespace UAICampo.Abstractions
 {
     public abstract class IUser : IEntity
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
     }
 }

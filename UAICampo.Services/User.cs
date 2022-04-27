@@ -12,12 +12,12 @@ namespace UAICampo.Services
         public User(){}
         public User(object[] itemArray) : base()
         {
-            this.Id = (Guid)itemArray[0];
+            this.Id = (int)itemArray[0];
             this.Username = (string)itemArray[1];
             this.Email = (string)itemArray[2];
             this.IsBlocked = (bool)itemArray[3];
         }
-        public User(Guid id, string pUsername, string pEmail, bool pIsBlocked) : base()
+        public User(int id, string pUsername, string pEmail, bool pIsBlocked) : base()
         {
             this.Id = id;
             this.Username = pUsername;

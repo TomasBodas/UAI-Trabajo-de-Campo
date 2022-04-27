@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UAICampo.Abstractions;
 using UAICampo.DAL;
 using UAICampo.Services;
+using Microsoft.VisualBasic;
 
 namespace UAICampo.BLL
 {
@@ -13,33 +14,28 @@ namespace UAICampo.BLL
     {
         public void Login(String userName, string password )
         {
-            IUser user = 
+            
             DAL_User dalUser = new DAL_User();
             IUser user = null;
 
+            //Retrieves user from database
             user = dalUser.findByUsername(userName);
 
             if (user != null)
             {
-                SessionManager sm = new SessionManager();
-                if (encrypt(user.pass, password))
+                SessionManager sessionManager = new SessionManager();
+                if (dalUser.userPasswordMatcher(user.Id, password))
                 {
-                    var userInstance = UserInstance.getInstance();
-                    if (userInstance.userIsLoggedIn())
-                    {
-                        userInstance.user = user;
-                    }
-                    
+                    sessionManager.login(user);
                 }
                 else
                 {
-                    //la cont es incorrecta, volve a intentarlo
+                    Interaction.MsgBox("Username/Password incorrect. Please try again.");
                 }
-                
             }
             else
             {
-               //error
+                Interaction.MsgBox("Login error. Please try again.");
             }
         }
     }

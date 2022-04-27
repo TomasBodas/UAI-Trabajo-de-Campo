@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UAICampo.Abstractions;
+using Microsoft.VisualBasic;
 
 namespace UAICampo.Services
 {
@@ -17,7 +18,7 @@ namespace UAICampo.Services
             }
             else 
             {
-                //error Ya tenemos un usuario loggeado
+                Interaction.MsgBox("User already logged in.");
             }
         }
         public void logout()

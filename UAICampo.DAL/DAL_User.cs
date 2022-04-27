@@ -89,6 +89,20 @@ namespace UAICampo.DAL
             return user;
         }
 
+        public bool userPasswordMatcher(int pId, string inputPassword)
+        {
+            bool matches = false;
+            string storesPass = "";
+
+            Encrypt serviceEncryption = new Encrypt();
+
+            if (serviceEncryption.HashComparer(inputPassword, storesPass))
+            {
+                matches = true;   
+            }
+            return matches;
+        }
+
         private void saveToXml(DataTable pDataTable)
         {
             pDataTable.WriteXml("UserDataTable", XmlWriteMode.WriteSchema);
