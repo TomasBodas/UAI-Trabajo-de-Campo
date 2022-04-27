@@ -27,7 +27,7 @@ namespace UAICampo.DAL
             userDataSet.Tables.Add(userDataTable);
         }
 
-
+        
         #region CRUD Operations
         public void Delete(int Id)
         {
@@ -64,13 +64,13 @@ namespace UAICampo.DAL
             return userList;
         }
 
+
         public User Save(User Entity)
         {
             DataRow newRow = userDataTable.NewRow();
-            newRow["guid"] = Entity.Id;
             newRow["email"] = Entity.Email;
             newRow["userName"] = Entity.Username;
-            newRow["isBlocked"] = Entity.IsBlocked;
+            newRow["Password"] = Entity.Password;
             saveToXml(userDataTable);
             return Entity;
         }

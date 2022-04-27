@@ -12,9 +12,9 @@ namespace UAICampo.BLL
 {
     public class BLL_SessionManager
     {
-        public void Login(String userName, string password )
+        public void Login(String userName, string password)
         {
-            
+
             DAL_User dalUser = new DAL_User();
             IUser user = null;
 
@@ -37,6 +37,15 @@ namespace UAICampo.BLL
             {
                 Interaction.MsgBox("Login error. Please try again.");
             }
+        }
+
+        public bool Logout(String userName, string password)
+        {
+            SessionManager sm = new SessionManager();
+            sm.logout();
+            // actualizar dv
+
+            return true;
         }
     }
 }
