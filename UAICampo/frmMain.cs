@@ -33,6 +33,14 @@ namespace UAICampo.UI
         {
             this.itemLogin.Enabled = !UserInstance.getInstance().userIsLoggedIn();
             this.itemLogout.Enabled = UserInstance.getInstance().userIsLoggedIn();
+            if (UserInstance.getInstance().userIsLoggedIn())
+            {
+                this.toolStripStatusLabel.Text = UserInstance.getInstance().user.Username;
+            }
+            else
+            {
+                this.toolStripStatusLabel.Text = "Guest";
+            }
         }
 
         private void itemLogout_Click(object sender, EventArgs e)

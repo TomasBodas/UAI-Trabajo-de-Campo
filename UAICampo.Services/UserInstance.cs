@@ -10,17 +10,18 @@ namespace UAICampo.Services
     public class UserInstance
     {
         private static UserInstance LOGGED_USER;
-        public IUser user;
-        private UserInstance()
-        {
-
-        }
+        public User user;
+       
+        private static object sync = new Object();
 
         public static UserInstance getInstance()
         {
-            if (LOGGED_USER == null)
+            lock (sync)
             {
-                LOGGED_USER = new UserInstance();
+                if (LOGGED_USER == null)
+                {
+                    LOGGED_USER = new UserInstance();
+                }
             }
             return LOGGED_USER;
         }

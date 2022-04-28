@@ -8,5 +8,6 @@ namespace UAICampo.Abstractions
 {
     public interface IEntity
     {
+        Guid Id { get; }
     }
 }

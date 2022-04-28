@@ -16,7 +16,7 @@ namespace UAICampo.BLL
         { 
 
             DAL_User dalUser = new DAL_User();
-            IUser user = null;
+            User user = null;
 
             //Retrieves user from database
             user = dalUser.findByUsername(userName);

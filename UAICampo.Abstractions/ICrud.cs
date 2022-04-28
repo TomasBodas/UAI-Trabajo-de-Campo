@@ -8,9 +8,9 @@ namespace UAICampo.Abstractions
 {
     public interface ICrud <T>
     {
-        T Save(T Entity);
+        void Save(T Entity);
         IList<T> GetAll();
         T FindById(int Id);
-        void Delete(int Id);
+        void Delete(T Entity);
     }
 }

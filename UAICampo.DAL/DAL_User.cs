@@ -9,7 +9,7 @@ using UAICampo.Services;
 
 namespace UAICampo.DAL
 {
-    public class DAL_User : DAL_IDAL<User>
+    public class DAL_User : DAL_Abstract<User>
     {
         private DataSet userDataSet;
         private DataTable userDataTable;
@@ -98,9 +98,9 @@ namespace UAICampo.DAL
         }
         #endregion
 
-         public IUser findByUsername(string pUsername)
+         public User findByUsername(string pUsername)
          {
-            IUser user = null;
+            User user = null;
             foreach (DataRow row in userDataTable.Rows )
             {
                 if(row["userName"].ToString() == pUsername)

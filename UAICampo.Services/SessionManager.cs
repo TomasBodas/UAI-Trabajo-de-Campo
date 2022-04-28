@@ -10,7 +10,7 @@ namespace UAICampo.Services
 {
     public class SessionManager 
     {
-        public void login(IUser pUser)
+        public void login(User pUser)
         {
             if (!UserInstance.getInstance().userIsLoggedIn())
             {
