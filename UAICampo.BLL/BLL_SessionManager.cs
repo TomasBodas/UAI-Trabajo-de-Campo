@@ -13,8 +13,7 @@ namespace UAICampo.BLL
     public class BLL_SessionManager
     {
         public void Login(String userName, string password )
-        {
-            
+        { 
             DAL_User dalUser = new DAL_User();
             IUser user = null;
 
