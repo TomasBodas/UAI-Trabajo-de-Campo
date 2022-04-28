@@ -14,6 +14,7 @@ namespace UAICampo.BLL
     {
         public void Login(String userName, string password )
         { 
+
             DAL_User dalUser = new DAL_User();
             IUser user = null;
 
@@ -36,6 +37,14 @@ namespace UAICampo.BLL
             {
                 Interaction.MsgBox("Login error. Please try again.");
             }
+        }
+
+        public bool Logout()
+        {
+            SessionManager sm = new SessionManager();
+            sm.logout();
+            // actualizar dv
+            return true;
         }
     }
 }

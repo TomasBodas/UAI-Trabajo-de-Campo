@@ -13,21 +13,32 @@ namespace UAICampo.DAL
     {
         private DataSet userDataSet;
         private DataTable userDataTable;
+        private DataTable passwordDataTable;
 
         public DAL_User()
         {
             userDataSet = new DataSet();
             userDataTable = new DataTable();
+            passwordDataTable = new DataTable();
 
+            userDataTable.Columns.Add("id", typeof(int));
             userDataTable.Columns.Add("userName", typeof(string));
             userDataTable.Columns.Add("email", typeof(string));
             userDataTable.Columns.Add("isBlocked", typeof(bool));
-            userDataTable.Columns.Add("guid", typeof(string));
+
+            passwordDataTable.Columns.Add("id", typeof(int));
+            passwordDataTable.Columns.Add("passwordHash", typeof(string));
 
             userDataSet.Tables.Add(userDataTable);
+            userDataSet.Tables.Add(passwordDataTable);
+
+            User testCaseUser = new User("TestUsername", "TestEmail", "7bcf9d89298f1bfae16fa02ed6b61908fd2fa8de45dd8e2153a3c47300765328");
+            testCaseUser.Id = 1;
+
+            this.Save(testCaseUser);
         }
 
-
+        
         #region CRUD Operations
         public void Delete(int Id)
         {
@@ -64,14 +75,25 @@ namespace UAICampo.DAL
             return userList;
         }
 
+
         public User Save(User Entity)
         {
-            DataRow newRow = userDataTable.NewRow();
-            newRow["guid"] = Entity.Id;
-            newRow["email"] = Entity.Email;
-            newRow["userName"] = Entity.Username;
-            newRow["isBlocked"] = Entity.IsBlocked;
-            saveToXml(userDataTable);
+            DataRow userNewRow = userDataTable.NewRow();
+            DataRow passwordNewRow = passwordDataTable.NewRow();
+
+            userNewRow["id"] = Entity.Id;
+            userNewRow["email"] = Entity.Email;
+            userNewRow["userName"] = Entity.Username;
+
+            passwordNewRow["id"] = Entity.Id;
+            passwordNewRow["passwordHash"] = Entity.Password;
+
+            userDataTable.Rows.Add(userNewRow);
+            passwordDataTable.Rows.Add(passwordNewRow);
+
+            saveToXml(userDataTable, "UserDataTable");
+            saveToXml(passwordDataTable, "PasswordDataTable");
+
             return Entity;
         }
         #endregion
@@ -94,6 +116,14 @@ namespace UAICampo.DAL
             bool matches = false;
             string storesPass = "";
 
+            foreach (DataRow row in passwordDataTable.Rows)
+            {
+                if ((int)row["id"] == pId)
+                {
+                    storesPass = row["passwordHash"].ToString();
+                }
+            }
+
             Encrypt serviceEncryption = new Encrypt();
 
             if (serviceEncryption.HashComparer(inputPassword, storesPass))
@@ -103,9 +133,9 @@ namespace UAICampo.DAL
             return matches;
         }
 
-        private void saveToXml(DataTable pDataTable)
+        private void saveToXml(DataTable pDataTable, string fileName)
         {
-            pDataTable.WriteXml("UserDataTable", XmlWriteMode.WriteSchema);
+            pDataTable.WriteXml(fileName, XmlWriteMode.WriteSchema);
         }
     }
 }
