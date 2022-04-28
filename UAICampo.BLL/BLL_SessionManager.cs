@@ -39,7 +39,7 @@ namespace UAICampo.BLL
             }
         }
 
-        public bool Logout(String userName, string password)
+        public bool Logout()
         {
             SessionManager sm = new SessionManager();
             sm.logout();
