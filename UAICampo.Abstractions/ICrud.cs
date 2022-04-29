@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace UAICampo.Abstractions
 {
-    public interface ICrud <T>
+    public interface ICrud<T>
     {
-        void Save(T Entity);
+        T Save(T Entity);
         IList<T> GetAll();
         T FindById(int Id);
-        void Delete(T Entity);
+        void Delete(int Id);
     }
 }

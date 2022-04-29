@@ -7,7 +7,7 @@ using UAICampo.Abstractions;
 
 namespace UAICampo.Services
 {
-    public class User : Entity,IUser
+    public class User : IUser
     {
         public User(){}
 
@@ -36,6 +36,5 @@ namespace UAICampo.Services
         public string Email { get; set; }
         public bool IsBlocked { get; set; }
         public string Password { get; set; }
-        public int Id { get; set; }
     }
 }
