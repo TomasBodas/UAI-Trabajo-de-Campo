@@ -24,13 +24,27 @@ namespace UAICampo.BLL
             if (user != null)
             {
                 SessionManager sessionManager = new SessionManager();
-                if (dalUser.userPasswordMatcher(user.Id, password))
+                if (dalUser.userPasswordMatcher(user.Id, password) && !user.IsBlocked )
                 {
+                    //Singleton setup
                     sessionManager.login(user);
                 }
                 else
                 {
-                    Interaction.MsgBox("Username/Password incorrect. Please try again.");
+                    //User status handling
+                    if (user.Attempts == 3)
+                    {
+                        user.IsBlocked = true;
+                        Interaction.MsgBox("Account blocked due to repeated attempts.");
+                    }
+                    else
+                    {
+                        user.Attempts++;
+                        Interaction.MsgBox("Username/Password incorrect. Please try again.");
+                    }
+
+                    //update user status
+                    dalUser.UpdateUserStatus(user);
                 }
             }
             else

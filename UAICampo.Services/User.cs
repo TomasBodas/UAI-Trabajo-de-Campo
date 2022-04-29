@@ -22,19 +22,12 @@ namespace UAICampo.Services
             this.Id = (int)itemArray[0];
             this.Username = (string)itemArray[1];
             this.Email = (string)itemArray[2];
-            //this.Password = (string)itemArray[2];
-            //this.IsBlocked = (bool)itemArray[4];
         }
-        public User(int id, string pUsername, string pEmail, bool pIsBlocked) : base()
-        {
-            this.Id = id;
-            this.Username = pUsername;
-            this.Email = pEmail;
-            this.IsBlocked = pIsBlocked;
-        }
+
         public string Username { get; set; }
         public string Email { get; set; }
         public bool IsBlocked { get; set; }
+        public int Attempts { get; set; }
         public string Password { get; set; }
     }
 }

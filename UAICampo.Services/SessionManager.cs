@@ -27,10 +27,6 @@ namespace UAICampo.Services
             {
                 UserInstance.getInstance().user = null;
             }
-            else
-            {
-                //error No te podes desloggear potrque no hay usuario loggeado actualmente.
-            }
         }
     }
 }
