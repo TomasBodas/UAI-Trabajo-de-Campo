@@ -7,6 +7,7 @@ using UAICampo.Abstractions;
 using UAICampo.DAL;
 using UAICampo.Services;
 using Microsoft.VisualBasic;
+using UAICampo.DAL.SQL;
 
 namespace UAICampo.BLL
 {
@@ -15,7 +16,9 @@ namespace UAICampo.BLL
         public void Login(String userName, string password )
         { 
 
-            DAL_User dalUser = new DAL_User();
+            //DAL_User dalUser = new DAL_User();
+            DAL_User_SQL dalUser = new DAL_User_SQL();
+
             User user = null;
 
             //Retrieves user from database
