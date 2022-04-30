@@ -12,6 +12,8 @@ namespace UAICampo.DAL
 {
     public class DAL_User : DAL_Abstract<User>
     {
+        private static Encrypt ENCRYPTION_SERVICE;
+
         private DataSet userDataSet;
         private DataTable userDataTable;
         private DataTable passwordDataTable;
@@ -19,6 +21,7 @@ namespace UAICampo.DAL
 
         public DAL_User()
         {
+            ENCRYPTION_SERVICE = new Encrypt();
             userDataSet = new DataSet();
             userDataTable = new DataTable();
             passwordDataTable = new DataTable();
@@ -44,12 +47,6 @@ namespace UAICampo.DAL
             userDataSet.Tables.Add(passwordDataTable);
             userDataSet.Tables.Add(userStatusDataTable);
 
-            //User testCaseUser = new User("TestUsername", "TestEmail", "7bcf9d89298f1bfae16fa02ed6b61908fd2fa8de45dd8e2153a3c47300765328");
-            //testCaseUser.IsBlocked = false;
-            //testCaseUser.Attempts = 0;
-            //testCaseUser.Id = 1;
-            //this.Save(testCaseUser);
-
             //Load tables from XML Files.
             loadFromXml(userDataTable, "UserDataTable.xml");
             loadFromXml(passwordDataTable, "PasswordDataTable.xml");
@@ -63,21 +60,21 @@ namespace UAICampo.DAL
             User user = null;
 
             //First search user by username --> userDataTable
-            foreach (DataRow row in userDataTable.Rows)
+            foreach (DataRow userRow in userDataTable.Rows)
             {
-                if (row["userName"].ToString() == pUsername)
+                if (userRow["userName"].ToString() == pUsername)
                 {
-                    user = new User(row.ItemArray);
-                }
-            }
+                    user = new User(userRow.ItemArray);
 
-            //Then match id with found user --> userStatusDataTable
-            foreach (DataRow row in userStatusDataTable.Rows)
-            {
-                if ((int)row["id"] == user.Id)
-                {
-                    user.IsBlocked = (bool) row["isBlocked"];
-                    user.Attempts = (int)row["attempts"];
+                    //Then match id with found user --> userStatusDataTable
+                    foreach (DataRow statusRow in userStatusDataTable.Rows)
+                    {
+                        if ((int)statusRow["id"] == user.Id)
+                        {
+                            user.IsBlocked = (bool)statusRow["isBlocked"];
+                            user.Attempts = (int)statusRow["attempts"];
+                        }
+                    }
                 }
             }
 
@@ -85,41 +82,39 @@ namespace UAICampo.DAL
         }
         public User Save(User Entity)
         {
+            //sets next ID
+            Entity.Id = this.getNextUserId();
+            Entity.IsBlocked = false;
+            Entity.Attempts = 0;
+            Entity.Password = ENCRYPTION_SERVICE.hashRetriever(Entity.Password);
 
-            //Check username does not exists
-            User foundUser = this.findByUsername(Entity.Username);
+            //New rows for each table involved in method
+            DataRow userNewRow = userDataTable.NewRow();
+            DataRow passwordNewRow = passwordDataTable.NewRow();
+            DataRow userStatusNewRow = userStatusDataTable.NewRow();
 
-            if (foundUser == null)
-            {
-                //New rows for each table involved in method
-                DataRow userNewRow = userDataTable.NewRow();
-                DataRow passwordNewRow = passwordDataTable.NewRow();
-                DataRow userStatusNewRow = userStatusDataTable.NewRow();
+            //Setting up userDataTable row
+            userNewRow["id"] = Entity.Id;
+            userNewRow["email"] = Entity.Email;
+            userNewRow["userName"] = Entity.Username;
 
-                //Setting up userDataTable row
-                userNewRow["id"] = Entity.Id;
-                userNewRow["email"] = Entity.Email;
-                userNewRow["userName"] = Entity.Username;
-                userNewRow["isBlocked"] = Entity.IsBlocked;
+            //Setting up passwordDataTable row
+            passwordNewRow["id"] = Entity.Id;
+            passwordNewRow["passwordHash"] = Entity.Password;
 
-                //Setting up passwordDataTable row
-                passwordNewRow["id"] = Entity.Id;
-                passwordNewRow["passwordHash"] = Entity.Password;
+            //Setting up userStatusDataTable row
+            //New accounts are created unblocked and with zero attempts
+            userStatusNewRow["id"] = Entity.Id;
+            userStatusNewRow["isBlocked"] = Entity.IsBlocked;
+            userStatusNewRow["attempts"] = Entity.Attempts;
 
-                //Setting up userStatusDataTable row
-                //New accounts are created unblocked and with zero attempts
-                userStatusNewRow["id"] = Entity.Id;
-                userStatusNewRow["isBlocked"] = false;
-                userStatusNewRow["attempts"] = 0;
+            userDataTable.Rows.Add(userNewRow);
+            passwordDataTable.Rows.Add(passwordNewRow);
+            userStatusDataTable.Rows.Add(userStatusNewRow);
 
-                userDataTable.Rows.Add(userNewRow);
-                passwordDataTable.Rows.Add(passwordNewRow);
-                userStatusDataTable.Rows.Add(userStatusNewRow);
-
-                saveToXml(userDataTable, "UserDataTable.xml");
-                saveToXml(passwordDataTable, "PasswordDataTable.xml");
-                saveToXml(userStatusDataTable, "UserStatusDataTable.xml");
-            }
+            saveToXml(userDataTable, "UserDataTable.xml");
+            saveToXml(passwordDataTable, "PasswordDataTable.xml");
+            saveToXml(userStatusDataTable, "UserStatusDataTable.xml");
 
             return Entity;
         }
@@ -138,7 +133,7 @@ namespace UAICampo.DAL
 
             Encrypt serviceEncryption = new Encrypt();
 
-            if (serviceEncryption.HashComparer(inputPassword, storesPass))
+            if (serviceEncryption.hashComparer(inputPassword, storesPass))
             {
                 matches = true;
             }
@@ -156,6 +151,43 @@ namespace UAICampo.DAL
                 }
             }
             saveToXml(userStatusDataTable, "UserStatusDataTable.xml");
+        }
+        private int getNextUserId()
+        {
+            int id = 0;
+            foreach (DataRow row in userDataTable.Rows)
+            {
+                if ((int)row["id"] > id)
+                {
+                    id = (int)row["id"];
+                }
+            }
+            return id+1;
+        }
+        public User FindById(int Id)
+        {
+            User user = null;
+
+            //First search user by username --> userDataTable
+            foreach (DataRow userRow in userDataTable.Rows)
+            {
+                if ((int)userRow["id"] == Id)
+                {
+                    user = new User(userRow.ItemArray);
+
+                    //Then match id with found user --> userStatusDataTable
+                    foreach (DataRow statusRow in userStatusDataTable.Rows)
+                    {
+                        if ((int)statusRow["id"] == user.Id)
+                        {
+                            user.IsBlocked = (bool)statusRow["isBlocked"];
+                            user.Attempts = (int)statusRow["attempts"];
+                        }
+                    }
+                }
+            }
+
+            return user;
         }
 
         #region xml persistance
@@ -181,25 +213,6 @@ namespace UAICampo.DAL
         {
             throw new NotImplementedException();
         }
-
-        public User FindById(int Id)
-        {
-            User foundUser;
-
-            DataRow userRow = userDataTable.Rows.Find(Id);
-
-            if (userRow.ItemArray != null)
-            {
-                foundUser =  new User(userRow.ItemArray);
-            }
-            else
-            {
-                foundUser =  null;
-            }
-
-            return foundUser;
-        }
-
         public IList<User> GetAll()
         {
             IList<User> userList = new List<User>();
@@ -211,7 +224,5 @@ namespace UAICampo.DAL
             }
             return userList;
         }
-
-       
     }
 }

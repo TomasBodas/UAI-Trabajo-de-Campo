@@ -39,7 +39,6 @@ namespace UAICampo.UI
                 sessionBLL.Login(txtUser.Text, txtPassword.Text);
                 frmMain frm = (frmMain)this.MdiParent;
                 frm.ValidateForm();
-
                 this.Close();
             }
 

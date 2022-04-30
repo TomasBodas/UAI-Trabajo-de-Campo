@@ -28,6 +28,8 @@ namespace UAICampo.BLL
                 {
                     //Singleton setup
                     sessionManager.login(user);
+                    user.Attempts = 0;
+                    dalUser.UpdateUserStatus(user);
                 }
                 else
                 {
@@ -57,7 +59,6 @@ namespace UAICampo.BLL
         {
             SessionManager sm = new SessionManager();
             sm.logout();
-            // actualizar dv
             return true;
         }
     }

@@ -9,7 +9,7 @@ namespace UAICampo.Services
 {
     public class Encrypt
     {
-        public bool HashComparer(string inputPassword, string storedHash)
+        public bool hashComparer(string inputPassword, string storedHash)
         {
             bool isEqual = false;
             if (hashRetriever(inputPassword) == storedHash)
@@ -18,7 +18,7 @@ namespace UAICampo.Services
             }
             return isEqual;
         }
-        private string hashRetriever(string inputString)
+        public string hashRetriever(string inputString)
         {
             var crypt = new SHA256Managed();
             var hash = new StringBuilder();

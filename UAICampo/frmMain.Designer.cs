@@ -33,6 +33,8 @@ namespace UAICampo.UI
             this.accountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.itemLogin = new System.Windows.Forms.ToolStripMenuItem();
             this.itemLogout = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.itemRegister = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
@@ -53,7 +55,9 @@ namespace UAICampo.UI
             // 
             this.accountToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itemLogin,
-            this.itemLogout});
+            this.itemLogout,
+            this.toolStripSeparator1,
+            this.itemRegister});
             this.accountToolStripMenuItem.Name = "accountToolStripMenuItem";
             this.accountToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.accountToolStripMenuItem.Text = "Account";
@@ -61,16 +65,28 @@ namespace UAICampo.UI
             // itemLogin
             // 
             this.itemLogin.Name = "itemLogin";
-            this.itemLogin.Size = new System.Drawing.Size(112, 22);
+            this.itemLogin.Size = new System.Drawing.Size(154, 22);
             this.itemLogin.Text = "Login";
             this.itemLogin.Click += new System.EventHandler(this.itemLogin_Click);
             // 
             // itemLogout
             // 
             this.itemLogout.Name = "itemLogout";
-            this.itemLogout.Size = new System.Drawing.Size(112, 22);
+            this.itemLogout.Size = new System.Drawing.Size(154, 22);
             this.itemLogout.Text = "Logout";
             this.itemLogout.Click += new System.EventHandler(this.itemLogout_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(151, 6);
+            // 
+            // itemRegister
+            // 
+            this.itemRegister.Name = "itemRegister";
+            this.itemRegister.Size = new System.Drawing.Size(154, 22);
+            this.itemRegister.Text = "Create account";
+            this.itemRegister.Click += new System.EventHandler(this.newUserToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -81,6 +97,7 @@ namespace UAICampo.UI
             this.statusStrip1.Size = new System.Drawing.Size(800, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
             // 
             // toolStripStatusLabel
             // 
@@ -117,5 +134,7 @@ namespace UAICampo.UI
         private System.Windows.Forms.ToolStripMenuItem itemLogout;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem itemRegister;
     }
 }
