@@ -23,9 +23,8 @@ namespace UAICampo.UI
         }
         private void itemLogin_Click(object sender, EventArgs e)
         {
-            frmLogin frm = new frmLogin();
-            frm.MdiParent = this;
-            frm.Show();
+            if (!isWindowOpen("frmLogin"))
+                new frmLogin(this).Show();
         }
         public void ValidateForm()
         {
@@ -34,9 +33,21 @@ namespace UAICampo.UI
             if (UserInstance.getInstance().userIsLoggedIn())
             {
                 this.toolStripStatusLabel.Text = UserInstance.getInstance().user.Username;
+                this.label1.Text = UserInstance.getInstance().user.Id.ToString();
+                this.label2.Text = UserInstance.getInstance().user.Username.ToString();
+                this.label3.Text = UserInstance.getInstance().user.Email.ToString();
+                this.label4.Text = UserInstance.getInstance().user.IsBlocked.ToString();
+                this.label5.Text = UserInstance.getInstance().user.Attempts.ToString();
+                button3.Enabled = true;
+
             }
             else
             {
+                this.label1.Text = "Id";
+                this.label2.Text = "Username";
+                this.label3.Text = "Email";
+                this.label4.Text = "IsBlocked";
+                this.label5.Text = "Attempts";
                 this.toolStripStatusLabel.Text = "Guest";
             }
         }
@@ -50,9 +61,8 @@ namespace UAICampo.UI
         }
         private void newUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmRegister frm = new FrmRegister();
-            frm.MdiParent = this;
-            frm.Show();
+            if (!isWindowOpen("FrmRegister"))
+                new FrmRegister(this).Show();
         }
         private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
@@ -61,6 +71,51 @@ namespace UAICampo.UI
         private void frmMain_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (!isWindowOpen("frmLogin"))
+                new frmLogin(this).Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (UserInstance.getInstance().userIsLoggedIn())
+            {
+            if (MessageBox.Show("Are you sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                sessionBLL.Logout();
+                ValidateForm();
+            }
+            }
+            else
+            {
+                button3.Enabled = false;
+            }
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (!isWindowOpen("FrmRegister"))
+                new FrmRegister(this).Show();
+        }
+
+        private bool isWindowOpen(string name)
+        {
+            foreach (Form frm in Application.OpenForms)
+            {
+                if (frm != null && frm.Name == name)
+                    return true;
+            }
+
+            return false;
         }
     }
 }

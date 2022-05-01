@@ -14,10 +14,12 @@ namespace UAICampo.UI
     public partial class frmLogin : Form
     {
         BLL_SessionManager sessionBLL;
-        public frmLogin()
+        frmMain parent;
+        public frmLogin(frmMain parent)
         {
             InitializeComponent();
             sessionBLL = new BLL_SessionManager();
+            this.parent = parent;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -37,8 +39,7 @@ namespace UAICampo.UI
             if (!string.IsNullOrEmpty(txtUser.Text) && !string.IsNullOrEmpty(txtPassword.Text))
             {
                 sessionBLL.Login(txtUser.Text, txtPassword.Text);
-                frmMain frm = (frmMain)this.MdiParent;
-                frm.ValidateForm();
+                this.parent.ValidateForm();
                 this.Close();
             }
 
