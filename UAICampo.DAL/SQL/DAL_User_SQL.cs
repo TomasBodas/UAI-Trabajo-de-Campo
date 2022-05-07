@@ -11,7 +11,13 @@ namespace UAICampo.DAL.SQL
 {
     public class DAL_User_SQL : DAL_Abstract<User>
     {
+        //Test DB
         private static readonly string CONNECTION_STRING = "Data Source=.;Initial Catalog=Campo;Integrated Security=True";
+
+        //Production DB
+        //private static readonly string CONNECTION_STRING = "Data Source=.;Initial Catalog=CampoFinal;Integrated Security=True";
+
+        private static Encrypt ENCRYPTION_SERVICE = new Encrypt();
 
         #region tables
         //table names
@@ -29,7 +35,7 @@ namespace UAICampo.DAL.SQL
 
         //user params
         private static readonly string PARAM_USER_ID = $"@{COLUMN_USER_ID}";
-        private static readonly string PARAM_USER_USERNAMED = $"@{COLUMN_USER_USERNAME}";
+        private static readonly string PARAM_USER_USERNAME = $"@{COLUMN_USER_USERNAME}";
         private static readonly string PARAM_USER_EMAIL = $"@{COLUMN_USER_EMAIL}";
         #endregion
 
@@ -68,7 +74,8 @@ namespace UAICampo.DAL.SQL
 
                 string query = $"SELECT {TABLE_user}.{COLUMN_USER_ID}, {TABLE_user}.{COLUMN_USER_USERNAME}, {TABLE_user}.{COLUMN_USER_EMAIL}, {TABLE_userStatus}.{COLUMN_USERSTATUS_BLOCKED}, {TABLE_userStatus}.{COLUMN_USERSTATUS_ATTEMPTS}" +
                                 $" FROM {TABLE_user}" +
-                                $" INNER JOIN {TABLE_userStatus} ON {TABLE_user}.{COLUMN_USER_ID} = {TABLE_userStatus}.{COLUMN_USERSTATUS_ID}";
+                                $" INNER JOIN {TABLE_userStatus} ON {TABLE_user}.{COLUMN_USER_ID} = {TABLE_userStatus}.{COLUMN_USERSTATUS_ID}" +
+                                $" WHERE {TABLE_user}.{COLUMN_USER_USERNAME} = '{pUsername}'";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
@@ -133,7 +140,8 @@ namespace UAICampo.DAL.SQL
             {
                 sqlConnection.Open();
                 string query = $"UPDATE {TABLE_userStatus}" +
-                                $" SET {COLUMN_USERSTATUS_BLOCKED} = {PARAM_USERSTATUS_BLOCKED}, {COLUMN_USERSTATUS_ATTEMPTS} = {PARAM_USERSTATUS_ATTEMPTS}";
+                                $" SET {COLUMN_USERSTATUS_BLOCKED} = {PARAM_USERSTATUS_BLOCKED}, {COLUMN_USERSTATUS_ATTEMPTS} = {PARAM_USERSTATUS_ATTEMPTS}" +
+                                $" WHERE {COLUMN_USER_ID} = {Entity.Id}";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
@@ -152,8 +160,8 @@ namespace UAICampo.DAL.SQL
             {
                 sqlConnection.Open();
 
-                string query = $"@SELECT MAX({COLUMN_USER_ID})" +
-                                $"FROM {TABLE_user}";
+                string query = $"SELECT MAX({COLUMN_USER_ID})" +
+                                $" FROM {TABLE_user}";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
@@ -168,15 +176,81 @@ namespace UAICampo.DAL.SQL
                     sqlReader.Close();
                 }
             }
+            id++;
             return id;
+        }
+
+        public User Save(User Entity)
+        {
+            Entity.Id = this.getNextUserId();
+            Entity.IsBlocked = false;
+            Entity.Attempts = 0;
+            Entity.Password = ENCRYPTION_SERVICE.hashRetriever(Entity.Password);
+
+            //Saving User
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query =  $"INSERT INTO {TABLE_user} ({COLUMN_USER_ID}, {COLUMN_USER_USERNAME}, {COLUMN_USER_EMAIL})" +
+                                $" VALUES ({PARAM_USER_ID}, {PARAM_USER_USERNAME}, {PARAM_USER_EMAIL})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_USER_ID, Entity.Id);
+                    sqlCommand.Parameters.AddWithValue(PARAM_USER_USERNAME, Entity.Username);
+                    sqlCommand.Parameters.AddWithValue(PARAM_USER_EMAIL, Entity.Email);
+
+                    sqlCommand.ExecuteNonQuery();
+                }
+
+                sqlConnection.Close();
+            }
+
+            //Saving Password
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO {TABLE_password} ({COLUMN_PASSWORD_ID}, {COLUMN_PASSWORD_PASSHASH})" +
+                                $" VALUES ({PARAM_PASSWORD_ID}, {PARAM_PASSWORD_PASSHASH})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_PASSWORD_ID, Entity.Id);
+                    sqlCommand.Parameters.AddWithValue(PARAM_PASSWORD_PASSHASH, Entity.Password);
+
+                    sqlCommand.ExecuteNonQuery();
+                }
+
+                sqlConnection.Close();
+            }
+
+            //Saving Status
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO {TABLE_userStatus} ({COLUMN_USERSTATUS_ID}, {COLUMN_USERSTATUS_BLOCKED}, {COLUMN_USERSTATUS_ATTEMPTS})" +
+                                $" VALUES ({PARAM_USERSTATUS_ID}, {PARAM_USERSTATUS_BLOCKED}, {PARAM_USERSTATUS_ATTEMPTS})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_USERSTATUS_ID, Entity.Id);
+                    sqlCommand.Parameters.AddWithValue(PARAM_USERSTATUS_BLOCKED, Entity.IsBlocked);
+                    sqlCommand.Parameters.AddWithValue(PARAM_USERSTATUS_ATTEMPTS, Entity.Attempts);
+
+                    sqlCommand.ExecuteNonQuery();
+                }
+
+                sqlConnection.Close();
+            }
+
+            return Entity;
         }
 
         //needs implementation
 
-        public User Save(User Entity)
-        {
-            throw new NotImplementedException();
-        }
         public IList<User> GetAll()
         {
             throw new NotImplementedException();

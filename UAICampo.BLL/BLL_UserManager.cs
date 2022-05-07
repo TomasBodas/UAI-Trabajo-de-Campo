@@ -7,6 +7,7 @@ using UAICampo.Abstractions;
 using UAICampo.DAL;
 using UAICampo.Services;
 using Microsoft.VisualBasic;
+using UAICampo.DAL.SQL;
 
 namespace UAICampo.BLL
 {
@@ -16,7 +17,12 @@ namespace UAICampo.BLL
         {
             //Instantiate new user to be saved
             User user = new User(username, password, email);
-            DAL_User dal = new DAL_User();
+
+            //XML Dal Connection
+            //DAL_User dal = new DAL_User();
+
+            //SQL Connection
+            DAL_User_SQL dal = new DAL_User_SQL();
 
             if (dal.findByUsername(username) == null)
             {
