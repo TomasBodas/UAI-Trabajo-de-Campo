@@ -86,7 +86,7 @@ namespace UAICampo.DAL
             Entity.Id = this.getNextUserId();
             Entity.IsBlocked = false;
             Entity.Attempts = 0;
-            Entity.Password = ENCRYPTION_SERVICE.hashRetriever(Entity.Password);
+            Entity.Password = ENCRYPTION_SERVICE.hasher(Entity.Password);
 
             //New rows for each table involved in method
             DataRow userNewRow = userDataTable.NewRow();

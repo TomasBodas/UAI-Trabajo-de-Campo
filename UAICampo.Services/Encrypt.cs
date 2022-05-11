@@ -12,13 +12,13 @@ namespace UAICampo.Services
         public bool hashComparer(string inputPassword, string storedHash)
         {
             bool isEqual = false;
-            if (hashRetriever(inputPassword) == storedHash)
+            if (hasher(inputPassword) == storedHash)
             {
                 isEqual = true;
             }
             return isEqual;
         }
-        public string hashRetriever(string inputString)
+        public string hasher(string inputString)
         {
             var crypt = new SHA256Managed();
             var hash = new StringBuilder();

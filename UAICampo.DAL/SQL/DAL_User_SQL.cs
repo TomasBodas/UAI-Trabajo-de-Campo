@@ -185,7 +185,7 @@ namespace UAICampo.DAL.SQL
             Entity.Id = this.getNextUserId();
             Entity.IsBlocked = false;
             Entity.Attempts = 0;
-            Entity.Password = ENCRYPTION_SERVICE.hashRetriever(Entity.Password);
+            Entity.Password = ENCRYPTION_SERVICE.hasher(Entity.Password);
 
             //Saving User
             using (sqlConnection = new SqlConnection(CONNECTION_STRING))
