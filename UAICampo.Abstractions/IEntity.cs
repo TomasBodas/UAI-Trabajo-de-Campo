@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace UAICampo.Abstractions
 {
-    public interface IEntity
+    public abstract class IEntity
     {
+        Guid Guid;
     }
 }

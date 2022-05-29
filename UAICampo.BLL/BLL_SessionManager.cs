@@ -36,6 +36,15 @@ namespace UAICampo.BLL
                     sessionManager.login(user);
                     user.Attempts = 0;
                     dalUser.UpdateUserStatus(user);
+
+                    BLL_LogManager.addMessage(new Log
+                    {
+                        Date = DateTime.Now,
+                        Code = "LOGIN_OK",
+                        Description = String.Format("Account {0} logged successfully", user.Username),
+                        Type = LogType.Control,
+                        User = user
+                    });
                 }
                 else
                 {
@@ -44,6 +53,14 @@ namespace UAICampo.BLL
                     {
                         user.IsBlocked = true;
                         Interaction.MsgBox("Account blocked due to repeated attempts.");
+                        BLL_LogManager.addMessage(new Log
+                        {
+                            Date = DateTime.Now,
+                            Code = "BLOCKED",
+                            Description = String.Format("Account {0} blocked due to repeated attempts.", user.Username),
+                            Type = LogType.Warning,
+                            User = user
+                        });
                     }
                     else
                     {
@@ -58,12 +75,29 @@ namespace UAICampo.BLL
             else
             {
                 Interaction.MsgBox("Login error. Please try again.");
+                BLL_LogManager.addMessage(new Log
+                {
+                    Date = DateTime.Now,
+                    Code = "LOGIN_ERROR",
+                    Description = String.Format("Login error. Please try again."),
+                    Type = LogType.Error,
+                    User = user
+                });
             }
         }
 
         public bool Logout()
         {
+            User user = UserInstance.getInstance().user;
             SessionManager sm = new SessionManager();
+            BLL_LogManager.addMessage(new Log
+            {
+                Date = DateTime.Now,
+                Code = "LOGOUT",
+                Description = String.Format("Account {0} logged out", user.Username),
+                Type = LogType.Control,
+                User = user
+            });
             sm.logout();
             return true;
         }

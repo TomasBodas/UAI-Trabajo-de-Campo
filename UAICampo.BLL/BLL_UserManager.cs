@@ -28,11 +28,29 @@ namespace UAICampo.BLL
             {
                 //if user is successfully created, it will return an instance of the user
                 user = dal.Save(user);
+
+                BLL_LogManager.addMessage(new Log
+                {
+                    Date = DateTime.Now,
+                    Code = "USER_CREATED",
+                    Description = String.Format("Account {0} created successfully", user.Username),
+                    Type = LogType.Control,
+                    User = user
+                });
             }
             else
             {
                 //if user is not created it will return a null user
                 user = null;
+                Interaction.MsgBox("Username already exists");
+                BLL_LogManager.addMessage(new Log
+                {
+                    Date = DateTime.Now,
+                    Code = "USERNAME_ERROR",
+                    Description = String.Format("Username already exists"),
+                    Type = LogType.Warning,
+                    User = user
+                });
             }
 
             return user;

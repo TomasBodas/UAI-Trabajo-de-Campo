@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UAICampo.Abstractions;
+using UAICampo.Services.Composite;
 
 namespace UAICampo.Services
 {
@@ -29,5 +30,6 @@ namespace UAICampo.Services
         public bool IsBlocked { get; set; }
         public int Attempts { get; set; }
         public string Password { get; set; }
+        public IList<Component> Licenses { get; set; }
     }
 }
