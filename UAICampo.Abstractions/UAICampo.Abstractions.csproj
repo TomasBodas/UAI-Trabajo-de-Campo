@@ -44,6 +44,9 @@
     <Compile Include="ICrud.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="IUser.cs" />
+    <Compile Include="Observer\ILanguage.cs" />
+    <Compile Include="Observer\IObserverUser.cs" />
+    <Compile Include="Observer\ISubjectLanguage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
