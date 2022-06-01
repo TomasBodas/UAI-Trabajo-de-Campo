@@ -47,7 +47,7 @@ namespace UAICampo.BLL
                     {
                         foreach (Profile profile in user.profileList)
                         {
-                            //User.licences = bll_Login.getLicenses(User.id)
+                            BLL_Licences.getProfileLicences(profile);
                         }
                     }
 

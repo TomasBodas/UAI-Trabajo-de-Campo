@@ -9,8 +9,15 @@ namespace UAICampo.Services.Composite
 {
     public abstract class Component : IEntity
     {
+        public Component(int Id, string Name, string Desc)
+        {
+            this.Id = Id;
+            this.Name = Name;
+            this.Description = Desc;
+        }
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
 
         public abstract IList<Component> GetAllChildren();
         public abstract void AddChild(Component c);

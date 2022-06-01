@@ -58,6 +58,7 @@ namespace UAICampo.DAL
                     {
                         while (sqlReader.Read())
                         {
+
                             profileList.Add( new Profile(new Object[] { sqlReader[0], sqlReader[1], sqlReader[2]}));
                         }
                     }

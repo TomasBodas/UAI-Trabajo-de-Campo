@@ -9,7 +9,7 @@ namespace UAICampo.Services.Composite
     public class Composite : Component
     {
         private IList<Component> child;
-        public Composite()
+        public Composite(int Id, string Name, string Description) : base(Id, Name, Description)
         {
             child = new List<Component>();
         }

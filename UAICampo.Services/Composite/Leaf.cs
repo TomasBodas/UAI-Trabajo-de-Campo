@@ -8,6 +8,10 @@ namespace UAICampo.Services.Composite
 {
     public class Leaf : Component
     {
+        public Leaf(int Id, string Name, string Desc) : base(Id, Name, Desc)
+        {
+
+        }
         public override IList<Component> GetAllChildren()
         {
             return null;
