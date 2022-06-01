@@ -21,6 +21,8 @@ namespace UAICampo.BLL
 
             //SQL Connection
             DAL_User_SQL dalUser = new DAL_User_SQL();
+            DAL_Profile_SQL dalProfile = new DAL_Profile_SQL();
+            DAL_Licences_SQL dalLicences = new DAL_Licences_SQL();
 
             User user = null;
 
@@ -36,6 +38,18 @@ namespace UAICampo.BLL
                     sessionManager.login(user);
                     user.Attempts = 0;
                     dalUser.UpdateUserStatus(user);
+
+                    //Search for all user profiles.
+                    user.profileList = dalProfile.getUserProfiles(user.Id);
+
+                    //Retrieve composite pattern defined licences por each user profile
+                    if (user.profileList.Count > 0)
+                    {
+                        foreach (Profile profile in user.profileList)
+                        {
+                            //User.licences = bll_Login.getLicenses(User.id)
+                        }
+                    }
 
                     BLL_LogManager.addMessage(new Log
                     {

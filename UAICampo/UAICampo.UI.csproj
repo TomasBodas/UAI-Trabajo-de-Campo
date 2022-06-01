@@ -46,6 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FindDr - Create account.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindDr - Create account.Designer.cs">
+      <DependentUpon>FindDr - Create account.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FindDr - Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindDr - Login.Designer.cs">
+      <DependentUpon>FindDr - Login.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +78,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FindDr - Create account.resx">
+      <DependentUpon>FindDr - Create account.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindDr - Login.resx">
+      <DependentUpon>FindDr - Login.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -111,6 +129,24 @@
       <Project>{50698019-b4b3-460e-812a-9fb55d03ca70}</Project>
       <Name>UAICampo.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Menu.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Button.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\login.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LoginButton.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RegisterButton.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

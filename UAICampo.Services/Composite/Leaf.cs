@@ -13,15 +13,14 @@ namespace UAICampo.Services.Composite
             return null;
         }
     
-
         public override void AddChild(Component c)
         {
-            throw new NotImplementedException();
+           
         }
 
         public override void EmptyChild()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

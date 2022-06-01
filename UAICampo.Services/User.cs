@@ -10,7 +10,11 @@ namespace UAICampo.Services
 {
     public class User : IUser
     {
-        public User(){}
+        public List<Profile> profileList;
+        public User()
+        {
+            profileList = new List<Profile>();
+        }
 
         public User( string username, string email, string password) : base()
         {

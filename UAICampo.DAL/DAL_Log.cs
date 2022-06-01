@@ -64,7 +64,7 @@ namespace UAICampo.DAL
                     sqlCommand.Parameters.AddWithValue(PARAM_LOG_DATE, Entity.Date);
                     sqlCommand.Parameters.AddWithValue(PARAM_LOG_CODE, Entity.Code);
                     sqlCommand.Parameters.AddWithValue(PARAM_LOG_TYPE, Entity.Type);
-                    sqlCommand.Parameters.AddWithValue(PARAM_LOG_USERNAME, Entity.User.Username);
+                    sqlCommand.Parameters.AddWithValue(PARAM_LOG_USERNAME, Entity.User.Id);
 
                     sqlCommand.ExecuteNonQuery();
                 }

@@ -16,11 +16,7 @@ namespace UAICampo.Services.Composite
 
         public override IList<Component> GetAllChildren()
         {
-                foreach (var item in child)
-                {
-                    child.Concat(item.GetAllChildren().ToList());
-                }
-                return child.ToArray();
+            return child.ToArray();
         }
 
         public override void EmptyChild()

@@ -41,7 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL_Abstract1.cs" />
+    <Compile Include="DAL_Licences_SQL.cs" />
     <Compile Include="DAL_Log.cs" />
+    <Compile Include="DAL_Profile_SQL.cs" />
+    <Compile Include="SQL\DAL_Logs_SQL.cs" />
     <Compile Include="SQL\DAL_User_SQL.cs" />
     <Compile Include="XML\DAL_User.cs" />
     <Compile Include="DAL_Abstract.cs" />
