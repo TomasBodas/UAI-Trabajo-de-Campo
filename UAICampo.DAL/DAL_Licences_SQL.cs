@@ -18,19 +18,19 @@ namespace UAICampo.DAL
         private SqlDataReader sqlReader;
 
 
-        private const string TABLE_LICENCES = "Licenses";
-        private const string TABLE_PROFILE_LICENSES = "Profile_License";
-        private const string TABLE_FAMILIES_LICENCES = "Family_License";
+        private const string TABLE_LICENCES = "license";
+        private const string TABLE_PROFILE_LICENSES = "profile_license";
+        private const string TABLE_FAMILIES_LICENCES = "family_license";
 
-        private const string COLUMN_LICENCES_ID = "Id";
-        private const string COLUMN_LICENCES_NAME = "Name";
-        private const string COLUMN_LICENCES_DESCRIPTION = "Description";
+        private const string COLUMN_LICENCES_ID = "id";
+        private const string COLUMN_LICENCES_NAME = "name";
+        private const string COLUMN_LICENCES_DESCRIPTION = "description";
 
-        private const string COLUMN_PROFILE_LICENSES_ID_PROFILE = "IdProfile";
-        private const string COLUMN_PROFILE_LICENSES_ID_LICENSE = "IdLicense";
+        private const string COLUMN_PROFILE_LICENSES_ID_PROFILE = "id_profile";
+        private const string COLUMN_PROFILE_LICENSES_ID_LICENSE = "id_license";
 
-        private const string COLUMN_FAMILIES_LICENCES_MASTER = "IdFamily";
-        private const string COLUMN_FAMILIES_LICENCES_SLAVE = "IdLicense";
+        private const string COLUMN_FAMILIES_LICENCES_MASTER = "id_family";
+        private const string COLUMN_FAMILIES_LICENCES_SLAVE = "id_license";
 
         public void getProfileLicences(Profile profile)
         {
@@ -66,12 +66,10 @@ namespace UAICampo.DAL
             {
                 sqlConnection.Open();
 
-                string query = $" SELECT TOP 1 {COLUMN_LICENCES_ID}, {COLUMN_LICENCES_NAME}, {COLUMN_LICENCES_DESCRIPTION}" +
+                string query = $" SELECT TOP 1 {TABLE_LICENCES}.{COLUMN_LICENCES_ID}, {TABLE_LICENCES}.{COLUMN_LICENCES_NAME}, {TABLE_LICENCES}.{COLUMN_LICENCES_DESCRIPTION}" +
                                 $" FROM {TABLE_LICENCES}" +
                                 $" INNER JOIN {TABLE_FAMILIES_LICENCES}" +
-                                $" ON {TABLE_FAMILIES_LICENCES}.{COLUMN_FAMILIES_LICENCES_MASTER} = {TABLE_LICENCES}.{COLUMN_LICENCES_ID}" +
-                                $" INNER JOIN {TABLE_FAMILIES_LICENCES}" +
-                                $" ON {TABLE_FAMILIES_LICENCES}.{COLUMN_FAMILIES_LICENCES_SLAVE} = {TABLE_LICENCES}.{COLUMN_LICENCES_ID}" +
+                                $" ON {TABLE_FAMILIES_LICENCES}.{COLUMN_PROFILE_LICENSES_ID_LICENSE} = {TABLE_LICENCES}.{COLUMN_LICENCES_ID}" +
                                 $" WHERE {TABLE_FAMILIES_LICENCES}.{COLUMN_FAMILIES_LICENCES_MASTER} = {component.Id}";
                 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
@@ -97,8 +95,6 @@ namespace UAICampo.DAL
 
                 string query = $" SELECT {COLUMN_LICENCES_ID}, {COLUMN_LICENCES_NAME}, {COLUMN_LICENCES_DESCRIPTION}" +
                                 $" FROM {TABLE_LICENCES}" +
-                                $" INNER JOIN {TABLE_FAMILIES_LICENCES}" +
-                                $" ON {TABLE_FAMILIES_LICENCES}.{COLUMN_FAMILIES_LICENCES_MASTER} = {TABLE_LICENCES}.{COLUMN_LICENCES_ID}" +
                                 $" INNER JOIN {TABLE_FAMILIES_LICENCES}" +
                                 $" ON {TABLE_FAMILIES_LICENCES}.{COLUMN_FAMILIES_LICENCES_SLAVE} = {TABLE_LICENCES}.{COLUMN_LICENCES_ID}" +
                                 $" WHERE {TABLE_FAMILIES_LICENCES}.{COLUMN_FAMILIES_LICENCES_MASTER} = {component.Id}";
