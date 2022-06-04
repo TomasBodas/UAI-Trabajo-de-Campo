@@ -19,6 +19,5 @@ namespace UAICampo.Services
             this.Desc = (string)itemArray[2];
             Licences = new List<Component>();
         }
-
     }
 }

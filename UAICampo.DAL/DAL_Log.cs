@@ -11,7 +11,7 @@ namespace UAICampo.DAL
     public class DAL_Log : DAL_Abstract<Log>
     {
         //Test DB
-        private static readonly string CONNECTION_STRING = "Data Source=DESKTOP-4OC5GG6\\SQLEXPRESS;Initial Catalog=Campo;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private static readonly string CONNECTION_STRING = DataBaseServices.getConnectionString();
 
         //table
         private const string TABLE_log = "eventLog";
@@ -21,14 +21,14 @@ namespace UAICampo.DAL
         private const string COLUMN_LOG_CODE = "code";
         private const string COLUMN_LOG_DESCRIPTION = "description";
         private const string COLUMN_LOG_TYPE = "type";
-        private const string COLUMN_LOG_USERNAME = "username";
+        private const string COLUMN_LOG_FK_USER = "FK_account_eventLog";
 
         //log params
         private static readonly string PARAM_LOG_DATE = $"@{COLUMN_LOG_DATE}";
         private static readonly string PARAM_LOG_CODE = $"@{COLUMN_LOG_CODE}";
         private static readonly string PARAM_LOG_DESCRIPTION = $"@{COLUMN_LOG_DESCRIPTION}";
         private static readonly string PARAM_LOG_TYPE = $"@{COLUMN_LOG_TYPE}";
-        private static readonly string PARAM_LOG_USERNAME = $"@{COLUMN_LOG_USERNAME}";
+        private static readonly string PARAM_LOG_USERNAME = $"@{COLUMN_LOG_FK_USER}";
 
         private SqlConnection sqlConnection;
         private SqlCommand sqlCommand;
@@ -55,18 +55,37 @@ namespace UAICampo.DAL
             {
                 sqlConnection.Open();
 
-                string query = $"INSERT INTO {TABLE_log} ({COLUMN_LOG_DATE}, {COLUMN_LOG_CODE}, {COLUMN_LOG_DESCRIPTION}, {COLUMN_LOG_TYPE}, {COLUMN_LOG_USERNAME})" +
-                                $" VALUES ({PARAM_LOG_DATE}, {PARAM_LOG_CODE}, {PARAM_LOG_TYPE}, {PARAM_LOG_USERNAME})";
-
-                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                if (Entity.User != null)
                 {
-                    sqlCommand.Parameters.AddWithValue(PARAM_LOG_DATE, Entity.Date);
-                    sqlCommand.Parameters.AddWithValue(PARAM_LOG_CODE, Entity.Code);
-                    sqlCommand.Parameters.AddWithValue(PARAM_LOG_DESCRIPTION, Entity.Description);
-                    sqlCommand.Parameters.AddWithValue(PARAM_LOG_TYPE, Entity.Type);
-                    sqlCommand.Parameters.AddWithValue(PARAM_LOG_USERNAME, Entity.User.Id);
+                    string query = $"INSERT INTO {TABLE_log} ({COLUMN_LOG_DATE}, {COLUMN_LOG_CODE}, {COLUMN_LOG_DESCRIPTION}, {COLUMN_LOG_TYPE}, {COLUMN_LOG_FK_USER})" +
+                                    $" VALUES ({PARAM_LOG_DATE}, {PARAM_LOG_CODE}, {PARAM_LOG_DESCRIPTION}, {PARAM_LOG_TYPE}, {PARAM_LOG_USERNAME})";
 
-                    sqlCommand.ExecuteNonQuery();
+                    using (sqlCommand = new SqlCommand(query, sqlConnection))
+                    {
+                        sqlCommand.Parameters.AddWithValue(PARAM_LOG_DATE, Entity.Date);
+                        sqlCommand.Parameters.AddWithValue(PARAM_LOG_CODE, Entity.Code);
+                        sqlCommand.Parameters.AddWithValue(PARAM_LOG_DESCRIPTION, Entity.Description);
+                        sqlCommand.Parameters.AddWithValue(PARAM_LOG_TYPE, Entity.Type);
+                        sqlCommand.Parameters.AddWithValue(PARAM_LOG_USERNAME, Entity.User.Id);
+
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                }
+
+                else
+                {
+                    string query = $"INSERT INTO {TABLE_log} ({COLUMN_LOG_DATE}, {COLUMN_LOG_CODE}, {COLUMN_LOG_DESCRIPTION}, {COLUMN_LOG_TYPE})" +
+                                     $" VALUES ({PARAM_LOG_DATE}, {PARAM_LOG_CODE}, {PARAM_LOG_DESCRIPTION}, {PARAM_LOG_TYPE})";
+
+                    using (sqlCommand = new SqlCommand(query, sqlConnection))
+                    {
+                        sqlCommand.Parameters.AddWithValue(PARAM_LOG_DATE, Entity.Date);
+                        sqlCommand.Parameters.AddWithValue(PARAM_LOG_CODE, Entity.Code);
+                        sqlCommand.Parameters.AddWithValue(PARAM_LOG_DESCRIPTION, Entity.Description);
+                        sqlCommand.Parameters.AddWithValue(PARAM_LOG_TYPE, Entity.Type);
+
+                        sqlCommand.ExecuteNonQuery();
+                    }
                 }
 
                 sqlConnection.Close();

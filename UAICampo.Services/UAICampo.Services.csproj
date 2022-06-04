@@ -45,6 +45,7 @@
     <Compile Include="Composite\Component.cs" />
     <Compile Include="Composite\Composite.cs" />
     <Compile Include="Composite\Leaf.cs" />
+    <Compile Include="DataBaseServices.cs" />
     <Compile Include="Encrypt.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Observer\Language.cs" />

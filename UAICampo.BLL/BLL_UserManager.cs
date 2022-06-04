@@ -18,16 +18,23 @@ namespace UAICampo.BLL
             //Instantiate new user to be saved
             User user = new User(username, password, email);
 
-            //XML Dal Connection
-            //DAL_User dal = new DAL_User();
+            //Default user profile for new accounts ->Default, id=2
+            int DEFAULT_PROFILE_ID = 2;
 
             //SQL Connection
-            DAL_User_SQL dal = new DAL_User_SQL();
+            DAL_User_SQL dal_user = new DAL_User_SQL();
+            DAL_Profile_SQL dal_profile = new DAL_Profile_SQL();
 
-            if (dal.findByUsername(username) == null)
+            if (dal_user.findByUsername(username) == null)
             {
                 //if user is successfully created, it will return an instance of the user
-                user = dal.Save(user);
+                user = dal_user.Save(user);
+
+                //Then we search for the newly created user again, to retrieve the ID
+                user = dal_user.findByUsername(user.Username);
+
+                //Then we add a default user profile to the newly created account
+                dal_profile.addAccountProfile(DEFAULT_PROFILE_ID, user);
 
                 BLL_LogManager.addMessage(new Log
                 {
@@ -42,7 +49,7 @@ namespace UAICampo.BLL
             {
                 //if user is not created it will return a null user
                 user = null;
-                Interaction.MsgBox("Username already exists");
+
                 BLL_LogManager.addMessage(new Log
                 {
                     Date = DateTime.Now,

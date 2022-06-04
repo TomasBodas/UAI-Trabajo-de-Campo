@@ -9,7 +9,7 @@ using UAICampo.Services;
 
 namespace UAICampo.DAL
 {
-    public class DAL_Licences_SQL : DAL_Abstract
+    public class DAL_Licences_SQL : DAL_Abstract<Profile>
     {
         private static readonly string CONNECTION_STRING = "Data Source=.;Initial Catalog=Campo;Integrated Security=True";
 
@@ -120,5 +120,24 @@ namespace UAICampo.DAL
             return foundLicenses;
         }
 
+        public Profile Save(Profile Entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Profile> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Profile FindById(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int Id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

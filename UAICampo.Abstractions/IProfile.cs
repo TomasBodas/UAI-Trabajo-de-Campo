@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UAICampo.Abstractions
 {
-    public class IProfile
+    public class IProfile : IEntity
     {
         public int ProfileId { get; set; }
         public string ProfileName { get; set; }

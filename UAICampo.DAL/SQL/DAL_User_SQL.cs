@@ -11,11 +11,7 @@ namespace UAICampo.DAL.SQL
 {
     public class DAL_User_SQL : DAL_Abstract<User>
     {
-        //Test DB
-        private static readonly string CONNECTION_STRING = "Data Source=DESKTOP-4OC5GG6\\SQLEXPRESS;Initial Catalog=Campo;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
-        //Production DB
-        //private static readonly string CONNECTION_STRING = "Data Source=.;Initial Catalog=CampoFinal;Integrated Security=True";
+        private static readonly string CONNECTION_STRING = DataBaseServices.getConnectionString();
 
         private static Encrypt ENCRYPTION_SERVICE = new Encrypt();
 
@@ -32,21 +28,25 @@ namespace UAICampo.DAL.SQL
         private const string COLUMN_USER_ID = "id";
         private const string COLUMN_USER_USERNAME = "username";
         private const string COLUMN_USER_EMAIL = "email";
+        private const string COLUMN_USER_LANGUAGE = "FK_language_account";
 
         //user params
         private static readonly string PARAM_USER_ID = $"@{COLUMN_USER_ID}";
         private static readonly string PARAM_USER_USERNAME = $"@{COLUMN_USER_USERNAME}";
         private static readonly string PARAM_USER_EMAIL = $"@{COLUMN_USER_EMAIL}";
+        private static readonly string PARAM_USER_LANGUAGE = $"@{COLUMN_USER_LANGUAGE}";
         #endregion
 
         #region password columns/params
         //password table columns
         private const string COLUMN_PASSWORD_ID = "id";
         private const string COLUMN_PASSWORD_PASSHASH = "passHash";
+        private const string COLUMN_PASSWORD_FK_ACCOUNT = "FK_account_passwordhash";
 
         //password params
         private static readonly string PARAM_PASSWORD_ID = $"@{COLUMN_PASSWORD_ID}";
         private static readonly string PARAM_PASSWORD_PASSHASH = $"@{COLUMN_PASSWORD_PASSHASH}";
+        private static readonly string PARAM_PASSWORD_FK_ACCOUNT = $"@{COLUMN_PASSWORD_FK_ACCOUNT}";
         #endregion
 
         #region user status columns/params
@@ -54,10 +54,12 @@ namespace UAICampo.DAL.SQL
         private const string COLUMN_USERSTATUS_ID = "id";
         private const string COLUMN_USERSTATUS_BLOCKED = "isBlocked";
         private const string COLUMN_USERSTATUS_ATTEMPTS = "attempts";
+        private const string COLUMN_USERSTATUS_FK_ACCOUNT = "FK_account_accountstatus";
 
         private static readonly string PARAM_USERSTATUS_ID = $"@{COLUMN_USERSTATUS_ID}";
         private static readonly string PARAM_USERSTATUS_BLOCKED = $"@{COLUMN_USERSTATUS_BLOCKED}";
         private static readonly string PARAM_USERSTATUS_ATTEMPTS = $"@{COLUMN_USERSTATUS_ATTEMPTS}";
+        private static readonly string PARAM_USERSTATUS_KF_ACCOUNT = $"@{COLUMN_USERSTATUS_FK_ACCOUNT}";
         #endregion
 
         private SqlConnection sqlConnection;
@@ -74,7 +76,7 @@ namespace UAICampo.DAL.SQL
 
                 string query = $"SELECT {TABLE_user}.{COLUMN_USER_ID}, {TABLE_user}.{COLUMN_USER_USERNAME}, {TABLE_user}.{COLUMN_USER_EMAIL}, {TABLE_userStatus}.{COLUMN_USERSTATUS_BLOCKED}, {TABLE_userStatus}.{COLUMN_USERSTATUS_ATTEMPTS}" +
                                 $" FROM {TABLE_user}" +
-                                $" INNER JOIN {TABLE_userStatus} ON {TABLE_user}.{COLUMN_USER_ID} = {TABLE_userStatus}.{COLUMN_USERSTATUS_ID}" +
+                                $" INNER JOIN {TABLE_userStatus} ON {TABLE_user}.{COLUMN_USER_ID} = {TABLE_userStatus}.{COLUMN_USERSTATUS_FK_ACCOUNT}" +
                                 $" WHERE {TABLE_user}.{COLUMN_USER_USERNAME} = '{pUsername}'";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
@@ -108,7 +110,7 @@ namespace UAICampo.DAL.SQL
 
                 string query = $"SELECT {COLUMN_PASSWORD_PASSHASH}" +
                                 $" FROM {TABLE_password}" +
-                                $" WHERE {TABLE_password}.{COLUMN_PASSWORD_ID} = {pId}";
+                                $" WHERE {TABLE_password}.{COLUMN_PASSWORD_FK_ACCOUNT} = {pId}";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
@@ -141,7 +143,9 @@ namespace UAICampo.DAL.SQL
                 sqlConnection.Open();
                 string query = $"UPDATE {TABLE_userStatus}" +
                                 $" SET {COLUMN_USERSTATUS_BLOCKED} = {PARAM_USERSTATUS_BLOCKED}, {COLUMN_USERSTATUS_ATTEMPTS} = {PARAM_USERSTATUS_ATTEMPTS}" +
-                                $" WHERE {COLUMN_USER_ID} = {Entity.Id}";
+                                $" FROM {TABLE_userStatus}" +
+                                $" INNER JOIN {TABLE_user} ON {TABLE_user}.{COLUMN_USER_ID} = {TABLE_userStatus}.{COLUMN_USERSTATUS_FK_ACCOUNT}" +
+                                $" WHERE {TABLE_user}.{COLUMN_USER_ID} = {Entity.Id}";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
@@ -152,7 +156,7 @@ namespace UAICampo.DAL.SQL
                 }
             }
         }
-        private int getNextUserId()
+        private int getUserId(User Entity)
         {
             int id = 0;
 
@@ -161,7 +165,8 @@ namespace UAICampo.DAL.SQL
                 sqlConnection.Open();
 
                 string query = $"SELECT MAX({COLUMN_USER_ID})" +
-                                $" FROM {TABLE_user}";
+                                $" FROM {TABLE_user}" +
+                                $" WHERE {TABLE_user}.{COLUMN_USER_USERNAME} LIKE '{Entity.Username}'";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
@@ -176,13 +181,12 @@ namespace UAICampo.DAL.SQL
                     sqlReader.Close();
                 }
             }
-            id++;
+            
             return id;
         }
 
         public User Save(User Entity)
         {
-            Entity.Id = this.getNextUserId();
             Entity.IsBlocked = false;
             Entity.Attempts = 0;
             Entity.Password = ENCRYPTION_SERVICE.hasher(Entity.Password);
@@ -192,14 +196,15 @@ namespace UAICampo.DAL.SQL
             {
                 sqlConnection.Open();
 
-                string query =  $"INSERT INTO {TABLE_user} ({COLUMN_USER_ID}, {COLUMN_USER_USERNAME}, {COLUMN_USER_EMAIL})" +
-                                $" VALUES ({PARAM_USER_ID}, {PARAM_USER_USERNAME}, {PARAM_USER_EMAIL})";
+                string query =  $"INSERT INTO {TABLE_user} ({COLUMN_USER_USERNAME}, {COLUMN_USER_EMAIL}, {COLUMN_USER_LANGUAGE})" +
+                                $" VALUES ({PARAM_USER_USERNAME}, {PARAM_USER_EMAIL}, {PARAM_USER_LANGUAGE})";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
                     sqlCommand.Parameters.AddWithValue(PARAM_USER_ID, Entity.Id);
                     sqlCommand.Parameters.AddWithValue(PARAM_USER_USERNAME, Entity.Username);
                     sqlCommand.Parameters.AddWithValue(PARAM_USER_EMAIL, Entity.Email);
+                    sqlCommand.Parameters.AddWithValue(PARAM_USER_LANGUAGE, 1);
 
                     sqlCommand.ExecuteNonQuery();
                 }
@@ -207,47 +212,58 @@ namespace UAICampo.DAL.SQL
                 sqlConnection.Close();
             }
 
-            //Saving Password
-            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
-            {
-                sqlConnection.Open();
+            //After saving the user we need to retrieve the auto generated ID from the DB, in order to save Pass ans Status.
+            Entity.Id = getUserId(Entity);
 
-                string query = $"INSERT INTO {TABLE_password} ({COLUMN_PASSWORD_ID}, {COLUMN_PASSWORD_PASSHASH})" +
-                                $" VALUES ({PARAM_PASSWORD_ID}, {PARAM_PASSWORD_PASSHASH})";
-
-                using (sqlCommand = new SqlCommand(query, sqlConnection))
-                {
-                    sqlCommand.Parameters.AddWithValue(PARAM_PASSWORD_ID, Entity.Id);
-                    sqlCommand.Parameters.AddWithValue(PARAM_PASSWORD_PASSHASH, Entity.Password);
-
-                    sqlCommand.ExecuteNonQuery();
-                }
-
-                sqlConnection.Close();
-            }
-
-            //Saving Status
-            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
-            {
-                sqlConnection.Open();
-
-                string query = $"INSERT INTO {TABLE_userStatus} ({COLUMN_USERSTATUS_ID}, {COLUMN_USERSTATUS_BLOCKED}, {COLUMN_USERSTATUS_ATTEMPTS})" +
-                                $" VALUES ({PARAM_USERSTATUS_ID}, {PARAM_USERSTATUS_BLOCKED}, {PARAM_USERSTATUS_ATTEMPTS})";
-
-                using (sqlCommand = new SqlCommand(query, sqlConnection))
-                {
-                    sqlCommand.Parameters.AddWithValue(PARAM_USERSTATUS_ID, Entity.Id);
-                    sqlCommand.Parameters.AddWithValue(PARAM_USERSTATUS_BLOCKED, Entity.IsBlocked);
-                    sqlCommand.Parameters.AddWithValue(PARAM_USERSTATUS_ATTEMPTS, Entity.Attempts);
-
-                    sqlCommand.ExecuteNonQuery();
-                }
-
-                sqlConnection.Close();
-            }
+            SavePassword(Entity);
+            SaveStatus(Entity);
 
             return Entity;
         }
+
+        public void SavePassword(User Entity)
+        {
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO {TABLE_password} ( {COLUMN_PASSWORD_PASSHASH}, {COLUMN_PASSWORD_FK_ACCOUNT})" +
+                                $" VALUES ({PARAM_PASSWORD_PASSHASH}, {PARAM_PASSWORD_FK_ACCOUNT})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_PASSWORD_PASSHASH, Entity.Password);
+                    sqlCommand.Parameters.AddWithValue(PARAM_PASSWORD_FK_ACCOUNT, Entity.Id);
+
+                    sqlCommand.ExecuteNonQuery();
+                }
+
+                sqlConnection.Close();
+            }
+        }
+
+        public void SaveStatus(User Entity)
+        {
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO {TABLE_userStatus} ({COLUMN_USERSTATUS_BLOCKED}, {COLUMN_USERSTATUS_ATTEMPTS}, {COLUMN_USERSTATUS_FK_ACCOUNT})" +
+                                $" VALUES ( {PARAM_USERSTATUS_BLOCKED}, {PARAM_USERSTATUS_ATTEMPTS}, {PARAM_USERSTATUS_KF_ACCOUNT})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_USERSTATUS_BLOCKED, Entity.IsBlocked);
+                    sqlCommand.Parameters.AddWithValue(PARAM_USERSTATUS_ATTEMPTS, Entity.Attempts);
+                    sqlCommand.Parameters.AddWithValue(PARAM_USERSTATUS_KF_ACCOUNT, Entity.Id);
+
+                    sqlCommand.ExecuteNonQuery();
+                }
+
+                sqlConnection.Close();
+            }
+        }
+
 
         //needs implementation
 

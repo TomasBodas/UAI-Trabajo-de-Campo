@@ -15,10 +15,6 @@ namespace UAICampo.BLL
     {
         public void Login(String userName, string password )
         { 
-
-            //XML Dal Connection
-            //DAL_User dalUser = new DAL_User();
-
             //SQL Connection
             DAL_User_SQL dalUser = new DAL_User_SQL();
             DAL_Profile_SQL dalProfile = new DAL_Profile_SQL();
