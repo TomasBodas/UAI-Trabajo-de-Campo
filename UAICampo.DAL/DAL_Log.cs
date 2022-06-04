@@ -11,22 +11,22 @@ namespace UAICampo.DAL
     public class DAL_Log : DAL_Abstract<Log>
     {
         //Test DB
-        private static readonly string CONNECTION_STRING = "Data Source=.;Initial Catalog=Campo;Integrated Security=True";
+        private static readonly string CONNECTION_STRING = "Data Source=DESKTOP-4OC5GG6\\SQLEXPRESS;Initial Catalog=Campo;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         //table
-        private const string TABLE_log = "log";
+        private const string TABLE_log = "eventLog";
 
         //log table columns
-        private const string COLUMN_LOG_ID = "id";
         private const string COLUMN_LOG_DATE = "date";
         private const string COLUMN_LOG_CODE = "code";
+        private const string COLUMN_LOG_DESCRIPTION = "description";
         private const string COLUMN_LOG_TYPE = "type";
-        private const string COLUMN_LOG_USERNAME = "userName";
+        private const string COLUMN_LOG_USERNAME = "username";
 
         //log params
-        private static readonly string PARAM_LOG_ID = $"@{COLUMN_LOG_ID}";
         private static readonly string PARAM_LOG_DATE = $"@{COLUMN_LOG_DATE}";
         private static readonly string PARAM_LOG_CODE = $"@{COLUMN_LOG_CODE}";
+        private static readonly string PARAM_LOG_DESCRIPTION = $"@{COLUMN_LOG_DESCRIPTION}";
         private static readonly string PARAM_LOG_TYPE = $"@{COLUMN_LOG_TYPE}";
         private static readonly string PARAM_LOG_USERNAME = $"@{COLUMN_LOG_USERNAME}";
 
@@ -55,14 +55,14 @@ namespace UAICampo.DAL
             {
                 sqlConnection.Open();
 
-                string query = $"INSERT INTO {TABLE_log} ({COLUMN_LOG_ID}, {COLUMN_LOG_DATE}, {COLUMN_LOG_CODE}, {COLUMN_LOG_TYPE}, {COLUMN_LOG_USERNAME})" +
-                                $" VALUES ({PARAM_LOG_ID}, {PARAM_LOG_DATE}, {PARAM_LOG_CODE}, {PARAM_LOG_TYPE}, {PARAM_LOG_USERNAME})";
+                string query = $"INSERT INTO {TABLE_log} ({COLUMN_LOG_DATE}, {COLUMN_LOG_CODE}, {COLUMN_LOG_DESCRIPTION}, {COLUMN_LOG_TYPE}, {COLUMN_LOG_USERNAME})" +
+                                $" VALUES ({PARAM_LOG_DATE}, {PARAM_LOG_CODE}, {PARAM_LOG_TYPE}, {PARAM_LOG_USERNAME})";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
-                    sqlCommand.Parameters.AddWithValue(PARAM_LOG_ID, Entity.Id);
                     sqlCommand.Parameters.AddWithValue(PARAM_LOG_DATE, Entity.Date);
                     sqlCommand.Parameters.AddWithValue(PARAM_LOG_CODE, Entity.Code);
+                    sqlCommand.Parameters.AddWithValue(PARAM_LOG_DESCRIPTION, Entity.Description);
                     sqlCommand.Parameters.AddWithValue(PARAM_LOG_TYPE, Entity.Type);
                     sqlCommand.Parameters.AddWithValue(PARAM_LOG_USERNAME, Entity.User.Id);
 

@@ -12,7 +12,7 @@ namespace UAICampo.DAL.SQL
     public class DAL_User_SQL : DAL_Abstract<User>
     {
         //Test DB
-        private static readonly string CONNECTION_STRING = "Data Source=.;Initial Catalog=Campo;Integrated Security=True";
+        private static readonly string CONNECTION_STRING = "Data Source=DESKTOP-4OC5GG6\\SQLEXPRESS;Initial Catalog=Campo;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         //Production DB
         //private static readonly string CONNECTION_STRING = "Data Source=.;Initial Catalog=CampoFinal;Integrated Security=True";
@@ -21,16 +21,16 @@ namespace UAICampo.DAL.SQL
 
         #region tables
         //table names
-        private const string TABLE_user = "userTable";
-        private const string TABLE_password = "passwordTable";
-        private const string TABLE_userStatus = "userStatusTable";
+        private const string TABLE_user = "account";
+        private const string TABLE_password = "passwordHash";
+        private const string TABLE_userStatus = "accountStatus";
 
         #endregion
 
         #region user columns/params
         //user table columns
         private const string COLUMN_USER_ID = "id";
-        private const string COLUMN_USER_USERNAME = "userName";
+        private const string COLUMN_USER_USERNAME = "username";
         private const string COLUMN_USER_EMAIL = "email";
 
         //user params
