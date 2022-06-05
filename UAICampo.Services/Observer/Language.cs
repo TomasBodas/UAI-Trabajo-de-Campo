@@ -12,7 +12,7 @@ namespace UAICampo.Services.Observer
      public class Language : ILanguage , ISubjectLanguage
     {
         public string Name { get; set; }
-
+        public Dictionary<string, string> words = new Dictionary<string, string>();
         private List<IObserverUser> users;
         public void Add(IObserverUser user)
         {
@@ -48,6 +48,23 @@ namespace UAICampo.Services.Observer
             else
             {
                 Interaction.MsgBox("");
+            }
+        }
+
+        public string translate(string key)
+        {
+            if (this.words.ContainsKey(key))
+            {
+                string word = this.words[key];
+
+                if (word != "")
+                    return this.words[key];
+                else
+                    return key;
+            }
+            else
+            {
+                return key;
             }
         }
     }
