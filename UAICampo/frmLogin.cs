@@ -9,11 +9,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UAICampo.BLL;
 using UAICampo.Abstractions.Observer;
+using UAICampo.Services;
 
 namespace UAICampo.UI
 {
     public partial class frmLogin : Form, IObserver
     {
+
+        public event EventHandler userLogin;
+
         BLL_SessionManager sessionBLL;
         frmMain parent;
         ControlCollection ctrl;
@@ -25,6 +29,10 @@ namespace UAICampo.UI
             ctrl = new ControlCollection(this);
             ctrl.Add(btnLogin);
 
+            if(UserInstance.getInstance().user!=null)
+            {
+                UserInstance.getInstance().user.Add(this);
+            }
         }
 
         public void Update(ILanguage l)
@@ -51,11 +59,23 @@ namespace UAICampo.UI
             if (!string.IsNullOrEmpty(txtUser.Text) && !string.IsNullOrEmpty(txtPassword.Text))
             {
                 sessionBLL.Login(txtUser.Text, txtPassword.Text);
-                this.parent.ValidateForm();
+                //this.parent.ValidateForm();
+                frmMain main = new frmMain();
+                main.Show();
                 this.Close();
             }
 
 
+        }
+
+        private void Parent_userLogin(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FrmLogin_userLogin(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void frmLogin_Load(object sender, EventArgs e)

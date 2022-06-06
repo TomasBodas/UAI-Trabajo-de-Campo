@@ -18,6 +18,7 @@ namespace UAICampo.UI
     {
         BLL_SessionManager sessionBLL;
         BLL_LanguageManager languageBLL;
+
         public frmMain()
         {
             InitializeComponent();
@@ -25,6 +26,12 @@ namespace UAICampo.UI
             sessionBLL = new BLL_SessionManager();
             languageBLL = new BLL_LanguageManager();
             languageBLL.loadDefaultLanguage();
+
+
+            if (UserInstance.getInstance().user != null)
+            {
+                UserInstance.getInstance().user.Add(this);
+            }
 
             this.translateTexts();
         }
@@ -36,8 +43,14 @@ namespace UAICampo.UI
         private void itemLogin_Click(object sender, EventArgs e)
         {
             if (!isWindowOpen("frmLogin"))
+            {
+                this.Close();
                 new frmLogin(this).Show();
+                
+            }
+                
         }
+
         public void ValidateForm()
         {
             this.itemLogin.Enabled = !UserInstance.getInstance().userIsLoggedIn();
@@ -132,7 +145,18 @@ namespace UAICampo.UI
 
         public void Update(ILanguage l)
         {
-            throw new NotImplementedException();
+            Language selectedLang = UserInstance.getInstance().user.language;
+
+            
+
+            if(UserInstance.getInstance().user.language.Name == "English")
+            {
+                button1.Text = "English";
+            }
+            else
+            {
+                button1.Text = "Not English";
+            }
         }
     }
 }

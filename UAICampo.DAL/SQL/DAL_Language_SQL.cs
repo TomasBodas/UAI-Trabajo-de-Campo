@@ -70,6 +70,8 @@ namespace UAICampo.DAL.SQL
                 }
                 sqlConnection.Close();
 
+
+
                 return result;
             }
         }

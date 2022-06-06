@@ -13,7 +13,7 @@ namespace UAICampo.BLL
     public class BLL_LanguageManager 
     {
         static DAL_Language_SQL dal = new DAL_Language_SQL();
-        
+        static DAL_User_SQL userDal = new DAL_User_SQL();
 
         //set language and get all its words to the instance.
 		public static void setLanguage (Language sessionLanguage)
@@ -36,6 +36,10 @@ namespace UAICampo.BLL
         public Language getLanguage(int id)
         {
             return new DAL_Language_SQL().FindById(id);
+        }
+        public void UpdateUserLanguage()
+        {
+            userDal.UpdateLanguage(UserInstance.getInstance().user, UserInstance.getInstance().user.language.Id);
         }
     }
 }

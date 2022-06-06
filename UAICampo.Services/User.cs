@@ -43,7 +43,7 @@ namespace UAICampo.Services
 
         public void Add(IObserver observer)
         {
-            if (subscribers.Contains(observer))
+            if (!subscribers.Contains(observer))
             {
                 subscribers.Add(observer);
             }
