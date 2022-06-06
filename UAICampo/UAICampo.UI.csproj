@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\LanguageController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controllers\LanguageController.Designer.cs">
+      <DependentUpon>LanguageController.cs</DependentUpon>
+    </Compile>
     <Compile Include="FindDr - Create account.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controllers\LanguageController.resx">
+      <DependentUpon>LanguageController.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FindDr - Create account.resx">
       <DependentUpon>FindDr - Create account.cs</DependentUpon>
     </EmbeddedResource>

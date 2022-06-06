@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace UAICampo.Abstractions.Observer
 {
-    public interface ISubjectLanguage
+    public interface ISubject
     {
-        void Add(IObserverUser user);
-        void Remove(IObserverUser user);
+        void Add(IObserver observer);
+        void Remove(IObserver observer);
         void Notification();
+
+
     }
 }

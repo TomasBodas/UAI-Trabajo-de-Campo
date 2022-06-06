@@ -13,6 +13,37 @@ namespace UAICampo.DAL.SQL
     {
 
         private static readonly string CONNECTION_STRING = DataBaseServices.getConnectionString();
+
+        #region tables
+        //table names
+        private const string TABLE_language = "language";
+        private const string TABLE_words = "words";
+        #endregion
+
+        #region language columns/params
+        //user table columns
+        private const string COLUMN_LANGUAGE_ID = "id";
+        private const string COLUMN_LANGUAGE_NAME = "name";
+
+        //user params
+        private static readonly string PARAM_LANGUAGE_ID = $"@{COLUMN_LANGUAGE_ID}";
+        private static readonly string PARAM_LANGUAGE_NAME = $"@{COLUMN_LANGUAGE_NAME}";
+        #endregion
+
+        #region words columns/params
+        //user table columns
+        private const string COLUMN_WORDS_ID = "id";
+        private const string COLUMN_WORDS_TAG = "tag";
+        private const string COLUMN_WORDS_WORD = "word";
+        private const string COLUMN_WORDS_LANGUAGE = "FK_language_words";
+
+        //user params
+        private static readonly string PARAM_WORDS_ID = $"@{COLUMN_WORDS_ID}";
+        private static readonly string PARAM_WORDS_TAG = $"@{COLUMN_WORDS_TAG}";
+        private static readonly string PARAM_WORDS_WORD = $"@{COLUMN_WORDS_WORD}";
+        private static readonly string PARAM_WORDS_LANGUAGE = $"@{COLUMN_WORDS_LANGUAGE}";
+        #endregion
+
         private SqlConnection sqlConnection;
         private SqlCommand sqlCommand;
         private SqlDataReader sqlReader;
@@ -65,7 +96,23 @@ namespace UAICampo.DAL.SQL
 
         public Language Save(Language Entity)
         {
-            throw new NotImplementedException();
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                SqlCommand query = new SqlCommand("UPDATE account.FK_language_account FROM account where FK_language_account = @id", sqlConnection);
+                query.Parameters.AddWithValue("@id", Entity.Id);
+
+                sqlConnection.Open();
+                SqlDataReader data = query.ExecuteReader();
+
+                Language result = new Language();
+                while (data.Read())
+                {
+                    result = castDto(data);
+                }
+                sqlConnection.Close();
+
+                return result;
+            }
         }
 
         public Language castDto(SqlDataReader data)

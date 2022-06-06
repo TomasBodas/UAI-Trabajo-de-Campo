@@ -38,7 +38,6 @@ namespace UAICampo.UI
             this.itemRegister = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -53,10 +52,12 @@ namespace UAICampo.UI
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.languageController1 = new UAICampo.UI.Controllers.LanguageController();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -84,26 +85,26 @@ namespace UAICampo.UI
             // itemLogin
             // 
             this.itemLogin.Name = "itemLogin";
-            this.itemLogin.Size = new System.Drawing.Size(180, 22);
+            this.itemLogin.Size = new System.Drawing.Size(154, 22);
             this.itemLogin.Text = "Login";
             this.itemLogin.Click += new System.EventHandler(this.itemLogin_Click);
             // 
             // itemLogout
             // 
             this.itemLogout.Name = "itemLogout";
-            this.itemLogout.Size = new System.Drawing.Size(180, 22);
+            this.itemLogout.Size = new System.Drawing.Size(154, 22);
             this.itemLogout.Text = "Logout";
             this.itemLogout.Click += new System.EventHandler(this.itemLogout_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(151, 6);
             // 
             // itemRegister
             // 
             this.itemRegister.Name = "itemRegister";
-            this.itemRegister.Size = new System.Drawing.Size(180, 22);
+            this.itemRegister.Size = new System.Drawing.Size(154, 22);
             this.itemRegister.Text = "Create account";
             this.itemRegister.Click += new System.EventHandler(this.newUserToolStripMenuItem_Click);
             // 
@@ -124,16 +125,6 @@ namespace UAICampo.UI
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Status";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(159, 38);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(469, 130);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
             // 
             // label1
             // 
@@ -274,12 +265,30 @@ namespace UAICampo.UI
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(159, 38);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(469, 130);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            // 
+            // languageController1
+            // 
+            this.languageController1.Location = new System.Drawing.Point(12, 413);
+            this.languageController1.Name = "languageController1";
+            this.languageController1.Size = new System.Drawing.Size(89, 25);
+            this.languageController1.TabIndex = 7;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.languageController1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -295,9 +304,9 @@ namespace UAICampo.UI
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -328,5 +337,6 @@ namespace UAICampo.UI
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private Controllers.LanguageController languageController1;
     }
 }

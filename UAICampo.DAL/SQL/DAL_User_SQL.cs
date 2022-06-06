@@ -264,7 +264,26 @@ namespace UAICampo.DAL.SQL
             }
         }
 
+        public void UpdateLanguage(User Entity, int languageId)
+        {
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+                string query = $"UPDATE {TABLE_user}" +
+                $" SET {TABLE_user}.{COLUMN_USER_LANGUAGE} = '{PARAM_USER_LANGUAGE}'" +
+                $" FROM {TABLE_user}" +
+                $" WHERE {TABLE_user}.{COLUMN_USER_USERNAME} = {PARAM_USER_USERNAME}";
 
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_USER_LANGUAGE, languageId);
+                    sqlCommand.Parameters.AddWithValue(PARAM_USER_USERNAME, Entity.Username);
+
+                    sqlCommand.ExecuteNonQuery();
+                }
+            }
+
+        }
         //needs implementation
 
         public IList<User> GetAll()

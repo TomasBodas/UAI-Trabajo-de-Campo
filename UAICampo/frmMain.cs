@@ -7,19 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UAICampo.Abstractions.Observer;
 using UAICampo.BLL;
 using UAICampo.Services;
+using UAICampo.Services.Observer;
 
 namespace UAICampo.UI
 {
-    public partial class frmMain : Form
+    public partial class frmMain : Form, IObserver
     {
         BLL_SessionManager sessionBLL;
+        BLL_LanguageManager languageBLL;
         public frmMain()
         {
             InitializeComponent();
             ValidateForm();
             sessionBLL = new BLL_SessionManager();
+            languageBLL = new BLL_LanguageManager();
+            languageBLL.loadDefaultLanguage();
+
+            this.translateTexts();
+        }
+
+        private void translateTexts()
+        {
+            this.button1.Text = Language.getInstance().translate("Login");
         }
         private void itemLogin_Click(object sender, EventArgs e)
         {
@@ -116,6 +128,11 @@ namespace UAICampo.UI
             }
 
             return false;
+        }
+
+        public void Update(ILanguage l)
+        {
+            throw new NotImplementedException();
         }
     }
 }

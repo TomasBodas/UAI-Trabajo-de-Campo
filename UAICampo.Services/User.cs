@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UAICampo.Abstractions;
+using UAICampo.Abstractions.Observer;
 using UAICampo.Services.Composite;
+using UAICampo.Abstractions;
+using UAICampo.Services.Observer;
 
 namespace UAICampo.Services
 {
-    public class User : IUser
+    public class User : IUser, ISubject
     {
         public List<Profile> profileList;
         public User()
@@ -35,5 +37,29 @@ namespace UAICampo.Services
         public int Attempts { get; set; }
         public string Password { get; set; }
         public IList<Component> Licenses { get; set; }
+        public Language language { get; set; }
+
+        public List<IObserver> subscribers = new List<IObserver>();
+
+        public void Add(IObserver observer)
+        {
+            if (subscribers.Contains(observer))
+            {
+                subscribers.Add(observer);
+            }
+        }
+
+        public void Remove(IObserver observer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Notification()
+        {
+            foreach (var subscriber in subscribers)
+            {
+                subscriber.Update(language);
+            }
+        }
     }
 }

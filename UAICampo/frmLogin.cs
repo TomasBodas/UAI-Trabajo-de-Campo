@@ -8,18 +8,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UAICampo.BLL;
+using UAICampo.Abstractions.Observer;
 
 namespace UAICampo.UI
 {
-    public partial class frmLogin : Form
+    public partial class frmLogin : Form, IObserver
     {
         BLL_SessionManager sessionBLL;
         frmMain parent;
+        ControlCollection ctrl;
         public frmLogin(frmMain parent)
         {
             InitializeComponent();
             sessionBLL = new BLL_SessionManager();
             this.parent = parent;
+            ctrl = new ControlCollection(this);
+            ctrl.Add(btnLogin);
+
+        }
+
+        public void Update(ILanguage l)
+        {
+            foreach (var item in ctrl)
+            {
+            }
         }
 
         private void btnLogin_Click(object sender, EventArgs e)

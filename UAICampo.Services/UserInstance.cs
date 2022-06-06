@@ -12,7 +12,6 @@ namespace UAICampo.Services
     {
         private static UserInstance LOGGED_USER;
         public User user;
-        public Language language = new Language();
         private static object sync = new Object();
 
         public static UserInstance getInstance()

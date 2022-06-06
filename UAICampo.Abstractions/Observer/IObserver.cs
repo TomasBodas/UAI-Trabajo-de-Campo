@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UAICampo.Abstractions.Observer
 {
-    public interface IObserverUser
+    public interface IObserver
     {
         void Update(ILanguage l);
     }
