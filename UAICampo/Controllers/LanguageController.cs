@@ -23,11 +23,17 @@ namespace UAICampo.UI.Controllers
 
         private void languagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            languagesToolStripMenuItem.DropDownItems.Clear();
             IList<Language> languages = languageBLL.getAll();
             foreach (var item in languages)
             {
                 languagesToolStripMenuItem.DropDownItems.Add(item.Name);
             }
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
 
         //AGREGAR EVENTO DE CLICK Y LLAMAR BLL.SETLANGUAGE
