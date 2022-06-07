@@ -52,18 +52,6 @@
     <Compile Include="Controllers\LanguageController.Designer.cs">
       <DependentUpon>LanguageController.cs</DependentUpon>
     </Compile>
-    <Compile Include="FindDr - Create account.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FindDr - Create account.Designer.cs">
-      <DependentUpon>FindDr - Create account.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FindDr - Login.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FindDr - Login.Designer.cs">
-      <DependentUpon>FindDr - Login.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,12 +74,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controllers\LanguageController.resx">
       <DependentUpon>LanguageController.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FindDr - Create account.resx">
-      <DependentUpon>FindDr - Create account.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FindDr - Login.resx">
-      <DependentUpon>FindDr - Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
