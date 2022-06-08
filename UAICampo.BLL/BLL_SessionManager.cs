@@ -18,7 +18,9 @@ namespace UAICampo.BLL
             //SQL Connection
             DAL_User_SQL dalUser = new DAL_User_SQL();
             DAL_Profile_SQL dalProfile = new DAL_Profile_SQL();
-            DAL_Licences_SQL dalLicences = new DAL_Licences_SQL();
+            DAL_Language_SQL dalLanguages = new DAL_Language_SQL();
+
+            BLL_Licences bllLicenses = new BLL_Licences();
 
             User user = null;
 
@@ -43,9 +45,13 @@ namespace UAICampo.BLL
                     {
                         foreach (Profile profile in user.profileList)
                         {
-                            BLL_Licences.getProfileLicences(profile);
+                            bllLicenses.getProfileLicences(profile);
                         }
                     }
+
+                    //Get user selected language
+                    user.language = dalLanguages.getUserLanguage(user);
+
 
                     BLL_LogManager.addMessage(new Log
                     {
@@ -56,6 +62,7 @@ namespace UAICampo.BLL
                         User = user
                     });
                 }
+
                 else
                 {
                     //User status handling

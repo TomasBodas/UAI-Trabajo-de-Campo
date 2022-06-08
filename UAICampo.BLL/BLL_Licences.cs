@@ -9,12 +9,12 @@ using UAICampo.Services;
 
 namespace UAICampo.BLL
 {
-    public static class BLL_Licences
+    public class BLL_Licences
     {
 
         static DAL_Licences_SQL dal = new DAL_Licences_SQL();
 
-        public static void getProfileLicences(Profile profile)
+        public void getProfileLicences(Profile profile)
         {
             dal.getProfileLicences(profile);
 
@@ -24,7 +24,7 @@ namespace UAICampo.BLL
             }
         }
 
-        public static void getAllLicences(Component component)
+        public void getAllLicences(Component component)
         {
             if (dal.hasChild(component))
             {

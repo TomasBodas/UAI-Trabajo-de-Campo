@@ -17,55 +17,48 @@ namespace UAICampo.UI.Controllers
     {
         BLL_LanguageManager languageBLL;
 
+        public static List<Language> languages;
+
         public LanguageController()
         {
             InitializeComponent();
             languageBLL = new BLL_LanguageManager();
-        }
 
-        private void languagesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+            languages = languageBLL.getAll().ToList();
+
             languagesToolStripMenuItem.DropDownItems.Clear();
-            IList<Language> languages = languageBLL.getAll();
             foreach (var item in languages)
             {
-                languagesToolStripMenuItem.DropDownItems.Add(item.Name,null, DropDown_Click);
+                languagesToolStripMenuItem.DropDownItems.Add(item.Name, null, DropDown_Click);
             }
         }
 
         private void DropDown_Click(object sender, EventArgs e)
         {
             ToolStripItem item = sender as ToolStripItem;
+
             if(item!=null)
             {
-                IList<Language> languages = languageBLL.getAll();
-                int Id;
-
                 foreach (Language language in languages)
                 {
                     if (language.Name == sender.ToString())
                     {
+                        //Update user class property language
                         UserInstance.getInstance().user.language = languageBLL.getLanguage(language.Id);
+
+                        //Update user language in DB
+                        languageBLL.UpdateUserLanguage();
+
+                        //Notify user observers
+                        UserInstance.getInstance().user.Notification();
                     }
-                }
-
-                if (UserInstance.getInstance().user != null)
-                {
-
-                    UserInstance.getInstance().user.Notification();
                 }
             }
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-           
+
         }
-
-        //AGREGAR EVENTO DE CLICK Y LLAMAR BLL.SETLANGUAGE
-        //subscribir al usuario?
-        //Cambio de contraseña
-        //Asignacion de perisos
-
     }
 }

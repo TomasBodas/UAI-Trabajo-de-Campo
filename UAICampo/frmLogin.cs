@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using UAICampo.BLL;
 using UAICampo.Abstractions.Observer;
 using UAICampo.Services;
+using UAICampo.Abstractions;
 
 namespace UAICampo.UI
 {
@@ -19,26 +20,17 @@ namespace UAICampo.UI
         public event EventHandler userLogin;
 
         BLL_SessionManager sessionBLL;
-        frmMain parent;
         ControlCollection ctrl;
-        public frmLogin(frmMain parent)
+        public frmLogin()
         {
             InitializeComponent();
             sessionBLL = new BLL_SessionManager();
-            this.parent = parent;
             ctrl = new ControlCollection(this);
             ctrl.Add(btnLogin);
 
             if(UserInstance.getInstance().user!=null)
             {
                 UserInstance.getInstance().user.Add(this);
-            }
-        }
-
-        public void Update(ILanguage l)
-        {
-            foreach (var item in ctrl)
-            {
             }
         }
 
@@ -62,7 +54,6 @@ namespace UAICampo.UI
                 //this.parent.ValidateForm();
                 frmMain main = new frmMain();
                 main.Show();
-                this.Close();
             }
 
 

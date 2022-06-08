@@ -9,5 +9,6 @@ namespace UAICampo.Abstractions.Observer
     public abstract class ILanguage : IEntity   
     {
         public int Id { get; set; }
+
     }
 }

@@ -25,30 +25,23 @@ namespace UAICampo.UI
             ValidateForm();
             sessionBLL = new BLL_SessionManager();
             languageBLL = new BLL_LanguageManager();
-            languageBLL.loadDefaultLanguage();
 
 
             if (UserInstance.getInstance().user != null)
             {
                 UserInstance.getInstance().user.Add(this);
+                Update();
             }
-
-            this.translateTexts();
         }
 
-        private void translateTexts()
-        {
-            this.button1.Text = Language.getInstance().translate("Login");
-        }
         private void itemLogin_Click(object sender, EventArgs e)
         {
             if (!isWindowOpen("frmLogin"))
             {
                 this.Close();
-                new frmLogin(this).Show();
+                new frmLogin().Show();
                 
             }
-                
         }
 
         public void ValidateForm()
@@ -106,7 +99,7 @@ namespace UAICampo.UI
         private void button1_Click(object sender, EventArgs e)
         {
             if (!isWindowOpen("frmLogin"))
-                new frmLogin(this).Show();
+                new frmLogin().Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -143,19 +136,34 @@ namespace UAICampo.UI
             return false;
         }
 
-        public void Update(ILanguage l)
+        public void Update()
         {
-            Language selectedLang = UserInstance.getInstance().user.language;
+            Language selectedLanguage = UserInstance.getInstance().user.language;
 
-            
+            languageBLL.loadLanguageWords(selectedLanguage);
 
-            if(UserInstance.getInstance().user.language.Name == "English")
+            foreach (Control item in this.Controls)
             {
-                button1.Text = "English";
-            }
-            else
-            {
-                button1.Text = "Not English";
+                try
+                {
+                    if (item.Tag != null)
+                    {
+                        KeyValuePair<string, string> textValue = selectedLanguage.words.SingleOrDefault(kvp => kvp.Key == item.Tag.ToString());
+                        
+                        if (textValue.Value != null)
+                        {
+                            item.Text = textValue.Value;
+                        }
+                        else
+                        {
+                            item.Text = "Not found";
+                        }
+                    }
+
+                    
+                }
+                catch (Exception)
+                {}
             }
         }
     }

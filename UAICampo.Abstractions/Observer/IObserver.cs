@@ -8,6 +8,6 @@ namespace UAICampo.Abstractions.Observer
 {
     public interface IObserver
     {
-        void Update(ILanguage l);
+        void Update();
     }
 }

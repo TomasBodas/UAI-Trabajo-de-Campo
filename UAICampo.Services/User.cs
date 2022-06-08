@@ -58,7 +58,7 @@ namespace UAICampo.Services
         {
             foreach (var subscriber in subscribers)
             {
-                subscriber.Update(language);
+                subscriber.Update();
             }
         }
     }

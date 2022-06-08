@@ -14,35 +14,34 @@ namespace UAICampo.DAL.SQL
 
         private static readonly string CONNECTION_STRING = DataBaseServices.getConnectionString();
 
-        #region tables
         //table names
         private const string TABLE_language = "language";
         private const string TABLE_words = "words";
-        #endregion
+        private const string TABLE_account = "account";
 
-        #region language columns/params
-        //user table columns
+        //TABLE_LANGUAGE Columns
         private const string COLUMN_LANGUAGE_ID = "id";
         private const string COLUMN_LANGUAGE_NAME = "name";
 
-        //user params
         private static readonly string PARAM_LANGUAGE_ID = $"@{COLUMN_LANGUAGE_ID}";
         private static readonly string PARAM_LANGUAGE_NAME = $"@{COLUMN_LANGUAGE_NAME}";
-        #endregion
 
-        #region words columns/params
-        //user table columns
+        //TABLE_WORDS Columns
         private const string COLUMN_WORDS_ID = "id";
         private const string COLUMN_WORDS_TAG = "tag";
         private const string COLUMN_WORDS_WORD = "word";
         private const string COLUMN_WORDS_LANGUAGE = "FK_language_words";
 
-        //user params
         private static readonly string PARAM_WORDS_ID = $"@{COLUMN_WORDS_ID}";
         private static readonly string PARAM_WORDS_TAG = $"@{COLUMN_WORDS_TAG}";
         private static readonly string PARAM_WORDS_WORD = $"@{COLUMN_WORDS_WORD}";
         private static readonly string PARAM_WORDS_LANGUAGE = $"@{COLUMN_WORDS_LANGUAGE}";
-        #endregion
+
+        //TABLE_accounts Columns
+        private const string COLUMN_ACCOUNT_ID = "id";
+        private const string COLUMN_ACCOUNT_FK_LANGUAGE = "FK_language_account";
+
+        private static readonly string PARAM_ACCOUNT_ID = $"@{COLUMN_ACCOUNT_ID}";
 
         private SqlConnection sqlConnection;
         private SqlCommand sqlCommand;
@@ -55,77 +54,94 @@ namespace UAICampo.DAL.SQL
 
         public Language FindById(int Id)
         {
+            Language language = null;
+
             using (sqlConnection = new SqlConnection(CONNECTION_STRING))
             {
-                SqlCommand query = new SqlCommand("SELECT id, name FROM language WHERE id = @id", sqlConnection);
-                query.Parameters.AddWithValue("@id", Id);
-
                 sqlConnection.Open();
-                SqlDataReader data = query.ExecuteReader();
 
-                Language result = new Language();
-                while (data.Read())
+                string query = $"SELECT {COLUMN_LANGUAGE_ID}, {COLUMN_LANGUAGE_NAME}" +
+                                $" FROM {TABLE_language}" +
+                                $" WHERE {COLUMN_LANGUAGE_ID} = {PARAM_LANGUAGE_ID}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
-                    result = castDto(data);
+                    sqlCommand.Parameters.AddWithValue(PARAM_LANGUAGE_ID, Id);
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            language = new Language(new object[] {sqlReader[0], sqlReader[1]});
+                        }
+                    }
                 }
-                sqlConnection.Close();
-
-
-
-                return result;
             }
-        }
 
+            return language;
+        }
+        public Language getUserLanguage(User user)
+        {
+            Language userLanguage = null;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {TABLE_language}.{COLUMN_LANGUAGE_ID}, {TABLE_language}.{COLUMN_LANGUAGE_NAME}" +
+                                $" FROM {TABLE_language}" +
+                                $" INNER JOIN {TABLE_account}" +
+                                $" ON {TABLE_account}.{COLUMN_ACCOUNT_FK_LANGUAGE} = {TABLE_language}.{COLUMN_LANGUAGE_ID}" +
+                                $" WHERE {TABLE_account}.{COLUMN_ACCOUNT_ID} = {user.Id}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            userLanguage = new Language(new object[] { sqlReader[0], sqlReader[1] });
+                        }
+                    }
+                }
+            }
+
+            return userLanguage;
+        }
         public IList<Language> GetAll()
         {
+            List<Language> languages = new List<Language>() ;
+
             using (sqlConnection = new SqlConnection(CONNECTION_STRING))
             {
-                SqlCommand query = new SqlCommand("SELECT id, name FROM language", sqlConnection);
-
                 sqlConnection.Open();
-                SqlDataReader data = query.ExecuteReader();
 
-                List<Language> result = new List<Language>();
-                while (data.Read())
+                string query = $"SELECT {COLUMN_LANGUAGE_ID}, {COLUMN_LANGUAGE_NAME}" +
+                                $" FROM {TABLE_language}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
-                    result.Add(castDto(data));
-                }
-                sqlConnection.Close();
+                    sqlReader = sqlCommand.ExecuteReader();
 
-                return result;
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            languages.Add(new Language(new object[] { sqlReader[0], sqlReader[1] }));
+                        }
+                    }
+                }
             }
+
+            return languages;
         }
 
         public Language Save(Language Entity)
         {
-            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
-            {
-                SqlCommand query = new SqlCommand("UPDATE account.FK_language_account FROM account where FK_language_account = @id", sqlConnection);
-                query.Parameters.AddWithValue("@id", Entity.Id);
-
-                sqlConnection.Open();
-                SqlDataReader data = query.ExecuteReader();
-
-                Language result = new Language();
-                while (data.Read())
-                {
-                    result = castDto(data);
-                }
-                sqlConnection.Close();
-
-                return result;
-            }
-        }
-
-        public Language castDto(SqlDataReader data)
-        {
-            Language result = new Language()
-            {
-                Id = Convert.ToInt32(data["id"]),
-                Name = data["name"].ToString()
-            };
-
-            return result;
+            throw new NotImplementedException();
         }
 
         public Dictionary<string, string> getWords(int Id)

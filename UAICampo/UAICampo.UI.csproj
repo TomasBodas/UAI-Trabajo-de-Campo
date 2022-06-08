@@ -121,23 +121,5 @@
       <Name>UAICampo.Services</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Menu.PNG" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Button.PNG" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\login.PNG" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\LoginButton.PNG" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\RegisterButton.PNG" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
