@@ -23,11 +23,9 @@ namespace UAICampo.UI
         private string USERNAME = "";
         private string PASSWORD = "";
         private string EMAIL = "";
-        frmMain parent;
-        public FrmRegister(frmMain parent)
+        public FrmRegister()
         {
             InitializeComponent();
-            this.parent = parent;
         }
 
         private void FrmRegister_Load(object sender, EventArgs e)

@@ -10,7 +10,7 @@ namespace UAICampo.Services
 {
     public class Profile : IProfile
     {
-        public IList<Component> Licences;
+        public List<Component> Licences;
 
         public Profile(object[] itemArray)
         {
@@ -18,6 +18,18 @@ namespace UAICampo.Services
             this.ProfileName = (string)itemArray[1];
             this.Desc = (string)itemArray[2];
             Licences = new List<Component>();
+        }
+
+        public List<Component> getAllLicenses()
+        {
+            List<Component> LicensesList = new List<Component>();
+
+            foreach (Component component in Licences)
+            {
+                LicensesList.AddRange(component.GetAllChildren());
+            }
+            LicensesList.AddRange(Licences);
+            return LicensesList;
         }
     }
 }

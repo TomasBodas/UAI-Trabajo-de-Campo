@@ -48,9 +48,9 @@ namespace UAICampo.UI
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.button_logout = new System.Windows.Forms.Button();
+            this.treeView_Licenses = new System.Windows.Forms.TreeView();
+            this.listBox_User = new System.Windows.Forms.ListBox();
             this.languageController1 = new UAICampo.UI.Controllers.LanguageController();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -103,7 +103,6 @@ namespace UAICampo.UI
             this.itemRegister.Name = "itemRegister";
             this.itemRegister.Size = new System.Drawing.Size(154, 22);
             this.itemRegister.Text = "Create account";
-            this.itemRegister.Click += new System.EventHandler(this.newUserToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -115,7 +114,6 @@ namespace UAICampo.UI
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             this.statusStrip1.Visible = false;
-            this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
             // 
             // toolStripStatusLabel
             // 
@@ -153,17 +151,16 @@ namespace UAICampo.UI
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(121, 96);
+            this.label4.Location = new System.Drawing.Point(405, 21);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(81, 13);
             this.label4.TabIndex = 7;
             this.label4.Text = "User_isBlocked";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(121, 124);
+            this.label5.Location = new System.Drawing.Point(405, 44);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(75, 13);
             this.label5.TabIndex = 8;
@@ -181,9 +178,9 @@ namespace UAICampo.UI
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Location = new System.Drawing.Point(35, 207);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(213, 164);
+            this.panel1.Size = new System.Drawing.Size(586, 105);
             this.panel1.TabIndex = 0;
             // 
             // label6
@@ -198,7 +195,7 @@ namespace UAICampo.UI
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(17, 124);
+            this.label7.Location = new System.Drawing.Point(301, 44);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(77, 13);
             this.label7.TabIndex = 13;
@@ -216,7 +213,7 @@ namespace UAICampo.UI
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(17, 96);
+            this.label9.Location = new System.Drawing.Point(301, 21);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(52, 13);
             this.label9.TabIndex = 12;
@@ -231,43 +228,36 @@ namespace UAICampo.UI
             this.label10.TabIndex = 11;
             this.label10.Text = "Email";
             // 
-            // button1
+            // button_logout
             // 
-            this.button1.Location = new System.Drawing.Point(317, 228);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(142, 63);
-            this.button1.TabIndex = 4;
-            this.button1.Tag = "Login";
-            this.button1.Text = "Login";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button_logout.BackColor = System.Drawing.Color.LightCoral;
+            this.button_logout.Location = new System.Drawing.Point(728, 12);
+            this.button_logout.Name = "button_logout";
+            this.button_logout.Size = new System.Drawing.Size(142, 29);
+            this.button_logout.TabIndex = 6;
+            this.button_logout.Tag = "Logout";
+            this.button_logout.Text = "Logout";
+            this.button_logout.UseVisualStyleBackColor = false;
+            this.button_logout.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button2
+            // treeView_Licenses
             // 
-            this.button2.Location = new System.Drawing.Point(317, 297);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(142, 29);
-            this.button2.TabIndex = 5;
-            this.button2.Tag = "Register";
-            this.button2.Text = "Register New User";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.treeView_Licenses.Location = new System.Drawing.Point(55, 154);
+            this.treeView_Licenses.Name = "treeView_Licenses";
+            this.treeView_Licenses.Size = new System.Drawing.Size(167, 169);
+            this.treeView_Licenses.TabIndex = 8;
             // 
-            // button3
+            // listBox_User
             // 
-            this.button3.BackColor = System.Drawing.Color.Maroon;
-            this.button3.Location = new System.Drawing.Point(317, 332);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(142, 29);
-            this.button3.TabIndex = 6;
-            this.button3.Tag = "Logout";
-            this.button3.Text = "Logout";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.listBox_User.FormattingEnabled = true;
+            this.listBox_User.Location = new System.Drawing.Point(270, 154);
+            this.listBox_User.Name = "listBox_User";
+            this.listBox_User.Size = new System.Drawing.Size(120, 95);
+            this.listBox_User.TabIndex = 9;
             // 
             // languageController1
             // 
-            this.languageController1.Location = new System.Drawing.Point(12, 12);
+            this.languageController1.Location = new System.Drawing.Point(781, 92);
             this.languageController1.Name = "languageController1";
             this.languageController1.Size = new System.Drawing.Size(89, 25);
             this.languageController1.TabIndex = 7;
@@ -277,11 +267,11 @@ namespace UAICampo.UI
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(543, 458);
+            this.ClientSize = new System.Drawing.Size(882, 409);
+            this.Controls.Add(this.listBox_User);
+            this.Controls.Add(this.treeView_Licenses);
             this.Controls.Add(this.languageController1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button_logout);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -321,9 +311,9 @@ namespace UAICampo.UI
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button_logout;
         private Controllers.LanguageController languageController1;
+        private System.Windows.Forms.TreeView treeView_Licenses;
+        private System.Windows.Forms.ListBox listBox_User;
     }
 }

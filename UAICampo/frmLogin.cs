@@ -54,6 +54,7 @@ namespace UAICampo.UI
                 //this.parent.ValidateForm();
                 frmMain main = new frmMain();
                 main.Show();
+                this.Hide();
             }
 
 
@@ -72,6 +73,12 @@ namespace UAICampo.UI
         private void frmLogin_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FrmRegister frmregister = new FrmRegister();
+            frmregister.Show();
         }
     }
 }
