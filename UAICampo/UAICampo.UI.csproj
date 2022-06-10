@@ -52,6 +52,12 @@
     <Compile Include="Controllers\LanguageController.Designer.cs">
       <DependentUpon>LanguageController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\License Manager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controllers\License Manager.Designer.cs">
+      <DependentUpon>License Manager.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controllers\LanguageController.resx">
       <DependentUpon>LanguageController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\License Manager.resx">
+      <DependentUpon>License Manager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>

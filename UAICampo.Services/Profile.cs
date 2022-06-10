@@ -28,7 +28,7 @@ namespace UAICampo.Services
             {
                 LicensesList.AddRange(component.GetAllChildren());
             }
-            LicensesList.AddRange(Licences);
+            //LicensesList.AddRange(Licences);
             return LicensesList;
         }
     }

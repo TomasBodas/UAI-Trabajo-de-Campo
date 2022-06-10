@@ -52,6 +52,7 @@ namespace UAICampo.UI
             this.treeView_Licenses = new System.Windows.Forms.TreeView();
             this.listBox_User = new System.Windows.Forms.ListBox();
             this.languageController1 = new UAICampo.UI.Controllers.LanguageController();
+            this.license_Manager1 = new UAICampo.UI.Controllers.License_Manager();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -84,7 +85,6 @@ namespace UAICampo.UI
             this.itemLogin.Name = "itemLogin";
             this.itemLogin.Size = new System.Drawing.Size(154, 22);
             this.itemLogin.Text = "Login";
-            this.itemLogin.Click += new System.EventHandler(this.itemLogin_Click);
             // 
             // itemLogout
             // 
@@ -261,13 +261,22 @@ namespace UAICampo.UI
             this.languageController1.Name = "languageController1";
             this.languageController1.Size = new System.Drawing.Size(89, 25);
             this.languageController1.TabIndex = 7;
+            this.languageController1.Load += new System.EventHandler(this.languageController1_Load);
+            // 
+            // license_Manager1
+            // 
+            this.license_Manager1.Location = new System.Drawing.Point(451, 139);
+            this.license_Manager1.Name = "license_Manager1";
+            this.license_Manager1.Size = new System.Drawing.Size(391, 454);
+            this.license_Manager1.TabIndex = 10;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(882, 409);
+            this.ClientSize = new System.Drawing.Size(882, 630);
+            this.Controls.Add(this.license_Manager1);
             this.Controls.Add(this.listBox_User);
             this.Controls.Add(this.treeView_Licenses);
             this.Controls.Add(this.languageController1);
@@ -315,5 +324,6 @@ namespace UAICampo.UI
         private Controllers.LanguageController languageController1;
         private System.Windows.Forms.TreeView treeView_Licenses;
         private System.Windows.Forms.ListBox listBox_User;
+        private Controllers.License_Manager license_Manager1;
     }
 }

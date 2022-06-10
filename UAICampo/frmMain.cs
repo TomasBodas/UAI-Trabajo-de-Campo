@@ -50,15 +50,6 @@ namespace UAICampo.UI
             
         }
 
-        private void itemLogin_Click(object sender, EventArgs e)
-        {
-            if (!isWindowOpen("frmLogin"))
-            {
-                this.Close();
-                new frmLogin().Show();
-            }
-        }
-
         private void itemLogout_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -68,13 +59,6 @@ namespace UAICampo.UI
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (!isWindowOpen("frmLogin"))
-            {
-                new frmLogin().Show();
-            }
-        }
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -143,11 +127,12 @@ namespace UAICampo.UI
                 this.label5.Text = UserInstance.getInstance().user.Attempts.ToString();
             }
 
-            List<Services.Composite.Component> licenses = userSetProfile.getAllLicenses();
+            List<Services.Composite.Component> licenses = new List<Services.Composite.Component>();
+            licenses =  userSetProfile.getAllLicenses();
 
             foreach (var controller in controllers)
             {
-                if (controller.Key.LicenseId == 0 || userSetProfile.getAllLicenses().Any(t => t.Id == controller.Key.LicenseId))
+                if (controller.Key.LicenseId == 0 || licenses.Any(t => t.Id == controller.Key.LicenseId))
                 {
                     controller.Value.Visible = true;
                 }
@@ -157,7 +142,7 @@ namespace UAICampo.UI
                     controller.Value.Visible = false;
                 }
             }
-            
+
         }
         private void SetControllerTags()
         {
@@ -171,6 +156,11 @@ namespace UAICampo.UI
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(3, ""), treeView_Licenses));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(4, ""), listBox_User));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(3, ""), panel1));
+        }
+
+        private void languageController1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

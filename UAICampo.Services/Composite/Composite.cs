@@ -16,12 +16,15 @@ namespace UAICampo.Services.Composite
 
         public override IList<Component> GetAllChildren()
         {
-            List<Component> licensesList = new List<Component>();
-            foreach (Component component in child)
+            if (child.Count > 0)
             {
-                licensesList.AddRange(component.GetAllChildren());
+                List<Component> licensesList = new List<Component>();
+                foreach (Component component in child)
+                {
+                    licensesList.AddRange(component.GetAllChildren());
+                }
+                child.AddRange(licensesList);
             }
-            child.AddRange(licensesList);
             return child;
         }
 
