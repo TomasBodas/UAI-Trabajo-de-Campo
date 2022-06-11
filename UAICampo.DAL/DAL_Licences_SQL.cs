@@ -33,6 +33,9 @@ namespace UAICampo.DAL
         private const string COLUMN_FAMILIES_LICENCES_MASTER = "id_family";
         private const string COLUMN_FAMILIES_LICENCES_SLAVE = "id_license";
 
+        private static readonly string PARAM_COLUMN_FAMILIES_LICENSES_MASTER = $"@{COLUMN_FAMILIES_LICENCES_MASTER}";
+        private static readonly string PARAM_COLUMN_FAMILIES_LICENSES_SLAVE = $"@{COLUMN_FAMILIES_LICENCES_SLAVE}";
+
         public void getProfileLicences(Profile profile)
         {
             using (sqlConnection = new SqlConnection(CONNECTION_STRING))
@@ -212,7 +215,27 @@ namespace UAICampo.DAL
 
             return licenses;
         }
+        public void addRelationship(int master, int slave)
+        {
+            //Saving new relation [Master] -> [Slave]
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
 
+                string query = $"INSERT INTO {TABLE_FAMILIES_LICENCES} ({COLUMN_FAMILIES_LICENCES_MASTER}, {COLUMN_FAMILIES_LICENCES_SLAVE})" +
+                                $" VALUES ({PARAM_COLUMN_FAMILIES_LICENSES_MASTER},{PARAM_COLUMN_FAMILIES_LICENSES_SLAVE})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_COLUMN_FAMILIES_LICENSES_MASTER, master);
+                    sqlCommand.Parameters.AddWithValue(PARAM_COLUMN_FAMILIES_LICENSES_SLAVE, slave);
+
+                    sqlCommand.ExecuteNonQuery();
+                }
+
+                sqlConnection.Close();
+            }
+        }
         public Profile Save(Profile Entity)
         {
             throw new NotImplementedException();

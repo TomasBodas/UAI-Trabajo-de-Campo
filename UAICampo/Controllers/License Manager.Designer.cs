@@ -118,25 +118,25 @@ namespace UAICampo.UI.Controllers
             // 
             // button_addLicense
             // 
-            this.button_addLicense.Location = new System.Drawing.Point(437, 327);
+            this.button_addLicense.Location = new System.Drawing.Point(407, 324);
             this.button_addLicense.Name = "button_addLicense";
-            this.button_addLicense.Size = new System.Drawing.Size(94, 23);
+            this.button_addLicense.Size = new System.Drawing.Size(77, 23);
             this.button_addLicense.TabIndex = 8;
             this.button_addLicense.Text = "Add License";
             this.button_addLicense.UseVisualStyleBackColor = true;
             // 
             // button_deleteLicense
             // 
-            this.button_deleteLicense.Location = new System.Drawing.Point(437, 356);
+            this.button_deleteLicense.Location = new System.Drawing.Point(496, 324);
             this.button_deleteLicense.Name = "button_deleteLicense";
-            this.button_deleteLicense.Size = new System.Drawing.Size(94, 23);
+            this.button_deleteLicense.Size = new System.Drawing.Size(77, 23);
             this.button_deleteLicense.TabIndex = 9;
             this.button_deleteLicense.Text = "Delete License";
             this.button_deleteLicense.UseVisualStyleBackColor = true;
             // 
             // button_addChildLicense
             // 
-            this.button_addChildLicense.Location = new System.Drawing.Point(437, 396);
+            this.button_addChildLicense.Location = new System.Drawing.Point(449, 353);
             this.button_addChildLicense.Name = "button_addChildLicense";
             this.button_addChildLicense.Size = new System.Drawing.Size(35, 23);
             this.button_addChildLicense.TabIndex = 10;
@@ -163,7 +163,7 @@ namespace UAICampo.UI.Controllers
             // 
             // button_removeChildLicense
             // 
-            this.button_removeChildLicense.Location = new System.Drawing.Point(496, 396);
+            this.button_removeChildLicense.Location = new System.Drawing.Point(496, 353);
             this.button_removeChildLicense.Name = "button_removeChildLicense";
             this.button_removeChildLicense.Size = new System.Drawing.Size(35, 23);
             this.button_removeChildLicense.TabIndex = 13;

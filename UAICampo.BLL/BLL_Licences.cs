@@ -42,6 +42,12 @@ namespace UAICampo.BLL
                 }
             }
         }
+
+        public void updateRelationships(int master, int slave)
+        {
+            dal.addRelationship(master, slave);   
+        }
+
         public Component getLicensePersistanceTree()
         {
             Component Level0License = dal.getLicenseTree();

@@ -110,6 +110,29 @@ namespace UAICampo.UI.Controllers
                 {
                     Component orphanLicense = (Component)listBox1.SelectedItem;
 
+                    //First retrieve the persistance tree from de DB
+                    Component PersistanceTree = bLL_Licences.getLicensePersistanceTree();
+
+                    //Then, we get the list of all licenses currently in the persistance tree
+                    List<Component> PersistanceTreeLicenseTree = PersistanceTree.GetAllChildren().ToList();
+
+                    //Then, we search the list, until we find the same license as the one selected by the user
+                    foreach (Component license in PersistanceTreeLicenseTree)
+                    {
+                        //If we find the license, we add the selected orphan license as its child.
+                        if (license.Id == selectedLicense.Id)
+                        {
+                            //license.AddChild(orphanLicense);
+                            bLL_Licences.updateRelationships(license.Id, orphanLicense.Id);
+                        }
+                    }
+
+                    //Then, we send the persistant tree license list, with the newly created relation, to DAL, to be persisted.
+                    
+
+                    //After that, we refresh the UI
+                    loadTreeView();
+                    loadLicensePool();
                 }
                 catch (Exception)
                 { }
