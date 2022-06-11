@@ -169,6 +169,7 @@ namespace UAICampo.UI.Controllers
             this.button_removeChildLicense.TabIndex = 13;
             this.button_removeChildLicense.Text = ">";
             this.button_removeChildLicense.UseVisualStyleBackColor = true;
+            this.button_removeChildLicense.Click += new System.EventHandler(this.button_removeChildLicense_Click);
             // 
             // License_Manager
             // 

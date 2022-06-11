@@ -236,6 +236,56 @@ namespace UAICampo.DAL
                 sqlConnection.Close();
             }
         }
+
+        public void removeRelationship(int master, int slave)
+        {
+            //Remove relation [Master] -> [Slave]
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"DELETE FROM {TABLE_FAMILIES_LICENCES}" +
+                                $" WHERE {COLUMN_FAMILIES_LICENCES_MASTER} = {master} AND {COLUMN_FAMILIES_LICENCES_SLAVE} = {slave}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.ExecuteNonQuery();
+                }
+
+                sqlConnection.Close();
+            }
+        }
+
+        public Component getMasterLicense(Component license)
+        {
+            Component foundLicenses = null;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $" SELECT {COLUMN_LICENCES_ID}, {COLUMN_LICENCES_NAME}, {COLUMN_LICENCES_DESCRIPTION}" +
+                                $" FROM {TABLE_LICENCES}" +
+                                $" INNER JOIN {TABLE_FAMILIES_LICENCES}" +
+                                $" ON {TABLE_FAMILIES_LICENCES}.{COLUMN_FAMILIES_LICENCES_MASTER} = {TABLE_LICENCES}.{COLUMN_LICENCES_ID}" +
+                                $" WHERE {TABLE_FAMILIES_LICENCES}.{COLUMN_FAMILIES_LICENCES_SLAVE} = {license.Id}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            foundLicenses = (new Composite((int)sqlReader[0], sqlReader[1] as string, sqlReader[2] as string));
+                        }
+                    }
+                }
+            }
+
+            return foundLicenses;
+        }
         public Profile Save(Profile Entity)
         {
             throw new NotImplementedException();
