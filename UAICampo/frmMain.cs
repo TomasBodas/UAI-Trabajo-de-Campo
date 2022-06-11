@@ -44,12 +44,10 @@ namespace UAICampo.UI
                 Update();
             }
         }
-
         private void frmMain_Load(object sender, EventArgs e)
         {
             
         }
-
         private void itemLogout_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -58,8 +56,6 @@ namespace UAICampo.UI
                 ValidateForm();
             }
         }
-
-
         private void button3_Click(object sender, EventArgs e)
         {
             if (UserInstance.getInstance().userIsLoggedIn())
@@ -152,10 +148,18 @@ namespace UAICampo.UI
             //First value: license required for it to show up to the user
             //Second value: Word Tag, used for language runtime changes
 
+            //General controllers------------------------------------------------------------------------------------
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Logout"), button_logout));
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(3, ""), treeView_Licenses));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, ""), panel1));
+            //-------------------------------------------------------------------------------------------------------
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(3, ""), license_Manager1));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(4, ""), listBox_User));
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(3, ""), panel1));
+            
+        }
+
+        private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
         }
 
         private void languageController1_Load(object sender, EventArgs e)

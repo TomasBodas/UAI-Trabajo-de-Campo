@@ -11,7 +11,6 @@ namespace UAICampo.BLL
 {
     public class BLL_Licences
     {
-
         static DAL_Licences_SQL dal = new DAL_Licences_SQL();
 
         public void getProfileLicences(Profile profile)
@@ -42,6 +41,23 @@ namespace UAICampo.BLL
                     getAllLicences(item);
                 }
             }
+        }
+        public Component getLicensePersistanceTree()
+        {
+            Component Level0License = dal.getLicenseTree();
+            getAllLicences(Level0License);
+            return Level0License;
+        }
+
+        public List<Component> getOrphanLicensePool()
+        {
+            List<Component> Licenses = dal.getOrphanLicensesPool();
+            return Licenses;
+        }
+
+        public Component SearchLicenseById(int Id)
+        {
+            return dal.findLIcenseById(Id);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace UAICampo.Services.Composite
 {
     public class Composite : Component
     {
-        private List<Component> child;
+        public List<Component> child;
         public Composite(int Id, string Name, string Description) : base(Id, Name, Description)
         {
             child = new List<Component>();
@@ -16,16 +16,16 @@ namespace UAICampo.Services.Composite
 
         public override IList<Component> GetAllChildren()
         {
+            List<Component> licensesList = new List<Component>();
             if (child.Count > 0)
             {
-                List<Component> licensesList = new List<Component>();
                 foreach (Component component in child)
                 {
                     licensesList.AddRange(component.GetAllChildren());
                 }
-                child.AddRange(licensesList);
+                licensesList.AddRange(child);
             }
-            return child;
+            return licensesList;
         }
 
         public override void EmptyChild()

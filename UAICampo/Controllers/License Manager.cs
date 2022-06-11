@@ -10,17 +10,19 @@ using System.Windows.Forms;
 using UAICampo.BLL;
 using UAICampo.Services;
 using UAICampo.Services.Composite;
+using Component = UAICampo.Services.Composite.Component;
 
 namespace UAICampo.UI.Controllers
 {
     public partial class License_Manager : UserControl
     {
-        private static readonly string ADMIN_PROFILE = "Admin";
 
         BLL_Licences bLL_Licences;
         BLL_SessionManager bll_session;
 
         IList<Composite> licenses;
+
+        Component selectedLicense = null;
 
         public License_Manager()
         {
@@ -31,38 +33,87 @@ namespace UAICampo.UI.Controllers
             licenses = new List<Composite>();
         }
 
+        private void getLicenseTree()
+        {
+
+        }
         private void License_Manager_Load(object sender, EventArgs e)
         {
             if (!this.DesignMode)
             {
-                treeView_License.Nodes.Clear();
+                loadTreeView();
+                loadLicensePool();
+            }
+        }
+        private void loadLicensePool()
+        {
+            List<Component> OrphanLicensePool = bLL_Licences.getOrphanLicensePool();
 
-                User currentUser = UserInstance.getInstance().user;
-                Profile profile = currentUser.profileList.Find(x => x.ProfileName == ADMIN_PROFILE);
+            listBox1.Items.Clear();
+            foreach (Component license in OrphanLicensePool)
+            {
+                listBox1.Items.Add(license);
+            }
+        }
+        private void loadTreeView()
+        {
+            treeView_License.Nodes.Clear();
 
-                if (profile != null)
+            TreeNode parentNode = new TreeNode();
+            parentNode.Text = "Existing Licenses: ";
+
+            treeView_License.Nodes.Add(parentNode);
+
+            Component licenses = bLL_Licences.getLicensePersistanceTree();
+
+            AddNode((Composite)licenses, parentNode);
+            treeView_License.ExpandAll();
+        }
+        private void AddNode(Composite component, TreeNode node)
+        {
+            if (component != null)
+            {
+                TreeNode newNode = new TreeNode();
+                newNode.Text = $"{component.Name}";
+                newNode.Tag = component.Id;
+
+                node.Nodes.Add(newNode);
+
+                foreach (Composite license in component.child)
                 {
-                    TreeNode node = treeView_License.Nodes.Add(profile.ProfileName + " --> " + profile.Desc);
+                    AddNode(license, newNode);
+                }
+            }
+        }
+        private void treeView_License_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (treeView_License.SelectedNode != null && treeView_License.SelectedNode.Tag != null)
+            {
+                Component license = bLL_Licences.SearchLicenseById((int)treeView_License.SelectedNode.Tag);
 
-                    foreach (Composite license in profile.Licences)
-                    {
-                        node.Nodes.Add(AddNode(license));
-                    }
+                selectedLicense = license;
 
+                if (license != null)
+                {
+                    label_LicenseId.Text = license.Id.ToString();
+                    labelLicenseName.Text = license.Name;
+                    label_LicenseDescription.Text = license.Description;
                 }
             }
         }
 
-        private TreeNode AddNode(Composite license)
+        private void button_addChildLicense_Click(object sender, EventArgs e)
         {
-            TreeNode node = new TreeNode();
-
-            foreach (Composite item in license.GetAllChildren())
+            if (selectedLicense != null && listBox1.SelectedItem != null)
             {
-                node.Text = license.Name + " --> " + license.Description;
-                node.Nodes.Add(AddNode(item));
+                try
+                {
+                    Component orphanLicense = (Component)listBox1.SelectedItem;
+
+                }
+                catch (Exception)
+                { }
             }
-            return node;
         }
     }
 }

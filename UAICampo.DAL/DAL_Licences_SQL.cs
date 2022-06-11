@@ -17,6 +17,7 @@ namespace UAICampo.DAL
         private SqlCommand sqlCommand;
         private SqlDataReader sqlReader;
 
+        private const string LEVEL_0_LICENSE_NAME = "Level 0 License";
 
         private const string TABLE_LICENCES = "license";
         private const string TABLE_PROFILE_LICENSES = "profile_license";
@@ -85,6 +86,34 @@ namespace UAICampo.DAL
             return hasChild;
         }
 
+        public Component findLIcenseById(int Id)
+        {
+            Component foundLicense = null;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $" SELECT {COLUMN_LICENCES_ID}, {COLUMN_LICENCES_NAME}, {COLUMN_LICENCES_DESCRIPTION}" +
+                                $" FROM {TABLE_LICENCES}" +
+                                $" WHERE {TABLE_LICENCES}.{COLUMN_LICENCES_ID} = {Id}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            foundLicense = (new Composite((int)sqlReader[0], sqlReader[1] as string, sqlReader[2] as string));
+                        }
+                    }
+                }
+            }
+
+            return foundLicense;
+        }
         public List<Component> getAllLicenses(Component component)
         {
             List<Component> foundLicenses = new List<Component>();
@@ -114,6 +143,74 @@ namespace UAICampo.DAL
             }
 
             return foundLicenses;
+        }
+
+        public Component getLicenseTree()
+        {
+            Component foundLicenses = null;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $" SELECT {COLUMN_LICENCES_ID}, {COLUMN_LICENCES_NAME}, {COLUMN_LICENCES_DESCRIPTION}" +
+                                $" FROM {TABLE_LICENCES}" +
+                                $" WHERE {TABLE_LICENCES}.{COLUMN_LICENCES_NAME} = '{LEVEL_0_LICENSE_NAME}'";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            foundLicenses = (new Composite((int)sqlReader[0], sqlReader[1] as string, sqlReader[2] as string));
+                        }
+                    }
+                }
+            }
+
+            return foundLicenses;
+        }
+
+        public List<Component> getOrphanLicensesPool()
+        {
+            List<Component> licenses = new List<Component>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query =  $" SELECT {TABLE_LICENCES}.{COLUMN_LICENCES_ID}, {TABLE_LICENCES}.{COLUMN_LICENCES_NAME}, {TABLE_LICENCES}.{COLUMN_LICENCES_DESCRIPTION}" +
+                                $" FROM {TABLE_LICENCES}" +
+                                $" WHERE" +
+                                $"  NOT EXISTS (" +
+                                $"      SELECT *" +
+                                $"      FROM {TABLE_FAMILIES_LICENCES}" +
+                                $"      WHERE {TABLE_FAMILIES_LICENCES}.{COLUMN_FAMILIES_LICENCES_MASTER} = {TABLE_LICENCES}.{COLUMN_LICENCES_ID})" +
+                                $" AND" +
+                                $"  NOT EXISTS(" +
+                                $"      SELECT *" +
+                                $"      FROM {TABLE_FAMILIES_LICENCES}" +
+                                $"      WHERE {TABLE_FAMILIES_LICENCES}.{COLUMN_FAMILIES_LICENCES_SLAVE} = {TABLE_LICENCES}.{COLUMN_LICENCES_ID})";
+                                
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            licenses.Add(new Composite((int)sqlReader[0], sqlReader[1] as string, sqlReader[2] as string));
+                        }
+                    }
+                }
+            }
+
+            return licenses;
         }
 
         public Profile Save(Profile Entity)

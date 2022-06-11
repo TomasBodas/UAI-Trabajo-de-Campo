@@ -231,7 +231,7 @@ namespace UAICampo.UI
             // button_logout
             // 
             this.button_logout.BackColor = System.Drawing.Color.LightCoral;
-            this.button_logout.Location = new System.Drawing.Point(728, 12);
+            this.button_logout.Location = new System.Drawing.Point(908, 12);
             this.button_logout.Name = "button_logout";
             this.button_logout.Size = new System.Drawing.Size(142, 29);
             this.button_logout.TabIndex = 6;
@@ -242,7 +242,7 @@ namespace UAICampo.UI
             // 
             // treeView_Licenses
             // 
-            this.treeView_Licenses.Location = new System.Drawing.Point(55, 154);
+            this.treeView_Licenses.Location = new System.Drawing.Point(883, 183);
             this.treeView_Licenses.Name = "treeView_Licenses";
             this.treeView_Licenses.Size = new System.Drawing.Size(167, 169);
             this.treeView_Licenses.TabIndex = 8;
@@ -250,24 +250,23 @@ namespace UAICampo.UI
             // listBox_User
             // 
             this.listBox_User.FormattingEnabled = true;
-            this.listBox_User.Location = new System.Drawing.Point(270, 154);
+            this.listBox_User.Location = new System.Drawing.Point(883, 358);
             this.listBox_User.Name = "listBox_User";
             this.listBox_User.Size = new System.Drawing.Size(120, 95);
             this.listBox_User.TabIndex = 9;
             // 
             // languageController1
             // 
-            this.languageController1.Location = new System.Drawing.Point(781, 92);
+            this.languageController1.Location = new System.Drawing.Point(961, 47);
             this.languageController1.Name = "languageController1";
             this.languageController1.Size = new System.Drawing.Size(89, 25);
             this.languageController1.TabIndex = 7;
-            this.languageController1.Load += new System.EventHandler(this.languageController1_Load);
             // 
             // license_Manager1
             // 
-            this.license_Manager1.Location = new System.Drawing.Point(451, 139);
+            this.license_Manager1.Location = new System.Drawing.Point(12, 123);
             this.license_Manager1.Name = "license_Manager1";
-            this.license_Manager1.Size = new System.Drawing.Size(391, 454);
+            this.license_Manager1.Size = new System.Drawing.Size(586, 454);
             this.license_Manager1.TabIndex = 10;
             // 
             // frmMain
@@ -275,7 +274,7 @@ namespace UAICampo.UI
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(882, 630);
+            this.ClientSize = new System.Drawing.Size(1062, 630);
             this.Controls.Add(this.license_Manager1);
             this.Controls.Add(this.listBox_User);
             this.Controls.Add(this.treeView_Licenses);
@@ -287,6 +286,7 @@ namespace UAICampo.UI
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmMain";
             this.Text = "Main";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
