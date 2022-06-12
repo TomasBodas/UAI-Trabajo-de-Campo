@@ -153,8 +153,8 @@ namespace UAICampo.UI
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, ""), panel1));
             //-------------------------------------------------------------------------------------------------------
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(3, ""), license_Manager1));
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(4, ""), listBox_User));
-            
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(12, ""), user_Manager1));
+
         }
 
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)

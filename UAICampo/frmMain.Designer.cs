@@ -49,10 +49,9 @@ namespace UAICampo.UI
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.button_logout = new System.Windows.Forms.Button();
-            this.treeView_Licenses = new System.Windows.Forms.TreeView();
-            this.listBox_User = new System.Windows.Forms.ListBox();
             this.languageController1 = new UAICampo.UI.Controllers.LanguageController();
             this.license_Manager1 = new UAICampo.UI.Controllers.License_Manager();
+            this.user_Manager1 = new UAICampo.UI.Controllers.User_Manager();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -231,7 +230,7 @@ namespace UAICampo.UI
             // button_logout
             // 
             this.button_logout.BackColor = System.Drawing.Color.LightCoral;
-            this.button_logout.Location = new System.Drawing.Point(908, 12);
+            this.button_logout.Location = new System.Drawing.Point(1227, 12);
             this.button_logout.Name = "button_logout";
             this.button_logout.Size = new System.Drawing.Size(142, 29);
             this.button_logout.TabIndex = 6;
@@ -240,24 +239,9 @@ namespace UAICampo.UI
             this.button_logout.UseVisualStyleBackColor = false;
             this.button_logout.Click += new System.EventHandler(this.button3_Click);
             // 
-            // treeView_Licenses
-            // 
-            this.treeView_Licenses.Location = new System.Drawing.Point(883, 183);
-            this.treeView_Licenses.Name = "treeView_Licenses";
-            this.treeView_Licenses.Size = new System.Drawing.Size(167, 169);
-            this.treeView_Licenses.TabIndex = 8;
-            // 
-            // listBox_User
-            // 
-            this.listBox_User.FormattingEnabled = true;
-            this.listBox_User.Location = new System.Drawing.Point(883, 358);
-            this.listBox_User.Name = "listBox_User";
-            this.listBox_User.Size = new System.Drawing.Size(120, 95);
-            this.listBox_User.TabIndex = 9;
-            // 
             // languageController1
             // 
-            this.languageController1.Location = new System.Drawing.Point(961, 47);
+            this.languageController1.Location = new System.Drawing.Point(1280, 47);
             this.languageController1.Name = "languageController1";
             this.languageController1.Size = new System.Drawing.Size(89, 25);
             this.languageController1.TabIndex = 7;
@@ -269,15 +253,21 @@ namespace UAICampo.UI
             this.license_Manager1.Size = new System.Drawing.Size(586, 454);
             this.license_Manager1.TabIndex = 10;
             // 
+            // user_Manager1
+            // 
+            this.user_Manager1.Location = new System.Drawing.Point(699, 107);
+            this.user_Manager1.Name = "user_Manager1";
+            this.user_Manager1.Size = new System.Drawing.Size(627, 511);
+            this.user_Manager1.TabIndex = 11;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1062, 630);
+            this.ClientSize = new System.Drawing.Size(1381, 630);
+            this.Controls.Add(this.user_Manager1);
             this.Controls.Add(this.license_Manager1);
-            this.Controls.Add(this.listBox_User);
-            this.Controls.Add(this.treeView_Licenses);
             this.Controls.Add(this.languageController1);
             this.Controls.Add(this.button_logout);
             this.Controls.Add(this.panel1);
@@ -322,8 +312,7 @@ namespace UAICampo.UI
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button button_logout;
         private Controllers.LanguageController languageController1;
-        private System.Windows.Forms.TreeView treeView_Licenses;
-        private System.Windows.Forms.ListBox listBox_User;
         private Controllers.License_Manager license_Manager1;
+        private Controllers.User_Manager user_Manager1;
     }
 }

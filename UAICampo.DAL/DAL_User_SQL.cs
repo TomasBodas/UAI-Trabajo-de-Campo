@@ -288,7 +288,31 @@ namespace UAICampo.DAL.SQL
         //needs implementation
         public IList<User> GetAll()
         {
-            throw new NotImplementedException();
+
+            List<User> userList = new List<User>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {COLUMN_USER_ID}, {COLUMN_USER_USERNAME}, {COLUMN_USER_EMAIL}" +
+                                $" FROM {TABLE_user}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            userList.Add(new User(new object[] {(int) sqlReader[0], (string) sqlReader[1], (string) sqlReader[2]}));
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+
+            return userList.ToList();
         }
         public User FindById(int Id)
         {
