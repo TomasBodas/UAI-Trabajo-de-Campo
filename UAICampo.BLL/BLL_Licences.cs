@@ -72,6 +72,16 @@ namespace UAICampo.BLL
             }
         }
 
+        public bool addNewLicense(Component license)
+        {
+            return dal.addNewLicense(license);
+        }
+
+        public bool removeLicense(Component license)
+        {
+            return dal.removeLicense(license);
+        }
+
         //Used to delete Master -> Slave Relation recursively
         public Component getLicensePersistanceTree()
         {

@@ -17,7 +17,7 @@ namespace UAICampo.DAL
         private SqlCommand sqlCommand;
         private SqlDataReader sqlReader;
 
-        private const string LEVEL_0_LICENSE_NAME = "Level 0 License";
+        private const string LEVEL_0_LICENSE_NAME = "SUper User";
 
         private const string TABLE_LICENCES = "license";
         private const string TABLE_PROFILE_LICENSES = "profile_license";
@@ -286,6 +286,61 @@ namespace UAICampo.DAL
 
             return foundLicenses;
         }
+
+        public bool addNewLicense(Component license)
+        {
+            //Saving new License
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO {TABLE_LICENCES} ({COLUMN_LICENCES_NAME}, {COLUMN_LICENCES_DESCRIPTION})" +
+                                $" VALUES ('{license.Name}','{license.Description}')";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    int result = sqlCommand.ExecuteNonQuery();
+                    if (result == 1)
+                    {
+                        success = true;
+                    }
+                }
+
+                sqlConnection.Close();
+            }
+
+            return success;
+        }
+
+        public bool removeLicense(Component license)
+        {
+            //Deleting existing orphan License
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"DELETE FROM {TABLE_LICENCES}" +
+                                $" WHERE {COLUMN_LICENCES_ID} = {license.Id}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    int result = sqlCommand.ExecuteNonQuery();
+                    if (result == 1)
+                    {
+                        success = true;
+                    }
+                }
+
+                sqlConnection.Close();
+            }
+
+            return success;
+        }
+
         public Profile Save(Profile Entity)
         {
             throw new NotImplementedException();
