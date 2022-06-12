@@ -230,7 +230,7 @@ namespace UAICampo.UI
             // button_logout
             // 
             this.button_logout.BackColor = System.Drawing.Color.LightCoral;
-            this.button_logout.Location = new System.Drawing.Point(1227, 12);
+            this.button_logout.Location = new System.Drawing.Point(1546, 12);
             this.button_logout.Name = "button_logout";
             this.button_logout.Size = new System.Drawing.Size(142, 29);
             this.button_logout.TabIndex = 6;
@@ -241,7 +241,7 @@ namespace UAICampo.UI
             // 
             // languageController1
             // 
-            this.languageController1.Location = new System.Drawing.Point(1280, 47);
+            this.languageController1.Location = new System.Drawing.Point(1599, 47);
             this.languageController1.Name = "languageController1";
             this.languageController1.Size = new System.Drawing.Size(89, 25);
             this.languageController1.TabIndex = 7;
@@ -257,7 +257,7 @@ namespace UAICampo.UI
             // 
             this.user_Manager1.Location = new System.Drawing.Point(657, 123);
             this.user_Manager1.Name = "user_Manager1";
-            this.user_Manager1.Size = new System.Drawing.Size(667, 511);
+            this.user_Manager1.Size = new System.Drawing.Size(1015, 511);
             this.user_Manager1.TabIndex = 11;
             // 
             // frmMain
@@ -265,7 +265,7 @@ namespace UAICampo.UI
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1381, 630);
+            this.ClientSize = new System.Drawing.Size(1700, 630);
             this.Controls.Add(this.user_Manager1);
             this.Controls.Add(this.license_Manager1);
             this.Controls.Add(this.languageController1);

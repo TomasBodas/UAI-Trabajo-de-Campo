@@ -84,6 +84,22 @@ namespace UAICampo.BLL
         {
             return dal_user.unblockAccount(user);
         }
+        public List<Profile> getUserProfile(User user)
+        {
+            return dal_profile.getUserProfiles(user.Id);
+        }
+        public List<Profile> getNonAsignedProfileList(User user)
+        {
+            return dal_profile.getNonUserProfiles(user);
+        }
+        public bool AssignProfile(User user, Profile profile)
+        {
+            return dal_profile.AssignProfile(user, profile);
+        }
+        public bool RevokeProfile(User user, Profile profile)
+        {
+            return dal_profile.RevokeProfile(user, profile);
+        }
         public List<User> GetUsers()
         {
             List<User> userList = dal_user.GetAll().ToList();

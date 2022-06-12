@@ -64,6 +64,8 @@ namespace UAICampo.UI.Controllers
                         button_unblockUser.Enabled = false;
                         button_BlockUser.Enabled = true;
                     }
+                    updateUserPofileList(selectedUser);
+                    updateGeneralProfileList(selectedUser);
                 }
             }
             catch (Exception)
@@ -79,6 +81,17 @@ namespace UAICampo.UI.Controllers
             dataGridView_user.Columns["Licenses"].Visible = false;
             dataGridView_user.Columns["Password"].Visible = false;
             dataGridView_user.Columns["language"].Visible = false;
+        }
+        private void updateUserPofileList(User selectedUser)
+        {
+            dataGridView_userProfile.DataSource = null;
+            dataGridView_userProfile.DataSource = bll_userManager.getUserProfile(selectedUser);
+        }
+
+        private void updateGeneralProfileList(User selectedUser)
+        {
+            dataGridView_GeneralProfileList.DataSource = null;
+            dataGridView_GeneralProfileList.DataSource = bll_userManager.getNonAsignedProfileList(selectedUser);
         }
 
         private void button_BlockUser_Click(object sender, EventArgs e)
@@ -119,6 +132,48 @@ namespace UAICampo.UI.Controllers
                     });
                 }
             }
+        }
+        private void button_assignProfile_Click(object sender, EventArgs e)
+        {
+            Profile selectedProfile = null;
+
+            try
+            {
+                if (dataGridView_GeneralProfileList.Rows[0] != null)
+                {
+                    selectedProfile = dataGridView_GeneralProfileList.SelectedRows[0].DataBoundItem as Profile;
+                }
+
+                if (selectedProfile != null & selectedUser != null)
+                {
+                    bll_userManager.AssignProfile(selectedUser, selectedProfile);
+                    updateUserPofileList(selectedUser);
+                    updateGeneralProfileList(selectedUser);
+                }
+            }
+            catch (Exception)
+            {  }
+        }
+
+        private void button_revokeProfile_Click(object sender, EventArgs e)
+        {
+            Profile selectedProfile = null;
+            try
+            {
+                if (dataGridView_userProfile.Rows[0] != null)
+                {
+                    selectedProfile = dataGridView_userProfile.SelectedRows[0].DataBoundItem as Profile;
+                }
+
+                if (selectedProfile != null & selectedUser != null)
+                {
+                    bll_userManager.RevokeProfile(selectedUser, selectedProfile);
+                    updateUserPofileList(selectedUser);
+                    updateGeneralProfileList(selectedUser);
+                }
+            }
+            catch (Exception)
+            {  }
         }
 
         public void Update()
@@ -163,6 +218,10 @@ namespace UAICampo.UI.Controllers
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Unblock"), button_unblockUser));
             //-------------------------------------------------------------------------------------------------------
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "UserList"), label_title_UserList));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "UserProfileList"), label_title_UserProfile));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "ProfileList"), label_title_ProfilePool));
         }
+
+        
     }
 }
