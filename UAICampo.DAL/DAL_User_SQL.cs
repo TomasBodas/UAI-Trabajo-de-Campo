@@ -314,6 +314,61 @@ namespace UAICampo.DAL.SQL
 
             return userList.ToList();
         }
+
+        public bool blockAccount(User user)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+                string query = $"UPDATE {TABLE_userStatus}" +
+                                $" SET {TABLE_userStatus}.{COLUMN_USERSTATUS_BLOCKED} = 'True'" +
+                                $" FROM {TABLE_userStatus}" +
+                                $" INNER JOIN {TABLE_user}" +
+                                $" ON {TABLE_user}.{COLUMN_USER_ID} = {TABLE_userStatus}.{COLUMN_USERSTATUS_FK_ACCOUNT}" +
+                                $" WHERE {TABLE_user}.{COLUMN_USER_ID} = {user.Id}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    int count = sqlCommand.ExecuteNonQuery();
+                    if (count == 1)
+                    {
+                        success = true;
+                    }
+                }
+            }
+
+            return success;
+        }
+
+        public bool unblockAccount(User user)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+                string query = $"UPDATE {TABLE_userStatus}" +
+                                $" SET {TABLE_userStatus}.{COLUMN_USERSTATUS_BLOCKED} = 'False', {TABLE_userStatus}.{COLUMN_USERSTATUS_ATTEMPTS} = 0" +
+                                $" FROM {TABLE_userStatus}" +
+                                $" INNER JOIN {TABLE_user}" +
+                                $" ON {TABLE_user}.{COLUMN_USER_ID} = {TABLE_userStatus}.{COLUMN_USERSTATUS_FK_ACCOUNT}" +
+                                $" WHERE {TABLE_user}.{COLUMN_USER_ID} = {user.Id}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    int count = sqlCommand.ExecuteNonQuery();
+                    if (count == 1)
+                    {
+                        success = true;
+                    }
+                }
+            }
+
+            return success;
+        }
+
         public User FindById(int Id)
         {
             throw new NotImplementedException();

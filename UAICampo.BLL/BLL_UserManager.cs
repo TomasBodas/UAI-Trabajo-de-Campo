@@ -76,6 +76,14 @@ namespace UAICampo.BLL
             return user;
         }
 
+        public bool BlockAccount(User user)
+        {
+            return dal_user.blockAccount(user);
+        }
+        public bool unblockAccount(User user)
+        {
+            return dal_user.unblockAccount(user);
+        }
         public List<User> GetUsers()
         {
             List<User> userList = dal_user.GetAll().ToList();

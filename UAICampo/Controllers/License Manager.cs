@@ -229,7 +229,7 @@ namespace UAICampo.UI.Controllers
                         Description = String.Format($"Account {UserInstance.getInstance().user.Username} added a new license"),
                         Type = LogType.Control,
                         User = UserInstance.getInstance().user
-                    }); ;
+                    });
 
                     loadTreeView();
                     loadLicensePool();

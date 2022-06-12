@@ -255,9 +255,9 @@ namespace UAICampo.UI
             // 
             // user_Manager1
             // 
-            this.user_Manager1.Location = new System.Drawing.Point(699, 107);
+            this.user_Manager1.Location = new System.Drawing.Point(657, 123);
             this.user_Manager1.Name = "user_Manager1";
-            this.user_Manager1.Size = new System.Drawing.Size(627, 511);
+            this.user_Manager1.Size = new System.Drawing.Size(667, 511);
             this.user_Manager1.TabIndex = 11;
             // 
             // frmMain
