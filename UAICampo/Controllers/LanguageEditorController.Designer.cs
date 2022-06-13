@@ -29,25 +29,25 @@ namespace UAICampo.UI.Controllers
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.label_chooseLanguage = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button_loadWords = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.button_addLanguage = new System.Windows.Forms.Button();
+            this.button_deleteLanguage = new System.Windows.Forms.Button();
+            this.label_addLanguage = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // label_chooseLanguage
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Choose a language:";
+            this.label_chooseLanguage.AutoSize = true;
+            this.label_chooseLanguage.Location = new System.Drawing.Point(25, 27);
+            this.label_chooseLanguage.Name = "label_chooseLanguage";
+            this.label_chooseLanguage.Size = new System.Drawing.Size(102, 13);
+            this.label_chooseLanguage.TabIndex = 0;
+            this.label_chooseLanguage.Text = "Choose a language:";
             // 
             // comboBox1
             // 
@@ -57,15 +57,15 @@ namespace UAICampo.UI.Controllers
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 1;
             // 
-            // button1
+            // button_loadWords
             // 
-            this.button1.Location = new System.Drawing.Point(301, 24);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Load words";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.button_loadWords.Location = new System.Drawing.Point(301, 24);
+            this.button_loadWords.Name = "button_loadWords";
+            this.button_loadWords.Size = new System.Drawing.Size(75, 23);
+            this.button_loadWords.TabIndex = 2;
+            this.button_loadWords.Text = "Load words";
+            this.button_loadWords.UseVisualStyleBackColor = true;
+            this.button_loadWords.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // dataGridView1
             // 
@@ -76,34 +76,34 @@ namespace UAICampo.UI.Controllers
             this.dataGridView1.TabIndex = 3;
             this.dataGridView1.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowLeave);
             // 
-            // button2
+            // button_addLanguage
             // 
-            this.button2.Location = new System.Drawing.Point(172, 447);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(25, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "+";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button_addLanguage.Location = new System.Drawing.Point(172, 447);
+            this.button_addLanguage.Name = "button_addLanguage";
+            this.button_addLanguage.Size = new System.Drawing.Size(25, 23);
+            this.button_addLanguage.TabIndex = 4;
+            this.button_addLanguage.Text = "+";
+            this.button_addLanguage.UseVisualStyleBackColor = true;
+            this.button_addLanguage.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button3
+            // button_deleteLanguage
             // 
-            this.button3.Location = new System.Drawing.Point(260, 24);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(25, 23);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "-";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button_deleteLanguage.Location = new System.Drawing.Point(260, 24);
+            this.button_deleteLanguage.Name = "button_deleteLanguage";
+            this.button_deleteLanguage.Size = new System.Drawing.Size(25, 23);
+            this.button_deleteLanguage.TabIndex = 5;
+            this.button_deleteLanguage.Text = "-";
+            this.button_deleteLanguage.UseVisualStyleBackColor = true;
+            this.button_deleteLanguage.Click += new System.EventHandler(this.button3_Click);
             // 
-            // label2
+            // label_addLanguage
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(64, 429);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(99, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Add new language:";
+            this.label_addLanguage.AutoSize = true;
+            this.label_addLanguage.Location = new System.Drawing.Point(64, 429);
+            this.label_addLanguage.Name = "label_addLanguage";
+            this.label_addLanguage.Size = new System.Drawing.Size(99, 13);
+            this.label_addLanguage.TabIndex = 7;
+            this.label_addLanguage.Text = "Add new language:";
             // 
             // textBox1
             // 
@@ -117,13 +117,13 @@ namespace UAICampo.UI.Controllers
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.label_addLanguage);
+            this.Controls.Add(this.button_deleteLanguage);
+            this.Controls.Add(this.button_addLanguage);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button_loadWords);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label_chooseLanguage);
             this.Name = "LanguageEditorController";
             this.Size = new System.Drawing.Size(394, 485);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -134,13 +134,13 @@ namespace UAICampo.UI.Controllers
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label_chooseLanguage;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_loadWords;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button_addLanguage;
+        private System.Windows.Forms.Button button_deleteLanguage;
+        private System.Windows.Forms.Label label_addLanguage;
         private System.Windows.Forms.TextBox textBox1;
     }
 }

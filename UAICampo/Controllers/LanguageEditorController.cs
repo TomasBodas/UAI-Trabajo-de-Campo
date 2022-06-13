@@ -21,6 +21,8 @@ namespace UAICampo.UI.Controllers
         public static List<Language> languages;
         public static Dictionary<string, string> words;
         public static Language language;
+
+        List<KeyValuePair<Tag, Control>> controllers = new List<KeyValuePair<Tag, Control>>();
         public LanguageEditorController()
         {
             InitializeComponent();
@@ -29,6 +31,8 @@ namespace UAICampo.UI.Controllers
             FillLanguages();
             dataGridView1.Columns.Add("key", "Tag");
             dataGridView1.Columns.Add("value", "Word");
+
+            SetControllerTags();
 
             if (UserInstance.getInstance().user != null)
             {
@@ -85,6 +89,35 @@ namespace UAICampo.UI.Controllers
             }
         }
 
+        public void Update()
+        {
+            Language selectedLanguage = UserInstance.getInstance().user.language;
+
+            languageBLL.loadLanguageWords(selectedLanguage);
+
+            foreach (var controller in controllers)
+            {
+                try
+                {
+                    if (controller.Key.Word != null)
+                    {
+                        KeyValuePair<string, string> textValue = selectedLanguage.words.SingleOrDefault(kvp => kvp.Key == controller.Key.Word);
+                        if (textValue.Value != null)
+                        {
+                            controller.Value.Text = textValue.Value;
+                        }
+                        else
+                        {
+                            controller.Value.Text = "Not found";
+                        }
+
+                    }
+                }
+                catch (Exception)
+                { }
+            }
+        }
+
         private void dataGridView1_RowLeave(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView1.IsCurrentRowDirty)
@@ -100,6 +133,24 @@ namespace UAICampo.UI.Controllers
                 }
                 loadDictionary();
             }
+        }
+
+        private void SetControllerTags()
+        {
+            //In here, we set each controller tag list.
+            //This list wil be made out of keyvaluepairs, with a controller, and a tag
+            //Each Tag will be made out of two values
+            //First value: license required for it to show up to the user
+            //Second value: Word Tag, used for language runtime changes
+
+            //General controllers------------------------------------------------------------------------------------
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Add"), button_addLanguage));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Remove"), button_deleteLanguage));
+            //-------------------------------------------------------------------------------------------------------
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "LoadWords"), button_loadWords));
+            //-------------------------------------------------------------------------------------------------------
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "AddLanguage"), label_addLanguage));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "ChooseLanguage"), label_chooseLanguage));
         }
     }
 }

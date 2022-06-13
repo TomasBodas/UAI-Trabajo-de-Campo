@@ -176,8 +176,11 @@ namespace UAICampo.DAL.SQL
         {
             using (sqlConnection = new SqlConnection(CONNECTION_STRING))
             {
-                SqlCommand query = new SqlCommand("SELECT w.tag, w.word FROM words w JOIN language l ON l.id = w.FK_language_words WHERE l.id = @idLanguage", sqlConnection);
-                query.Parameters.AddWithValue("@idLanguage", Id);
+                SqlCommand query = new SqlCommand($"SELECT {COLUMN_WORDS_TAG}, {COLUMN_WORDS_WORD}" +
+                                                    $" FROM {TABLE_words}" +
+                                                    $" JOIN {TABLE_language} ON {TABLE_language}.{COLUMN_LANGUAGE_ID} = {TABLE_words}.{COLUMN_WORDS_LANGUAGE}" +
+                                                    $" WHERE {TABLE_language}.{COLUMN_LANGUAGE_ID} = {PARAM_LANGUAGE_ID}", sqlConnection);
+                query.Parameters.AddWithValue(PARAM_LANGUAGE_ID, Id);
                 sqlConnection.Open();
                 SqlDataReader data = query.ExecuteReader();
 
