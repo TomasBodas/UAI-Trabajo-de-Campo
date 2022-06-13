@@ -17,28 +17,48 @@ namespace UAICampo.BLL
         static DAL_User_SQL userDal = new DAL_User_SQL();
 
         //set language and get all its words to the instance.
-		public static void setLanguage (Language sessionLanguage)
+		public Language createLanguage (string name)
 		{
+            Language lang = new Language();
+            lang.Name = name;
 
-
-            //Language.getInstance().Name = sessionLanguage.Name;
-            //Language.getInstance().words = dal.getWords(Language.getInstance().Id);
+            return languageDal.Save(lang);
 		}
+
+        public void deleteLanguage(Language language)
+        {
+            languageDal.deleteLanguageWords(language.Id);
+            languageDal.Delete(language.Id);
+        }
 
         public static Language getUserLanguage(User user)
         {
             return languageDal.getUserLanguage(user);
         }
 
-        public void loadDefaultLanguage()
-        {
-            //Language.getInstance().words = dal.getWords(2);
-
-        }
-
         public void loadLanguageWords(Language language)
         {
             language.words = languageDal.getWords(language.Id);
+        }
+
+        public Dictionary<string, string> loadWordsDictionary(Language language)
+        {
+            return languageDal.getWords(language.Id);
+        }
+
+        public void addWord(string tag, string word, int languageId)
+        {
+            languageDal.addWord(tag, word, languageId);
+        }
+
+        public void updateWord(string tag, string word, int languageId)
+        {
+          languageDal.updateWord(tag, word, languageId);
+        }
+
+        public void deleteWord(string tag, string languageId)
+        { 
+            languageDal.deleteWord(tag, languageId);
         }
         public IList<Language> getAll()
         {
@@ -52,5 +72,7 @@ namespace UAICampo.BLL
         {
             userDal.UpdateLanguage(UserInstance.getInstance().user, UserInstance.getInstance().user.language);
         }
+
+
     }
 }

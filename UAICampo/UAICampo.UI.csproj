@@ -52,6 +52,12 @@
     <Compile Include="Controllers\LanguageController.Designer.cs">
       <DependentUpon>LanguageController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\LanguageEditorController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controllers\LanguageEditorController.Designer.cs">
+      <DependentUpon>LanguageEditorController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\License Manager.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -86,6 +92,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controllers\LanguageController.resx">
       <DependentUpon>LanguageController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\LanguageEditorController.resx">
+      <DependentUpon>LanguageEditorController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\License Manager.resx">
       <DependentUpon>License Manager.cs</DependentUpon>

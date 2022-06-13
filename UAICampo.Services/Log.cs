@@ -7,7 +7,7 @@ using UAICampo.Abstractions;
 
 namespace UAICampo.Services
 {
-    public class Log : IUser
+    public class Log : ILog
     {
         public DateTime Date;
         public string Code;

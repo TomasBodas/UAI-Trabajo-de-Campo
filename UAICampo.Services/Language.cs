@@ -13,7 +13,10 @@ namespace UAICampo.Services.Observer
      {
         
         public Dictionary<string, string> words = new Dictionary<string, string>();
+        public Language()
+        {
 
+        }
         public Language(object[] itemArray) 
         {
             this.Id = (int)itemArray[0];

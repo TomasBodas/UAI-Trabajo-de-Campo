@@ -49,7 +49,20 @@ namespace UAICampo.DAL.SQL
 
         public void Delete(int Id)
         {
-            throw new NotImplementedException();
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"DELETE" +
+                                $" FROM {TABLE_language}" +
+                                $" WHERE {COLUMN_LANGUAGE_ID} = {PARAM_LANGUAGE_ID}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_LANGUAGE_ID, Id);
+                    sqlReader = sqlCommand.ExecuteReader();
+                }
+            }
         }
 
         public Language FindById(int Id)
@@ -141,7 +154,22 @@ namespace UAICampo.DAL.SQL
 
         public Language Save(Language Entity)
         {
-            throw new NotImplementedException();
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO {TABLE_language} ({COLUMN_LANGUAGE_NAME})" +
+                                $" VALUES ({PARAM_LANGUAGE_NAME}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_LANGUAGE_NAME, Entity.Name);
+
+                    sqlCommand.ExecuteNonQuery();
+                }
+
+                return Entity;
+            }
         }
 
         public Dictionary<string, string> getWords(int Id)
@@ -163,6 +191,114 @@ namespace UAICampo.DAL.SQL
                 sqlConnection.Close();
 
                 return result;
+            }
+        }
+
+        public void addWord(string tag, string word, int languageId)
+        {
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO {TABLE_words} ({COLUMN_WORDS_TAG}, {COLUMN_WORDS_WORD}, {COLUMN_WORDS_LANGUAGE})" +
+                                $" VALUES ({PARAM_WORDS_TAG},{PARAM_WORDS_WORD},{PARAM_WORDS_LANGUAGE})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_WORDS_TAG, tag);
+                    sqlCommand.Parameters.AddWithValue(PARAM_WORDS_WORD, word);
+                    sqlCommand.Parameters.AddWithValue(PARAM_WORDS_LANGUAGE, languageId);
+
+                    sqlCommand.ExecuteNonQuery();
+                }
+
+                sqlConnection.Close();
+            }
+        }
+
+        public void addWordBulk(Dictionary<string, string> template, int languageId)
+        {
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO {TABLE_words} ({COLUMN_WORDS_TAG}, {COLUMN_WORDS_WORD}, {COLUMN_WORDS_LANGUAGE})" +
+                                $" VALUES ({PARAM_WORDS_TAG},{PARAM_WORDS_WORD},{PARAM_WORDS_LANGUAGE})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    foreach (KeyValuePair<string, string> word in template)
+                    {
+                        sqlCommand.Parameters.AddWithValue(PARAM_WORDS_TAG, word.Key);
+                        sqlCommand.Parameters.AddWithValue(PARAM_WORDS_WORD, word.Value);
+                        sqlCommand.Parameters.AddWithValue(PARAM_WORDS_LANGUAGE, languageId);
+                        
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                }
+
+                sqlConnection.Close();
+            }
+        }
+
+        public void updateWord(string tag, string word, int languageId)
+        {
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"UPDATE{TABLE_words}" +
+                                $"SET {COLUMN_WORDS_WORD} = {PARAM_WORDS_WORD}" +
+                                $" WHERE {COLUMN_WORDS_TAG} = {PARAM_WORDS_TAG} AND {COLUMN_WORDS_LANGUAGE} = {PARAM_WORDS_LANGUAGE}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_WORDS_TAG, tag);
+                    sqlCommand.Parameters.AddWithValue(PARAM_WORDS_WORD, word);
+                    sqlCommand.Parameters.AddWithValue(PARAM_WORDS_LANGUAGE, languageId);
+
+                    sqlCommand.ExecuteNonQuery();
+                }
+
+                sqlConnection.Close();
+            }
+        }
+
+        public void deleteWord(string tag, string languageId)
+        {
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"DELETE" +
+                                $" FROM {TABLE_words}" +
+                                 $" WHERE {COLUMN_WORDS_TAG} = {PARAM_WORDS_TAG} AND {COLUMN_WORDS_LANGUAGE} = {PARAM_WORDS_LANGUAGE}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_WORDS_TAG, tag);
+                    sqlCommand.Parameters.AddWithValue(PARAM_WORDS_LANGUAGE, languageId);
+                    sqlReader = sqlCommand.ExecuteReader();
+                }
+            }
+        }
+
+        //deletes all words in a language
+        public void deleteLanguageWords(int languageId)
+        {
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"DELETE" +
+                                $" FROM {TABLE_words}" +
+                                $" WHERE {COLUMN_WORDS_LANGUAGE} = {PARAM_WORDS_LANGUAGE}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_WORDS_LANGUAGE, languageId);
+                    sqlReader = sqlCommand.ExecuteReader();
+                }
             }
         }
     }
