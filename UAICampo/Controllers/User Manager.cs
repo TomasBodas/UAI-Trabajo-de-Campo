@@ -222,6 +222,9 @@ namespace UAICampo.UI.Controllers
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "ProfileList"), label_title_ProfilePool));
         }
 
-        
+        private void dataGridView_user_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

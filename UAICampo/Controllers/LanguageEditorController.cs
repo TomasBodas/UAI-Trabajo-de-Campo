@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UAICampo.Abstractions.Observer;
 using UAICampo.BLL;
+using UAICampo.Services;
 using UAICampo.Services.Observer;
 
 namespace UAICampo.UI.Controllers
 {
-    public partial class LanguageEditorController : UserControl
+    public partial class LanguageEditorController : UserControl, IObserver
     {
         BLL_LanguageManager languageBLL;
 
@@ -25,6 +27,14 @@ namespace UAICampo.UI.Controllers
             languageBLL = new BLL_LanguageManager();
 
             FillLanguages();
+            dataGridView1.Columns.Add("key", "Tag");
+            dataGridView1.Columns.Add("value", "Word");
+
+            if (UserInstance.getInstance().user != null)
+            {
+                UserInstance.getInstance().user.Add(this);
+                Update();
+            }
         }
 
         public void FillLanguages()
@@ -38,23 +48,20 @@ namespace UAICampo.UI.Controllers
             }
         }
 
+        public void loadDictionary()
+        {
+            words = languageBLL.loadWordsDictionary(language);
+        }
         private void button1_Click_1(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
             string selectedLanguage = comboBox1.SelectedItem.ToString();
             language = languages.Find(item => item.Name == selectedLanguage);
-            words = languageBLL.loadWordsDictionary(language);
+            loadDictionary();
             foreach (KeyValuePair<string, string> item in words)
             {
                 dataGridView1.Rows.Add(new string[] { item.Key, item.Value });
             }
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            //words.Clear();
-            //words = dataGridView1.DataSource as Dictionary<string,string>;
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -72,7 +79,9 @@ namespace UAICampo.UI.Controllers
                 string selectedLanguage = comboBox1.SelectedItem.ToString();
                 Language language = languages.Find(item => item.Name == selectedLanguage);
                 languageBLL.deleteLanguage(language);
+                comboBox1.SelectedIndex = -1;
                 FillLanguages();
+                MessageBox.Show(String.Format("Language {0} deleted", language.Name));
             }
         }
 
@@ -89,6 +98,7 @@ namespace UAICampo.UI.Controllers
                 {
                     languageBLL.updateWord(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(), dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString(), language.Id);
                 }
+                loadDictionary();
             }
         }
     }

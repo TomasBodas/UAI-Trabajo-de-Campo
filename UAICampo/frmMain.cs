@@ -174,5 +174,10 @@ namespace UAICampo.UI
         {
 
         }
+
+        private void user_Manager1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace UAICampo.DAL
 {
     public class DAL_Licences_SQL : DAL_Abstract<Profile>
     {
-        private static readonly string CONNECTION_STRING = "Data Source=.;Initial Catalog=Campo;Integrated Security=True";
+        private static readonly string CONNECTION_STRING = DataBaseServices.getConnectionString();
 
         private SqlConnection sqlConnection;
         private SqlCommand sqlCommand;

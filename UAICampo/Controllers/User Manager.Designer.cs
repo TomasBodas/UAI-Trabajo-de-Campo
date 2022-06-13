@@ -58,6 +58,7 @@ namespace UAICampo.UI.Controllers
             this.dataGridView_user.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_user.Size = new System.Drawing.Size(523, 188);
             this.dataGridView_user.TabIndex = 0;
+            this.dataGridView_user.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_user_CellContentClick);
             this.dataGridView_user.SelectionChanged += new System.EventHandler(this.dataGridView_user_SelectionChanged);
             // 
             // button_BlockUser

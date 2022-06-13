@@ -159,7 +159,7 @@ namespace UAICampo.DAL.SQL
                 sqlConnection.Open();
 
                 string query = $"INSERT INTO {TABLE_language} ({COLUMN_LANGUAGE_NAME})" +
-                                $" VALUES ({PARAM_LANGUAGE_NAME}";
+                                $" VALUES ({PARAM_LANGUAGE_NAME})";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
@@ -247,8 +247,8 @@ namespace UAICampo.DAL.SQL
             {
                 sqlConnection.Open();
 
-                string query = $"UPDATE{TABLE_words}" +
-                                $"SET {COLUMN_WORDS_WORD} = {PARAM_WORDS_WORD}" +
+                string query = $"UPDATE {TABLE_words}" +
+                                $" SET {COLUMN_WORDS_WORD} = {PARAM_WORDS_WORD}" +
                                 $" WHERE {COLUMN_WORDS_TAG} = {PARAM_WORDS_TAG} AND {COLUMN_WORDS_LANGUAGE} = {PARAM_WORDS_LANGUAGE}";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))

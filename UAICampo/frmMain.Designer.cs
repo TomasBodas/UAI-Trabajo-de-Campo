@@ -52,6 +52,7 @@ namespace UAICampo.UI
             this.languageController1 = new UAICampo.UI.Controllers.LanguageController();
             this.license_Manager1 = new UAICampo.UI.Controllers.License_Manager();
             this.user_Manager1 = new UAICampo.UI.Controllers.User_Manager();
+            this.languageEditorController1 = new UAICampo.UI.Controllers.LanguageEditorController();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -259,13 +260,22 @@ namespace UAICampo.UI
             this.user_Manager1.Name = "user_Manager1";
             this.user_Manager1.Size = new System.Drawing.Size(1015, 511);
             this.user_Manager1.TabIndex = 11;
+            this.user_Manager1.Load += new System.EventHandler(this.user_Manager1_Load);
+            // 
+            // languageEditorController1
+            // 
+            this.languageEditorController1.Location = new System.Drawing.Point(136, 558);
+            this.languageEditorController1.Name = "languageEditorController1";
+            this.languageEditorController1.Size = new System.Drawing.Size(394, 485);
+            this.languageEditorController1.TabIndex = 12;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1700, 630);
+            this.ClientSize = new System.Drawing.Size(1700, 1104);
+            this.Controls.Add(this.languageEditorController1);
             this.Controls.Add(this.user_Manager1);
             this.Controls.Add(this.license_Manager1);
             this.Controls.Add(this.languageController1);
@@ -314,5 +324,6 @@ namespace UAICampo.UI
         private Controllers.LanguageController languageController1;
         private Controllers.License_Manager license_Manager1;
         private Controllers.User_Manager user_Manager1;
+        private Controllers.LanguageEditorController languageEditorController1;
     }
 }
