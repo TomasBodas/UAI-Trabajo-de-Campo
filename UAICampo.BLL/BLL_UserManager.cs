@@ -13,6 +13,11 @@ namespace UAICampo.BLL
 {
     public class BLL_UserManager
     {
+        //SQL Connection
+        DAL_User_SQL dal_user = new DAL_User_SQL();
+        DAL_Profile_SQL dal_profile = new DAL_Profile_SQL();
+        DAL_Language_SQL dal_language = new DAL_Language_SQL();
+
         public IUser createUser(string username, string password, string email)
         {
             //Instantiate new user to be saved
@@ -22,13 +27,7 @@ namespace UAICampo.BLL
             //Profile 2 --> Default
             //Language  --> English
             int DEFAULT_PROFILE_ID = 2;
-            int DEFAULT_LANGUAGE_ID = 1;
-
-
-            //SQL Connection
-            DAL_User_SQL dal_user = new DAL_User_SQL();
-            DAL_Profile_SQL dal_profile = new DAL_Profile_SQL();
-            DAL_Language_SQL dal_language = new DAL_Language_SQL();
+            int DEFAULT_LANGUAGE_ID = 1;       
 
             if (dal_user.findByUsername(username) == null)
             {
@@ -47,19 +46,17 @@ namespace UAICampo.BLL
                     user.language = dal_language.FindById(DEFAULT_LANGUAGE_ID);
                     dal_user.UpdateLanguage(user, user.language);
 
+                    BLL_LogManager.addMessage(new Log
+                    {
+                        Date = DateTime.Now,
+                        Code = "USER_CREATED",
+                        Description = String.Format("Account {0} created successfully", user.Username),
+                        Type = LogType.Control,
+                        User = user
+                    });
                 }
                 catch (Exception)
                 { }
-                
-
-                BLL_LogManager.addMessage(new Log
-                {
-                    Date = DateTime.Now,
-                    Code = "USER_CREATED",
-                    Description = String.Format("Account {0} created successfully", user.Username),
-                    Type = LogType.Control,
-                    User = user
-                });
             }
             else
             {
@@ -77,6 +74,43 @@ namespace UAICampo.BLL
             }
 
             return user;
+        }
+
+        public bool BlockAccount(User user)
+        {
+            return dal_user.blockAccount(user);
+        }
+        public bool unblockAccount(User user)
+        {
+            return dal_user.unblockAccount(user);
+        }
+        public List<Profile> getUserProfile(User user)
+        {
+            return dal_profile.getUserProfiles(user.Id);
+        }
+        public List<Profile> getNonAsignedProfileList(User user)
+        {
+            return dal_profile.getNonUserProfiles(user);
+        }
+        public bool AssignProfile(User user, Profile profile)
+        {
+            return dal_profile.AssignProfile(user, profile);
+        }
+        public bool RevokeProfile(User user, Profile profile)
+        {
+            return dal_profile.RevokeProfile(user, profile);
+        }
+        public List<User> GetUsers()
+        {
+            List<User> userList = dal_user.GetAll().ToList();
+            List<User> fullDetailUserList = new List<User>();
+
+            foreach (User user in userList)
+            {
+                fullDetailUserList.Add(dal_user.findByUsername(user.Username));
+            }
+
+            return fullDetailUserList;
         }
     }
 }

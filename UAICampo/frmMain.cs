@@ -30,8 +30,11 @@ namespace UAICampo.UI
         
             sessionBLL = new BLL_SessionManager();
             languageBLL = new BLL_LanguageManager();
-            
-            userSetProfile = UserInstance.getInstance().user.profileList[0];
+
+            if (UserInstance.getInstance().userIsLoggedIn())
+            {
+                userSetProfile = UserInstance.getInstance().user.profileList[0];
+            }
 
             SetControllerTags();
 
@@ -113,32 +116,37 @@ namespace UAICampo.UI
         }
         private void ValidateForm()
         {
-            if (UserInstance.getInstance().userIsLoggedIn())
+            try
             {
-                this.toolStripStatusLabel.Text = UserInstance.getInstance().user.Username;
-                this.label1.Text = UserInstance.getInstance().user.Id.ToString();
-                this.label2.Text = UserInstance.getInstance().user.Username.ToString();
-                this.label3.Text = UserInstance.getInstance().user.Email.ToString();
-                this.label4.Text = UserInstance.getInstance().user.IsBlocked.ToString();
-                this.label5.Text = UserInstance.getInstance().user.Attempts.ToString();
-            }
-
-            List<Services.Composite.Component> licenses = new List<Services.Composite.Component>();
-            licenses =  userSetProfile.getAllLicenses();
-
-            foreach (var controller in controllers)
-            {
-                if (controller.Key.LicenseId == 0 || licenses.Any(t => t.Id == controller.Key.LicenseId))
+                if (UserInstance.getInstance().userIsLoggedIn())
                 {
-                    controller.Value.Visible = true;
+                    this.toolStripStatusLabel.Text = UserInstance.getInstance().user.Username;
+                    this.label1.Text = UserInstance.getInstance().user.Id.ToString();
+                    this.label2.Text = UserInstance.getInstance().user.Username.ToString();
+                    this.label3.Text = UserInstance.getInstance().user.Email.ToString();
+                    this.label4.Text = UserInstance.getInstance().user.IsBlocked.ToString();
+                    this.label5.Text = UserInstance.getInstance().user.Attempts.ToString();
                 }
 
-                else
+                List<Services.Composite.Component> licenses = new List<Services.Composite.Component>();
+
+                licenses = userSetProfile.getAllLicenses();
+
+                foreach (var controller in controllers)
                 {
-                    controller.Value.Visible = false;
+                    if (controller.Key.LicenseId == 0 || licenses.Any(t => t.Id == controller.Key.LicenseId))
+                    {
+                        controller.Value.Visible = true;
+                    }
+
+                    else
+                    {
+                        controller.Value.Visible = false;
+                    }
                 }
             }
-
+            catch (Exception)
+            { }
         }
         private void SetControllerTags()
         {
@@ -153,8 +161,8 @@ namespace UAICampo.UI
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, ""), panel1));
             //-------------------------------------------------------------------------------------------------------
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(3, ""), license_Manager1));
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(4, ""), listBox_User));
-            
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(12, ""), user_Manager1));
+
         }
 
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)

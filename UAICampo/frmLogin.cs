@@ -52,12 +52,13 @@ namespace UAICampo.UI
             {
                 sessionBLL.Login(txtUser.Text, txtPassword.Text);
                 //this.parent.ValidateForm();
-                frmMain main = new frmMain();
-                main.Show();
-                this.Hide();
+                if (UserInstance.getInstance().userIsLoggedIn())
+                {
+                    frmMain main = new frmMain();
+                    main.Show();
+                    this.Hide();
+                }  
             }
-
-
         }
 
         private void Parent_userLogin(object sender, EventArgs e)

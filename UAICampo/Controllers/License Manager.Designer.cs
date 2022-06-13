@@ -124,6 +124,7 @@ namespace UAICampo.UI.Controllers
             this.button_addLicense.TabIndex = 8;
             this.button_addLicense.Text = "Add License";
             this.button_addLicense.UseVisualStyleBackColor = true;
+            this.button_addLicense.Click += new System.EventHandler(this.button_addLicense_Click);
             // 
             // button_deleteLicense
             // 
@@ -133,6 +134,7 @@ namespace UAICampo.UI.Controllers
             this.button_deleteLicense.TabIndex = 9;
             this.button_deleteLicense.Text = "Delete License";
             this.button_deleteLicense.UseVisualStyleBackColor = true;
+            this.button_deleteLicense.Click += new System.EventHandler(this.button_deleteLicense_Click);
             // 
             // button_addChildLicense
             // 
@@ -169,6 +171,7 @@ namespace UAICampo.UI.Controllers
             this.button_removeChildLicense.TabIndex = 13;
             this.button_removeChildLicense.Text = ">";
             this.button_removeChildLicense.UseVisualStyleBackColor = true;
+            this.button_removeChildLicense.Click += new System.EventHandler(this.button_removeChildLicense_Click);
             // 
             // License_Manager
             // 

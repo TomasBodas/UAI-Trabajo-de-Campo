@@ -89,6 +89,96 @@ namespace UAICampo.DAL
             return profileList;
         }
 
+        public List<Profile> getNonUserProfiles(User user)
+        {
+            List<Profile> profileList = new List<Profile>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {COLUMN_PROFILE_IDPROFILE}, {COLUMN_PROFILE_NAME}, {COLUMN_PROFILE_DESC} " +
+                                $" FROM {TABLE_PROFILE} " +
+                                $" WHERE ({TABLE_PROFILE}.{COLUMN_PROFILE_IDPROFILE})" +
+                                $" NOT IN (" +
+                                $"      SELECT {TABLE_PROFILE}.{COLUMN_PROFILE_IDPROFILE}" +
+                                $"      FROM {TABLE_PROFILE}" +
+                                $"      INNER JOIN {TABLE_USER_PROFILE}" +
+                                $"      ON {TABLE_USER_PROFILE}.{COLUMN_USER_PROFIL_IDPROFILE} = {TABLE_PROFILE}.{COLUMN_PROFILE_IDPROFILE}" +
+                                $"      WHERE {TABLE_USER_PROFILE}.{COLUMN_USER_PROFIL_IDUSER} = {user.Id})";
+                               
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+
+                            profileList.Add(new Profile(new Object[] { sqlReader[0], sqlReader[1], sqlReader[2] }));
+                        }
+                    }
+
+                    sqlReader.Close();
+                }
+            }
+
+            return profileList;
+        }
+        public bool AssignProfile(User user, Profile profile)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO {TABLE_USER_PROFILE} ({COLUMN_USER_PROFIL_IDPROFILE}, {COLUMN_USER_PROFIL_IDUSER})" +
+                                $" VALUES ( {profile.ProfileId}, {user.Id})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    int count = sqlCommand.ExecuteNonQuery();
+                    if (count == 1)
+                    {
+                        success = true;
+                    }
+                }
+
+                sqlConnection.Close();
+            }
+
+            return success;
+        }
+
+        public bool RevokeProfile(User user, Profile profile)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"DELETE FROM {TABLE_USER_PROFILE}" +
+                                $" WHERE {TABLE_USER_PROFILE}.{COLUMN_USER_PROFIL_IDPROFILE} = {profile.ProfileId}" +
+                                $"  AND {TABLE_USER_PROFILE}.{COLUMN_USER_PROFIL_IDUSER} = {user.Id}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    int count = sqlCommand.ExecuteNonQuery();
+                    if (count == 1)
+                    {
+                        success = true;
+                    }
+                }
+
+                sqlConnection.Close();
+            }
+
+            return success;
+        }
         public User Save(User Entity)
         {
             throw new NotImplementedException();

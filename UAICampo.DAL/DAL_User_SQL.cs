@@ -288,8 +288,87 @@ namespace UAICampo.DAL.SQL
         //needs implementation
         public IList<User> GetAll()
         {
-            throw new NotImplementedException();
+
+            List<User> userList = new List<User>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {COLUMN_USER_ID}, {COLUMN_USER_USERNAME}, {COLUMN_USER_EMAIL}" +
+                                $" FROM {TABLE_user}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            userList.Add(new User(new object[] {(int) sqlReader[0], (string) sqlReader[1], (string) sqlReader[2]}));
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+
+            return userList.ToList();
         }
+
+        public bool blockAccount(User user)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+                string query = $"UPDATE {TABLE_userStatus}" +
+                                $" SET {TABLE_userStatus}.{COLUMN_USERSTATUS_BLOCKED} = 'True'" +
+                                $" FROM {TABLE_userStatus}" +
+                                $" INNER JOIN {TABLE_user}" +
+                                $" ON {TABLE_user}.{COLUMN_USER_ID} = {TABLE_userStatus}.{COLUMN_USERSTATUS_FK_ACCOUNT}" +
+                                $" WHERE {TABLE_user}.{COLUMN_USER_ID} = {user.Id}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    int count = sqlCommand.ExecuteNonQuery();
+                    if (count == 1)
+                    {
+                        success = true;
+                    }
+                }
+            }
+
+            return success;
+        }
+
+        public bool unblockAccount(User user)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+                string query = $"UPDATE {TABLE_userStatus}" +
+                                $" SET {TABLE_userStatus}.{COLUMN_USERSTATUS_BLOCKED} = 'False', {TABLE_userStatus}.{COLUMN_USERSTATUS_ATTEMPTS} = 0" +
+                                $" FROM {TABLE_userStatus}" +
+                                $" INNER JOIN {TABLE_user}" +
+                                $" ON {TABLE_user}.{COLUMN_USER_ID} = {TABLE_userStatus}.{COLUMN_USERSTATUS_FK_ACCOUNT}" +
+                                $" WHERE {TABLE_user}.{COLUMN_USER_ID} = {user.Id}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    int count = sqlCommand.ExecuteNonQuery();
+                    if (count == 1)
+                    {
+                        success = true;
+                    }
+                }
+            }
+
+            return success;
+        }
+
         public User FindById(int Id)
         {
             throw new NotImplementedException();

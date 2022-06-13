@@ -9,7 +9,12 @@ namespace UAICampo.Services.Composite
 {
     public abstract class Component : IEntity
     {
-        public Component(int Id, string Name, string Desc)
+        public Component(string Name, string Desc)
+        {
+            this.Name = Name;
+            this.Description = Desc;
+        }
+        public Component(int Id, string Name, string Desc) : base()
         {
             this.Id = Id;
             this.Name = Name;
