@@ -102,5 +102,11 @@ namespace UAICampo.BLL
         {
             return dal.findLIcenseById(Id);
         }
+
+        
+        public List<Component> getAll()
+        {
+            return dal.getAllLicenses();
+        }
     }
 }

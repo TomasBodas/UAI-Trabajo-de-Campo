@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using UAICampo.Services;
-
+using UAICampo.Services.Composite;
 
 namespace UAICampo.DAL
 {
@@ -15,12 +15,12 @@ namespace UAICampo.DAL
 
         private const string TABLE_USER_PROFILE = "account_profile";
         private const string TABLE_PROFILE = "profile";
+        private const string TABLE_PROFILE_LICENSE = "profile_license";
 
 
         private const string COLUMN_PROFILE_IDPROFILE = "id";
         private const string COLUMN_PROFILE_NAME = "name";
         private const string COLUMN_PROFILE_DESC = "description";
-
         private static readonly string PARAM_PROFILE_IDPROFILE = $"@{COLUMN_PROFILE_IDPROFILE}";
         private static readonly string PARAM_PROFILE_NAME = $"@{COLUMN_PROFILE_NAME}";
         private static readonly string PARAM_PROFILE_DESC = $"@{COLUMN_PROFILE_DESC}";
@@ -28,9 +28,14 @@ namespace UAICampo.DAL
 
         private const string COLUMN_USER_PROFIL_IDPROFILE = "id_profile";
         private const string COLUMN_USER_PROFIL_IDUSER = "id_account";
-
         private static readonly string PARAM_USER_PROFIL_IDPROFILE = $"@{COLUMN_USER_PROFIL_IDPROFILE}";
         private static readonly string PARAM_USER_PROFIL_IDUSER = $"@{COLUMN_USER_PROFIL_IDUSER}";
+
+
+        private const string COLUMN_PROFILE_LICENSE_idProfile = "id_profile";
+        private const string COLUMN_PROFILE_LICENSE_idLicense = "id_license";
+        private static readonly string PARAM_PROFILE_LICENSE_idProfile = $"@{COLUMN_PROFILE_LICENSE_idProfile}";
+        private static readonly string PARAM_PROFILE_LICENSE_idLicense = $"@{COLUMN_PROFILE_LICENSE_idLicense}";
 
         private SqlConnection sqlConnection;
         private SqlCommand sqlCommand;
@@ -167,6 +172,95 @@ namespace UAICampo.DAL
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
+                    int count = sqlCommand.ExecuteNonQuery();
+                    if (count == 1)
+                    {
+                        success = true;
+                    }
+                }
+
+                sqlConnection.Close();
+            }
+
+            return success;
+        }
+        public List<Profile> getAllProfiles()
+        {
+            List<Profile> profileList = new List<Profile>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {COLUMN_PROFILE_IDPROFILE}, {COLUMN_PROFILE_NAME}, {COLUMN_PROFILE_DESC} " +
+                                $" FROM {TABLE_PROFILE} ";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+
+                            profileList.Add(new Profile(new Object[] { sqlReader[0], sqlReader[1], sqlReader[2] }));
+                        }
+                    }
+
+                    sqlReader.Close();
+                }
+            }
+
+            return profileList;
+        }
+
+        public bool addProfileLicense(Profile profile, Component license)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO {TABLE_PROFILE_LICENSE} ({COLUMN_PROFILE_LICENSE_idProfile}, {COLUMN_PROFILE_LICENSE_idLicense})" +
+                                $" VALUES ( {PARAM_PROFILE_LICENSE_idProfile}, {PARAM_PROFILE_LICENSE_idLicense})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_PROFILE_LICENSE_idProfile, profile.ProfileId);
+                    sqlCommand.Parameters.AddWithValue(PARAM_PROFILE_LICENSE_idLicense, license.Id);
+
+                    int count = sqlCommand.ExecuteNonQuery();
+                    if (count == 1)
+                    {
+                        success = true;
+                    }
+                }
+
+                sqlConnection.Close();
+            }
+
+            return success;
+        }
+
+        public bool revokeProfileLicense(Profile profile, Component license)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"DELETE FROM {TABLE_PROFILE_LICENSE}" +
+                                $" WHERE {COLUMN_PROFILE_LICENSE_idProfile} = {PARAM_PROFILE_LICENSE_idProfile} " +
+                                $" AND {COLUMN_PROFILE_LICENSE_idLicense} = {PARAM_PROFILE_LICENSE_idLicense}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_PROFILE_LICENSE_idProfile, profile.ProfileId);
+                    sqlCommand.Parameters.AddWithValue(PARAM_PROFILE_LICENSE_idLicense, license.Id);
+
                     int count = sqlCommand.ExecuteNonQuery();
                     if (count == 1)
                     {

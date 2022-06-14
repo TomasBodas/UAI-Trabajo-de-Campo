@@ -49,10 +49,11 @@ namespace UAICampo.UI
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.button_logout = new System.Windows.Forms.Button();
-            this.languageController1 = new UAICampo.UI.Controllers.LanguageController();
-            this.license_Manager1 = new UAICampo.UI.Controllers.License_Manager();
-            this.user_Manager1 = new UAICampo.UI.Controllers.User_Manager();
+            this.profile_Manager1 = new UAICampo.UI.Controllers.Profile_Manager();
             this.languageEditorController1 = new UAICampo.UI.Controllers.LanguageEditorController();
+            this.user_Manager1 = new UAICampo.UI.Controllers.User_Manager();
+            this.license_Manager1 = new UAICampo.UI.Controllers.License_Manager();
+            this.languageController1 = new UAICampo.UI.Controllers.LanguageController();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -240,19 +241,19 @@ namespace UAICampo.UI
             this.button_logout.UseVisualStyleBackColor = false;
             this.button_logout.Click += new System.EventHandler(this.button3_Click);
             // 
-            // languageController1
+            // profile_Manager1
             // 
-            this.languageController1.Location = new System.Drawing.Point(1599, 47);
-            this.languageController1.Name = "languageController1";
-            this.languageController1.Size = new System.Drawing.Size(89, 25);
-            this.languageController1.TabIndex = 7;
+            this.profile_Manager1.Location = new System.Drawing.Point(657, 571);
+            this.profile_Manager1.Name = "profile_Manager1";
+            this.profile_Manager1.Size = new System.Drawing.Size(706, 444);
+            this.profile_Manager1.TabIndex = 13;
             // 
-            // license_Manager1
+            // languageEditorController1
             // 
-            this.license_Manager1.Location = new System.Drawing.Point(12, 123);
-            this.license_Manager1.Name = "license_Manager1";
-            this.license_Manager1.Size = new System.Drawing.Size(586, 454);
-            this.license_Manager1.TabIndex = 10;
+            this.languageEditorController1.Location = new System.Drawing.Point(98, 583);
+            this.languageEditorController1.Name = "languageEditorController1";
+            this.languageEditorController1.Size = new System.Drawing.Size(394, 485);
+            this.languageEditorController1.TabIndex = 12;
             // 
             // user_Manager1
             // 
@@ -262,12 +263,19 @@ namespace UAICampo.UI
             this.user_Manager1.TabIndex = 11;
             this.user_Manager1.Load += new System.EventHandler(this.user_Manager1_Load);
             // 
-            // languageEditorController1
+            // license_Manager1
             // 
-            this.languageEditorController1.Location = new System.Drawing.Point(136, 558);
-            this.languageEditorController1.Name = "languageEditorController1";
-            this.languageEditorController1.Size = new System.Drawing.Size(394, 485);
-            this.languageEditorController1.TabIndex = 12;
+            this.license_Manager1.Location = new System.Drawing.Point(12, 123);
+            this.license_Manager1.Name = "license_Manager1";
+            this.license_Manager1.Size = new System.Drawing.Size(586, 454);
+            this.license_Manager1.TabIndex = 10;
+            // 
+            // languageController1
+            // 
+            this.languageController1.Location = new System.Drawing.Point(1599, 47);
+            this.languageController1.Name = "languageController1";
+            this.languageController1.Size = new System.Drawing.Size(89, 25);
+            this.languageController1.TabIndex = 7;
             // 
             // frmMain
             // 
@@ -275,6 +283,7 @@ namespace UAICampo.UI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1700, 1104);
+            this.Controls.Add(this.profile_Manager1);
             this.Controls.Add(this.languageEditorController1);
             this.Controls.Add(this.user_Manager1);
             this.Controls.Add(this.license_Manager1);
@@ -325,5 +334,6 @@ namespace UAICampo.UI
         private Controllers.License_Manager license_Manager1;
         private Controllers.User_Manager user_Manager1;
         private Controllers.LanguageEditorController languageEditorController1;
+        private Controllers.Profile_Manager profile_Manager1;
     }
 }

@@ -8,6 +8,7 @@ using UAICampo.DAL;
 using UAICampo.Services;
 using Microsoft.VisualBasic;
 using UAICampo.DAL.SQL;
+using UAICampo.Services.Composite;
 
 namespace UAICampo.BLL
 {
@@ -100,6 +101,10 @@ namespace UAICampo.BLL
         {
             return dal_profile.RevokeProfile(user, profile);
         }
+        public List<Profile> getProfileList()
+        {
+            return dal_profile.getAllProfiles();
+        }
         public List<User> GetUsers()
         {
             List<User> userList = dal_user.GetAll().ToList();
@@ -111,6 +116,14 @@ namespace UAICampo.BLL
             }
 
             return fullDetailUserList;
+        }
+        public bool setProfileLicense(Profile profile, Component license)
+        {
+            return dal_profile.addProfileLicense(profile, license);
+        }
+        public bool revokeProfileLicense(Profile profile, Component license)
+        {
+            return dal_profile.revokeProfileLicense(profile, license);
         }
     }
 }

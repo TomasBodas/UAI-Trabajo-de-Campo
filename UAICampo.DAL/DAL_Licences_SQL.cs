@@ -341,6 +341,35 @@ namespace UAICampo.DAL
             return success;
         }
 
+        public List<Component> getAllLicenses()
+        {
+            List<Component> licenses = new List<Component>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $" SELECT {TABLE_LICENCES}.{COLUMN_LICENCES_ID}, {TABLE_LICENCES}.{COLUMN_LICENCES_NAME}, {TABLE_LICENCES}.{COLUMN_LICENCES_DESCRIPTION}" +
+                                $" FROM {TABLE_LICENCES}";
+
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            licenses.Add(new Composite((int)sqlReader[0], sqlReader[1] as string, sqlReader[2] as string));
+                        }
+                    }
+                }
+            }
+
+            return licenses;
+        }
+
         public Profile Save(Profile Entity)
         {
             throw new NotImplementedException();
