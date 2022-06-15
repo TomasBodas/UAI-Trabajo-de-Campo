@@ -162,7 +162,8 @@ namespace UAICampo.UI
             //-------------------------------------------------------------------------------------------------------
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(3, ""), license_Manager1));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(12, ""), user_Manager1));
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, ""), languageEditorController1));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(14, ""), profile_Manager1));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(15, ""), languageEditorController1));
 
         }
 

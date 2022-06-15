@@ -43,11 +43,13 @@ namespace UAICampo.DAL.SQL
         private const string COLUMN_PASSWORD_ID = "id";
         private const string COLUMN_PASSWORD_PASSHASH = "passHash";
         private const string COLUMN_PASSWORD_FK_ACCOUNT = "FK_account_passwordhash";
+        private const string COLUMN_PASSWORD_ADD_DATE = "addDate";
 
         //password params
         private static readonly string PARAM_PASSWORD_ID = $"@{COLUMN_PASSWORD_ID}";
         private static readonly string PARAM_PASSWORD_PASSHASH = $"@{COLUMN_PASSWORD_PASSHASH}";
         private static readonly string PARAM_PASSWORD_FK_ACCOUNT = $"@{COLUMN_PASSWORD_FK_ACCOUNT}";
+        private static readonly string PARAM_PASSWORD_ADD_DATE = $"@{COLUMN_PASSWORD_ADD_DATE}";
         #endregion
 
         #region user status columns/params
@@ -109,12 +111,19 @@ namespace UAICampo.DAL.SQL
             {
                 sqlConnection.Open();
 
-                string query = $"SELECT {COLUMN_PASSWORD_PASSHASH}" +
+                //string query = $"SELECT {COLUMN_PASSWORD_PASSHASH}" +
+                //                $" FROM {TABLE_password}" +
+                //                $" WHERE {TABLE_password}.{COLUMN_PASSWORD_FK_ACCOUNT} = {pId}";
+
+                string query = $"SELECT TOP 1 {TABLE_password}.{COLUMN_PASSWORD_PASSHASH}" +
                                 $" FROM {TABLE_password}" +
-                                $" WHERE {TABLE_password}.{COLUMN_PASSWORD_FK_ACCOUNT} = {pId}";
+                                $" WHERE {TABLE_password}.{COLUMN_PASSWORD_FK_ACCOUNT} = {PARAM_USERSTATUS_KF_ACCOUNT}" +
+                                $" ORDER BY {TABLE_password}.{COLUMN_PASSWORD_ADD_DATE} DESC";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
+                    sqlCommand.Parameters.AddWithValue(PARAM_USERSTATUS_KF_ACCOUNT, pId);
+
                     sqlReader = sqlCommand.ExecuteReader();
                     if (sqlReader.HasRows)
                     {
@@ -364,6 +373,42 @@ namespace UAICampo.DAL.SQL
                         success = true;
                     }
                 }
+            }
+
+            return success;
+        }
+        public bool changePassword(User user, string password)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO {TABLE_password} ({COLUMN_PASSWORD_PASSHASH}, {COLUMN_PASSWORD_FK_ACCOUNT}, {COLUMN_PASSWORD_ADD_DATE})" +
+                                $" VALUES ( {PARAM_PASSWORD_PASSHASH}, {PARAM_PASSWORD_FK_ACCOUNT}, {PARAM_PASSWORD_ADD_DATE})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_PASSWORD_PASSHASH, ENCRYPTION_SERVICE.hasher(password));
+                    sqlCommand.Parameters.AddWithValue(PARAM_PASSWORD_FK_ACCOUNT, user.Id);
+                    sqlCommand.Parameters.AddWithValue(PARAM_PASSWORD_ADD_DATE, DateTime.Now);
+
+                    try
+                    {
+                        int changes = sqlCommand.ExecuteNonQuery();
+
+                        if (changes == 1)
+                        {
+                            success = true;
+                        }
+                    }
+                    catch (Exception)
+                    { }
+                   
+                }
+
+                sqlConnection.Close();
             }
 
             return success;

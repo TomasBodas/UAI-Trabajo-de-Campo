@@ -54,6 +54,7 @@ namespace UAICampo.UI
             this.user_Manager1 = new UAICampo.UI.Controllers.User_Manager();
             this.license_Manager1 = new UAICampo.UI.Controllers.License_Manager();
             this.languageController1 = new UAICampo.UI.Controllers.LanguageController();
+            this.password_Change1 = new UAICampo.UI.Controllers.Password_Change();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -243,14 +244,14 @@ namespace UAICampo.UI
             // 
             // profile_Manager1
             // 
-            this.profile_Manager1.Location = new System.Drawing.Point(657, 571);
+            this.profile_Manager1.Location = new System.Drawing.Point(823, 583);
             this.profile_Manager1.Name = "profile_Manager1";
             this.profile_Manager1.Size = new System.Drawing.Size(706, 444);
             this.profile_Manager1.TabIndex = 13;
             // 
             // languageEditorController1
             // 
-            this.languageEditorController1.Location = new System.Drawing.Point(98, 583);
+            this.languageEditorController1.Location = new System.Drawing.Point(32, 583);
             this.languageEditorController1.Name = "languageEditorController1";
             this.languageEditorController1.Size = new System.Drawing.Size(394, 485);
             this.languageEditorController1.TabIndex = 12;
@@ -277,12 +278,20 @@ namespace UAICampo.UI
             this.languageController1.Size = new System.Drawing.Size(89, 25);
             this.languageController1.TabIndex = 7;
             // 
+            // password_Change1
+            // 
+            this.password_Change1.Location = new System.Drawing.Point(502, 667);
+            this.password_Change1.Name = "password_Change1";
+            this.password_Change1.Size = new System.Drawing.Size(255, 191);
+            this.password_Change1.TabIndex = 14;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1700, 1104);
+            this.Controls.Add(this.password_Change1);
             this.Controls.Add(this.profile_Manager1);
             this.Controls.Add(this.languageEditorController1);
             this.Controls.Add(this.user_Manager1);
@@ -335,5 +344,6 @@ namespace UAICampo.UI
         private Controllers.User_Manager user_Manager1;
         private Controllers.LanguageEditorController languageEditorController1;
         private Controllers.Profile_Manager profile_Manager1;
+        private Controllers.Password_Change password_Change1;
     }
 }

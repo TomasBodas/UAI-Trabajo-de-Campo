@@ -64,6 +64,12 @@
     <Compile Include="Controllers\License Manager.Designer.cs">
       <DependentUpon>License Manager.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\Password Change.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controllers\Password Change.Designer.cs">
+      <DependentUpon>Password Change.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\Profile Manager.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\License Manager.resx">
       <DependentUpon>License Manager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\Password Change.resx">
+      <DependentUpon>Password Change.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Profile Manager.resx">
       <DependentUpon>Profile Manager.cs</DependentUpon>
