@@ -49,12 +49,12 @@ namespace UAICampo.UI
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.button_logout = new System.Windows.Forms.Button();
+            this.password_Change1 = new UAICampo.UI.Controllers.Password_Change();
             this.profile_Manager1 = new UAICampo.UI.Controllers.Profile_Manager();
             this.languageEditorController1 = new UAICampo.UI.Controllers.LanguageEditorController();
             this.user_Manager1 = new UAICampo.UI.Controllers.User_Manager();
             this.license_Manager1 = new UAICampo.UI.Controllers.License_Manager();
             this.languageController1 = new UAICampo.UI.Controllers.LanguageController();
-            this.password_Change1 = new UAICampo.UI.Controllers.Password_Change();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -242,6 +242,13 @@ namespace UAICampo.UI
             this.button_logout.UseVisualStyleBackColor = false;
             this.button_logout.Click += new System.EventHandler(this.button3_Click);
             // 
+            // password_Change1
+            // 
+            this.password_Change1.Location = new System.Drawing.Point(502, 667);
+            this.password_Change1.Name = "password_Change1";
+            this.password_Change1.Size = new System.Drawing.Size(255, 191);
+            this.password_Change1.TabIndex = 14;
+            // 
             // profile_Manager1
             // 
             this.profile_Manager1.Location = new System.Drawing.Point(823, 583);
@@ -258,9 +265,9 @@ namespace UAICampo.UI
             // 
             // user_Manager1
             // 
-            this.user_Manager1.Location = new System.Drawing.Point(657, 123);
+            this.user_Manager1.Location = new System.Drawing.Point(637, 102);
             this.user_Manager1.Name = "user_Manager1";
-            this.user_Manager1.Size = new System.Drawing.Size(1015, 511);
+            this.user_Manager1.Size = new System.Drawing.Size(1015, 371);
             this.user_Manager1.TabIndex = 11;
             this.user_Manager1.Load += new System.EventHandler(this.user_Manager1_Load);
             // 
@@ -277,13 +284,6 @@ namespace UAICampo.UI
             this.languageController1.Name = "languageController1";
             this.languageController1.Size = new System.Drawing.Size(89, 25);
             this.languageController1.TabIndex = 7;
-            // 
-            // password_Change1
-            // 
-            this.password_Change1.Location = new System.Drawing.Point(502, 667);
-            this.password_Change1.Name = "password_Change1";
-            this.password_Change1.Size = new System.Drawing.Size(255, 191);
-            this.password_Change1.TabIndex = 14;
             // 
             // frmMain
             // 

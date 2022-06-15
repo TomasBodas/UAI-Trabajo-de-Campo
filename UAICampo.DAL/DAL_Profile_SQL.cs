@@ -273,6 +273,71 @@ namespace UAICampo.DAL
 
             return success;
         }
+        public bool createProfile(string profileName, string profileDesc)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO {TABLE_PROFILE} ({COLUMN_PROFILE_NAME}, {COLUMN_PROFILE_DESC})" +
+                                $" VALUES ( {PARAM_PROFILE_NAME}, {PARAM_PROFILE_DESC})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_PROFILE_NAME, profileName);
+                    sqlCommand.Parameters.AddWithValue(PARAM_PROFILE_DESC, profileDesc);
+
+                    int count = sqlCommand.ExecuteNonQuery();
+                    if (count == 1)
+                    {
+                        success = true;
+                    }
+                }
+
+                sqlConnection.Close();
+            }
+
+            return success;
+        }
+        public bool deleteProfile(Profile profile)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"BEGIN TRANSACTION profileDel" +
+                                $" BEGIN TRY" +
+                                    $" DELETE FROM {TABLE_USER_PROFILE}" +
+                                    $" WHERE {TABLE_USER_PROFILE}.{COLUMN_USER_PROFIL_IDPROFILE} = {profile.ProfileId}" +
+                                    $" DELETE FROM {TABLE_PROFILE_LICENSE}" +
+                                    $" WHERE {TABLE_PROFILE_LICENSE}.{COLUMN_PROFILE_LICENSE_idProfile} = {profile.ProfileId}" +
+                                    $" DELETE FROM {TABLE_PROFILE}" +
+                                    $" WHERE {TABLE_PROFILE}.{COLUMN_PROFILE_IDPROFILE} = {profile.ProfileId}" +
+                                    $" COMMIT TRANSACTION profileDel" +
+                                $" END TRY" +
+                                $" BEGIN CATCH" +
+                                    $" ROLLBACK TRANSACTION profileDel" +
+                                $" END CATCH";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+
+                    int count = sqlCommand.ExecuteNonQuery();
+                    if (count == 3)
+                    {
+                        success = true;
+                    }
+                }
+
+                sqlConnection.Close();
+            }
+
+            return success;
+        }
         public User Save(User Entity)
         {
             throw new NotImplementedException();

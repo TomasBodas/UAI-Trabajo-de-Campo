@@ -37,6 +37,8 @@ namespace UAICampo.UI.Controllers
             this.label_Title_Profile = new System.Windows.Forms.Label();
             this.label_Title_License = new System.Windows.Forms.Label();
             this.label_Title_ProfileLicenses = new System.Windows.Forms.Label();
+            this.button_addProfile = new System.Windows.Forms.Button();
+            this.button_removeProfile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Profile)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Lincense)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ProfileLicense)).BeginInit();
@@ -49,7 +51,7 @@ namespace UAICampo.UI.Controllers
             this.dataGridView_Profile.Name = "dataGridView_Profile";
             this.dataGridView_Profile.RowHeadersVisible = false;
             this.dataGridView_Profile.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_Profile.Size = new System.Drawing.Size(306, 292);
+            this.dataGridView_Profile.Size = new System.Drawing.Size(306, 253);
             this.dataGridView_Profile.TabIndex = 0;
             this.dataGridView_Profile.SelectionChanged += new System.EventHandler(this.dataGridView_Profile_SelectionChanged);
             // 
@@ -122,10 +124,32 @@ namespace UAICampo.UI.Controllers
             this.label_Title_ProfileLicenses.TabIndex = 7;
             this.label_Title_ProfileLicenses.Text = "label1";
             // 
+            // button_addProfile
+            // 
+            this.button_addProfile.Location = new System.Drawing.Point(3, 295);
+            this.button_addProfile.Name = "button_addProfile";
+            this.button_addProfile.Size = new System.Drawing.Size(145, 23);
+            this.button_addProfile.TabIndex = 8;
+            this.button_addProfile.Text = "add profile";
+            this.button_addProfile.UseVisualStyleBackColor = true;
+            this.button_addProfile.Click += new System.EventHandler(this.button_addProfile_Click);
+            // 
+            // button_removeProfile
+            // 
+            this.button_removeProfile.Location = new System.Drawing.Point(164, 295);
+            this.button_removeProfile.Name = "button_removeProfile";
+            this.button_removeProfile.Size = new System.Drawing.Size(145, 23);
+            this.button_removeProfile.TabIndex = 9;
+            this.button_removeProfile.Text = "removeProfile";
+            this.button_removeProfile.UseVisualStyleBackColor = true;
+            this.button_removeProfile.Click += new System.EventHandler(this.button_removeProfile_Click);
+            // 
             // Profile_Manager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.button_removeProfile);
+            this.Controls.Add(this.button_addProfile);
             this.Controls.Add(this.label_Title_ProfileLicenses);
             this.Controls.Add(this.label_Title_License);
             this.Controls.Add(this.label_Title_Profile);
@@ -155,5 +179,7 @@ namespace UAICampo.UI.Controllers
         private System.Windows.Forms.Label label_Title_Profile;
         private System.Windows.Forms.Label label_Title_License;
         private System.Windows.Forms.Label label_Title_ProfileLicenses;
+        private System.Windows.Forms.Button button_addProfile;
+        private System.Windows.Forms.Button button_removeProfile;
     }
 }

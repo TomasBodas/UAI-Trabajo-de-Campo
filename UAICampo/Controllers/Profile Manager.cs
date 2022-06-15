@@ -11,6 +11,7 @@ using UAICampo.Services;
 using UAICampo.Services.Composite;
 using UAICampo.BLL;
 using UAICampo.Services.Observer;
+using Microsoft.VisualBasic;
 
 namespace UAICampo.UI.Controllers
 {
@@ -125,6 +126,43 @@ namespace UAICampo.UI.Controllers
                 }
             }
         }
+        private void button_revokeLicense_Click(object sender, EventArgs e)
+        {
+            if (selectedProfile != null && selectedProfileLicense != null)
+            {
+                if (bllUser.revokeProfileLicense(selectedProfile, selectedProfileLicense))
+                {
+                    loadLicenseList();
+                    loadProfileList();
+                }
+            }
+        }
+        private void button_addProfile_Click(object sender, EventArgs e)
+        {
+            string profileName = Interaction.InputBox("Profile", "profile name");
+            string description = Interaction.InputBox("Description", "profile description");
+
+            if (profileName != "" && description != "")
+            {
+                if (bllUser.createProfile(profileName, description))
+                {
+                    loadLicenseList();
+                    loadProfileList();
+                }
+            }
+            
+        }
+        private void button_removeProfile_Click(object sender, EventArgs e)
+        {
+            if (selectedProfile != null)
+            {
+                if (bllUser.deleteProfile(selectedProfile))
+                {
+                    loadLicenseList();
+                    loadProfileList();
+                }
+            }
+        }
         public void Update()
         {
             Language selectedLanguage = UserInstance.getInstance().user.language;
@@ -152,17 +190,7 @@ namespace UAICampo.UI.Controllers
                 { }
             }
         }
-        private void button_revokeLicense_Click(object sender, EventArgs e)
-        {
-            if (selectedProfile != null && selectedProfileLicense != null)
-            {
-                if (bllUser.revokeProfileLicense(selectedProfile, selectedProfileLicense))
-                {
-                    loadLicenseList();
-                    loadProfileList();
-                }
-            }
-        }
+        
 
         private void SetControllerTags()
         {
@@ -177,5 +205,7 @@ namespace UAICampo.UI.Controllers
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "ProfileList"), label_Title_Profile));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "LicenseList"), label_Title_ProfileLicenses));
         }
+
+        
     }
 }
