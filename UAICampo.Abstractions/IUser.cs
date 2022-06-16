@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace UAICampo.Abstractions
 {
-    public interface IUser
+    public abstract class IUser : IEntity
     {
-        string Username { get; set; }
-        string Password { get; set; }
-
-        //IList<IPermiso> Permisos { get; }
+        public int Id { get; set; }
     }
 }

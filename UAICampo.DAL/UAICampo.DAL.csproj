@@ -41,7 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAL_User.cs" />
+    <Compile Include="DAL_Licences_SQL.cs" />
+    <Compile Include="DAL_Log.cs" />
+    <Compile Include="DAL_Profile_SQL.cs" />
+    <Compile Include="DAL_Language_SQL.cs" />
+    <Compile Include="DAL_User_SQL.cs" />
+    <Compile Include="XML\DAL_User.cs" />
     <Compile Include="DAL_Abstract.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -59,5 +64,6 @@
       <Name>UAICampo.Services</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

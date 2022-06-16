@@ -43,7 +43,12 @@
   <ItemGroup>
     <Compile Include="ICrud.cs" />
     <Compile Include="IEntity.cs" />
+    <Compile Include="IProfile.cs" />
+    <Compile Include="ILog.cs" />
     <Compile Include="IUser.cs" />
+    <Compile Include="ILanguage.cs" />
+    <Compile Include="Observer\IObserver.cs" />
+    <Compile Include="Observer\ISubject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

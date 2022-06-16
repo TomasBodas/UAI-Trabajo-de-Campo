@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UAICampo.Abstractions.Observer;
+using UAICampo.Services.Composite;
 using UAICampo.Abstractions;
+using UAICampo.Services.Observer;
 
 namespace UAICampo.Services
 {
-    public class User : Entity,IUser
+    public class User : IUser, ISubject
     {
-        public User(){}
+        public List<Profile> profileList;
+        public User()
+        {
+            profileList = new List<Profile>();
+        }
 
         public User( string username, string email, string password) : base()
         {
@@ -22,20 +29,37 @@ namespace UAICampo.Services
             this.Id = (int)itemArray[0];
             this.Username = (string)itemArray[1];
             this.Email = (string)itemArray[2];
-            //this.Password = (string)itemArray[2];
-            //this.IsBlocked = (bool)itemArray[4];
         }
-        public User(int id, string pUsername, string pEmail, bool pIsBlocked) : base()
-        {
-            this.Id = id;
-            this.Username = pUsername;
-            this.Email = pEmail;
-            this.IsBlocked = pIsBlocked;
-        }
+
         public string Username { get; set; }
         public string Email { get; set; }
         public bool IsBlocked { get; set; }
+        public int Attempts { get; set; }
         public string Password { get; set; }
-        public int Id { get; set; }
+        public IList<Component> Licenses { get; set; }
+        public Language language { get; set; }
+
+        public List<IObserver> subscribers = new List<IObserver>();
+
+        public void Add(IObserver observer)
+        {
+            if (!subscribers.Contains(observer))
+            {
+                subscribers.Add(observer);
+            }
+        }
+
+        public void Remove(IObserver observer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Notification()
+        {
+            foreach (var subscriber in subscribers)
+            {
+                subscriber.Update();
+            }
+        }
     }
 }

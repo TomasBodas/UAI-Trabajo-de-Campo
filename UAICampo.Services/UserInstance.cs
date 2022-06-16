@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UAICampo.Abstractions;
+using UAICampo.Services.Observer;
 
 namespace UAICampo.Services
 {
@@ -11,7 +12,6 @@ namespace UAICampo.Services
     {
         private static UserInstance LOGGED_USER;
         public User user;
-       
         private static object sync = new Object();
 
         public static UserInstance getInstance()

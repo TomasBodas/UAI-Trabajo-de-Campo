@@ -38,6 +38,7 @@ namespace UAICampo.UI
             this.btnLogin = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider2 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).BeginInit();
             this.SuspendLayout();
@@ -110,11 +111,24 @@ namespace UAICampo.UI
             // 
             this.errorProvider2.ContainerControl = this;
             // 
+            // button1
+            // 
+            this.button1.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.button1.Location = new System.Drawing.Point(135, 164);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(108, 25);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "Crear Cuenta";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(381, 177);
+            this.ClientSize = new System.Drawing.Size(413, 206);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.txtUser);
             this.Controls.Add(this.label2);
@@ -141,5 +155,6 @@ namespace UAICampo.UI
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.ErrorProvider errorProvider2;
+        private System.Windows.Forms.Button button1;
     }
 }
