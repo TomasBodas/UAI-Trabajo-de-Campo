@@ -16,6 +16,7 @@ namespace UAICampo.DAL
         private const string TABLE_USER_PROFILE = "account_profile";
         private const string TABLE_PROFILE = "profile";
         private const string TABLE_PROFILE_LICENSE = "profile_license";
+        private const string TABLE_MATRICULA = "Matriculas";
 
 
         private const string COLUMN_PROFILE_IDPROFILE = "id";
@@ -36,6 +37,9 @@ namespace UAICampo.DAL
         private const string COLUMN_PROFILE_LICENSE_idLicense = "id_license";
         private static readonly string PARAM_PROFILE_LICENSE_idProfile = $"@{COLUMN_PROFILE_LICENSE_idProfile}";
         private static readonly string PARAM_PROFILE_LICENSE_idLicense = $"@{COLUMN_PROFILE_LICENSE_idLicense}";
+
+        private const string COLUMN_MATRICULA_MATRICULA = "Matricula";
+        private static readonly string PARAM_MATRICULA_MATRICULA = $"@{COLUMN_MATRICULA_MATRICULA}";
 
         private SqlConnection sqlConnection;
         private SqlCommand sqlCommand;
@@ -131,6 +135,39 @@ namespace UAICampo.DAL
             }
 
             return profileList;
+        }
+        public Profile findProfileByName(string profileName)
+        {
+            Profile profile = null;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {COLUMN_PROFILE_IDPROFILE}, {COLUMN_PROFILE_NAME}, {COLUMN_PROFILE_DESC} " +
+                                $" FROM {TABLE_PROFILE} " +
+                                $" WHERE {TABLE_PROFILE}.{COLUMN_PROFILE_NAME} = '{profileName}'";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+
+                    
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+
+                            profile = new Profile(new Object[] { sqlReader[0], sqlReader[1], sqlReader[2] });
+                        }
+                    }
+
+                    sqlReader.Close();
+                }
+            }
+
+            return profile;
         }
         public bool AssignProfile(User user, Profile profile)
         {
@@ -327,7 +364,7 @@ namespace UAICampo.DAL
                 {
 
                     int count = sqlCommand.ExecuteNonQuery();
-                    if (count == 3)
+                    if (count > 0)
                     {
                         success = true;
                     }
@@ -336,6 +373,63 @@ namespace UAICampo.DAL
                 sqlConnection.Close();
             }
 
+            return success;
+        }
+        public bool promoteAccount(int numeroMatricula, User user, Profile profile)
+        {
+            bool success = false;
+
+            if (validateMatricula(numeroMatricula))
+            {
+                using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+                {
+                    sqlConnection.Open();
+
+                    string query = $"INSERT INTO {TABLE_USER_PROFILE} ({COLUMN_USER_PROFIL_IDPROFILE}, {COLUMN_USER_PROFIL_IDUSER})" +
+                                $" VALUES ( {profile.ProfileId}, {user.Id})";
+
+                    using (sqlCommand = new SqlCommand(query, sqlConnection))
+                    {
+                        int count = sqlCommand.ExecuteNonQuery();
+                        if (count == 1)
+                        {
+                            success = true;
+                        }
+                    }
+
+                    sqlConnection.Close();
+                }
+            }
+
+            return success;
+        }
+
+        //This method should be modified acordingly, once the REFEPS credentials are provided.
+        private bool validateMatricula(int numeroMatricula)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {TABLE_MATRICULA}.{COLUMN_MATRICULA_MATRICULA} " +
+                                $" FROM {TABLE_MATRICULA} " +
+                                $" WHERE {COLUMN_MATRICULA_MATRICULA} = {numeroMatricula}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        success = true;
+                    }
+
+                    sqlReader.Close();
+                }
+                sqlConnection.Close();
+            }
             return success;
         }
         public User Save(User Entity)

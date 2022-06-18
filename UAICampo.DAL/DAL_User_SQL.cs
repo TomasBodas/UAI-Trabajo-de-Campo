@@ -30,12 +30,21 @@ namespace UAICampo.DAL.SQL
         private const string COLUMN_USER_USERNAME = "username";
         private const string COLUMN_USER_EMAIL = "email";
         private const string COLUMN_USER_LANGUAGE = "FK_language_account";
+        private const string COLUMN_USER_NAME = "name";
+        private const string COLUMN_USER_LASTNAME = "lastName";
+        private const string COLUMN_USER_BIRTHDATE = "birthdate";
+        private const string COLUMN_USER_DNI = "dni";
 
         //user params
         private static readonly string PARAM_USER_ID = $"@{COLUMN_USER_ID}";
         private static readonly string PARAM_USER_USERNAME = $"@{COLUMN_USER_USERNAME}";
         private static readonly string PARAM_USER_EMAIL = $"@{COLUMN_USER_EMAIL}";
         private static readonly string PARAM_USER_LANGUAGE = $"@{COLUMN_USER_LANGUAGE}";
+        private static readonly string PARAM_USER_NAME = $"@{COLUMN_USER_NAME}";
+        private static readonly string PARAM_USER_LASTNAME = $"@{COLUMN_USER_LASTNAME}";
+        private static readonly string PARAM_USER_BIRTHDATE = $"@{COLUMN_USER_BIRTHDATE}";
+        private static readonly string PARAM_USER_DNI = $"@{COLUMN_USER_DNI}";
+
         #endregion
 
         #region password columns/params
@@ -77,7 +86,7 @@ namespace UAICampo.DAL.SQL
             {
                 sqlConnection.Open();
 
-                string query = $"SELECT {TABLE_user}.{COLUMN_USER_ID}, {TABLE_user}.{COLUMN_USER_USERNAME}, {TABLE_user}.{COLUMN_USER_EMAIL}, {TABLE_userStatus}.{COLUMN_USERSTATUS_BLOCKED}, {TABLE_userStatus}.{COLUMN_USERSTATUS_ATTEMPTS}" +
+                string query = $"SELECT {TABLE_user}.{COLUMN_USER_ID}, {TABLE_user}.{COLUMN_USER_USERNAME}, {TABLE_user}.{COLUMN_USER_EMAIL}, {TABLE_user}.{COLUMN_USER_NAME}, {TABLE_user}.{COLUMN_USER_LASTNAME}, {TABLE_user}.{COLUMN_USER_BIRTHDATE}, {TABLE_user}.{COLUMN_USER_DNI}, {TABLE_userStatus}.{COLUMN_USERSTATUS_BLOCKED}, {TABLE_userStatus}.{COLUMN_USERSTATUS_ATTEMPTS}" +
                                 $" FROM {TABLE_user}" +
                                 $" INNER JOIN {TABLE_userStatus} ON {TABLE_user}.{COLUMN_USER_ID} = {TABLE_userStatus}.{COLUMN_USERSTATUS_FK_ACCOUNT}" +
                                 $" WHERE {TABLE_user}.{COLUMN_USER_USERNAME} = '{pUsername}'";
@@ -91,10 +100,14 @@ namespace UAICampo.DAL.SQL
                         {
                             user = new User(new object[] {(int) sqlReader[0],
                                                     (string) sqlReader[1],
-                                                    (string) sqlReader[2]});
+                                                    (string) sqlReader[2],
+                                                    (string) sqlReader[3],
+                                                    (string) sqlReader[4], 
+                                                    (DateTime) sqlReader[5], 
+                                                    (int) sqlReader[6]});
 
-                            user.IsBlocked = (bool)sqlReader[3];
-                            user.Attempts = (int)sqlReader[4];
+                            user.IsBlocked = (bool)sqlReader[7];
+                            user.Attempts = (int)sqlReader[8];
                         }
                     }
                     sqlReader.Close();
@@ -206,8 +219,8 @@ namespace UAICampo.DAL.SQL
             {
                 sqlConnection.Open();
 
-                string query =  $"INSERT INTO {TABLE_user} ({COLUMN_USER_USERNAME}, {COLUMN_USER_EMAIL}, {COLUMN_USER_LANGUAGE})" +
-                                $" VALUES ({PARAM_USER_USERNAME}, {PARAM_USER_EMAIL}, {PARAM_USER_LANGUAGE})";
+                string query =  $"INSERT INTO {TABLE_user} ({COLUMN_USER_USERNAME}, {COLUMN_USER_EMAIL}, {COLUMN_USER_LANGUAGE}, {COLUMN_USER_NAME}, {COLUMN_USER_LASTNAME}, {COLUMN_USER_BIRTHDATE}, {COLUMN_USER_DNI})" +
+                                $" VALUES ({PARAM_USER_USERNAME}, {PARAM_USER_EMAIL}, {PARAM_USER_LANGUAGE}, {PARAM_USER_NAME}, {PARAM_USER_LASTNAME}, {PARAM_USER_BIRTHDATE}, {PARAM_USER_DNI})";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
@@ -215,6 +228,10 @@ namespace UAICampo.DAL.SQL
                     sqlCommand.Parameters.AddWithValue(PARAM_USER_USERNAME, Entity.Username);
                     sqlCommand.Parameters.AddWithValue(PARAM_USER_EMAIL, Entity.Email);
                     sqlCommand.Parameters.AddWithValue(PARAM_USER_LANGUAGE, 1);
+                    sqlCommand.Parameters.AddWithValue(PARAM_USER_NAME, Entity.Name);
+                    sqlCommand.Parameters.AddWithValue(PARAM_USER_LASTNAME, Entity.LastName);
+                    sqlCommand.Parameters.AddWithValue(PARAM_USER_BIRTHDATE, Entity.Birthdate);
+                    sqlCommand.Parameters.AddWithValue(PARAM_USER_DNI, Entity.Dni);
 
                     sqlCommand.ExecuteNonQuery();
                 }
@@ -304,7 +321,7 @@ namespace UAICampo.DAL.SQL
             {
                 sqlConnection.Open();
 
-                string query = $"SELECT {COLUMN_USER_ID}, {COLUMN_USER_USERNAME}, {COLUMN_USER_EMAIL}" +
+                string query = $"SELECT {TABLE_user}.{COLUMN_USER_ID}, {TABLE_user}.{COLUMN_USER_USERNAME}, {TABLE_user}.{COLUMN_USER_EMAIL}, {TABLE_user}.{COLUMN_USER_NAME}, {TABLE_user}.{COLUMN_USER_LASTNAME}, {TABLE_user}.{COLUMN_USER_BIRTHDATE}, {TABLE_user}.{COLUMN_USER_DNI}" +
                                 $" FROM {TABLE_user}";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
@@ -314,7 +331,13 @@ namespace UAICampo.DAL.SQL
                     {
                         while (sqlReader.Read())
                         {
-                            userList.Add(new User(new object[] {(int) sqlReader[0], (string) sqlReader[1], (string) sqlReader[2]}));
+                            userList.Add(new User(new object[] {(int) sqlReader[0],
+                                                    (string) sqlReader[1],
+                                                    (string) sqlReader[2],
+                                                    (string) sqlReader[3],
+                                                    (string) sqlReader[4],
+                                                    (DateTime) sqlReader[5],
+                                                    (int) sqlReader[6]}));
                         }
                     }
                     sqlReader.Close();
@@ -413,7 +436,6 @@ namespace UAICampo.DAL.SQL
 
             return success;
         }
-
         public User FindById(int Id)
         {
             throw new NotImplementedException();

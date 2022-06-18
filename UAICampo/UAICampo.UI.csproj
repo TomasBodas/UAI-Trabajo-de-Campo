@@ -82,6 +82,36 @@
     <Compile Include="Controllers\User Manager.Designer.cs">
       <DependentUpon>User Manager.cs</DependentUpon>
     </Compile>
+    <Compile Include="FindDr - Admin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindDr - Admin.Designer.cs">
+      <DependentUpon>FindDr - Admin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FindDr - Main form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindDr - Main form.Designer.cs">
+      <DependentUpon>FindDr - Main form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FindDr - Search.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindDr - Search.Designer.cs">
+      <DependentUpon>FindDr - Search.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FindDr - User Tab.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindDr - User Tab.Designer.cs">
+      <DependentUpon>FindDr - User Tab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FindRd - PromoteAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindRd - PromoteAccount.Designer.cs">
+      <DependentUpon>FindRd - PromoteAccount.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +156,21 @@
     <EmbeddedResource Include="Controllers\User Manager.resx">
       <DependentUpon>User Manager.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FindDr - Admin.resx">
+      <DependentUpon>FindDr - Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindDr - Main form.resx">
+      <DependentUpon>FindDr - Main form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindDr - User Tab.resx">
+      <DependentUpon>FindDr - User Tab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindRd - PromoteAccount.resx">
+      <DependentUpon>FindRd - PromoteAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdmin.resx">
+      <DependentUpon>frmAdmin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -137,18 +182,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -172,6 +217,20 @@
       <Name>UAICampo.Services</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\149071.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\387628.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Admin-Profile-PNG-Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo FindDr.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

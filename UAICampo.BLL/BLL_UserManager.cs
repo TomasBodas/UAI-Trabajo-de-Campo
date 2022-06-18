@@ -19,16 +19,18 @@ namespace UAICampo.BLL
         DAL_Profile_SQL dal_profile = new DAL_Profile_SQL();
         DAL_Language_SQL dal_language = new DAL_Language_SQL();
 
-        public IUser createUser(string username, string password, string email)
+        string DEFAULT_PACIENT_PROFILE_NAME = "Pacient";
+        string DEFAULT_PRACTICIONER_PROFILE_NAME = "Practitioner";
+
+        public IUser createUser(string username, string password, string email, string name, string lastName, DateTime birthdate, int dni)
         {
             //Instantiate new user to be saved
-            User user = new User(username, password, email);
+            User user = new User(username, password, email, name, lastName, birthdate, dni);
 
             //Default user profile data set.
-            //Profile 2 --> Default
             //Language  --> English
-            int DEFAULT_PROFILE_ID = 2;
-            int DEFAULT_LANGUAGE_ID = 1;       
+            int DEFAULT_LANGUAGE_ID = 1;
+            
 
             if (dal_user.findByUsername(username) == null)
             {
@@ -40,8 +42,8 @@ namespace UAICampo.BLL
                     //Then we search for the newly created user again, to retrieve the ID
                     user = dal_user.findByUsername(user.Username);
 
-                    //Then we add a default user profile to the newly created account
-                    dal_profile.addAccountProfile(DEFAULT_PROFILE_ID, user);
+                    //Then, to the newly created account, we add de "Pacient" profile.
+                    dal_profile.addAccountProfile(findProfileByName(DEFAULT_PACIENT_PROFILE_NAME).ProfileId, user);
 
                     //Finally, we add the default language for the newly created user as English
                     user.language = dal_language.FindById(DEFAULT_LANGUAGE_ID);
@@ -105,6 +107,10 @@ namespace UAICampo.BLL
         {
             return dal_profile.getAllProfiles();
         }
+        public Profile findProfileByName(string profileName)
+        {
+            return dal_profile.findProfileByName(profileName);
+        }
         public List<User> GetUsers()
         {
             List<User> userList = dal_user.GetAll().ToList();
@@ -136,6 +142,19 @@ namespace UAICampo.BLL
         public bool changePassword(User user, string password)
         {
             return dal_user.changePassword(user, password);
+        }
+        public bool promoteAccount(int number, User user)
+        {
+            bool success = false;
+
+            if (dal_profile.promoteAccount(number,
+                                                UserInstance.getInstance().user,
+                                                dal_profile.findProfileByName(DEFAULT_PRACTICIONER_PROFILE_NAME)))
+            {
+                UserInstance.getInstance().user.profileList.Add(findProfileByName(DEFAULT_PRACTICIONER_PROFILE_NAME));
+                success = true;
+            }
+            return success;
         }
     }
 }

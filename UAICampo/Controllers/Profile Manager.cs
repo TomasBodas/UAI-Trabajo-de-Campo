@@ -30,6 +30,10 @@ namespace UAICampo.UI.Controllers
         Component selectedLicense = null;
         Component selectedProfileLicense = null;
 
+        string PACIENT_PROFILE = "Pacient";
+        string PRACTITIONER_PROFILE = "Practitioner";
+        string ADMIN_PROFILE = "Admin";
+
         public Profile_Manager()
         {
             InitializeComponent();
@@ -81,6 +85,15 @@ namespace UAICampo.UI.Controllers
                     bllLicense.getProfileLicences(selectedProfile);
                     dataGridView_ProfileLicense.DataSource = null;
                     dataGridView_ProfileLicense.DataSource = selectedProfile.Licences;
+
+                    if (selectedProfile.ProfileName == PACIENT_PROFILE || selectedProfile.ProfileName == PRACTITIONER_PROFILE || selectedProfile.ProfileName == ADMIN_PROFILE)
+                    {
+                        button_removeProfile.Enabled = false;
+                    }
+                    else
+                    {
+                        button_removeProfile.Enabled = true;
+                    }
                 }
                 catch (Exception)
                 { }

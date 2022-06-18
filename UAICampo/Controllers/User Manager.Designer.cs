@@ -63,7 +63,7 @@ namespace UAICampo.UI.Controllers
             // 
             // button_BlockUser
             // 
-            this.button_BlockUser.Location = new System.Drawing.Point(564, 66);
+            this.button_BlockUser.Location = new System.Drawing.Point(543, 66);
             this.button_BlockUser.Name = "button_BlockUser";
             this.button_BlockUser.Size = new System.Drawing.Size(75, 23);
             this.button_BlockUser.TabIndex = 1;
@@ -73,7 +73,7 @@ namespace UAICampo.UI.Controllers
             // 
             // button_unblockUser
             // 
-            this.button_unblockUser.Location = new System.Drawing.Point(564, 108);
+            this.button_unblockUser.Location = new System.Drawing.Point(543, 108);
             this.button_unblockUser.Name = "button_unblockUser";
             this.button_unblockUser.Size = new System.Drawing.Size(75, 23);
             this.button_unblockUser.TabIndex = 2;
@@ -122,7 +122,7 @@ namespace UAICampo.UI.Controllers
             this.dataGridView_GeneralProfileList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_GeneralProfileList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_GeneralProfileList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridView_GeneralProfileList.Location = new System.Drawing.Point(667, 66);
+            this.dataGridView_GeneralProfileList.Location = new System.Drawing.Point(624, 66);
             this.dataGridView_GeneralProfileList.MultiSelect = false;
             this.dataGridView_GeneralProfileList.Name = "dataGridView_GeneralProfileList";
             this.dataGridView_GeneralProfileList.ReadOnly = true;
@@ -133,7 +133,7 @@ namespace UAICampo.UI.Controllers
             // 
             // button_assignProfile
             // 
-            this.button_assignProfile.Location = new System.Drawing.Point(564, 155);
+            this.button_assignProfile.Location = new System.Drawing.Point(543, 155);
             this.button_assignProfile.Name = "button_assignProfile";
             this.button_assignProfile.Size = new System.Drawing.Size(29, 23);
             this.button_assignProfile.TabIndex = 7;
@@ -143,7 +143,7 @@ namespace UAICampo.UI.Controllers
             // 
             // button_revokeProfile
             // 
-            this.button_revokeProfile.Location = new System.Drawing.Point(610, 155);
+            this.button_revokeProfile.Location = new System.Drawing.Point(589, 155);
             this.button_revokeProfile.Name = "button_revokeProfile";
             this.button_revokeProfile.Size = new System.Drawing.Size(29, 23);
             this.button_revokeProfile.TabIndex = 8;
@@ -154,7 +154,7 @@ namespace UAICampo.UI.Controllers
             // label_title_ProfilePool
             // 
             this.label_title_ProfilePool.AutoSize = true;
-            this.label_title_ProfilePool.Location = new System.Drawing.Point(664, 50);
+            this.label_title_ProfilePool.Location = new System.Drawing.Point(621, 50);
             this.label_title_ProfilePool.Name = "label_title_ProfilePool";
             this.label_title_ProfilePool.Size = new System.Drawing.Size(35, 13);
             this.label_title_ProfilePool.TabIndex = 9;
@@ -175,7 +175,7 @@ namespace UAICampo.UI.Controllers
             this.Controls.Add(this.button_BlockUser);
             this.Controls.Add(this.dataGridView_user);
             this.Name = "User_Manager";
-            this.Size = new System.Drawing.Size(1024, 387);
+            this.Size = new System.Drawing.Size(974, 381);
             this.Load += new System.EventHandler(this.User_Manager_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_user)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_userProfile)).EndInit();

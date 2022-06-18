@@ -23,6 +23,10 @@ namespace UAICampo.UI
         private string USERNAME = "";
         private string PASSWORD = "";
         private string EMAIL = "";
+        private string NAME = "";
+        private string LASTNAME = "";
+        private DateTime BIRTHDAY;
+        private int DNI;
         public FrmRegister()
         {
             InitializeComponent();
@@ -39,8 +43,12 @@ namespace UAICampo.UI
             USERNAME = textBoxUsername.Text;
             PASSWORD = textBoxPassword.Text;
             EMAIL = textBoxEmail.Text;
+            NAME = textBoxName.Text;
+            LASTNAME = textBoxLastName.Text;
+            BIRTHDAY = dateTimePicker1.Value;
+            DNI = int.Parse(textBoxDNI.Text);
 
-            if (bllUserManager.createUser(USERNAME, PASSWORD, EMAIL) != null)
+            if (bllUserManager.createUser(USERNAME, PASSWORD, EMAIL, NAME, LASTNAME, BIRTHDAY, DNI) != null)
             {
 
                 this.Dispose();

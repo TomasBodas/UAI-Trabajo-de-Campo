@@ -54,8 +54,10 @@ namespace UAICampo.UI
                 //this.parent.ValidateForm();
                 if (UserInstance.getInstance().userIsLoggedIn())
                 {
-                    frmMain main = new frmMain();
-                    main.Show();
+                    //frmMain main = new frmMain();
+                    //main.Show();
+                    FindDr___Main_form main2 = new FindDr___Main_form();
+                    main2.Show();
                     this.Hide();
                 }  
             }
