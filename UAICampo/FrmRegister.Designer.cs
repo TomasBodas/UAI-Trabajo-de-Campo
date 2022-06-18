@@ -50,7 +50,7 @@ namespace UAICampo.UI
             // labelPassword
             // 
             this.labelPassword.AutoSize = true;
-            this.labelPassword.Location = new System.Drawing.Point(25, 141);
+            this.labelPassword.Location = new System.Drawing.Point(27, 104);
             this.labelPassword.Name = "labelPassword";
             this.labelPassword.Size = new System.Drawing.Size(53, 13);
             this.labelPassword.TabIndex = 1;
@@ -59,7 +59,7 @@ namespace UAICampo.UI
             // labelEmail
             // 
             this.labelEmail.AutoSize = true;
-            this.labelEmail.Location = new System.Drawing.Point(25, 89);
+            this.labelEmail.Location = new System.Drawing.Point(25, 67);
             this.labelEmail.Name = "labelEmail";
             this.labelEmail.Size = new System.Drawing.Size(32, 13);
             this.labelEmail.TabIndex = 2;
@@ -67,28 +67,28 @@ namespace UAICampo.UI
             // 
             // textBoxUsername
             // 
-            this.textBoxUsername.Location = new System.Drawing.Point(144, 25);
+            this.textBoxUsername.Location = new System.Drawing.Point(144, 22);
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(242, 20);
             this.textBoxUsername.TabIndex = 3;
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(144, 134);
+            this.textBoxPassword.Location = new System.Drawing.Point(144, 64);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(242, 20);
             this.textBoxPassword.TabIndex = 4;
             // 
             // textBoxEmail
             // 
-            this.textBoxEmail.Location = new System.Drawing.Point(144, 82);
+            this.textBoxEmail.Location = new System.Drawing.Point(144, 101);
             this.textBoxEmail.Name = "textBoxEmail";
             this.textBoxEmail.Size = new System.Drawing.Size(242, 20);
             this.textBoxEmail.TabIndex = 5;
             // 
             // buttonRegister
             // 
-            this.buttonRegister.Location = new System.Drawing.Point(144, 199);
+            this.buttonRegister.Location = new System.Drawing.Point(144, 138);
             this.buttonRegister.Name = "buttonRegister";
             this.buttonRegister.Size = new System.Drawing.Size(75, 23);
             this.buttonRegister.TabIndex = 6;
@@ -100,7 +100,7 @@ namespace UAICampo.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(405, 248);
+            this.ClientSize = new System.Drawing.Size(405, 184);
             this.Controls.Add(this.buttonRegister);
             this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.textBoxPassword);
