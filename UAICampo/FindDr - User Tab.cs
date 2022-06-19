@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UAICampo.Abstractions.Observer;
+using UAICampo.BE;
 using UAICampo.BLL;
 using UAICampo.Services;
 using UAICampo.Services.Observer;
@@ -24,6 +25,8 @@ namespace UAICampo.UI
 
         BLL_SessionManager sessionBLL;
         BLL_LanguageManager languageBLL;
+        BLL_UserManager userBll;
+        BLL_Address addressBll;
 
         public FindDr___User_Tab()
         {
@@ -31,6 +34,12 @@ namespace UAICampo.UI
 
             sessionBLL = new BLL_SessionManager();
             languageBLL = new BLL_LanguageManager();
+            userBll = new BLL_UserManager();
+            addressBll = new BLL_Address();
+
+            label_Adress.Visible = false;
+            label_Title_Address.Visible = false;
+            label_NonExistingAdress.Visible = false;
 
             if (UserInstance.getInstance().userIsLoggedIn())
             {
@@ -54,6 +63,7 @@ namespace UAICampo.UI
 
         private void FindDr___User_Tab_Load(object sender, EventArgs e)
         {
+            // Show/hide promote account button
             if (UserInstance.getInstance().user.profileList.Any(x => x.ProfileName == PRACTITIONER_PROFILE))
             {
                 pictureBox2.Visible = true;
@@ -64,6 +74,26 @@ namespace UAICampo.UI
                 pictureBox2.Visible = false;
                 pictureBox1.Visible = true;
             }
+
+            // Show address / Address warning
+
+            Address userAddress = addressBll.getUserAddress(UserInstance.getInstance().user);
+            if (userAddress != null)
+            {
+                label_Adress.Visible = true;
+                label_Title_Address.Visible = true;
+                label_NonExistingAdress.Visible = false;
+                button_addAddress.Visible = false;
+                label_Adress.Text = $"{userAddress.Address1} - {userAddress.Address2}, {userAddress.AddressNumber}, {userAddress.Province.name}";
+            }
+            else
+            {
+                label_Adress.Visible = false;
+                label_Title_Address.Visible = false;
+                label_NonExistingAdress.Visible = true;
+                button_addAddress.Visible = true;
+            }
+
         }
         //Button promote account ------------------------------------------------------------------------------
         private void button_PromoteAccount_Click(object sender, EventArgs e)
@@ -72,7 +102,12 @@ namespace UAICampo.UI
             promoteForm.promotion += PromoteForm_promotion;
             openChildSubForm(promoteForm);
         }
-
+        // Add address ----------------------------------------------------------------------------------------
+        private void button_addAddress_Click(object sender, EventArgs e)
+        {
+            openChildSubForm(new FindDr___AddAddress());
+        }
+        //-------------------------------------------------------------------------------------------------------
         private void PromoteForm_promotion(object sender, EventArgs e)
         {
             ValidateForm();
@@ -160,6 +195,9 @@ namespace UAICampo.UI
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Welcome"), label_Title_Welcome));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Username"), label_Title_Username));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Name"), label_Title_name));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Address"), label_Title_Address));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "NonAddress"), label_NonExistingAdress));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "AddAddress"), button_addAddress));
         }
         private void openChildSubForm(Form subForm)
         {
@@ -176,5 +214,7 @@ namespace UAICampo.UI
             subForm.BringToFront();
             subForm.Show();
         }
+
+        
     }
 }

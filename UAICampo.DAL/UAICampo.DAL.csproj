@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL_Address_SQL.cs" />
     <Compile Include="DAL_Licences_SQL.cs" />
     <Compile Include="DAL_Log.cs" />
     <Compile Include="DAL_Profile_SQL.cs" />

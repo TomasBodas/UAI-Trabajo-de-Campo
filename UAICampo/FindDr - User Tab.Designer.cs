@@ -38,6 +38,10 @@ namespace UAICampo.UI
             this.label_Title_name = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label_Title_Address = new System.Windows.Forms.Label();
+            this.label_Adress = new System.Windows.Forms.Label();
+            this.label_NonExistingAdress = new System.Windows.Forms.Label();
+            this.button_addAddress = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -48,7 +52,7 @@ namespace UAICampo.UI
             this.label_Title_Welcome.AutoSize = true;
             this.label_Title_Welcome.Font = new System.Drawing.Font("BIZ UDPGothic", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_Title_Welcome.ForeColor = System.Drawing.Color.White;
-            this.label_Title_Welcome.Location = new System.Drawing.Point(316, 270);
+            this.label_Title_Welcome.Location = new System.Drawing.Point(319, 289);
             this.label_Title_Welcome.Name = "label_Title_Welcome";
             this.label_Title_Welcome.Size = new System.Drawing.Size(143, 37);
             this.label_Title_Welcome.TabIndex = 0;
@@ -63,7 +67,7 @@ namespace UAICampo.UI
             this.button_PromoteAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_PromoteAccount.Font = new System.Drawing.Font("BIZ UDPGothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_PromoteAccount.ForeColor = System.Drawing.Color.White;
-            this.button_PromoteAccount.Location = new System.Drawing.Point(323, 513);
+            this.button_PromoteAccount.Location = new System.Drawing.Point(332, 227);
             this.button_PromoteAccount.Name = "button_PromoteAccount";
             this.button_PromoteAccount.Size = new System.Drawing.Size(139, 40);
             this.button_PromoteAccount.TabIndex = 2;
@@ -141,12 +145,69 @@ namespace UAICampo.UI
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
+            // label_Title_Address
+            // 
+            this.label_Title_Address.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label_Title_Address.AutoSize = true;
+            this.label_Title_Address.Font = new System.Drawing.Font("BIZ UDPGothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_Title_Address.ForeColor = System.Drawing.Color.White;
+            this.label_Title_Address.Location = new System.Drawing.Point(361, 499);
+            this.label_Title_Address.Name = "label_Title_Address";
+            this.label_Title_Address.Size = new System.Drawing.Size(82, 21);
+            this.label_Title_Address.TabIndex = 8;
+            this.label_Title_Address.Text = "label1";
+            // 
+            // label_Adress
+            // 
+            this.label_Adress.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label_Adress.AutoSize = true;
+            this.label_Adress.Font = new System.Drawing.Font("BIZ UDPGothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_Adress.ForeColor = System.Drawing.Color.White;
+            this.label_Adress.Location = new System.Drawing.Point(127, 547);
+            this.label_Adress.Name = "label_Adress";
+            this.label_Adress.Size = new System.Drawing.Size(82, 21);
+            this.label_Adress.TabIndex = 9;
+            this.label_Adress.Text = "label1";
+            // 
+            // label_NonExistingAdress
+            // 
+            this.label_NonExistingAdress.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label_NonExistingAdress.AutoSize = true;
+            this.label_NonExistingAdress.Font = new System.Drawing.Font("BIZ UDPGothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_NonExistingAdress.ForeColor = System.Drawing.Color.White;
+            this.label_NonExistingAdress.Location = new System.Drawing.Point(170, 499);
+            this.label_NonExistingAdress.Name = "label_NonExistingAdress";
+            this.label_NonExistingAdress.Size = new System.Drawing.Size(82, 21);
+            this.label_NonExistingAdress.TabIndex = 10;
+            this.label_NonExistingAdress.Text = "label1";
+            // 
+            // button_addAddress
+            // 
+            this.button_addAddress.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button_addAddress.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(194)))), ((int)(((byte)(180)))));
+            this.button_addAddress.FlatAppearance.BorderSize = 0;
+            this.button_addAddress.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(239)))), ((int)(((byte)(147)))));
+            this.button_addAddress.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_addAddress.Font = new System.Drawing.Font("BIZ UDPGothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_addAddress.ForeColor = System.Drawing.Color.White;
+            this.button_addAddress.Location = new System.Drawing.Point(323, 539);
+            this.button_addAddress.Name = "button_addAddress";
+            this.button_addAddress.Size = new System.Drawing.Size(139, 40);
+            this.button_addAddress.TabIndex = 11;
+            this.button_addAddress.Text = "button1";
+            this.button_addAddress.UseVisualStyleBackColor = false;
+            this.button_addAddress.Click += new System.EventHandler(this.button_addAddress_Click);
+            // 
             // FindDr___User_Tab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(82)))), ((int)(((byte)(117)))));
             this.ClientSize = new System.Drawing.Size(802, 603);
+            this.Controls.Add(this.button_addAddress);
+            this.Controls.Add(this.label_NonExistingAdress);
+            this.Controls.Add(this.label_Adress);
+            this.Controls.Add(this.label_Title_Address);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label_Title_name);
             this.Controls.Add(this.label_Title_Username);
@@ -175,5 +236,9 @@ namespace UAICampo.UI
         private System.Windows.Forms.Label label_Title_Username;
         private System.Windows.Forms.Label label_Title_name;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label label_Title_Address;
+        private System.Windows.Forms.Label label_Adress;
+        private System.Windows.Forms.Label label_NonExistingAdress;
+        private System.Windows.Forms.Button button_addAddress;
     }
 }

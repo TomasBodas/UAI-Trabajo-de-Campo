@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UAICampo.Abstractions;
+using UAICampo.BE;
 using UAICampo.Services;
 using UAICampo.Services.Observer;
 
@@ -16,15 +17,13 @@ namespace UAICampo.DAL.SQL
 
         private static Encrypt ENCRYPTION_SERVICE = new Encrypt();
 
-        #region tables
         //table names
         private const string TABLE_user = "account";
         private const string TABLE_password = "passwordHash";
         private const string TABLE_userStatus = "accountStatus";
+        private const string TABLE_address = "UserAdress";
+        private const string TABLE_provinces = "Provinces";
 
-        #endregion
-
-        #region user columns/params
         //user table columns
         private const string COLUMN_USER_ID = "id";
         private const string COLUMN_USER_USERNAME = "username";
@@ -34,8 +33,6 @@ namespace UAICampo.DAL.SQL
         private const string COLUMN_USER_LASTNAME = "lastName";
         private const string COLUMN_USER_BIRTHDATE = "birthdate";
         private const string COLUMN_USER_DNI = "dni";
-
-        //user params
         private static readonly string PARAM_USER_ID = $"@{COLUMN_USER_ID}";
         private static readonly string PARAM_USER_USERNAME = $"@{COLUMN_USER_USERNAME}";
         private static readonly string PARAM_USER_EMAIL = $"@{COLUMN_USER_EMAIL}";
@@ -45,34 +42,45 @@ namespace UAICampo.DAL.SQL
         private static readonly string PARAM_USER_BIRTHDATE = $"@{COLUMN_USER_BIRTHDATE}";
         private static readonly string PARAM_USER_DNI = $"@{COLUMN_USER_DNI}";
 
-        #endregion
-
-        #region password columns/params
         //password table columns
         private const string COLUMN_PASSWORD_ID = "id";
         private const string COLUMN_PASSWORD_PASSHASH = "passHash";
         private const string COLUMN_PASSWORD_FK_ACCOUNT = "FK_account_passwordhash";
         private const string COLUMN_PASSWORD_ADD_DATE = "addDate";
-
-        //password params
         private static readonly string PARAM_PASSWORD_ID = $"@{COLUMN_PASSWORD_ID}";
         private static readonly string PARAM_PASSWORD_PASSHASH = $"@{COLUMN_PASSWORD_PASSHASH}";
         private static readonly string PARAM_PASSWORD_FK_ACCOUNT = $"@{COLUMN_PASSWORD_FK_ACCOUNT}";
         private static readonly string PARAM_PASSWORD_ADD_DATE = $"@{COLUMN_PASSWORD_ADD_DATE}";
-        #endregion
 
-        #region user status columns/params
         //user status table columns
         private const string COLUMN_USERSTATUS_ID = "id";
         private const string COLUMN_USERSTATUS_BLOCKED = "isBlocked";
         private const string COLUMN_USERSTATUS_ATTEMPTS = "attempts";
         private const string COLUMN_USERSTATUS_FK_ACCOUNT = "FK_account_accountstatus";
-
         private static readonly string PARAM_USERSTATUS_ID = $"@{COLUMN_USERSTATUS_ID}";
         private static readonly string PARAM_USERSTATUS_BLOCKED = $"@{COLUMN_USERSTATUS_BLOCKED}";
         private static readonly string PARAM_USERSTATUS_ATTEMPTS = $"@{COLUMN_USERSTATUS_ATTEMPTS}";
         private static readonly string PARAM_USERSTATUS_KF_ACCOUNT = $"@{COLUMN_USERSTATUS_FK_ACCOUNT}";
-        #endregion
+
+        //user address table columns
+        private const string COLUMN_ADDRESS_ADDRESS1 = "Address1";
+        private const string COLUMN_ADDRESS_ADDRESS2 = "Address2";
+        private const string COLUMN_ADDRESS_ADDRESSNumber = "AddressNumber";
+        private const string COLUMN_ADDRESS_FK_City = "FK_City";
+        private const string COLUMN_ADDRESS_FK_Province = "FK_Province";
+        private const string COLUMN_ADDRESS_FK_Account = "FK_Account";
+        private static readonly string PARAM_ADDRESS_ADDRESS1 = $"@{COLUMN_ADDRESS_ADDRESS1}";
+        private static readonly string PARAM_ADDRESS_ADDRESS2 = $"@{COLUMN_ADDRESS_ADDRESS2}";
+        private static readonly string PARAM_ADDRESS_ADDRESSNumber = $"@{COLUMN_ADDRESS_ADDRESSNumber}";
+        private static readonly string PARAM_ADDRESS_FK_City = $"@{COLUMN_ADDRESS_FK_City}";
+        private static readonly string PARAM_ADDRESS_FK_Province = $"@{COLUMN_ADDRESS_FK_Province}";
+        private static readonly string PARAM_ADDRESS_FK_ACCOUNT = $"@{COLUMN_ADDRESS_FK_Account}";
+
+        //Provinces table columns
+        private const string COLUMN_PROVINCES_ID = "Id";
+        private const string COLUMN_PROVINCES_NAME = "name";
+        private static readonly string PARAM_PROVINCES_ID = $"@{COLUMN_PROVINCES_ID}";
+        private static readonly string PARAM_PROVINCES_NAME = $"@{COLUMN_PROVINCES_NAME}";
 
         private SqlConnection sqlConnection;
         private SqlCommand sqlCommand;
@@ -429,6 +437,97 @@ namespace UAICampo.DAL.SQL
                     catch (Exception)
                     { }
                    
+                }
+
+                sqlConnection.Close();
+            }
+
+            return success;
+        }
+        public Address getUserAddress(User user)
+        {
+            Address address = null;
+            Province province = null;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {TABLE_address}.{COLUMN_ADDRESS_ADDRESS1}," +
+                                        $" {TABLE_address}.{COLUMN_ADDRESS_ADDRESS2}," +
+                                        $" {TABLE_address}.{COLUMN_ADDRESS_ADDRESSNumber}," +
+                                        $" {TABLE_provinces}.{COLUMN_PROVINCES_NAME}," +
+                                        $" {TABLE_provinces}.{COLUMN_PROVINCES_ID}" +
+                                $" FROM {TABLE_address}" +
+                                $" INNER JOIN {TABLE_provinces}" +
+                                $" ON {TABLE_provinces}.{COLUMN_PROVINCES_ID} = {TABLE_address}.{COLUMN_ADDRESS_FK_Province}" +
+                                $" WHERE {TABLE_address}.{COLUMN_ADDRESS_FK_Account} = {PARAM_ADDRESS_FK_ACCOUNT}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_FK_ACCOUNT, user.Id);
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        address = new Address();
+                        province = new Province();
+
+                        while (sqlReader.Read())
+                        {
+                            address.Address1 = (string)sqlReader[0];
+                            address.Address2 = (string)sqlReader[1];
+                            address.AddressNumber = (int)sqlReader[2];
+                            province.name = (string)sqlReader[3];
+                            province.id = (int)sqlReader[4];
+
+                            address.Province = province;
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+
+            return address;
+        }
+        public bool addUserAddress(Address address, User user)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO {TABLE_address} ({COLUMN_ADDRESS_FK_Account}," +
+                                                           $" {COLUMN_ADDRESS_ADDRESS1}," +
+                                                           $" {COLUMN_ADDRESS_ADDRESS2}," +
+                                                           $" {COLUMN_ADDRESS_ADDRESSNumber}," +
+                                                           $" {COLUMN_ADDRESS_FK_Province})" +
+                                $" VALUES ( {PARAM_ADDRESS_FK_ACCOUNT}, " +
+                                         $" {PARAM_ADDRESS_ADDRESS1}," +
+                                         $" {PARAM_ADDRESS_ADDRESS2}," +
+                                         $" {PARAM_ADDRESS_ADDRESSNumber}," +
+                                         $" {PARAM_ADDRESS_FK_Province})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_FK_ACCOUNT, user.Id);
+                    sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_ADDRESS1, address.Address1);
+                    sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_ADDRESS2, address.Address2);
+                    sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_ADDRESSNumber, address.AddressNumber);
+                    sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_FK_Province, address.Province.id);
+
+                    try
+                    {
+                        int changes = sqlCommand.ExecuteNonQuery();
+
+                        if (changes == 1)
+                        {
+                            success = true;
+                        }
+                    }
+                    catch (Exception)
+                    { }
+
                 }
 
                 sqlConnection.Close();

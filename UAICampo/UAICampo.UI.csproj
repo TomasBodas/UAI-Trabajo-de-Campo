@@ -82,6 +82,12 @@
     <Compile Include="Controllers\User Manager.Designer.cs">
       <DependentUpon>User Manager.cs</DependentUpon>
     </Compile>
+    <Compile Include="FindDr - AddAddress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindDr - AddAddress.Designer.cs">
+      <DependentUpon>FindDr - AddAddress.cs</DependentUpon>
+    </Compile>
     <Compile Include="FindDr - Admin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,6 +162,9 @@
     <EmbeddedResource Include="Controllers\User Manager.resx">
       <DependentUpon>User Manager.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FindDr - AddAddress.resx">
+      <DependentUpon>FindDr - AddAddress.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FindDr - Admin.resx">
       <DependentUpon>FindDr - Admin.cs</DependentUpon>
     </EmbeddedResource>
@@ -207,6 +216,10 @@
     <ProjectReference Include="..\UAICampo.Abstractions\UAICampo.Abstractions.csproj">
       <Project>{623fd6f6-143a-4cf9-9f26-0e52dc20bc00}</Project>
       <Name>UAICampo.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UAICampo.BE\UAICampo.BE.csproj">
+      <Project>{e698cd59-3b23-42bf-b465-21166b4bdc5d}</Project>
+      <Name>UAICampo.BE</Name>
     </ProjectReference>
     <ProjectReference Include="..\UAICampo.BLL\UAICampo.BLL.csproj">
       <Project>{243a3486-4b52-4c2d-8d20-a5b5143e845e}</Project>
