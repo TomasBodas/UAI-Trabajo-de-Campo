@@ -73,6 +73,16 @@ namespace UAICampo.UI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _2991231 {
+            get {
+                object obj = ResourceManager.GetObject("2991231", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _387628 {
             get {
                 object obj = ResourceManager.GetObject("387628", resourceCulture);

@@ -48,6 +48,7 @@
     <Compile Include="Composite\Leaf.cs" />
     <Compile Include="DataBaseServices.cs" />
     <Compile Include="Encrypt.cs" />
+    <Compile Include="GoogleMapsBuilder.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="Profile.cs" />

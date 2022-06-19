@@ -27,6 +27,7 @@ namespace UAICampo.UI
         BLL_UserManager userBll;
         BLL_LanguageManager languageBll;
 
+        Address newAddress = new Address();
         List<Province> provinces;
 
         public FindDr___AddAddress()
@@ -36,6 +37,8 @@ namespace UAICampo.UI
             addressBll = new BLL_Address();
             userBll = new BLL_UserManager();
             languageBll = new BLL_LanguageManager();
+
+            webBrowser1.Navigate(GoogleMapsBuilder.addressBuilder("", "", 0, "Buenos Aires"));
 
             if (UserInstance.getInstance().userIsLoggedIn())
             {
@@ -54,11 +57,8 @@ namespace UAICampo.UI
             {
                 UserInstance.getInstance().user.Add(this);
                 Update();
-            }
-
-            
+            }   
         }
-
         private void FindDr___AddAddress_Load(object sender, EventArgs e)
         {
 
@@ -83,7 +83,7 @@ namespace UAICampo.UI
         //Button Add address ---------------------------------------------------------------
         private void button_addAddress_Click(object sender, EventArgs e)
         {
-            Address newAddress = new Address();
+            
             string address1 = textBox_Address1.Text;
             string address2 = textBox_Address2.Text;
             int addressNumber = int.Parse(textBox_AddressNum.Text);
@@ -104,7 +104,17 @@ namespace UAICampo.UI
 
             addressBll.addUserAddress(newAddress, UserInstance.getInstance().user);
         }
-        // Method used for validating completition of required fields.
+        //Button Google Maps --------------------------------------------------------------------
+        private void button_FindAddress_Click(object sender, EventArgs e)
+        {
+            string address1 = textBox_Address1.Text;
+            string address2 = textBox_Address2.Text;
+            int addressNumber = int.Parse(textBox_AddressNum.Text);
+            string province = comboBox1.Text;
+            webBrowser1.Navigate(GoogleMapsBuilder.addressBuilder(address1, address2, addressNumber, province));
+        }
+
+        // Method used for validating completition of required fields ---------------------------
         private bool validateFields()
         {
             bool validated = true;
@@ -225,6 +235,7 @@ namespace UAICampo.UI
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "AddAddress"), label_title_addAddress));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Cancel"), button_cancel));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Submit"), button_addAddress));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "FindAddress"), button_FindAddress));
         }
         private void openChildSubForm(Form subForm)
         {
@@ -241,5 +252,7 @@ namespace UAICampo.UI
             subForm.BringToFront();
             subForm.Show();
         }
+
+       
     }
 }
