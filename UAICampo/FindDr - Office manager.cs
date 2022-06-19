@@ -15,22 +15,20 @@ using UAICampo.Services.Observer;
 
 namespace UAICampo.UI
 {
-    public partial class FindDr___AddAddress : Form, IObserver
+    public partial class FindDr___Office_manager : Form, IObserver
     {
-        private readonly string PRACTITIONER_PROFILE = "Practitioner";
-        private Form activeForm = null;
-
-        List<KeyValuePair<Tag, Control>> controllers = new List<KeyValuePair<Tag, Control>>();
-        List<Services.Composite.Component> licenses = new List<Services.Composite.Component>();
-
         BLL_Address addressBll;
         BLL_UserManager userBll;
         BLL_LanguageManager languageBll;
 
-        Address newAddress = new Address();
-        List<Province> provinces;
+        List<KeyValuePair<Tag, Control>> controllers = new List<KeyValuePair<Tag, Control>>();
+        List<Services.Composite.Component> licenses = new List<Services.Composite.Component>();
 
-        public FindDr___AddAddress()
+        List<Province> provinces;
+        Address newAddress = new Address();
+        List<Address> offices = new List<Address>();
+
+        public FindDr___Office_manager()
         {
             InitializeComponent();
 
@@ -57,40 +55,23 @@ namespace UAICampo.UI
             {
                 UserInstance.getInstance().user.Add(this);
                 Update();
-            }   
-        }
-        private void FindDr___AddAddress_Load(object sender, EventArgs e)
-        {
-
-        }
-        private void loadProvinces()
-        {
-            button_addAddress.Enabled = false;
-            comboBox1.DataSource = null;
-            provinces = addressBll.getProvincesList();
-            foreach (Province province in provinces)
-            {
-                comboBox1.Items.Add(province.name);
             }
         }
 
-        // Button Cancel -------------------------------------------------------------------
-        private void button_cancel_Click(object sender, EventArgs e)
+        private void FindDr___Office_manager_Load(object sender, EventArgs e)
         {
-            this.Close();
+            getAllOffices();
         }
 
-        //Button Add address ---------------------------------------------------------------
         private void button_addAddress_Click(object sender, EventArgs e)
         {
-            
             string address1 = textBox_Address1.Text;
             string address2 = textBox_Address2.Text;
             int addressNumber = int.Parse(textBox_AddressNum.Text);
             Province selectedProvince = null;
             foreach (Province province in provinces)
             {
-                if (province.name == comboBox1.Text)
+                if (province.name == comboBox2.Text)
                 {
                     selectedProvince = province;
                     break;
@@ -102,20 +83,46 @@ namespace UAICampo.UI
             newAddress.AddressNumber = addressNumber;
             newAddress.Province = selectedProvince;
 
-            addressBll.addUserAddress(newAddress, UserInstance.getInstance().user);
-            this.Close();
-        }
-        //Button Google Maps --------------------------------------------------------------------
-        private void button_FindAddress_Click(object sender, EventArgs e)
-        {
-            string address1 = textBox_Address1.Text;
-            string address2 = textBox_Address2.Text;
-            int addressNumber = int.Parse(textBox_AddressNum.Text);
-            string province = comboBox1.Text;
-            webBrowser1.Navigate(GoogleMapsBuilder.addressBuilder(address1, address2, addressNumber, province));
+            addressBll.AddOffice(newAddress, UserInstance.getInstance().user);
+
+            textBox_Address1.Text = "";
+            textBox_Address2.Text = "";
+            textBox_AddressNum.Text = "";
+            comboBox2.Text = "";
+
+            getAllOffices();
         }
 
-        // Method used for validating completition of required fields ---------------------------
+        private void loadProvinces()
+        {
+            button_addAddress.Enabled = false;
+            comboBox1.DataSource = null;
+            provinces = addressBll.getProvincesList();
+            foreach (Province province in provinces)
+            {
+                comboBox2.Items.Add(province.name);
+            }
+        }
+
+        private void getAllOffices()
+        {
+            comboBox1.Items.Clear();
+            offices = addressBll.getAllOffices(UserInstance.getInstance().user);
+            foreach (Address address in offices)
+            {
+                comboBox1.Items.Add($"{address.Address1}");
+            }
+        }
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (Address address in offices)
+            {
+                if (address.Address1 == comboBox1.Text)
+                {
+                    webBrowser1.Navigate(GoogleMapsBuilder.addressBuilder(address.Address1, address.Address2, address.AddressNumber, address.City));
+                }
+            }
+        }
         private bool validateFields()
         {
             bool validated = true;
@@ -123,12 +130,10 @@ namespace UAICampo.UI
             if (textBox_Address1.Text == "") { validated = false; }
             if (textBox_Address2.Text == "") { validated = false; }
             if (textBox_AddressNum.Text == "" || !int.TryParse(textBox_AddressNum.Text, out _)) { validated = false; }
-            if (comboBox1.Text == "") { validated = false; }
+            if (comboBox2.Text == "") { validated = false; }
 
             return validated;
         }
-
-        //Validation controller event handlers-----------------------------------------------------------------------------
         private void textBox_Address1_TextChanged(object sender, EventArgs e)
         {
             if (!validateFields()) { button_addAddress.Enabled = false; }
@@ -147,24 +152,23 @@ namespace UAICampo.UI
             else { button_addAddress.Enabled = true; }
         }
 
-        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        private void comboBox2_TextChanged(object sender, EventArgs e)
         {
             if (!validateFields()) { button_addAddress.Enabled = false; }
             else { button_addAddress.Enabled = true; }
         }
 
-        private void comboBox1_DropDownClosed(object sender, EventArgs e)
+        private void comboBox2_DropDownClosed(object sender, EventArgs e)
         {
             if (!validateFields()) { button_addAddress.Enabled = false; }
             else { button_addAddress.Enabled = true; }
         }
 
-        private void comboBox1_TextChanged(object sender, EventArgs e)
+        private void comboBox2_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (!validateFields()) { button_addAddress.Enabled = false; }
             else { button_addAddress.Enabled = true; }
         }
-        //Validation controller event handlers-----------------------------------------------------------------------------
         private void ValidateForm()
         {
             try
@@ -233,27 +237,11 @@ namespace UAICampo.UI
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Address2"), label_Address2));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "AddressNum"), label_AddressNum));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "AddressProvince"), label_AddressProvince));
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "AddAddress"), label_title_addAddress));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Office"), label_Title_Office));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Cancel"), button_cancel));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Submit"), button_addAddress));
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "FindAddress"), button_FindAddress));
-        }
-        private void openChildSubForm(Form subForm)
-        {
-            if (activeForm != null)
-            {
-                activeForm.Close();
-            }
-            activeForm = subForm;
-            subForm.TopLevel = false;
-            subForm.FormBorderStyle = FormBorderStyle.None;
-            subForm.Dock = DockStyle.Fill;
-            this.Controls.Add(subForm);
-            this.Tag = subForm;
-            subForm.BringToFront();
-            subForm.Show();
         }
 
-       
+        
     }
 }

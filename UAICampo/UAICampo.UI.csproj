@@ -100,6 +100,12 @@
     <Compile Include="FindDr - Main form.Designer.cs">
       <DependentUpon>FindDr - Main form.cs</DependentUpon>
     </Compile>
+    <Compile Include="FindDr - Office manager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindDr - Office manager.Designer.cs">
+      <DependentUpon>FindDr - Office manager.cs</DependentUpon>
+    </Compile>
     <Compile Include="FindDr - Search.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FindDr - Main form.resx">
       <DependentUpon>FindDr - Main form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindDr - Office manager.resx">
+      <DependentUpon>FindDr - Office manager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FindDr - User Tab.resx">
       <DependentUpon>FindDr - User Tab.cs</DependentUpon>

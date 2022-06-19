@@ -82,6 +82,11 @@ namespace UAICampo.UI
                 login.Show();
             }
         }
+        //Button Office ---------------------------------------------------------------------------------------
+        private void button_DoctorsOffice_Click(object sender, EventArgs e)
+        {
+            openChildSubForm(new FindDr___Office_manager());
+        }
         //------------------------------------------------------------------------------------------------------
         #endregion
         private void ValidateForm()
@@ -152,8 +157,12 @@ namespace UAICampo.UI
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Logout"), button_logout));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Search"), button_userSearch));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Profile"), button_profile));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Appointments"), button_Appointment));
             ////-------------------------------------------------------------------------------------------------------
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(26, "Office"), button_DoctorsOffice));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(27, "Practices"), button_Practices));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(2, "Admin"), button_adminPanel));
+
             //controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(14, ""), profile_Manager1));
             //controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(15, ""), languageEditorController1));
         }
@@ -174,6 +183,11 @@ namespace UAICampo.UI
         }
 
         private void panel_lateralRow_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel_subForm_Paint(object sender, PaintEventArgs e)
         {
 
         }

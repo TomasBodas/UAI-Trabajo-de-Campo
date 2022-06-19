@@ -31,6 +31,9 @@ namespace UAICampo.UI
         {
             this.label_userName = new System.Windows.Forms.Label();
             this.panel_lateralRow = new System.Windows.Forms.Panel();
+            this.button_DoctorsOffice = new System.Windows.Forms.Button();
+            this.button_Appointment = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.languageController1 = new UAICampo.UI.Controllers.LanguageController();
             this.button_MyAccount = new System.Windows.Forms.Button();
             this.button_adminPanel = new System.Windows.Forms.Button();
@@ -38,7 +41,7 @@ namespace UAICampo.UI
             this.button_userSearch = new System.Windows.Forms.Button();
             this.button_profile = new System.Windows.Forms.Button();
             this.panel_subForm = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button_Practices = new System.Windows.Forms.Button();
             this.panel_lateralRow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -57,6 +60,9 @@ namespace UAICampo.UI
             // panel_lateralRow
             // 
             this.panel_lateralRow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
+            this.panel_lateralRow.Controls.Add(this.button_Practices);
+            this.panel_lateralRow.Controls.Add(this.button_DoctorsOffice);
+            this.panel_lateralRow.Controls.Add(this.button_Appointment);
             this.panel_lateralRow.Controls.Add(this.pictureBox1);
             this.panel_lateralRow.Controls.Add(this.languageController1);
             this.panel_lateralRow.Controls.Add(this.button_MyAccount);
@@ -71,6 +77,35 @@ namespace UAICampo.UI
             this.panel_lateralRow.Size = new System.Drawing.Size(200, 736);
             this.panel_lateralRow.TabIndex = 1;
             this.panel_lateralRow.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_lateralRow_Paint);
+            // 
+            // button_DoctorsOffice
+            // 
+            this.button_DoctorsOffice.Location = new System.Drawing.Point(3, 339);
+            this.button_DoctorsOffice.Name = "button_DoctorsOffice";
+            this.button_DoctorsOffice.Size = new System.Drawing.Size(194, 47);
+            this.button_DoctorsOffice.TabIndex = 8;
+            this.button_DoctorsOffice.Text = "Offices";
+            this.button_DoctorsOffice.UseVisualStyleBackColor = true;
+            this.button_DoctorsOffice.Click += new System.EventHandler(this.button_DoctorsOffice_Click);
+            // 
+            // button_Appointment
+            // 
+            this.button_Appointment.Location = new System.Drawing.Point(3, 286);
+            this.button_Appointment.Name = "button_Appointment";
+            this.button_Appointment.Size = new System.Drawing.Size(194, 47);
+            this.button_Appointment.TabIndex = 7;
+            this.button_Appointment.Text = "Appointments";
+            this.button_Appointment.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::UAICampo.UI.Properties.Resources.Logo_FindDr;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(191, 116);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // languageController1
             // 
@@ -90,7 +125,7 @@ namespace UAICampo.UI
             // 
             // button_adminPanel
             // 
-            this.button_adminPanel.Location = new System.Drawing.Point(3, 286);
+            this.button_adminPanel.Location = new System.Drawing.Point(3, 572);
             this.button_adminPanel.Name = "button_adminPanel";
             this.button_adminPanel.Size = new System.Drawing.Size(194, 47);
             this.button_adminPanel.TabIndex = 5;
@@ -135,16 +170,16 @@ namespace UAICampo.UI
             this.panel_subForm.Name = "panel_subForm";
             this.panel_subForm.Size = new System.Drawing.Size(1236, 736);
             this.panel_subForm.TabIndex = 2;
+            this.panel_subForm.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_subForm_Paint);
             // 
-            // pictureBox1
+            // button_Practices
             // 
-            this.pictureBox1.Image = global::UAICampo.UI.Properties.Resources.Logo_FindDr;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(191, 116);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.button_Practices.Location = new System.Drawing.Point(3, 392);
+            this.button_Practices.Name = "button_Practices";
+            this.button_Practices.Size = new System.Drawing.Size(194, 47);
+            this.button_Practices.TabIndex = 9;
+            this.button_Practices.Text = "Offices";
+            this.button_Practices.UseVisualStyleBackColor = true;
             // 
             // FindDr___Main_form
             // 
@@ -175,5 +210,8 @@ namespace UAICampo.UI
         private Controllers.LanguageController languageController1;
         private System.Windows.Forms.Button button_MyAccount;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button button_DoctorsOffice;
+        private System.Windows.Forms.Button button_Appointment;
+        private System.Windows.Forms.Button button_Practices;
     }
 }

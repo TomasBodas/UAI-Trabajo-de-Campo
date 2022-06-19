@@ -69,12 +69,14 @@ namespace UAICampo.DAL.SQL
         private const string COLUMN_ADDRESS_FK_City = "FK_City";
         private const string COLUMN_ADDRESS_FK_Province = "FK_Province";
         private const string COLUMN_ADDRESS_FK_Account = "FK_Account";
+        private const string COLUMN_ADDRESS_ISOFFICE = "isOffice";
         private static readonly string PARAM_ADDRESS_ADDRESS1 = $"@{COLUMN_ADDRESS_ADDRESS1}";
         private static readonly string PARAM_ADDRESS_ADDRESS2 = $"@{COLUMN_ADDRESS_ADDRESS2}";
         private static readonly string PARAM_ADDRESS_ADDRESSNumber = $"@{COLUMN_ADDRESS_ADDRESSNumber}";
         private static readonly string PARAM_ADDRESS_FK_City = $"@{COLUMN_ADDRESS_FK_City}";
         private static readonly string PARAM_ADDRESS_FK_Province = $"@{COLUMN_ADDRESS_FK_Province}";
         private static readonly string PARAM_ADDRESS_FK_ACCOUNT = $"@{COLUMN_ADDRESS_FK_Account}";
+        private static readonly string PARAM_ADDRESS_ISOFFICE = $"@{COLUMN_ADDRESS_ISOFFICE}";
 
         //Provinces table columns
         private const string COLUMN_PROVINCES_ID = "Id";
@@ -461,7 +463,8 @@ namespace UAICampo.DAL.SQL
                                 $" FROM {TABLE_address}" +
                                 $" INNER JOIN {TABLE_provinces}" +
                                 $" ON {TABLE_provinces}.{COLUMN_PROVINCES_ID} = {TABLE_address}.{COLUMN_ADDRESS_FK_Province}" +
-                                $" WHERE {TABLE_address}.{COLUMN_ADDRESS_FK_Account} = {PARAM_ADDRESS_FK_ACCOUNT}";
+                                $" WHERE {TABLE_address}.{COLUMN_ADDRESS_FK_Account} = {PARAM_ADDRESS_FK_ACCOUNT} " +
+                                $" AND {TABLE_address}.{COLUMN_ADDRESS_ISOFFICE} = 0";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
@@ -489,6 +492,57 @@ namespace UAICampo.DAL.SQL
 
             return address;
         }
+        public List<Address> getAllOffices(User user)
+        {
+            List<Address> addressList = new List<Address>();
+
+            Address address = null;
+            Province province = null;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {TABLE_address}.{COLUMN_ADDRESS_ADDRESS1}," +
+                                        $" {TABLE_address}.{COLUMN_ADDRESS_ADDRESS2}," +
+                                        $" {TABLE_address}.{COLUMN_ADDRESS_ADDRESSNumber}," +
+                                        $" {TABLE_provinces}.{COLUMN_PROVINCES_NAME}," +
+                                        $" {TABLE_provinces}.{COLUMN_PROVINCES_ID}" +
+                                $" FROM {TABLE_address}" +
+                                $" INNER JOIN {TABLE_provinces}" +
+                                $" ON {TABLE_provinces}.{COLUMN_PROVINCES_ID} = {TABLE_address}.{COLUMN_ADDRESS_FK_Province}" +
+                                $" WHERE {TABLE_address}.{COLUMN_ADDRESS_FK_Account} = {PARAM_ADDRESS_FK_ACCOUNT} " +
+                                $" AND {TABLE_address}.{COLUMN_ADDRESS_ISOFFICE} = 1";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_FK_ACCOUNT, user.Id);
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            address = new Address();
+                            province = new Province();
+
+                            address.Address1 = (string)sqlReader[0];
+                            address.Address2 = (string)sqlReader[1];
+                            address.AddressNumber = (int)sqlReader[2];
+                            province.name = (string)sqlReader[3];
+                            province.id = (int)sqlReader[4];
+
+                            address.Province = province;
+
+                            addressList.Add(address);
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+
+            return addressList;
+        }
+
         public bool addUserAddress(Address address, User user)
         {
             bool success = false;
@@ -501,12 +555,14 @@ namespace UAICampo.DAL.SQL
                                                            $" {COLUMN_ADDRESS_ADDRESS1}," +
                                                            $" {COLUMN_ADDRESS_ADDRESS2}," +
                                                            $" {COLUMN_ADDRESS_ADDRESSNumber}," +
-                                                           $" {COLUMN_ADDRESS_FK_Province})" +
+                                                           $" {COLUMN_ADDRESS_FK_Province}," +
+                                                           $" {COLUMN_ADDRESS_ISOFFICE})" +
                                 $" VALUES ( {PARAM_ADDRESS_FK_ACCOUNT}, " +
                                          $" {PARAM_ADDRESS_ADDRESS1}," +
                                          $" {PARAM_ADDRESS_ADDRESS2}," +
                                          $" {PARAM_ADDRESS_ADDRESSNumber}," +
-                                         $" {PARAM_ADDRESS_FK_Province})";
+                                         $" {PARAM_ADDRESS_FK_Province}," +
+                                         $" {PARAM_ADDRESS_ISOFFICE})";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
@@ -515,6 +571,56 @@ namespace UAICampo.DAL.SQL
                     sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_ADDRESS2, address.Address2);
                     sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_ADDRESSNumber, address.AddressNumber);
                     sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_FK_Province, address.Province.id);
+                    sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_ISOFFICE, false);
+
+                    try
+                    {
+                        int changes = sqlCommand.ExecuteNonQuery();
+
+                        if (changes == 1)
+                        {
+                            success = true;
+                        }
+                    }
+                    catch (Exception)
+                    { }
+
+                }
+
+                sqlConnection.Close();
+            }
+
+            return success;
+        }
+        public bool AddOffice(Address address, User user)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO {TABLE_address} ({COLUMN_ADDRESS_FK_Account}," +
+                                                           $" {COLUMN_ADDRESS_ADDRESS1}," +
+                                                           $" {COLUMN_ADDRESS_ADDRESS2}," +
+                                                           $" {COLUMN_ADDRESS_ADDRESSNumber}," +
+                                                           $" {COLUMN_ADDRESS_FK_Province}," +
+                                                           $" {COLUMN_ADDRESS_ISOFFICE})" +
+                                $" VALUES ( {PARAM_ADDRESS_FK_ACCOUNT}, " +
+                                         $" {PARAM_ADDRESS_ADDRESS1}," +
+                                         $" {PARAM_ADDRESS_ADDRESS2}," +
+                                         $" {PARAM_ADDRESS_ADDRESSNumber}," +
+                                         $" {PARAM_ADDRESS_FK_Province}," +
+                                         $" {PARAM_ADDRESS_ISOFFICE})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_FK_ACCOUNT, user.Id);
+                    sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_ADDRESS1, address.Address1);
+                    sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_ADDRESS2, address.Address2);
+                    sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_ADDRESSNumber, address.AddressNumber);
+                    sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_FK_Province, address.Province.id);
+                    sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_ISOFFICE, true);
 
                     try
                     {

@@ -34,6 +34,13 @@ namespace UAICampo.BLL
         {   
             return dal_user.addUserAddress(address, user);
         }
-
+        public bool AddOffice(Address address, User user)
+        {
+            return dal_user.AddOffice(address, user);
+        }
+        public List<Address> getAllOffices(User user)
+        {
+            return dal_user.getAllOffices(user);
+        }
     }
 }
