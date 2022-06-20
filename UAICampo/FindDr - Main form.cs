@@ -86,6 +86,11 @@ namespace UAICampo.UI
         {
             openChildSubForm(new FindDr___Appointment());
         }
+        //Button CLient Appointments ---------------------------------------------------------------------------
+        private void button_ClientAppointments_Click(object sender, EventArgs e)
+        {
+            openChildSubForm(new FindDr___ClientAppointments());
+        }
         //Button Logout-----------------------------------------------------------------------------------------
         private void button_logout_Click(object sender, EventArgs e)
         {

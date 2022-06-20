@@ -186,6 +186,10 @@ namespace UAICampo.BLL
         {
             return dal_user.getAppointmentsPractitioner(user);
         }
+        public List<Appointment> getClientAppointments(User user)
+        {
+            return dal_user.getClientAppointments(user);
+        }
         public bool confirmTurn(Appointment appointment)
         {
             return dal_user.confirmTurn(appointment);

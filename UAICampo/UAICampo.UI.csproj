@@ -100,6 +100,12 @@
     <Compile Include="FindDr - Appointment.Designer.cs">
       <DependentUpon>FindDr - Appointment.cs</DependentUpon>
     </Compile>
+    <Compile Include="FindDr - ClientAppointments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindDr - ClientAppointments.Designer.cs">
+      <DependentUpon>FindDr - ClientAppointments.cs</DependentUpon>
+    </Compile>
     <Compile Include="FindDr - Main form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +195,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FindDr - Appointment.resx">
       <DependentUpon>FindDr - Appointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindDr - ClientAppointments.resx">
+      <DependentUpon>FindDr - ClientAppointments.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FindDr - Main form.resx">
       <DependentUpon>FindDr - Main form.cs</DependentUpon>

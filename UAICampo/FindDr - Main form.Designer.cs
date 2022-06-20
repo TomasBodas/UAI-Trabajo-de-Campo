@@ -31,18 +31,18 @@ namespace UAICampo.UI
         {
             this.label_userName = new System.Windows.Forms.Label();
             this.panel_lateralRow = new System.Windows.Forms.Panel();
+            this.button_ClientAppointments = new System.Windows.Forms.Button();
             this.button_Practices = new System.Windows.Forms.Button();
             this.button_DoctorsOffice = new System.Windows.Forms.Button();
             this.button_Appointment = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.languageController1 = new UAICampo.UI.Controllers.LanguageController();
             this.button_MyAccount = new System.Windows.Forms.Button();
             this.button_adminPanel = new System.Windows.Forms.Button();
             this.button_logout = new System.Windows.Forms.Button();
             this.button_userSearch = new System.Windows.Forms.Button();
             this.button_profile = new System.Windows.Forms.Button();
             this.panel_subForm = new System.Windows.Forms.Panel();
-            this.button_ClientAppointments = new System.Windows.Forms.Button();
-            this.languageController1 = new UAICampo.UI.Controllers.LanguageController();
             this.panel_lateralRow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -79,6 +79,16 @@ namespace UAICampo.UI
             this.panel_lateralRow.Size = new System.Drawing.Size(200, 736);
             this.panel_lateralRow.TabIndex = 1;
             this.panel_lateralRow.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_lateralRow_Paint);
+            // 
+            // button_ClientAppointments
+            // 
+            this.button_ClientAppointments.Location = new System.Drawing.Point(3, 286);
+            this.button_ClientAppointments.Name = "button_ClientAppointments";
+            this.button_ClientAppointments.Size = new System.Drawing.Size(194, 47);
+            this.button_ClientAppointments.TabIndex = 10;
+            this.button_ClientAppointments.Text = "Appointments";
+            this.button_ClientAppointments.UseVisualStyleBackColor = true;
+            this.button_ClientAppointments.Click += new System.EventHandler(this.button_ClientAppointments_Click);
             // 
             // button_Practices
             // 
@@ -119,6 +129,13 @@ namespace UAICampo.UI
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // languageController1
+            // 
+            this.languageController1.Location = new System.Drawing.Point(3, 678);
+            this.languageController1.Name = "languageController1";
+            this.languageController1.Size = new System.Drawing.Size(194, 26);
+            this.languageController1.TabIndex = 0;
             // 
             // button_MyAccount
             // 
@@ -177,22 +194,6 @@ namespace UAICampo.UI
             this.panel_subForm.Size = new System.Drawing.Size(1236, 736);
             this.panel_subForm.TabIndex = 2;
             this.panel_subForm.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_subForm_Paint);
-            // 
-            // button_ClientAppointments
-            // 
-            this.button_ClientAppointments.Location = new System.Drawing.Point(3, 286);
-            this.button_ClientAppointments.Name = "button_ClientAppointments";
-            this.button_ClientAppointments.Size = new System.Drawing.Size(194, 47);
-            this.button_ClientAppointments.TabIndex = 10;
-            this.button_ClientAppointments.Text = "Appointments";
-            this.button_ClientAppointments.UseVisualStyleBackColor = true;
-            // 
-            // languageController1
-            // 
-            this.languageController1.Location = new System.Drawing.Point(3, 678);
-            this.languageController1.Name = "languageController1";
-            this.languageController1.Size = new System.Drawing.Size(194, 26);
-            this.languageController1.TabIndex = 0;
             // 
             // FindDr___Main_form
             // 

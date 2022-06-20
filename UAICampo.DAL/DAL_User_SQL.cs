@@ -941,6 +941,65 @@ namespace UAICampo.DAL.SQL
             }
             return appointments;
         }
+        public List<Appointment> getClientAppointments(User user)
+        {
+            List<Appointment> appointments = new List<Appointment>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_ID}, " +
+                                     $" {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_FKACCOUNT}," +
+                                     $" {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_FKPRACTITIONER}," +
+                                     $" {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_FKOFFICE}," +
+                                     $" {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_FKPROCEDURE}," +
+                                     $" {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_TIME_PROCESS}," +
+                                     $" {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_TIME_APPOINTMENT}," +
+                                     $" {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_CONFIRMED} " +
+                               $" FROM {TABLE_APPOINTMENT}" +
+                               $" INNER JOIN {TABLE_user} AS accClient ON accClient.{COLUMN_USER_ID} = {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_FKACCOUNT}" +
+                               $" INNER JOIN {TABLE_user} AS accPract ON accPract.{COLUMN_USER_ID} = {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_FKPRACTITIONER}" +
+                               $" INNER JOIN {TABLE_address} ON {TABLE_address}.{COLUMN_ADDRESS_ID} = {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_FKOFFICE}" +
+                               $" INNER JOIN {TABLE_PROCEDURES} ON {TABLE_PROCEDURES}.{COLUMN_PROCEDURES_ID} = {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_FKPROCEDURE}" +
+                               $" WHERE accClient.{COLUMN_USER_ID} = {PARAM_USER_ID}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_USER_ID, user.Id);
+
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            Appointment appointment = new Appointment();
+                            appointment.Id = (int)sqlReader[0];
+                            appointment.ClientId = (int)sqlReader[1];
+                            appointment.PractitionerId = (int)sqlReader[2];
+                            appointment.OfficeId = (int)sqlReader[3];
+                            appointment.ProcedureId = (int)sqlReader[4];
+                            appointment.TimeReserved = (DateTime)sqlReader[5];
+                            appointment.TimeProcedure = (DateTime)sqlReader[6];
+                            appointment.Confirmed = (bool)sqlReader[7];
+
+
+                            appointments.Add(appointment);
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+
+            foreach (Appointment appointment in appointments)
+            {
+                appointment.Client = FindById(appointment.ClientId);
+                appointment.Practitioner = FindById(appointment.PractitionerId);
+                appointment.Office = FindOfficeById(appointment.OfficeId);
+                appointment.Procedure = findProcedureById(appointment.ProcedureId);
+            }
+            return appointments;
+        }
         public User FindById(int Id)
         {
             User user = null;
