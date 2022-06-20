@@ -106,6 +106,12 @@
     <Compile Include="FindDr - Office manager.Designer.cs">
       <DependentUpon>FindDr - Office manager.cs</DependentUpon>
     </Compile>
+    <Compile Include="FindDr - Practices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindDr - Practices.Designer.cs">
+      <DependentUpon>FindDr - Practices.cs</DependentUpon>
+    </Compile>
     <Compile Include="FindDr - Search.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,6 +154,7 @@
     <Compile Include="FrmRegister.Designer.cs">
       <DependentUpon>FrmRegister.cs</DependentUpon>
     </Compile>
+    <Compile Include="Procedures.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controllers\LanguageController.resx">
@@ -179,6 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FindDr - Office manager.resx">
       <DependentUpon>FindDr - Office manager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindDr - Practices.resx">
+      <DependentUpon>FindDr - Practices.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FindDr - Search.resx">
       <DependentUpon>FindDr - Search.cs</DependentUpon>

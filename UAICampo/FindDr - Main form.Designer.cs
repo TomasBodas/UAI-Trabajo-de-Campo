@@ -31,6 +31,7 @@ namespace UAICampo.UI
         {
             this.label_userName = new System.Windows.Forms.Label();
             this.panel_lateralRow = new System.Windows.Forms.Panel();
+            this.button_Practices = new System.Windows.Forms.Button();
             this.button_DoctorsOffice = new System.Windows.Forms.Button();
             this.button_Appointment = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -41,7 +42,6 @@ namespace UAICampo.UI
             this.button_userSearch = new System.Windows.Forms.Button();
             this.button_profile = new System.Windows.Forms.Button();
             this.panel_subForm = new System.Windows.Forms.Panel();
-            this.button_Practices = new System.Windows.Forms.Button();
             this.panel_lateralRow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -77,6 +77,16 @@ namespace UAICampo.UI
             this.panel_lateralRow.Size = new System.Drawing.Size(200, 736);
             this.panel_lateralRow.TabIndex = 1;
             this.panel_lateralRow.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_lateralRow_Paint);
+            // 
+            // button_Practices
+            // 
+            this.button_Practices.Location = new System.Drawing.Point(3, 392);
+            this.button_Practices.Name = "button_Practices";
+            this.button_Practices.Size = new System.Drawing.Size(194, 47);
+            this.button_Practices.TabIndex = 9;
+            this.button_Practices.Text = "Offices";
+            this.button_Practices.UseVisualStyleBackColor = true;
+            this.button_Practices.Click += new System.EventHandler(this.button_Practices_Click);
             // 
             // button_DoctorsOffice
             // 
@@ -171,15 +181,6 @@ namespace UAICampo.UI
             this.panel_subForm.Size = new System.Drawing.Size(1236, 736);
             this.panel_subForm.TabIndex = 2;
             this.panel_subForm.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_subForm_Paint);
-            // 
-            // button_Practices
-            // 
-            this.button_Practices.Location = new System.Drawing.Point(3, 392);
-            this.button_Practices.Name = "button_Practices";
-            this.button_Practices.Size = new System.Drawing.Size(194, 47);
-            this.button_Practices.TabIndex = 9;
-            this.button_Practices.Text = "Offices";
-            this.button_Practices.UseVisualStyleBackColor = true;
             // 
             // FindDr___Main_form
             // 

@@ -166,6 +166,17 @@ namespace UAICampo.BLL
         {
             return dal_profile.addSpeciality(speciality, user);
         }
-
+        public List<Procedure> loadProcedures(User user)
+        {
+            return dal_user.loadProcedures(user);
+        }
+        public bool addProcedure(Procedure procedure, User user)
+        {
+            return dal_user.addProcedure(procedure, user);
+        }
+        public bool removeProcedure(Procedure procedure)
+        {
+            return dal_user.removeProcedure(procedure);
+        }
     }
 }

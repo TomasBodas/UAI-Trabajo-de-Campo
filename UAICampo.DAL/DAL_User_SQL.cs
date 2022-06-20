@@ -24,6 +24,7 @@ namespace UAICampo.DAL.SQL
         private const string TABLE_address = "UserAdress";
         private const string TABLE_provinces = "Provinces";
         private const string TABLE_SPECIALITY = "MedicalSpeciality";
+        private const string TABLE_PROCEDURES = "Procedures";
 
         //user table columns
         private const string COLUMN_USER_ID = "id";
@@ -92,6 +93,18 @@ namespace UAICampo.DAL.SQL
         private static readonly string PARAM_MEDICALSPEC_ID = $"@{COLUMN_MEDICALSPEC_ID}";
         private static readonly string PARAM_MEDICALSPEC_NAME = $"@{COLUMN_MEDICALSPEC_NAME}";
         private static readonly string PARAM_MEDICALSPEC_DESC = $"@{COLUMN_MEDICALSPEC_DESC}";
+
+        //Procedures columns
+        private const string COLUMN_PROCEDURES_ID = "id";
+        private const string COLUMN_PROCEDURES_IDACCOUNT = "id_account";
+        private const string COLUMN_PROCEDURES_NAME = "Name";
+        private const string COLUMN_PROCEDURES_DESCRIPTION = "Description";
+        private const string COLUMN_PROCEDURES_COST = "Cost";
+        private static readonly string PARAM_PROCEDURES_ID = $"@{COLUMN_MEDICALSPEC_DESC}";
+        private static readonly string PARAM_PROCEDURES_IDACCOUNT = $"@{COLUMN_PROCEDURES_IDACCOUNT}";
+        private static readonly string PARAM_PROCEDURES_NAME = $"@{COLUMN_PROCEDURES_NAME}";
+        private static readonly string PARAM_PROCEDURES_DESCRIPTION = $"@{COLUMN_PROCEDURES_DESCRIPTION}";
+        private static readonly string PARAM_PROCEDURES_COST = $"@{COLUMN_PROCEDURES_COST}";
 
         private SqlConnection sqlConnection;
         private SqlCommand sqlCommand;
@@ -682,6 +695,114 @@ namespace UAICampo.DAL.SQL
 
             return specialities;
         }
+        public List<Procedure> loadProcedures(User user)
+        {
+            List<Procedure> procedures = new List<Procedure>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {COLUMN_PROCEDURES_ID}, {COLUMN_PROCEDURES_NAME}, {COLUMN_PROCEDURES_DESCRIPTION}, {COLUMN_PROCEDURES_COST}" +
+                                $" FROM {TABLE_PROCEDURES}" +
+                                $" WHERE {COLUMN_PROCEDURES_IDACCOUNT} = {PARAM_PROCEDURES_IDACCOUNT}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_PROCEDURES_IDACCOUNT, user.Id);
+
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            Procedure proc = new Procedure();
+                            proc.Id = (int)sqlReader[0];
+                            proc.Name = (string)sqlReader[1];
+                            proc.Desc = (string)sqlReader[2];
+                            proc.Price = (double)sqlReader[3];
+
+                            procedures.Add(proc);
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+
+            return procedures;
+        }
+        public bool addProcedure(Procedure procedure, User user)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO {TABLE_PROCEDURES} ( {COLUMN_PROCEDURES_IDACCOUNT}, {COLUMN_PROCEDURES_NAME}, {COLUMN_PROCEDURES_DESCRIPTION}, {COLUMN_PROCEDURES_COST})" +
+                                $" VALUES ({PARAM_PROCEDURES_IDACCOUNT}, {PARAM_PROCEDURES_NAME}, {PARAM_PROCEDURES_DESCRIPTION}, {PARAM_PROCEDURES_COST})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_PROCEDURES_IDACCOUNT, user.Id);
+                    sqlCommand.Parameters.AddWithValue(PARAM_PROCEDURES_NAME, procedure.Name);
+                    sqlCommand.Parameters.AddWithValue(PARAM_PROCEDURES_DESCRIPTION, procedure.Desc);
+                    sqlCommand.Parameters.AddWithValue(PARAM_PROCEDURES_COST, procedure.Price);
+
+                    try
+                    {
+                        int changes = sqlCommand.ExecuteNonQuery();
+
+                        if (changes == 1)
+                        {
+                            success = true;
+                        }
+                    }
+                    catch (Exception)
+                    { }
+
+                }
+
+                sqlConnection.Close();
+            }
+
+            return success;
+        }
+        public bool removeProcedure(Procedure procedure)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"DELETE FROM {TABLE_PROCEDURES}" +
+                                $" WHERE {COLUMN_PROCEDURES_ID} = {PARAM_PROCEDURES_ID}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_PROCEDURES_ID, procedure.Id);
+
+                    try
+                    {
+                        int changes = sqlCommand.ExecuteNonQuery();
+
+                        if (changes == 1)
+                        {
+                            success = true;
+                        }
+                    }
+                    catch (Exception)
+                    { }
+
+                }
+
+                sqlConnection.Close();
+            }
+
+            return success;
+        }
+
         public User FindById(int Id)
         {
             throw new NotImplementedException();

@@ -55,7 +55,7 @@ namespace UAICampo.UI
         {
 
         }
-        #region Form events [Button clicks...]
+
         //Button profile----------------------------------------------------------------------------------------
         private void button_profile_Click(object sender, EventArgs e)
         {
@@ -71,6 +71,16 @@ namespace UAICampo.UI
         {
             openChildSubForm(new FindDr___Admin());
         }
+        //Button Practices -----------------------------------------------------------------------------------
+        private void button_Practices_Click(object sender, EventArgs e)
+        {
+            openChildSubForm(new FindDr___Practices());
+        }
+        //Button Office ---------------------------------------------------------------------------------------
+        private void button_DoctorsOffice_Click(object sender, EventArgs e)
+        {
+            openChildSubForm(new FindDr___Office_manager());
+        }
         //Button Logout-----------------------------------------------------------------------------------------
         private void button_logout_Click(object sender, EventArgs e)
         {
@@ -82,13 +92,8 @@ namespace UAICampo.UI
                 login.Show();
             }
         }
-        //Button Office ---------------------------------------------------------------------------------------
-        private void button_DoctorsOffice_Click(object sender, EventArgs e)
-        {
-            openChildSubForm(new FindDr___Office_manager());
-        }
         //------------------------------------------------------------------------------------------------------
-        #endregion
+
         private void ValidateForm()
         {
             try
