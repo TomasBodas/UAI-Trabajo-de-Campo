@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -26,12 +27,14 @@ namespace UAICampo.UI
         Speciality selectedSpeciality = null;
         User selectedPractitioner = null;
         Address selectedOffice = null;
+        Procedure selectedProcedure = null;
         
 
         List<Province> provinces = new List<Province>();
         List<Speciality> Specialities = new List<Speciality>();
         List<User> foundResults = new List<User>();
         List<Address> offices = new List<Address>();
+        List<Procedure> procedures = new List<Procedure>();
 
         List<KeyValuePair<Tag, Control>> controllers = new List<KeyValuePair<Tag, Control>>();
         List<Services.Composite.Component> licenses = new List<Services.Composite.Component>();
@@ -71,6 +74,7 @@ namespace UAICampo.UI
             }
 
             panel2.Visible = false;
+            panel3.Visible = false;
 
             getUserAddress();
             ValidateForm();
@@ -110,9 +114,56 @@ namespace UAICampo.UI
             foundResults = userManagerBll.searchPractitionerResults(selectedSpeciality, selectedProvince);
             loadDataGridViewUser();
         }
+        //Button ask for new appointment -------------------------------------------------------------------
+        private void button_AskAppointment_Click(object sender, EventArgs e)
+        {
+            labelClientName.Text = selectedPractitioner.Name;
+            labelClientLastname.Text = selectedPractitioner.LastName;
+            labelClientEmail.Text = selectedPractitioner.Email;
+
+            labelOfficeAddres1.Text = selectedOffice.Address1;
+            labelOfficeAddress2.Text = selectedOffice.Address2;
+            labelOfficeProvince.Text = selectedOffice.Province.name;
+
+            procedures = userManagerBll.loadProcedures(selectedPractitioner);
+            dataGridView_procedures.DataSource = null;
+            dataGridView_procedures.DataSource = procedures;
+
+            panel3.Show();
+
+        }
+        //Button confirm appointment -----------------------------------------------------------------------
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (dataGridView_procedures.SelectedRows != null)
+            {
+                selectedProcedure = dataGridView_procedures.SelectedRows[0].DataBoundItem as Procedure;
+                Appointment appointment = new Appointment();
+                appointment.Client = UserInstance.getInstance().user;
+                appointment.Practitioner = selectedPractitioner;
+                appointment.Office = selectedOffice;
+                appointment.Procedure = selectedProcedure;
+                appointment.TimeReserved = DateTime.Now;
+                appointment.TimeProcedure = dateTimePicker1.Value;
+                appointment.Confirmed = false;
+
+                userManagerBll.addNewAppointment(appointment);
+                this.Close();
+            }
+            else
+            {
+                Interaction.MsgBox("Error -> Procedure null");
+            }
+        }
         //Button cancel -------------------------------------------------------------------------------------
         private void button_Cancel_Click(object sender, EventArgs e)
         {
+            panel2.Visible = false;
+            panel1.Visible = true;
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            panel3.Visible = false;
             panel2.Visible = false;
             panel1.Visible = true;
         }
@@ -295,6 +346,8 @@ namespace UAICampo.UI
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Search"), button_Search));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Cancel"), button_Cancel));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "AddAddress"), button_addAddress));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Submit"), button1));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Cancel"), button2));
         }
         private void openChildSubForm(Form subForm)
         {

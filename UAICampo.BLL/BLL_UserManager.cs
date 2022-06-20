@@ -190,5 +190,9 @@ namespace UAICampo.BLL
         {
             return dal_user.confirmTurn(appointment);
         }
+        public bool addNewAppointment(Appointment appointment)
+        {
+            return dal_user.addNewAppointment(appointment);
+        }
     }
 }

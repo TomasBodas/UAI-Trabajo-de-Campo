@@ -558,7 +558,8 @@ namespace UAICampo.DAL.SQL
                                         $" {TABLE_address}.{COLUMN_ADDRESS_ADDRESS2}," +
                                         $" {TABLE_address}.{COLUMN_ADDRESS_ADDRESSNumber}," +
                                         $" {TABLE_provinces}.{COLUMN_PROVINCES_NAME}," +
-                                        $" {TABLE_provinces}.{COLUMN_PROVINCES_ID}" +
+                                        $" {TABLE_provinces}.{COLUMN_PROVINCES_ID}," +
+                                        $" {TABLE_address}.{COLUMN_ADDRESS_ID}" +
                                 $" FROM {TABLE_address}" +
                                 $" INNER JOIN {TABLE_provinces}" +
                                 $" ON {TABLE_provinces}.{COLUMN_PROVINCES_ID} = {TABLE_address}.{COLUMN_ADDRESS_FK_Province}" +
@@ -581,6 +582,7 @@ namespace UAICampo.DAL.SQL
                             address.AddressNumber = (int)sqlReader[2];
                             province.name = (string)sqlReader[3];
                             province.id = (int)sqlReader[4];
+                            address.Id = (int)sqlReader[5];
 
                             address.Province = province;
 
@@ -1059,6 +1061,45 @@ namespace UAICampo.DAL.SQL
             }
 
             return procedure;
+        }
+        public bool addNewAppointment(Appointment appointment)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+                string query = $"INSERT INTO {TABLE_APPOINTMENT} " +
+                                                $" ({COLUMN_APPOINTMENT_FKACCOUNT}," +
+                                                $" {COLUMN_APPOINTMENT_FKPRACTITIONER}," +
+                                                $" {COLUMN_APPOINTMENT_FKOFFICE}," +
+                                                $" {COLUMN_APPOINTMENT_FKPROCEDURE}," +
+                                                $" {COLUMN_APPOINTMENT_TIME_PROCESS}," +
+                                                $" {COLUMN_APPOINTMENT_TIME_APPOINTMENT}," +
+                                                $" {COLUMN_APPOINTMENT_CONFIRMED})" +
+                                $" VALUES ({appointment.Client.Id}," +
+                                        $" {appointment.Practitioner.Id}," +
+                                        $" {appointment.Office.Id}," +
+                                        $" {appointment.Procedure.Id}," +
+                                        $" {PARAM_APPOINTMENT_TIME_PROCESS}," +
+                                        $" {PARAM_APPOINTMENT_TIME_APPOINTMENT}," +
+                                        $" {PARAM_APPOINTMENT_CONFIRMED})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_APPOINTMENT_TIME_PROCESS, appointment.TimeReserved);
+                    sqlCommand.Parameters.AddWithValue(PARAM_APPOINTMENT_TIME_APPOINTMENT, appointment.TimeProcedure);
+                    sqlCommand.Parameters.AddWithValue(PARAM_APPOINTMENT_CONFIRMED, appointment.Confirmed);
+
+                    int count = sqlCommand.ExecuteNonQuery();
+                    if (count == 1)
+                    {
+                        success = true;
+                    }
+                }
+            }
+
+            return success;
         }
         public bool confirmTurn(Appointment appointment)
         {
