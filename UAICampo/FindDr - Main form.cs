@@ -81,6 +81,11 @@ namespace UAICampo.UI
         {
             openChildSubForm(new FindDr___Office_manager());
         }
+        //Button appointments --------------------------------------------------------------------------------
+        private void button_Appointment_Click(object sender, EventArgs e)
+        {
+            openChildSubForm(new FindDr___Appointment());
+        }
         //Button Logout-----------------------------------------------------------------------------------------
         private void button_logout_Click(object sender, EventArgs e)
         {
@@ -162,7 +167,8 @@ namespace UAICampo.UI
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Logout"), button_logout));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Search"), button_userSearch));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Profile"), button_profile));
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Appointments"), button_Appointment));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Appointments"), button_ClientAppointments));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(28, "MedicalAppointments"), button_Appointment));
             ////-------------------------------------------------------------------------------------------------------
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(26, "Office"), button_DoctorsOffice));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(27, "Practices"), button_Practices));

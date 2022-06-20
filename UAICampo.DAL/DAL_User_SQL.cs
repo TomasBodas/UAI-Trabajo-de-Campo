@@ -26,6 +26,7 @@ namespace UAICampo.DAL.SQL
         private const string TABLE_SPECIALITY = "MedicalSpeciality";
         private const string TABLE_PROCEDURES = "Procedures";
         private const string TABLE_ACCOUNT_SPECIALITY = "account_speciality";
+        private const string TABLE_APPOINTMENT = "Appointment";
 
         //user table columns
         private const string COLUMN_USER_ID = "id";
@@ -66,6 +67,7 @@ namespace UAICampo.DAL.SQL
         private static readonly string PARAM_USERSTATUS_KF_ACCOUNT = $"@{COLUMN_USERSTATUS_FK_ACCOUNT}";
 
         //user address table columns
+        private const string COLUMN_ADDRESS_ID = "id";
         private const string COLUMN_ADDRESS_ADDRESS1 = "Address1";
         private const string COLUMN_ADDRESS_ADDRESS2 = "Address2";
         private const string COLUMN_ADDRESS_ADDRESSNumber = "AddressNumber";
@@ -73,6 +75,7 @@ namespace UAICampo.DAL.SQL
         private const string COLUMN_ADDRESS_FK_Province = "FK_Province";
         private const string COLUMN_ADDRESS_FK_Account = "FK_Account";
         private const string COLUMN_ADDRESS_ISOFFICE = "isOffice";
+        private static readonly string PARAM_ADDRESS_ID = $"@{COLUMN_ADDRESS_ID}";
         private static readonly string PARAM_ADDRESS_ADDRESS1 = $"@{COLUMN_ADDRESS_ADDRESS1}";
         private static readonly string PARAM_ADDRESS_ADDRESS2 = $"@{COLUMN_ADDRESS_ADDRESS2}";
         private static readonly string PARAM_ADDRESS_ADDRESSNumber = $"@{COLUMN_ADDRESS_ADDRESSNumber}";
@@ -112,6 +115,25 @@ namespace UAICampo.DAL.SQL
         private const string COLUMN_ACCOUNT_SPECIALITY_FKSPECIALITY = "FK_id_speciality";
         private static readonly string PARAM_ACCOUNT_SPECIALITY_FKACCOUNT = $"@{COLUMN_ACCOUNT_SPECIALITY_FKACCOUNT}";
         private static readonly string PARAM_ACCOUNT_SPECIALITY_FKSPECIALITY = $"@{COLUMN_ACCOUNT_SPECIALITY_FKSPECIALITY}";
+
+        //Appointment columns
+        private const string COLUMN_APPOINTMENT_ID = "id";
+        private const string COLUMN_APPOINTMENT_FKACCOUNT = "FK_Account";
+        private const string COLUMN_APPOINTMENT_FKPRACTITIONER = "FK_Practitioner";
+        private const string COLUMN_APPOINTMENT_FKOFFICE = "FK_Office";
+        private const string COLUMN_APPOINTMENT_FKPROCEDURE = "FK_Procedure";
+        private const string COLUMN_APPOINTMENT_TIME_PROCESS = "TimeProcess";
+        private const string COLUMN_APPOINTMENT_TIME_APPOINTMENT = "TimeAppointment";
+        private const string COLUMN_APPOINTMENT_CONFIRMED = "Confirmed";
+        private static readonly string PARAM_APPOINTMENT_ID = $"@{COLUMN_APPOINTMENT_ID}";
+        private static readonly string PARAM_APPOINTMENT_FKACCOUNT = $"@{COLUMN_APPOINTMENT_FKACCOUNT}";
+        private static readonly string PARAM_APPOINTMENT_FKPRACTITIONER = $"@{COLUMN_APPOINTMENT_FKPRACTITIONER}";
+        private static readonly string PARAM_APPOINTMENT_FKOFFICE = $"@{COLUMN_APPOINTMENT_FKOFFICE}";
+        private static readonly string PARAM_APPOINTMENT_FKPROCEDURE = $"@{COLUMN_APPOINTMENT_FKPROCEDURE}";
+        private static readonly string PARAM_APPOINTMENT_TIME_PROCESS = $"@{COLUMN_APPOINTMENT_TIME_PROCESS}";
+        private static readonly string PARAM_APPOINTMENT_TIME_APPOINTMENT = $"@{COLUMN_APPOINTMENT_TIME_APPOINTMENT}";
+        private static readonly string PARAM_APPOINTMENT_CONFIRMED = $"@{COLUMN_APPOINTMENT_CONFIRMED}";
+
 
         private SqlConnection sqlConnection;
         private SqlCommand sqlCommand;
@@ -858,9 +880,210 @@ namespace UAICampo.DAL.SQL
 
             return userList.ToList();
         }
+        public List<Appointment> getAppointmentsPractitioner(User user)
+        {
+            List<Appointment> appointments = new List<Appointment>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_ID}, " +
+                                     $" {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_FKACCOUNT}," +
+                                     $" {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_FKPRACTITIONER}," +
+                                     $" {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_FKOFFICE}," +
+                                     $" {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_FKPROCEDURE}," +
+                                     $" {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_TIME_PROCESS}," +
+                                     $" {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_TIME_APPOINTMENT}," +
+                                     $" {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_CONFIRMED} " +
+                               $" FROM {TABLE_APPOINTMENT}" +
+                               $" INNER JOIN {TABLE_user} AS accClient ON accClient.{COLUMN_USER_ID} = {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_FKACCOUNT}" +
+                               $" INNER JOIN {TABLE_user} AS accPract ON accPract.{COLUMN_USER_ID} = {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_FKPRACTITIONER}" +
+                               $" INNER JOIN {TABLE_address} ON {TABLE_address}.{COLUMN_ADDRESS_ID} = {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_FKOFFICE}" +
+                               $" INNER JOIN {TABLE_PROCEDURES} ON {TABLE_PROCEDURES}.{COLUMN_PROCEDURES_ID} = {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_FKPROCEDURE}" +
+                               $" WHERE accPract.{COLUMN_USER_ID} = {PARAM_USER_ID}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_USER_ID, user.Id);
+
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            Appointment appointment = new Appointment();
+                            appointment.Id = (int)sqlReader[0];
+                            appointment.ClientId= (int)sqlReader[1];
+                            appointment.PractitionerId = (int)sqlReader[2];
+                            appointment.OfficeId = (int)sqlReader[3];
+                            appointment.ProcedureId = (int)sqlReader[4];
+                            appointment.TimeReserved = (DateTime)sqlReader[5];
+                            appointment.TimeProcedure = (DateTime)sqlReader[6];
+                            appointment.Confirmed = (bool)sqlReader[7];
+
+
+                            appointments.Add(appointment);
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+
+            foreach (Appointment appointment in appointments)
+            {
+                appointment.Client = FindById(appointment.ClientId);
+                appointment.Practitioner = FindById(appointment.PractitionerId);
+                appointment.Office = FindOfficeById(appointment.OfficeId);
+                appointment.Procedure = findProcedureById(appointment.ProcedureId);
+            }
+            return appointments;
+        }
         public User FindById(int Id)
         {
-            throw new NotImplementedException();
+            User user = null;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {TABLE_user}.{COLUMN_USER_ID}, {TABLE_user}.{COLUMN_USER_USERNAME}, {TABLE_user}.{COLUMN_USER_EMAIL}, {TABLE_user}.{COLUMN_USER_NAME}, {TABLE_user}.{COLUMN_USER_LASTNAME}, {TABLE_user}.{COLUMN_USER_BIRTHDATE}, {TABLE_user}.{COLUMN_USER_DNI}, {TABLE_userStatus}.{COLUMN_USERSTATUS_BLOCKED}, {TABLE_userStatus}.{COLUMN_USERSTATUS_ATTEMPTS}" +
+                                $" FROM {TABLE_user}" +
+                                $" INNER JOIN {TABLE_userStatus} ON {TABLE_user}.{COLUMN_USER_ID} = {TABLE_userStatus}.{COLUMN_USERSTATUS_FK_ACCOUNT}" +
+                                $" WHERE {TABLE_user}.{COLUMN_USER_ID} = {Id}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            user = new User(new object[] {(int) sqlReader[0],
+                                                    (string) sqlReader[1],
+                                                    (string) sqlReader[2],
+                                                    (string) sqlReader[3],
+                                                    (string) sqlReader[4],
+                                                    (DateTime) sqlReader[5],
+                                                    (int) sqlReader[6]});
+
+                            user.IsBlocked = (bool)sqlReader[7];
+                            user.Attempts = (int)sqlReader[8];
+                        }
+                    }
+                    sqlConnection.Close();
+                    sqlReader.Close();
+                }
+            }
+            return user;
+        }
+
+        public Address FindOfficeById(int Id)
+        {
+            Address address = null;
+            Province province = null;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {TABLE_address}.{COLUMN_ADDRESS_ADDRESS1}," +
+                                        $" {TABLE_address}.{COLUMN_ADDRESS_ADDRESS2}," +
+                                        $" {TABLE_address}.{COLUMN_ADDRESS_ADDRESSNumber}," +
+                                        $" {TABLE_provinces}.{COLUMN_PROVINCES_NAME}," +
+                                        $" {TABLE_provinces}.{COLUMN_PROVINCES_ID}," +
+                                        $" {TABLE_address}.{COLUMN_ADDRESS_ID}" +
+                                $" FROM {TABLE_address}" +
+                                $" INNER JOIN {TABLE_provinces}" +
+                                $" ON {TABLE_provinces}.{COLUMN_PROVINCES_ID} = {TABLE_address}.{COLUMN_ADDRESS_FK_Province}" +
+                                $" WHERE {TABLE_address}.{COLUMN_ADDRESS_ID} = {PARAM_ADDRESS_ID} ";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_ID, Id);
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        address = new Address();
+                        province = new Province();
+
+                        while (sqlReader.Read())
+                        {
+                            address.Address1 = (string)sqlReader[0];
+                            address.Address2 = (string)sqlReader[1];
+                            address.AddressNumber = (int)sqlReader[2];
+                            province.name = (string)sqlReader[3];
+                            province.id = (int)sqlReader[4];
+                            address.Id = (int)sqlReader[5];
+
+                            address.Province = province;
+                        }
+                    }
+                    sqlConnection.Close();
+                    //sqlReader.Close();
+                }
+            }
+
+            return address;
+        }
+        public Procedure findProcedureById(int id)
+        {
+            Procedure procedure = null;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {COLUMN_PROCEDURES_ID}, {COLUMN_PROCEDURES_NAME}, {COLUMN_PROCEDURES_DESCRIPTION}, {COLUMN_PROCEDURES_COST}" +
+                                $" FROM {TABLE_PROCEDURES}" +
+                                $" WHERE {COLUMN_PROCEDURES_ID} = {PARAM_PROCEDURES_ID}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_PROCEDURES_ID, id);
+
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            procedure = new Procedure();
+                            procedure.Id = (int)sqlReader[0];
+                            procedure.Name = (string)sqlReader[1];
+                            procedure.Desc = (string)sqlReader[2];
+                            procedure.Price = (double)sqlReader[3];
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+
+            return procedure;
+        }
+        public bool confirmTurn(Appointment appointment)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+                string query = $"UPDATE {TABLE_APPOINTMENT}" +
+                                $" SET {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_CONFIRMED} = 1" +
+                                $" WHERE {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_ID} = {PARAM_APPOINTMENT_ID}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_APPOINTMENT_ID, appointment.Id);
+
+                    int count = sqlCommand.ExecuteNonQuery();
+                    if (count == 1)
+                    {
+                        success = true;
+                    }
+                }
+            }
+
+            return success;
         }
         public void Delete(int Id)
         {
