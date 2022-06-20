@@ -180,6 +180,9 @@
     <EmbeddedResource Include="FindDr - Office manager.resx">
       <DependentUpon>FindDr - Office manager.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FindDr - Search.resx">
+      <DependentUpon>FindDr - Search.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FindDr - User Tab.resx">
       <DependentUpon>FindDr - User Tab.cs</DependentUpon>
     </EmbeddedResource>

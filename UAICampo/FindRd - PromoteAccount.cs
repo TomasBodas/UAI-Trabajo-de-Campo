@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UAICampo.Abstractions.Observer;
+using UAICampo.BE;
 using UAICampo.BLL;
 using UAICampo.Services;
 using UAICampo.Services.Observer;
@@ -22,6 +24,9 @@ namespace UAICampo.UI
 
         List<KeyValuePair<Tag, Control>> controllers = new List<KeyValuePair<Tag, Control>>();
         List<Services.Composite.Component> licenses = new List<Services.Composite.Component>();
+
+        List<Speciality> Specialities = new List<Speciality>();
+        Speciality selectedSpeciality;
 
         BLL_SessionManager sessionBLL;
         BLL_LanguageManager languageBLL;
@@ -58,15 +63,16 @@ namespace UAICampo.UI
         }
         private void FindRd___PromoteAccount_Load(object sender, EventArgs e)
         {
-
+            getAllSpecialities();
         }
-        #region Form events [Button clicks...]
+
         //Button promote account -------------------------------------------------------------------------------
         private void button1_Click(object sender, EventArgs e)
         {
             int numeroMatricula = int.Parse(textBox_Matricula.Text);
             if (userManagerBLL.promoteAccount(numeroMatricula, UserInstance.getInstance().user))
             {
+                userManagerBLL.addSpeciality(selectedSpeciality, UserInstance.getInstance().user);
                 BLL_LogManager.addMessage(new Log
                 {
                     Date = DateTime.Now,
@@ -75,6 +81,7 @@ namespace UAICampo.UI
                     Type = LogType.Control,
                     User = UserInstance.getInstance().user
                 });
+                this.Close();
             }
             else
             {
@@ -86,6 +93,8 @@ namespace UAICampo.UI
                     Type = LogType.Control,
                     User = UserInstance.getInstance().user
                 });
+                Interaction.MsgBox("Error!");
+                this.Close();
             }
             promotion?.Invoke(this, null);
         }
@@ -93,7 +102,7 @@ namespace UAICampo.UI
         {
             this.Close();
         }
-        //Event textbox change - matricula
+        //Event textbox change - matricula ---------------------------------------------------------------------
         private void textBox_Matricula_TextChanged(object sender, EventArgs e)
         {
             if (int.TryParse(textBox_Matricula.Text, out _) && textBox_Matricula.Text != "")
@@ -105,8 +114,29 @@ namespace UAICampo.UI
                 button_Accept.Enabled = false;
             }
         }
+        // Get all speicalities --------------------------------------------------------------------------------
+        private void getAllSpecialities()
+        {
+            comboBox1.Items.Clear();
+            Specialities = userManagerBLL.getAllSpecialities();
+            foreach (Speciality speciality in Specialities)
+            {
+                comboBox1.Items.Add(speciality.Name);
+            }
+        }
+        //select speciality -------------------------------------------------------------------------------------
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (Speciality speciality in Specialities)
+            {
+                if (speciality.Name == comboBox1.Text)
+                {
+                    selectedSpeciality = speciality;
+                }
+            }
+        }
         //------------------------------------------------------------------------------------------------------
-        #endregion
+
         private void ValidateForm()
         {
             try

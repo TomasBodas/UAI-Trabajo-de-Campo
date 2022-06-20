@@ -52,7 +52,7 @@ namespace UAICampo.UI
             this.label_Title_Welcome.AutoSize = true;
             this.label_Title_Welcome.Font = new System.Drawing.Font("BIZ UDPGothic", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_Title_Welcome.ForeColor = System.Drawing.Color.White;
-            this.label_Title_Welcome.Location = new System.Drawing.Point(319, 289);
+            this.label_Title_Welcome.Location = new System.Drawing.Point(310, 262);
             this.label_Title_Welcome.Name = "label_Title_Welcome";
             this.label_Title_Welcome.Size = new System.Drawing.Size(143, 37);
             this.label_Title_Welcome.TabIndex = 0;
@@ -67,7 +67,7 @@ namespace UAICampo.UI
             this.button_PromoteAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_PromoteAccount.Font = new System.Drawing.Font("BIZ UDPGothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_PromoteAccount.ForeColor = System.Drawing.Color.White;
-            this.button_PromoteAccount.Location = new System.Drawing.Point(332, 227);
+            this.button_PromoteAccount.Location = new System.Drawing.Point(323, 200);
             this.button_PromoteAccount.Name = "button_PromoteAccount";
             this.button_PromoteAccount.Size = new System.Drawing.Size(139, 40);
             this.button_PromoteAccount.TabIndex = 2;
@@ -81,7 +81,7 @@ namespace UAICampo.UI
             this.label_userName.AutoSize = true;
             this.label_userName.Font = new System.Drawing.Font("BIZ UDPGothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_userName.ForeColor = System.Drawing.Color.White;
-            this.label_userName.Location = new System.Drawing.Point(461, 373);
+            this.label_userName.Location = new System.Drawing.Point(452, 346);
             this.label_userName.Name = "label_userName";
             this.label_userName.Size = new System.Drawing.Size(82, 21);
             this.label_userName.TabIndex = 3;
@@ -93,7 +93,7 @@ namespace UAICampo.UI
             this.label_name.AutoSize = true;
             this.label_name.Font = new System.Drawing.Font("BIZ UDPGothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_name.ForeColor = System.Drawing.Color.White;
-            this.label_name.Location = new System.Drawing.Point(461, 420);
+            this.label_name.Location = new System.Drawing.Point(452, 393);
             this.label_name.Name = "label_name";
             this.label_name.Size = new System.Drawing.Size(82, 21);
             this.label_name.TabIndex = 4;
@@ -105,7 +105,7 @@ namespace UAICampo.UI
             this.label_Title_Username.AutoSize = true;
             this.label_Title_Username.Font = new System.Drawing.Font("BIZ UDPGothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_Title_Username.ForeColor = System.Drawing.Color.White;
-            this.label_Title_Username.Location = new System.Drawing.Point(276, 373);
+            this.label_Title_Username.Location = new System.Drawing.Point(267, 346);
             this.label_Title_Username.Name = "label_Title_Username";
             this.label_Title_Username.Size = new System.Drawing.Size(82, 21);
             this.label_Title_Username.TabIndex = 5;
@@ -117,7 +117,7 @@ namespace UAICampo.UI
             this.label_Title_name.AutoSize = true;
             this.label_Title_name.Font = new System.Drawing.Font("BIZ UDPGothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_Title_name.ForeColor = System.Drawing.Color.White;
-            this.label_Title_name.Location = new System.Drawing.Point(276, 420);
+            this.label_Title_name.Location = new System.Drawing.Point(267, 393);
             this.label_Title_name.Name = "label_Title_name";
             this.label_Title_name.Size = new System.Drawing.Size(82, 21);
             this.label_Title_name.TabIndex = 6;
@@ -127,7 +127,7 @@ namespace UAICampo.UI
             // 
             this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox2.Image = global::UAICampo.UI.Properties.Resources._387628;
-            this.pictureBox2.Location = new System.Drawing.Point(323, 73);
+            this.pictureBox2.Location = new System.Drawing.Point(314, 46);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(157, 148);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -138,7 +138,7 @@ namespace UAICampo.UI
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(323, 73);
+            this.pictureBox1.Location = new System.Drawing.Point(314, 46);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(157, 148);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;

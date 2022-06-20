@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using UAICampo.BE;
 using UAICampo.Services;
 using UAICampo.Services.Composite;
 
@@ -17,6 +18,7 @@ namespace UAICampo.DAL
         private const string TABLE_PROFILE = "profile";
         private const string TABLE_PROFILE_LICENSE = "profile_license";
         private const string TABLE_MATRICULA = "Matriculas";
+        private const string TABLE_ACCOUNT_SPEC = "account_speciality";
 
 
         private const string COLUMN_PROFILE_IDPROFILE = "id";
@@ -40,6 +42,11 @@ namespace UAICampo.DAL
 
         private const string COLUMN_MATRICULA_MATRICULA = "Matricula";
         private static readonly string PARAM_MATRICULA_MATRICULA = $"@{COLUMN_MATRICULA_MATRICULA}";
+
+        private const string COLUMN_ACC_SPEC_IDACCOUNT = "FK_id_account";
+        private const string COLUMN_ACC_SPEC_IDSPEC = "FK_id_speciality";
+        private static readonly string PARAM_ACC_SPEC_IDACCOUNT = $"@{COLUMN_ACC_SPEC_IDACCOUNT}";
+        private static readonly string PARAM_ACC_SPEC_IDSPEC = $"@{COLUMN_ACC_SPEC_IDSPEC}";
 
         private SqlConnection sqlConnection;
         private SqlCommand sqlCommand;
@@ -400,6 +407,35 @@ namespace UAICampo.DAL
                     sqlConnection.Close();
                 }
             }
+
+            return success;
+        }
+        public bool addSpeciality(Speciality speciality, User user)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO {TABLE_ACCOUNT_SPEC} ({COLUMN_ACC_SPEC_IDACCOUNT}, {COLUMN_ACC_SPEC_IDSPEC})" +
+                            $" VALUES ( {PARAM_ACC_SPEC_IDACCOUNT}, {PARAM_ACC_SPEC_IDSPEC})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_ACC_SPEC_IDACCOUNT, user.Id);
+                    sqlCommand.Parameters.AddWithValue(PARAM_ACC_SPEC_IDSPEC, speciality.Id);
+
+                    int count = sqlCommand.ExecuteNonQuery();
+                    if (count == 1)
+                    {
+                        success = true;
+                    }
+                }
+
+                sqlConnection.Close();
+            }
+
 
             return success;
         }

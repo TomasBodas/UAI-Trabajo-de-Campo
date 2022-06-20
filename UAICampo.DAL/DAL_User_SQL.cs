@@ -23,6 +23,7 @@ namespace UAICampo.DAL.SQL
         private const string TABLE_userStatus = "accountStatus";
         private const string TABLE_address = "UserAdress";
         private const string TABLE_provinces = "Provinces";
+        private const string TABLE_SPECIALITY = "MedicalSpeciality";
 
         //user table columns
         private const string COLUMN_USER_ID = "id";
@@ -83,6 +84,14 @@ namespace UAICampo.DAL.SQL
         private const string COLUMN_PROVINCES_NAME = "name";
         private static readonly string PARAM_PROVINCES_ID = $"@{COLUMN_PROVINCES_ID}";
         private static readonly string PARAM_PROVINCES_NAME = $"@{COLUMN_PROVINCES_NAME}";
+
+        //Medical Speciality columns
+        private const string COLUMN_MEDICALSPEC_ID = "id";
+        private const string COLUMN_MEDICALSPEC_NAME = "name";
+        private const string COLUMN_MEDICALSPEC_DESC = "description";
+        private static readonly string PARAM_MEDICALSPEC_ID = $"@{COLUMN_MEDICALSPEC_ID}";
+        private static readonly string PARAM_MEDICALSPEC_NAME = $"@{COLUMN_MEDICALSPEC_NAME}";
+        private static readonly string PARAM_MEDICALSPEC_DESC = $"@{COLUMN_MEDICALSPEC_DESC}";
 
         private SqlConnection sqlConnection;
         private SqlCommand sqlCommand;
@@ -640,6 +649,38 @@ namespace UAICampo.DAL.SQL
             }
 
             return success;
+        }
+        public List<Speciality> getAllSpecialities()
+        {
+            List<Speciality> specialities = new List<Speciality>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query =  $"SELECT {COLUMN_MEDICALSPEC_ID}, {COLUMN_MEDICALSPEC_NAME}, {COLUMN_MEDICALSPEC_DESC}" +
+                                $" FROM {TABLE_SPECIALITY}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            Speciality spec = new Speciality();
+                            spec.Id = (int)sqlReader[0];
+                            spec.Name = (string)sqlReader[1];
+                            spec.Description = (string)sqlReader[2];
+
+                            specialities.Add(spec);
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+
+            return specialities;
         }
         public User FindById(int Id)
         {

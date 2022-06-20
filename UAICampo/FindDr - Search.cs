@@ -16,5 +16,10 @@ namespace UAICampo.UI
         {
             InitializeComponent();
         }
+
+        private void FindDr___Search_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

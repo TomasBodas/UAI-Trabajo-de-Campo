@@ -38,6 +38,8 @@ namespace UAICampo.UI
             this.textBox_Matricula = new System.Windows.Forms.TextBox();
             this.label_Title_Username = new System.Windows.Forms.Label();
             this.label_Title_Name = new System.Windows.Forms.Label();
+            this.label_speciality = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // button_Accept
@@ -87,7 +89,7 @@ namespace UAICampo.UI
             this.label_Matricula.AutoSize = true;
             this.label_Matricula.Font = new System.Drawing.Font("BIZ UDPGothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_Matricula.ForeColor = System.Drawing.Color.White;
-            this.label_Matricula.Location = new System.Drawing.Point(230, 267);
+            this.label_Matricula.Location = new System.Drawing.Point(230, 261);
             this.label_Matricula.Name = "label_Matricula";
             this.label_Matricula.Size = new System.Drawing.Size(75, 19);
             this.label_Matricula.TabIndex = 3;
@@ -126,7 +128,7 @@ namespace UAICampo.UI
             // 
             this.textBox_Matricula.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBox_Matricula.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox_Matricula.Location = new System.Drawing.Point(400, 267);
+            this.textBox_Matricula.Location = new System.Drawing.Point(400, 261);
             this.textBox_Matricula.Name = "textBox_Matricula";
             this.textBox_Matricula.Size = new System.Drawing.Size(173, 31);
             this.textBox_Matricula.TabIndex = 7;
@@ -156,12 +158,37 @@ namespace UAICampo.UI
             this.label_Title_Name.TabIndex = 9;
             this.label_Title_Name.Text = "label1";
             // 
+            // label_speciality
+            // 
+            this.label_speciality.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label_speciality.AutoSize = true;
+            this.label_speciality.Font = new System.Drawing.Font("BIZ UDPGothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_speciality.ForeColor = System.Drawing.Color.White;
+            this.label_speciality.Location = new System.Drawing.Point(230, 317);
+            this.label_speciality.Name = "label_speciality";
+            this.label_speciality.Size = new System.Drawing.Size(75, 19);
+            this.label_speciality.TabIndex = 10;
+            this.label_speciality.Text = "label1";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.comboBox1.Font = new System.Drawing.Font("BIZ UDGothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(400, 317);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(173, 29);
+            this.comboBox1.TabIndex = 11;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // FindRd___PromoteAccount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(82)))), ((int)(((byte)(117)))));
             this.ClientSize = new System.Drawing.Size(772, 535);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label_speciality);
             this.Controls.Add(this.label_Title_Name);
             this.Controls.Add(this.label_Title_Username);
             this.Controls.Add(this.textBox_Matricula);
@@ -190,5 +217,7 @@ namespace UAICampo.UI
         private System.Windows.Forms.TextBox textBox_Matricula;
         private System.Windows.Forms.Label label_Title_Username;
         private System.Windows.Forms.Label label_Title_Name;
+        private System.Windows.Forms.Label label_speciality;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

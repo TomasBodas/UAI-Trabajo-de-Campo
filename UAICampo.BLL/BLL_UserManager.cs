@@ -157,6 +157,15 @@ namespace UAICampo.BLL
             }
             return success;
         }
-        
+
+        public List<Speciality> getAllSpecialities()
+        {
+            return dal_user.getAllSpecialities();
+        }
+        public bool addSpeciality(Speciality speciality, User user)
+        {
+            return dal_profile.addSpeciality(speciality, user);
+        }
+
     }
 }
