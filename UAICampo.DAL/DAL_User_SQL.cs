@@ -25,6 +25,7 @@ namespace UAICampo.DAL.SQL
         private const string TABLE_provinces = "Provinces";
         private const string TABLE_SPECIALITY = "MedicalSpeciality";
         private const string TABLE_PROCEDURES = "Procedures";
+        private const string TABLE_ACCOUNT_SPECIALITY = "account_speciality";
 
         //user table columns
         private const string COLUMN_USER_ID = "id";
@@ -105,6 +106,12 @@ namespace UAICampo.DAL.SQL
         private static readonly string PARAM_PROCEDURES_NAME = $"@{COLUMN_PROCEDURES_NAME}";
         private static readonly string PARAM_PROCEDURES_DESCRIPTION = $"@{COLUMN_PROCEDURES_DESCRIPTION}";
         private static readonly string PARAM_PROCEDURES_COST = $"@{COLUMN_PROCEDURES_COST}";
+
+        //Account speciality columns
+        private const string COLUMN_ACCOUNT_SPECIALITY_FKACCOUNT = "FK_id_account";
+        private const string COLUMN_ACCOUNT_SPECIALITY_FKSPECIALITY = "FK_id_speciality";
+        private static readonly string PARAM_ACCOUNT_SPECIALITY_FKACCOUNT = $"@{COLUMN_ACCOUNT_SPECIALITY_FKACCOUNT}";
+        private static readonly string PARAM_ACCOUNT_SPECIALITY_FKSPECIALITY = $"@{COLUMN_ACCOUNT_SPECIALITY_FKSPECIALITY}";
 
         private SqlConnection sqlConnection;
         private SqlCommand sqlCommand;
@@ -802,7 +809,55 @@ namespace UAICampo.DAL.SQL
 
             return success;
         }
+        public List<User> searchPractitionerResults(Speciality speciality, Province province)
+        {
+            List<User> userList = new List<User>();
 
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {TABLE_user}.{COLUMN_USER_ID}," +
+                                     $" {TABLE_user}.{COLUMN_USER_USERNAME}," +
+                                     $" {TABLE_user}.{COLUMN_USER_NAME}," +
+                                     $" {TABLE_user}.{COLUMN_USER_LASTNAME}," +
+                                     $" {TABLE_user}.{COLUMN_USER_EMAIL}," +
+                                     $" {TABLE_user}.{COLUMN_USER_DNI}" +
+                              $" FROM {TABLE_user}" +
+                              $" INNER JOIN {TABLE_ACCOUNT_SPECIALITY} ON {TABLE_ACCOUNT_SPECIALITY}.{COLUMN_ACCOUNT_SPECIALITY_FKACCOUNT} = {TABLE_user}.{COLUMN_USER_ID}" +
+                              $" INNER JOIN {TABLE_SPECIALITY} ON {TABLE_SPECIALITY}.{COLUMN_MEDICALSPEC_ID} = {TABLE_ACCOUNT_SPECIALITY}.{COLUMN_ACCOUNT_SPECIALITY_FKSPECIALITY}" +
+                              $" INNER JOIN {TABLE_address} ON {TABLE_address}.{COLUMN_ADDRESS_FK_Account} = {TABLE_user}.{COLUMN_USER_ID}" +
+                              $" WHERE {TABLE_address}.{COLUMN_ADDRESS_FK_Province} = {PARAM_ADDRESS_FK_Province}" +
+                              $" AND {TABLE_SPECIALITY}.{COLUMN_MEDICALSPEC_ID} = {PARAM_MEDICALSPEC_ID}" +
+                              $" AND {TABLE_address}.{COLUMN_ADDRESS_ISOFFICE} = 1";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_ADDRESS_FK_Province, province.id);
+                    sqlCommand.Parameters.AddWithValue(PARAM_MEDICALSPEC_ID, speciality.Id);
+
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            User foundUser = new User();
+                            foundUser.Id = (int)sqlReader[0];
+                            foundUser.Username = (string)sqlReader[1];
+                            foundUser.Name = (string)sqlReader[2];
+                            foundUser.LastName = (string)sqlReader[3];
+                            foundUser.Email = (string)sqlReader[4];
+                            foundUser.Dni = (int)sqlReader[5];
+
+                            userList.Add(foundUser);
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+
+            return userList.ToList();
+        }
         public User FindById(int Id)
         {
             throw new NotImplementedException();

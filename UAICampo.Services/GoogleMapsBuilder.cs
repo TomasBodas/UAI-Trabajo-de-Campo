@@ -30,5 +30,39 @@ namespace UAICampo.Services
 
             return addressLink.ToString();
         }
+        public static string pathDistanceBuilder(string addressA1, string addresA2, int addressNumberA, string CityA, string addressB1, string addressB2, int addressNumberB, string CityB)
+        {
+            string BaseGoogleMapsURL = "http://google.com/maps/dir/";
+
+            StringBuilder addressLink = new StringBuilder();
+            addressLink.Append(BaseGoogleMapsURL);
+
+            if (addressA1 != "")
+            {
+                addressLink.Append(addressA1 + ",+");
+            }
+            if (addressNumberA != 0)
+            {
+                addressLink.Append(addressNumberA + ",+");
+            }
+            if (CityA != "")
+            {
+                addressLink.Append(CityA + "/");
+            }
+            if (addressB1 != "")
+            {
+                addressLink.Append(addressB1 + ",+");
+            }
+            if (addressNumberB != 0)
+            {
+                addressLink.Append(addressNumberB + ",+");
+            }
+            if (CityB != "")
+            {
+                addressLink.Append(CityB + ",+");
+            }
+
+            return addressLink.ToString();
+        }
     }
 }

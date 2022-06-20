@@ -178,5 +178,9 @@ namespace UAICampo.BLL
         {
             return dal_user.removeProcedure(procedure);
         }
+        public List<User> searchPractitionerResults(Speciality speciality, Province province)
+        {
+            return dal_user.searchPractitionerResults(speciality, province);
+        }
     }
 }
