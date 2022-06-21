@@ -24,6 +24,22 @@ namespace UAICampo.Services.Observer
         }
 
         public string Name { get; set; }
-       
+
+        public string translate(string key)
+        {
+            if (this.words.ContainsKey(key))
+            {
+                string word = this.words[key];
+
+                if (word != "")
+                    return this.words[key];
+                else
+                    return key;
+            }
+            else
+            {
+                return key;
+            }
+        }
     }
 }

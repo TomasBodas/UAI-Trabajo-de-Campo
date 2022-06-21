@@ -144,8 +144,6 @@ namespace UAICampo.UI.Controllers
             //Second value: Word Tag, used for language runtime changes
 
             //General controllers------------------------------------------------------------------------------------
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Add"), button_addLanguage));
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Remove"), button_deleteLanguage));
             //-------------------------------------------------------------------------------------------------------
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "LoadWords"), button_loadWords));
             //-------------------------------------------------------------------------------------------------------

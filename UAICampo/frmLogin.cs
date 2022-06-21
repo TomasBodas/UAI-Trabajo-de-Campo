@@ -16,8 +16,7 @@ namespace UAICampo.UI
 {
     public partial class frmLogin : Form, IObserver
     {
-
-        public event EventHandler userLogin;
+        FrmRegister frmregister = null;
 
         BLL_SessionManager sessionBLL;
         ControlCollection ctrl;
@@ -26,7 +25,7 @@ namespace UAICampo.UI
             InitializeComponent();
             sessionBLL = new BLL_SessionManager();
             ctrl = new ControlCollection(this);
-            ctrl.Add(btnLogin);
+            //ctrl.Add(btnLogin);
 
             if(UserInstance.getInstance().user!=null)
             {
@@ -78,8 +77,22 @@ namespace UAICampo.UI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            FrmRegister frmregister = new FrmRegister();
-            frmregister.Show();
+            if (frmregister == null)
+            {
+                frmregister = new FrmRegister();
+                frmregister.FormClosed += new FormClosedEventHandler(frmLogin_FormClosed);
+                frmregister.Show();
+            }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void frmLogin_FormClosed(object sender, EventArgs e)
+        {
+            frmregister = null;
         }
     }
 }

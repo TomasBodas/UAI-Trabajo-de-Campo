@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace UAICampo.UI
 {
-    public partial class frmAdmin : Form
+    public partial class frmChangePassword : Form
     {
-        public frmAdmin()
+        public frmChangePassword()
         {
             InitializeComponent();
         }

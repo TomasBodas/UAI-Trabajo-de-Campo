@@ -32,7 +32,6 @@ namespace UAICampo.DAL
 
         private SqlConnection sqlConnection;
         private SqlCommand sqlCommand;
-        private SqlDataReader sqlReader;
 
         public void Delete(int Id)
         {
@@ -65,7 +64,7 @@ namespace UAICampo.DAL
                         sqlCommand.Parameters.AddWithValue(PARAM_LOG_DATE, Entity.Date);
                         sqlCommand.Parameters.AddWithValue(PARAM_LOG_CODE, Entity.Code);
                         sqlCommand.Parameters.AddWithValue(PARAM_LOG_DESCRIPTION, Entity.Description);
-                        sqlCommand.Parameters.AddWithValue(PARAM_LOG_TYPE, Entity.Type);
+                        sqlCommand.Parameters.AddWithValue(PARAM_LOG_TYPE, Entity.Type.AsText());
                         sqlCommand.Parameters.AddWithValue(PARAM_LOG_USERNAME, Entity.User.Id);
 
                         sqlCommand.ExecuteNonQuery();
@@ -82,7 +81,7 @@ namespace UAICampo.DAL
                         sqlCommand.Parameters.AddWithValue(PARAM_LOG_DATE, Entity.Date);
                         sqlCommand.Parameters.AddWithValue(PARAM_LOG_CODE, Entity.Code);
                         sqlCommand.Parameters.AddWithValue(PARAM_LOG_DESCRIPTION, Entity.Description);
-                        sqlCommand.Parameters.AddWithValue(PARAM_LOG_TYPE, Entity.Type);
+                        sqlCommand.Parameters.AddWithValue(PARAM_LOG_TYPE, Entity.Type.AsText());
 
                         sqlCommand.ExecuteNonQuery();
                     }

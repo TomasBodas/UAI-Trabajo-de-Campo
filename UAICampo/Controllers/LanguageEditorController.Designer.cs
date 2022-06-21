@@ -61,7 +61,7 @@ namespace UAICampo.UI.Controllers
             // 
             this.button_loadWords.Location = new System.Drawing.Point(301, 24);
             this.button_loadWords.Name = "button_loadWords";
-            this.button_loadWords.Size = new System.Drawing.Size(75, 23);
+            this.button_loadWords.Size = new System.Drawing.Size(74, 23);
             this.button_loadWords.TabIndex = 2;
             this.button_loadWords.Text = "Load words";
             this.button_loadWords.UseVisualStyleBackColor = true;

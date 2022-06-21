@@ -36,19 +36,20 @@ namespace UAICampo.UI.Controllers
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.languagesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(180, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(41, 36);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // languagesToolStripMenuItem
             // 
+            this.languagesToolStripMenuItem.Image = global::UAICampo.UI.Properties.Resources.globe;
             this.languagesToolStripMenuItem.Name = "languagesToolStripMenuItem";
-            this.languagesToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
-            this.languagesToolStripMenuItem.Text = "Languages";
+            this.languagesToolStripMenuItem.Size = new System.Drawing.Size(28, 32);
             // 
             // LanguageController
             // 
@@ -56,7 +57,7 @@ namespace UAICampo.UI.Controllers
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.menuStrip1);
             this.Name = "LanguageController";
-            this.Size = new System.Drawing.Size(180, 26);
+            this.Size = new System.Drawing.Size(41, 36);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

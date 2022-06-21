@@ -82,11 +82,23 @@
     <Compile Include="Controllers\User Manager.Designer.cs">
       <DependentUpon>User Manager.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmAdmin.cs">
+    <Compile Include="frmChangePassword.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAdmin.Designer.cs">
-      <DependentUpon>frmAdmin.cs</DependentUpon>
+    <Compile Include="frmChangePassword.Designer.cs">
+      <DependentUpon>frmChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrator\frmLanguageEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrator\frmLanguageEditor.Designer.cs">
+      <DependentUpon>frmLanguageEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrator\frmLicenseManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrator\frmLicenseManager.Designer.cs">
+      <DependentUpon>frmLicenseManager.cs</DependentUpon>
     </Compile>
     <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
@@ -100,14 +112,35 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Administrator\frmProfileManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrator\frmProfileManager.Designer.cs">
+      <DependentUpon>frmProfileManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmRegister.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmRegister.Designer.cs">
       <DependentUpon>FrmRegister.cs</DependentUpon>
     </Compile>
+    <Compile Include="Administrator\frmUserManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrator\frmUserManager.Designer.cs">
+      <DependentUpon>frmUserManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Administrator\frmLicenseManager.resx">
+      <DependentUpon>frmLicenseManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrator\frmProfileManager.resx">
+      <DependentUpon>frmProfileManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrator\frmUserManager.resx">
+      <DependentUpon>frmUserManager.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controllers\LanguageController.resx">
       <DependentUpon>LanguageController.cs</DependentUpon>
     </EmbeddedResource>
@@ -125,6 +158,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\User Manager.resx">
       <DependentUpon>User Manager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrator\frmLanguageEditor.resx">
+      <DependentUpon>frmLanguageEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmChangePassword.resx">
+      <DependentUpon>frmChangePassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
@@ -172,6 +211,14 @@
       <Name>UAICampo.Services</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\background.jpg" />
+    <Content Include="Resources\background2.jpg" />
+    <Content Include="Resources\globe-png-transparent-background_3898899.png" />
+    <None Include="Resources\globe.png" />
+    <Content Include="Resources\logo.PNG" />
+    <Content Include="Resources\logo2.PNG" />
+    <Content Include="Resources\worktable logo.PNG" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

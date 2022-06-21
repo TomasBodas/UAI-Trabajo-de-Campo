@@ -20,9 +20,14 @@ namespace UAICampo.UI
         List<KeyValuePair<Tag, Control>> controllers = new List<KeyValuePair<Tag, Control>>();
 
         Profile userSetProfile;
-
+        frmLanguageEditor frmLanguageEditor = null;
+        frmLicenseManager frmLicenseManager = null;
+        frmProfileManager frmProfileManager = null;
+        frmUserManager frmUserManager = null;
+        frmChangePassword frmChangePassword = null;
         BLL_SessionManager sessionBLL;
         BLL_LanguageManager languageBLL;
+        Language selectedLanguage;
 
         public frmMain()
         {
@@ -53,7 +58,7 @@ namespace UAICampo.UI
         }
         private void itemLogout_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(selectedLanguage.translate("Confirmation"), selectedLanguage.translate("Confirm"), MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 sessionBLL.Logout();
                 ValidateForm();
@@ -63,7 +68,7 @@ namespace UAICampo.UI
         {
             if (UserInstance.getInstance().userIsLoggedIn())
             {
-                if (MessageBox.Show("Are you sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show(selectedLanguage.translate("Confirmation"), selectedLanguage.translate("Confirm"), MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     sessionBLL.Logout();
                     this.Close();
@@ -88,7 +93,7 @@ namespace UAICampo.UI
         }
         public void Update()
         {
-            Language selectedLanguage = UserInstance.getInstance().user.language;
+            selectedLanguage = UserInstance.getInstance().user.language;
 
             languageBLL.loadLanguageWords(selectedLanguage);
 
@@ -113,6 +118,8 @@ namespace UAICampo.UI
                 catch (Exception)
                 {}
             }
+
+            profileToolStripMenuItem.Text = selectedLanguage.translate("Profile");
         }
         private void ValidateForm()
         {
@@ -120,7 +127,6 @@ namespace UAICampo.UI
             {
                 if (UserInstance.getInstance().userIsLoggedIn())
                 {
-                    this.toolStripStatusLabel.Text = UserInstance.getInstance().user.Username;
                     this.label1.Text = UserInstance.getInstance().user.Id.ToString();
                     this.label2.Text = UserInstance.getInstance().user.Username.ToString();
                     this.label3.Text = UserInstance.getInstance().user.Email.ToString();
@@ -158,20 +164,10 @@ namespace UAICampo.UI
 
             //General controllers------------------------------------------------------------------------------------
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Logout"), button_logout));
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, ""), panel1));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Main"), this));
             //-------------------------------------------------------------------------------------------------------
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(3, ""), license_Manager1));
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(12, ""), user_Manager1));
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(14, ""), profile_Manager1));
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(15, ""), languageEditorController1));
 
         }
-
-        private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            
-        }
-
         private void languageController1_Load(object sender, EventArgs e)
         {
 
@@ -180,6 +176,136 @@ namespace UAICampo.UI
         private void user_Manager1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        #region Form Buttons
+        private void languageEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (frmLanguageEditor == null)
+            {
+                frmLanguageEditor = new frmLanguageEditor();
+                frmLanguageEditor.FormClosed += new FormClosedEventHandler(frmLanguage_FormClosed);
+                frmLanguageEditor.Show();
+            }
+            else
+            {
+                frmLanguageEditor.BringToFront();
+            }
+        }
+
+        private void userManagerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (frmUserManager == null)
+            {
+                frmUserManager = new frmUserManager();
+                frmUserManager.FormClosed += new FormClosedEventHandler(frmUser_FormClosed);
+                frmUserManager.Show();
+            }
+            else
+            {
+                frmUserManager.BringToFront();
+            }
+        }
+
+        private void profileManagerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (frmProfileManager == null)
+            {
+                frmProfileManager = new frmProfileManager();
+                frmProfileManager.FormClosed += new FormClosedEventHandler(frmProfile_FormClosed);
+                frmProfileManager.Show();
+            }
+            else
+            {
+                frmProfileManager.BringToFront();
+            }
+        }
+
+        private void licenseManagerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (frmLicenseManager == null)
+            {
+                frmLicenseManager = new frmLicenseManager();
+                frmLicenseManager.FormClosed += new FormClosedEventHandler(frmLicense_FormClosed);
+                frmLicenseManager.Show();
+            }
+            else
+            {
+                frmLicenseManager.BringToFront();
+            }
+        }
+
+        private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (frmChangePassword == null)
+            {
+                frmChangePassword = new frmChangePassword();
+                frmChangePassword.FormClosed += new FormClosedEventHandler(frmPassword_FormClosed);
+                frmChangePassword.Show();
+            }
+            else
+            {
+                frmChangePassword.BringToFront();
+            }
+        }
+
+        private void frmUser_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmUserManager = null;
+        }
+
+        private void frmProfile_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmProfileManager = null;
+        }
+
+        private void frmLicense_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmLicenseManager = null;
+        }
+
+        private void frmPassword_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmChangePassword = null;
+        }
+        private void frmLanguage_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmLanguageEditor = null;
+        }
+        #endregion
+          
+        private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (UserInstance.getInstance().userIsLoggedIn())
+            {
+                if (MessageBox.Show(selectedLanguage.translate("Confirmation"), selectedLanguage.translate("Confirm"), MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    sessionBLL.Logout();
+                    this.Close();
+                    frmLogin login = new frmLogin();
+                    login.Show();
+                }
+            }
+            else
+            {
+                button_logout.Enabled = false;
+            }
+        }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            if (UserInstance.getInstance().user != null)
+            {
+                if (MessageBox.Show(selectedLanguage.translate("Confirmation"), selectedLanguage.translate("Confirm"), MessageBoxButtons.YesNo) != DialogResult.Yes)
+                {
+                    e.Cancel = true;
+                }
+                else
+                {
+                    Application.Exit();
+                }
+            }
         }
     }
 }

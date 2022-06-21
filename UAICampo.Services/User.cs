@@ -18,11 +18,11 @@ namespace UAICampo.Services
             profileList = new List<Profile>();
         }
 
-        public User( string username, string email, string password) : base()
+        public User( string username, string password, string email) : base()
         {
             this.Username = username;
-            this.Email = email;
             this.Password = password;
+            this.Email = email;
         }
         public User(object[] itemArray) : base()
         {

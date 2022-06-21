@@ -106,9 +106,6 @@ namespace UAICampo.UI.Controllers
         private void button_showPassword_Click(object sender, EventArgs e)
         {
             changePasswordVisibility(textBox_password);
-        }
-        private void button_showPassword2_Click(object sender, EventArgs e)
-        {
             changePasswordVisibility(textBox_passwordConfirm);
         }
         private void changePasswordVisibility(TextBox textbox)
@@ -155,6 +152,7 @@ namespace UAICampo.UI.Controllers
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Password"), label_Password));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "PasswordConfirm"), label_PasswordConfirm));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Accept"), button_Confirm));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "ShowPassword"), button_showPassword));
         }
         private void Password_Change_Load(object sender, EventArgs e)
         {

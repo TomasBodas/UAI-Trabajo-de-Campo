@@ -26,6 +26,7 @@ namespace UAICampo.UI
         public FrmRegister()
         {
             InitializeComponent();
+
         }
 
         private void FrmRegister_Load(object sender, EventArgs e)
@@ -37,17 +38,31 @@ namespace UAICampo.UI
         private void buttonRegister_Click(object sender, EventArgs e)
         {
             USERNAME = textBoxUsername.Text;
-            PASSWORD = textBoxPassword.Text;
-            EMAIL = textBoxEmail.Text;
+            PASSWORD = textBoxEmail.Text;
+            EMAIL = textBoxPassword.Text;
 
-            if (bllUserManager.createUser(USERNAME, PASSWORD, EMAIL) != null)
+            if (!string.IsNullOrEmpty(textBoxPassword.Text) || !string.IsNullOrEmpty(textBoxConfirmPassword.Text))
             {
+                if (textBoxPassword.Text == textBoxConfirmPassword.Text)
+                {
+                    if (bllUserManager.createUser(USERNAME, PASSWORD, EMAIL) != null)
+                    {
 
-                this.Dispose();
+                        this.Close();
+                    }
+                    else
+                    {
+                        Interaction.MsgBox("This Username already exists. Please try a different one.");
+                    }
+                }
+                else
+                {
+                    Interaction.MsgBox("Password doesn't match. Please try again.");
+                }
             }
             else
             {
-                Interaction.MsgBox("This Username already exists. Please try a different one.");
+                Interaction.MsgBox("Please enter a password.");
             }
         }
     }

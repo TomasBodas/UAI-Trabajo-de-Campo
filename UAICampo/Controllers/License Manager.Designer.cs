@@ -67,27 +67,24 @@ namespace UAICampo.UI.Controllers
             this.label_LicenseId.AutoSize = true;
             this.label_LicenseId.Location = new System.Drawing.Point(153, 337);
             this.label_LicenseId.Name = "label_LicenseId";
-            this.label_LicenseId.Size = new System.Drawing.Size(35, 13);
+            this.label_LicenseId.Size = new System.Drawing.Size(0, 13);
             this.label_LicenseId.TabIndex = 2;
-            this.label_LicenseId.Text = "label1";
             // 
             // labelLicenseName
             // 
             this.labelLicenseName.AutoSize = true;
             this.labelLicenseName.Location = new System.Drawing.Point(153, 370);
             this.labelLicenseName.Name = "labelLicenseName";
-            this.labelLicenseName.Size = new System.Drawing.Size(35, 13);
+            this.labelLicenseName.Size = new System.Drawing.Size(0, 13);
             this.labelLicenseName.TabIndex = 3;
-            this.labelLicenseName.Text = "label1";
             // 
             // label_LicenseDescription
             // 
             this.label_LicenseDescription.AutoSize = true;
             this.label_LicenseDescription.Location = new System.Drawing.Point(153, 406);
             this.label_LicenseDescription.Name = "label_LicenseDescription";
-            this.label_LicenseDescription.Size = new System.Drawing.Size(35, 13);
+            this.label_LicenseDescription.Size = new System.Drawing.Size(0, 13);
             this.label_LicenseDescription.TabIndex = 4;
-            this.label_LicenseDescription.Text = "label1";
             // 
             // label_Title_LicenseId
             // 
