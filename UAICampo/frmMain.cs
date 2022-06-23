@@ -24,7 +24,7 @@ namespace UAICampo.UI
         frmLicenseManager frmLicenseManager = null;
         frmProfileManager frmProfileManager = null;
         frmUserManager frmUserManager = null;
-        frmChangePassword frmChangePassword = null;
+        frmProfile frmChangePassword = null;
         BLL_SessionManager sessionBLL;
         BLL_LanguageManager languageBLL;
         Language selectedLanguage;
@@ -32,7 +32,7 @@ namespace UAICampo.UI
         public frmMain()
         {
             InitializeComponent();
-        
+            this.Icon = Properties.Resources.w;
             sessionBLL = new BLL_SessionManager();
             languageBLL = new BLL_LanguageManager();
 
@@ -62,23 +62,6 @@ namespace UAICampo.UI
             {
                 sessionBLL.Logout();
                 ValidateForm();
-            }
-        }
-        private void button3_Click(object sender, EventArgs e)
-        {
-            if (UserInstance.getInstance().userIsLoggedIn())
-            {
-                if (MessageBox.Show(selectedLanguage.translate("Confirmation"), selectedLanguage.translate("Confirm"), MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    sessionBLL.Logout();
-                    this.Close();
-                    frmLogin login = new frmLogin();
-                    login.Show();
-                }
-            }
-            else
-            {
-                button_logout.Enabled = false;
             }
         }
         private bool isWindowOpen(string name)
@@ -120,19 +103,18 @@ namespace UAICampo.UI
             }
 
             profileToolStripMenuItem.Text = selectedLanguage.translate("Profile");
+            administratorToolStripMenuItem.Text = selectedLanguage.translate("Administrator");
+            changePasswordToolStripMenuItem.Text = selectedLanguage.translate("Information");
+            languageEditorToolStripMenuItem.Text = selectedLanguage.translate("LanguageEditor");
+            profileManagerToolStripMenuItem.Text = selectedLanguage.translate("ProfileManager");
+            licenseManagerToolStripMenuItem.Text = selectedLanguage.translate("LicenseManager");
+            userManagerToolStripMenuItem.Text = selectedLanguage.translate("UserManager");
+            logoutToolStripMenuItem.Text = selectedLanguage.translate("Logout");
         }
         private void ValidateForm()
         {
             try
             {
-                if (UserInstance.getInstance().userIsLoggedIn())
-                {
-                    this.label1.Text = UserInstance.getInstance().user.Id.ToString();
-                    this.label2.Text = UserInstance.getInstance().user.Username.ToString();
-                    this.label3.Text = UserInstance.getInstance().user.Email.ToString();
-                    this.label4.Text = UserInstance.getInstance().user.IsBlocked.ToString();
-                    this.label5.Text = UserInstance.getInstance().user.Attempts.ToString();
-                }
 
                 List<Services.Composite.Component> licenses = new List<Services.Composite.Component>();
 
@@ -163,7 +145,6 @@ namespace UAICampo.UI
             //Second value: Word Tag, used for language runtime changes
 
             //General controllers------------------------------------------------------------------------------------
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Logout"), button_logout));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Main"), this));
             //-------------------------------------------------------------------------------------------------------
 
@@ -239,7 +220,7 @@ namespace UAICampo.UI
         {
             if (frmChangePassword == null)
             {
-                frmChangePassword = new frmChangePassword();
+                frmChangePassword = new frmProfile();
                 frmChangePassword.FormClosed += new FormClosedEventHandler(frmPassword_FormClosed);
                 frmChangePassword.Show();
             }
@@ -283,12 +264,13 @@ namespace UAICampo.UI
                     sessionBLL.Logout();
                     this.Close();
                     frmLogin login = new frmLogin();
+                    for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+                    {
+                        if (Application.OpenForms[i].Name != "frmLogin")
+                            Application.OpenForms[i].Close();
+                    }
                     login.Show();
                 }
-            }
-            else
-            {
-                button_logout.Enabled = false;
             }
         }
 

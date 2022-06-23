@@ -23,6 +23,7 @@ namespace UAICampo.UI
         public frmLogin()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.w;
             sessionBLL = new BLL_SessionManager();
             ctrl = new ControlCollection(this);
             //ctrl.Add(btnLogin);

@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UAICampo.UI
+namespace UAICampo.UI.Controllers
 {
-    public partial class frmChangePassword : Form
+    public partial class ProposalController : UserControl
     {
-        public frmChangePassword()
+        public ProposalController()
         {
             InitializeComponent();
         }

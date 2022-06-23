@@ -1,7 +1,7 @@
 ﻿
 namespace UAICampo.UI
 {
-    partial class frmChangePassword
+    partial class frmBusqueda
     {
         /// <summary>
         /// Required designer variable.
@@ -29,32 +29,31 @@ namespace UAICampo.UI
         /// </summary>
         private void InitializeComponent()
         {
-            this.password_Change1 = new UAICampo.UI.Controllers.Password_Change();
+            this.searchUserController1 = new UAICampo.UI.Controllers.SearchUserController();
             this.SuspendLayout();
             // 
-            // password_Change1
+            // searchUserController1
             // 
-            this.password_Change1.Location = new System.Drawing.Point(30, 30);
-            this.password_Change1.Name = "password_Change1";
-            this.password_Change1.Size = new System.Drawing.Size(253, 184);
-            this.password_Change1.TabIndex = 0;
+            this.searchUserController1.Location = new System.Drawing.Point(12, 12);
+            this.searchUserController1.Name = "searchUserController1";
+            this.searchUserController1.Size = new System.Drawing.Size(697, 228);
+            this.searchUserController1.TabIndex = 0;
             // 
-            // frmChangePassword
+            // frmBusqueda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UAICampo.UI.Properties.Resources.background;
-            this.ClientSize = new System.Drawing.Size(320, 240);
-            this.Controls.Add(this.password_Change1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "frmChangePassword";
-            this.Text = "frmChangePassword";
+            this.ClientSize = new System.Drawing.Size(723, 254);
+            this.Controls.Add(this.searchUserController1);
+            this.Name = "frmBusqueda";
+            this.Text = "frmBusqueda";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Controllers.Password_Change password_Change1;
+        private Controllers.SearchUserController searchUserController1;
     }
 }

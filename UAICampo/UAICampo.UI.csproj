@@ -31,6 +31,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -46,6 +50,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\EpicasDetalleController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controllers\EpicasDetalleController.Designer.cs">
+      <DependentUpon>EpicasDetalleController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\EquipoController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controllers\EquipoController.Designer.cs">
+      <DependentUpon>EquipoController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\LanguageController.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -64,6 +80,30 @@
     <Compile Include="Controllers\License Manager.Designer.cs">
       <DependentUpon>License Manager.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\ProposalController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controllers\ProposalController.Designer.cs">
+      <DependentUpon>ProposalController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\SearchUserController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controllers\SearchUserController.Designer.cs">
+      <DependentUpon>SearchUserController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\TareaDetalleController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controllers\TareaDetalleController.Designer.cs">
+      <DependentUpon>TareaDetalleController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\TareasController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controllers\TareasController.Designer.cs">
+      <DependentUpon>TareasController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\Password Change.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -76,17 +116,41 @@
     <Compile Include="Controllers\Profile Manager.Designer.cs">
       <DependentUpon>Profile Manager.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\ProfileUser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controllers\ProfileUser.Designer.cs">
+      <DependentUpon>ProfileUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\User Manager.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controllers\User Manager.Designer.cs">
       <DependentUpon>User Manager.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmChangePassword.cs">
+    <Compile Include="Controllers\Equipo Manager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controllers\Equipo Manager.Designer.cs">
+      <DependentUpon>Equipo Manager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmBusqueda.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmChangePassword.Designer.cs">
-      <DependentUpon>frmChangePassword.cs</DependentUpon>
+    <Compile Include="frmBusqueda.Designer.cs">
+      <DependentUpon>frmBusqueda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmEquipoManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEquipoManager.Designer.cs">
+      <DependentUpon>frmEquipoManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProfile.Designer.cs">
+      <DependentUpon>frmProfile.cs</DependentUpon>
     </Compile>
     <Compile Include="Administrator\frmLanguageEditor.cs">
       <SubType>Form</SubType>
@@ -118,6 +182,12 @@
     <Compile Include="Administrator\frmProfileManager.Designer.cs">
       <DependentUpon>frmProfileManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmProposal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProposal.Designer.cs">
+      <DependentUpon>frmProposal.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmRegister.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +200,18 @@
     <Compile Include="Administrator\frmUserManager.Designer.cs">
       <DependentUpon>frmUserManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmEquipo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEquipo.Designer.cs">
+      <DependentUpon>frmEquipo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTareaDetalle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTareaDetalle.Designer.cs">
+      <DependentUpon>frmTareaDetalle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Administrator\frmLicenseManager.resx">
@@ -141,6 +223,12 @@
     <EmbeddedResource Include="Administrator\frmUserManager.resx">
       <DependentUpon>frmUserManager.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\EpicasDetalleController.resx">
+      <DependentUpon>EpicasDetalleController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\EquipoController.resx">
+      <DependentUpon>EquipoController.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controllers\LanguageController.resx">
       <DependentUpon>LanguageController.cs</DependentUpon>
     </EmbeddedResource>
@@ -150,11 +238,26 @@
     <EmbeddedResource Include="Controllers\License Manager.resx">
       <DependentUpon>License Manager.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\ProposalController.resx">
+      <DependentUpon>ProposalController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\SearchUserController.resx">
+      <DependentUpon>SearchUserController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\TareaDetalleController.resx">
+      <DependentUpon>TareaDetalleController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\TareasController.resx">
+      <DependentUpon>TareasController.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Password Change.resx">
       <DependentUpon>Password Change.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Profile Manager.resx">
       <DependentUpon>Profile Manager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\ProfileUser.resx">
+      <DependentUpon>ProfileUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\User Manager.resx">
       <DependentUpon>User Manager.cs</DependentUpon>
@@ -162,8 +265,17 @@
     <EmbeddedResource Include="Administrator\frmLanguageEditor.resx">
       <DependentUpon>frmLanguageEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmChangePassword.resx">
-      <DependentUpon>frmChangePassword.cs</DependentUpon>
+    <EmbeddedResource Include="Controllers\Equipo Manager.resx">
+      <DependentUpon>Equipo Manager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBusqueda.resx">
+      <DependentUpon>frmBusqueda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEquipoManager.resx">
+      <DependentUpon>frmEquipoManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProfile.resx">
+      <DependentUpon>frmProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
@@ -171,8 +283,17 @@
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmProposal.resx">
+      <DependentUpon>frmProposal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmRegister.resx">
       <DependentUpon>FrmRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEquipo.resx">
+      <DependentUpon>frmEquipo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTareaDetalle.resx">
+      <DependentUpon>frmTareaDetalle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -214,7 +335,12 @@
   <ItemGroup>
     <Content Include="Resources\background.jpg" />
     <Content Include="Resources\background2.jpg" />
+    <Content Include="Resources\Frost.jpg" />
     <Content Include="Resources\globe-png-transparent-background_3898899.png" />
+    <Content Include="Resources\Solid Vault.jpg" />
+    <Content Include="Resources\w.ico" />
+    <Content Include="Resources\w.png" />
+    <Content Include="w.ico" />
     <None Include="Resources\globe.png" />
     <Content Include="Resources\logo.PNG" />
     <Content Include="Resources\logo2.PNG" />
