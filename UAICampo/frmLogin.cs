@@ -32,12 +32,15 @@ namespace UAICampo.UI
             {
                 UserInstance.getInstance().user.Add(this);
             }
+            
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
             errorProvider1.Clear();
             errorProvider2.Clear();
+            btnLogin.BackgroundImageLayout = ImageLayout.Stretch;
+
             if (string.IsNullOrEmpty(txtUser.Text))
             {
                 txtUser.Focus();

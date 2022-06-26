@@ -207,6 +207,7 @@ namespace UAICampo.UI
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Promote"), label_Title));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Username"), label_Title_Username));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Name"), label_Title_Name));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Speciality"), label_speciality));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "License"), label_Matricula));
         }
 
