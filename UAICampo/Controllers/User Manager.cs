@@ -85,7 +85,7 @@ namespace UAICampo.UI.Controllers
         private void updateUserPofileList(User selectedUser)
         {
             dataGridView_userProfile.DataSource = null;
-            dataGridView_userProfile.DataSource = bll_userManager.getUserProfile(selectedUser);
+            dataGridView_userProfile.DataSource = bll_userManager.getUserProfiles(selectedUser);
         }
 
         private void updateGeneralProfileList(User selectedUser)

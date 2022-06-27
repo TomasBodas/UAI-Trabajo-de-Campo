@@ -16,5 +16,10 @@ namespace UAICampo.UI
         {
             InitializeComponent();
         }
+
+        private void frmEquipoManager_Load(object sender, EventArgs e)
+        {
+            equipoController1.F1 = this;
+        }
     }
 }

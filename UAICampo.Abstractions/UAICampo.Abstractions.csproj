@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ICrud.cs" />
     <Compile Include="IEntity.cs" />
+    <Compile Include="IInterface.cs" />
     <Compile Include="IProfile.cs" />
     <Compile Include="ILog.cs" />
     <Compile Include="IUser.cs" />

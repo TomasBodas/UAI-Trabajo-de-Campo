@@ -42,9 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL_EquipoManager.cs" />
     <Compile Include="BLL_LanguageManager.cs" />
     <Compile Include="BLL_LogManager.cs" />
+    <Compile Include="BLL_PropuestaManager.cs" />
+    <Compile Include="BLL_ReconocimientoManager.cs" />
     <Compile Include="BLL_SessionManager.cs" />
+    <Compile Include="BLL_TareasManager.cs" />
     <Compile Include="BLL_UserManager.cs" />
     <Compile Include="BLL_Licences.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

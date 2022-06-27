@@ -40,7 +40,7 @@ namespace UAICampo.UI
             // 
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(118, 84);
+            this.comboBox1.Location = new System.Drawing.Point(29, 69);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(405, 24);
             this.comboBox1.TabIndex = 0;
@@ -57,16 +57,17 @@ namespace UAICampo.UI
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(172, 124);
+            this.buttonAdd.Location = new System.Drawing.Point(83, 109);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonAdd.TabIndex = 2;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // buttonModify
             // 
-            this.buttonModify.Location = new System.Drawing.Point(287, 124);
+            this.buttonModify.Location = new System.Drawing.Point(198, 109);
             this.buttonModify.Name = "buttonModify";
             this.buttonModify.Size = new System.Drawing.Size(75, 23);
             this.buttonModify.TabIndex = 3;
@@ -75,7 +76,7 @@ namespace UAICampo.UI
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(395, 124);
+            this.buttonDelete.Location = new System.Drawing.Point(306, 109);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(75, 23);
             this.buttonDelete.TabIndex = 4;
@@ -86,7 +87,7 @@ namespace UAICampo.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(655, 183);
+            this.ClientSize = new System.Drawing.Size(463, 147);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonModify);
             this.Controls.Add(this.buttonAdd);
@@ -94,6 +95,7 @@ namespace UAICampo.UI
             this.Controls.Add(this.comboBox1);
             this.Name = "frmEquipo";
             this.Text = "frmEquipo";
+            this.Load += new System.EventHandler(this.frmEquipo_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

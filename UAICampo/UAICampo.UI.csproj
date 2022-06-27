@@ -323,6 +323,10 @@
       <Project>{623fd6f6-143a-4cf9-9f26-0e52dc20bc00}</Project>
       <Name>UAICampo.Abstractions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UAICampo.BE\UAICampo.BE.csproj">
+      <Project>{E698CD59-3B23-42BF-B465-21166B4BDC5D}</Project>
+      <Name>UAICampo.BE</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UAICampo.BLL\UAICampo.BLL.csproj">
       <Project>{243a3486-4b52-4c2d-8d20-a5b5143e845e}</Project>
       <Name>UAICampo.BLL</Name>

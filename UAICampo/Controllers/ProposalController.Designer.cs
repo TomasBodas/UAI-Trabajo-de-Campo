@@ -30,14 +30,27 @@ namespace UAICampo.UI.Controllers
         private void InitializeComponent()
         {
             this.labelProposal = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewProposal = new System.Windows.Forms.DataGridView();
             this.groupBoxScores = new System.Windows.Forms.GroupBox();
-            this.buttonSelect = new System.Windows.Forms.Button();
+            this.groupBoxSearch = new System.Windows.Forms.GroupBox();
+            this.buttonSearch = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBoxPosition = new System.Windows.Forms.GroupBox();
             this.buttonFilter = new System.Windows.Forms.Button();
             this.comboBoxPosition = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.buttonSelect = new System.Windows.Forms.Button();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Profile = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PromedioReconocimientoSuperiores = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PorcentajeObjetivosCumplidos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PromedioReconocimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CantidadObjetivosNoCumplidos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CantidadReconocimientos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProposal)).BeginInit();
             this.groupBoxScores.SuspendLayout();
+            this.groupBoxSearch.SuspendLayout();
             this.groupBoxPosition.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,19 +64,30 @@ namespace UAICampo.UI.Controllers
             this.labelProposal.TabIndex = 1;
             this.labelProposal.Text = "Proposal";
             // 
-            // dataGridView1
+            // dataGridViewProposal
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(168, 19);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(642, 243);
-            this.dataGridView1.TabIndex = 2;
+            this.dataGridViewProposal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewProposal.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Id,
+            this.Username,
+            this.Profile,
+            this.Value,
+            this.PromedioReconocimientoSuperiores,
+            this.PorcentajeObjetivosCumplidos,
+            this.PromedioReconocimiento,
+            this.CantidadObjetivosNoCumplidos,
+            this.CantidadReconocimientos});
+            this.dataGridViewProposal.Location = new System.Drawing.Point(166, 19);
+            this.dataGridViewProposal.Name = "dataGridViewProposal";
+            this.dataGridViewProposal.Size = new System.Drawing.Size(642, 243);
+            this.dataGridViewProposal.TabIndex = 2;
             // 
             // groupBoxScores
             // 
+            this.groupBoxScores.Controls.Add(this.groupBoxSearch);
             this.groupBoxScores.Controls.Add(this.groupBoxPosition);
             this.groupBoxScores.Controls.Add(this.buttonSelect);
-            this.groupBoxScores.Controls.Add(this.dataGridView1);
+            this.groupBoxScores.Controls.Add(this.dataGridViewProposal);
             this.groupBoxScores.Location = new System.Drawing.Point(14, 59);
             this.groupBoxScores.Name = "groupBoxScores";
             this.groupBoxScores.Size = new System.Drawing.Size(825, 280);
@@ -71,20 +95,38 @@ namespace UAICampo.UI.Controllers
             this.groupBoxScores.TabStop = false;
             this.groupBoxScores.Text = "Scores";
             // 
-            // buttonSelect
+            // groupBoxSearch
             // 
-            this.buttonSelect.Location = new System.Drawing.Point(30, 47);
-            this.buttonSelect.Name = "buttonSelect";
-            this.buttonSelect.Size = new System.Drawing.Size(104, 23);
-            this.buttonSelect.TabIndex = 3;
-            this.buttonSelect.Text = "Select";
-            this.buttonSelect.UseVisualStyleBackColor = true;
+            this.groupBoxSearch.Controls.Add(this.buttonSearch);
+            this.groupBoxSearch.Controls.Add(this.textBox1);
+            this.groupBoxSearch.Location = new System.Drawing.Point(24, 188);
+            this.groupBoxSearch.Name = "groupBoxSearch";
+            this.groupBoxSearch.Size = new System.Drawing.Size(116, 74);
+            this.groupBoxSearch.TabIndex = 10;
+            this.groupBoxSearch.TabStop = false;
+            this.groupBoxSearch.Text = "Search";
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Location = new System.Drawing.Point(22, 45);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.TabIndex = 3;
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(10, 19);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 6;
             // 
             // groupBoxPosition
             // 
             this.groupBoxPosition.Controls.Add(this.buttonFilter);
             this.groupBoxPosition.Controls.Add(this.comboBoxPosition);
-            this.groupBoxPosition.Location = new System.Drawing.Point(24, 90);
+            this.groupBoxPosition.Location = new System.Drawing.Point(24, 104);
             this.groupBoxPosition.Name = "groupBoxPosition";
             this.groupBoxPosition.Size = new System.Drawing.Size(116, 78);
             this.groupBoxPosition.TabIndex = 9;
@@ -108,6 +150,60 @@ namespace UAICampo.UI.Controllers
             this.comboBoxPosition.Size = new System.Drawing.Size(104, 21);
             this.comboBoxPosition.TabIndex = 0;
             // 
+            // buttonSelect
+            // 
+            this.buttonSelect.Location = new System.Drawing.Point(30, 33);
+            this.buttonSelect.Name = "buttonSelect";
+            this.buttonSelect.Size = new System.Drawing.Size(104, 51);
+            this.buttonSelect.TabIndex = 3;
+            this.buttonSelect.Text = "Select";
+            this.buttonSelect.UseVisualStyleBackColor = true;
+            // 
+            // Id
+            // 
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            // 
+            // Username
+            // 
+            this.Username.HeaderText = "Username";
+            this.Username.Name = "Username";
+            // 
+            // Profile
+            // 
+            this.Profile.HeaderText = "Profile";
+            this.Profile.Name = "Profile";
+            // 
+            // Value
+            // 
+            this.Value.HeaderText = "Value";
+            this.Value.Name = "Value";
+            // 
+            // PromedioReconocimientoSuperiores
+            // 
+            this.PromedioReconocimientoSuperiores.HeaderText = "Promedio Reconocimiento Superiores";
+            this.PromedioReconocimientoSuperiores.Name = "PromedioReconocimientoSuperiores";
+            // 
+            // PorcentajeObjetivosCumplidos
+            // 
+            this.PorcentajeObjetivosCumplidos.HeaderText = "Porcentaje Objetivos Cumplidos";
+            this.PorcentajeObjetivosCumplidos.Name = "PorcentajeObjetivosCumplidos";
+            // 
+            // PromedioReconocimiento
+            // 
+            this.PromedioReconocimiento.HeaderText = "Promedio Reconocimiento";
+            this.PromedioReconocimiento.Name = "PromedioReconocimiento";
+            // 
+            // CantidadObjetivosNoCumplidos
+            // 
+            this.CantidadObjetivosNoCumplidos.HeaderText = "Cantidad Objetivos No Cumplidos";
+            this.CantidadObjetivosNoCumplidos.Name = "CantidadObjetivosNoCumplidos";
+            // 
+            // CantidadReconocimientos
+            // 
+            this.CantidadReconocimientos.HeaderText = "Cantidad Reconocimientos";
+            this.CantidadReconocimientos.Name = "CantidadReconocimientos";
+            // 
             // ProposalController
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -116,8 +212,11 @@ namespace UAICampo.UI.Controllers
             this.Controls.Add(this.labelProposal);
             this.Name = "ProposalController";
             this.Size = new System.Drawing.Size(857, 358);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.ProposalController_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProposal)).EndInit();
             this.groupBoxScores.ResumeLayout(false);
+            this.groupBoxSearch.ResumeLayout(false);
+            this.groupBoxSearch.PerformLayout();
             this.groupBoxPosition.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -127,11 +226,23 @@ namespace UAICampo.UI.Controllers
         #endregion
 
         private System.Windows.Forms.Label labelProposal;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewProposal;
         private System.Windows.Forms.GroupBox groupBoxScores;
         private System.Windows.Forms.Button buttonSelect;
         private System.Windows.Forms.GroupBox groupBoxPosition;
         private System.Windows.Forms.Button buttonFilter;
         private System.Windows.Forms.ComboBox comboBoxPosition;
+        private System.Windows.Forms.GroupBox groupBoxSearch;
+        private System.Windows.Forms.Button buttonSearch;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Username;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Profile;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Value;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PromedioReconocimientoSuperiores;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PorcentajeObjetivosCumplidos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PromedioReconocimiento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CantidadObjetivosNoCumplidos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CantidadReconocimientos;
     }
 }

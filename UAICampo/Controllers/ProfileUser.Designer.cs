@@ -32,24 +32,26 @@ namespace UAICampo.UI.Controllers
             this.labelProfile = new System.Windows.Forms.Label();
             this.tabControlProfile = new System.Windows.Forms.TabControl();
             this.tabPageInformation = new System.Windows.Forms.TabPage();
-            this.tabPagePassword = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.labelMail = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.labelProfileLicense = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.labelTeam = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.labelPosition = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.labelDate = new System.Windows.Forms.Label();
-            this.password_Change1 = new UAICampo.UI.Controllers.Password_Change();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.labelProfileLicense = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.labelMail = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tabPagePassword = new System.Windows.Forms.TabPage();
             this.tabPageAchievements = new System.Windows.Forms.TabPage();
+            this.tabPageSkills = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.password_Change1 = new UAICampo.UI.Controllers.Password_Change();
             this.tabControlProfile.SuspendLayout();
             this.tabPageInformation.SuspendLayout();
             this.tabPagePassword.SuspendLayout();
+            this.tabPageSkills.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // labelProfile
@@ -66,6 +68,7 @@ namespace UAICampo.UI.Controllers
             // 
             this.tabControlProfile.Controls.Add(this.tabPageInformation);
             this.tabControlProfile.Controls.Add(this.tabPagePassword);
+            this.tabControlProfile.Controls.Add(this.tabPageSkills);
             this.tabControlProfile.Controls.Add(this.tabPageAchievements);
             this.tabControlProfile.Location = new System.Drawing.Point(18, 82);
             this.tabControlProfile.Name = "tabControlProfile";
@@ -75,10 +78,6 @@ namespace UAICampo.UI.Controllers
             // 
             // tabPageInformation
             // 
-            this.tabPageInformation.Controls.Add(this.textBox6);
-            this.tabPageInformation.Controls.Add(this.labelDate);
-            this.tabPageInformation.Controls.Add(this.textBox5);
-            this.tabPageInformation.Controls.Add(this.labelPosition);
             this.tabPageInformation.Controls.Add(this.textBox4);
             this.tabPageInformation.Controls.Add(this.labelTeam);
             this.tabPageInformation.Controls.Add(this.textBox3);
@@ -95,6 +94,78 @@ namespace UAICampo.UI.Controllers
             this.tabPageInformation.Text = "Information";
             this.tabPageInformation.UseVisualStyleBackColor = true;
             // 
+            // textBox4
+            // 
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox4.Location = new System.Drawing.Point(142, 171);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(127, 23);
+            this.textBox4.TabIndex = 7;
+            // 
+            // labelTeam
+            // 
+            this.labelTeam.AutoSize = true;
+            this.labelTeam.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelTeam.Location = new System.Drawing.Point(78, 174);
+            this.labelTeam.Name = "labelTeam";
+            this.labelTeam.Size = new System.Drawing.Size(44, 17);
+            this.labelTeam.TabIndex = 6;
+            this.labelTeam.Text = "Team";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox3.Location = new System.Drawing.Point(142, 142);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(127, 23);
+            this.textBox3.TabIndex = 5;
+            // 
+            // labelProfileLicense
+            // 
+            this.labelProfileLicense.AutoSize = true;
+            this.labelProfileLicense.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelProfileLicense.Location = new System.Drawing.Point(74, 146);
+            this.labelProfileLicense.Name = "labelProfileLicense";
+            this.labelProfileLicense.Size = new System.Drawing.Size(48, 17);
+            this.labelProfileLicense.TabIndex = 4;
+            this.labelProfileLicense.Text = "Profile";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox2.Location = new System.Drawing.Point(142, 113);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(127, 23);
+            this.textBox2.TabIndex = 3;
+            // 
+            // labelMail
+            // 
+            this.labelMail.AutoSize = true;
+            this.labelMail.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelMail.Location = new System.Drawing.Point(74, 117);
+            this.labelMail.Name = "labelMail";
+            this.labelMail.Size = new System.Drawing.Size(47, 17);
+            this.labelMail.TabIndex = 2;
+            this.labelMail.Text = "E-Mail";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox1.Location = new System.Drawing.Point(142, 84);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(127, 23);
+            this.textBox1.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label1.Location = new System.Drawing.Point(49, 87);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(73, 17);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Username";
+            // 
             // tabPagePassword
             // 
             this.tabPagePassword.Controls.Add(this.password_Change1);
@@ -106,121 +177,6 @@ namespace UAICampo.UI.Controllers
             this.tabPagePassword.Text = "Change Password";
             this.tabPagePassword.UseVisualStyleBackColor = true;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(51, 45);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 17);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Username";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox1.Location = new System.Drawing.Point(144, 42);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(127, 23);
-            this.textBox1.TabIndex = 1;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox2.Location = new System.Drawing.Point(144, 71);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(127, 23);
-            this.textBox2.TabIndex = 3;
-            // 
-            // labelMail
-            // 
-            this.labelMail.AutoSize = true;
-            this.labelMail.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.labelMail.Location = new System.Drawing.Point(76, 75);
-            this.labelMail.Name = "labelMail";
-            this.labelMail.Size = new System.Drawing.Size(47, 17);
-            this.labelMail.TabIndex = 2;
-            this.labelMail.Text = "E-Mail";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox3.Location = new System.Drawing.Point(144, 100);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(127, 23);
-            this.textBox3.TabIndex = 5;
-            // 
-            // labelProfileLicense
-            // 
-            this.labelProfileLicense.AutoSize = true;
-            this.labelProfileLicense.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.labelProfileLicense.Location = new System.Drawing.Point(76, 104);
-            this.labelProfileLicense.Name = "labelProfileLicense";
-            this.labelProfileLicense.Size = new System.Drawing.Size(48, 17);
-            this.labelProfileLicense.TabIndex = 4;
-            this.labelProfileLicense.Text = "Profile";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox4.Location = new System.Drawing.Point(144, 129);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(127, 23);
-            this.textBox4.TabIndex = 7;
-            // 
-            // labelTeam
-            // 
-            this.labelTeam.AutoSize = true;
-            this.labelTeam.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.labelTeam.Location = new System.Drawing.Point(80, 132);
-            this.labelTeam.Name = "labelTeam";
-            this.labelTeam.Size = new System.Drawing.Size(44, 17);
-            this.labelTeam.TabIndex = 6;
-            this.labelTeam.Text = "Team";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox5.Location = new System.Drawing.Point(144, 158);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(127, 23);
-            this.textBox5.TabIndex = 9;
-            // 
-            // labelPosition
-            // 
-            this.labelPosition.AutoSize = true;
-            this.labelPosition.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.labelPosition.Location = new System.Drawing.Point(66, 161);
-            this.labelPosition.Name = "labelPosition";
-            this.labelPosition.Size = new System.Drawing.Size(58, 17);
-            this.labelPosition.TabIndex = 8;
-            this.labelPosition.Text = "Position";
-            // 
-            // textBox6
-            // 
-            this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox6.Location = new System.Drawing.Point(144, 187);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(127, 23);
-            this.textBox6.TabIndex = 11;
-            // 
-            // labelDate
-            // 
-            this.labelDate.AutoSize = true;
-            this.labelDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.labelDate.Location = new System.Drawing.Point(18, 190);
-            this.labelDate.Name = "labelDate";
-            this.labelDate.Size = new System.Drawing.Size(106, 17);
-            this.labelDate.TabIndex = 10;
-            this.labelDate.Text = "Date registered";
-            // 
-            // password_Change1
-            // 
-            this.password_Change1.Location = new System.Drawing.Point(36, 42);
-            this.password_Change1.Name = "password_Change1";
-            this.password_Change1.Size = new System.Drawing.Size(253, 184);
-            this.password_Change1.TabIndex = 0;
-            // 
             // tabPageAchievements
             // 
             this.tabPageAchievements.Location = new System.Drawing.Point(4, 22);
@@ -230,6 +186,50 @@ namespace UAICampo.UI.Controllers
             this.tabPageAchievements.Text = "Achievements";
             this.tabPageAchievements.UseVisualStyleBackColor = true;
             // 
+            // tabPageSkills
+            // 
+            this.tabPageSkills.Controls.Add(this.buttonAdd);
+            this.tabPageSkills.Controls.Add(this.comboBox1);
+            this.tabPageSkills.Controls.Add(this.dataGridView1);
+            this.tabPageSkills.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSkills.Name = "tabPageSkills";
+            this.tabPageSkills.Size = new System.Drawing.Size(329, 288);
+            this.tabPageSkills.TabIndex = 3;
+            this.tabPageSkills.Text = "Skills";
+            this.tabPageSkills.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(23, 73);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(281, 194);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(23, 35);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(185, 21);
+            this.comboBox1.TabIndex = 1;
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Location = new System.Drawing.Point(229, 33);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdd.TabIndex = 2;
+            this.buttonAdd.Text = "Add";
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            // 
+            // password_Change1
+            // 
+            this.password_Change1.Location = new System.Drawing.Point(36, 42);
+            this.password_Change1.Name = "password_Change1";
+            this.password_Change1.Size = new System.Drawing.Size(253, 184);
+            this.password_Change1.TabIndex = 0;
+            // 
             // ProfileUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -238,10 +238,13 @@ namespace UAICampo.UI.Controllers
             this.Controls.Add(this.labelProfile);
             this.Name = "ProfileUser";
             this.Size = new System.Drawing.Size(380, 416);
+            this.Load += new System.EventHandler(this.ProfileUser_Load);
             this.tabControlProfile.ResumeLayout(false);
             this.tabPageInformation.ResumeLayout(false);
             this.tabPageInformation.PerformLayout();
             this.tabPagePassword.ResumeLayout(false);
+            this.tabPageSkills.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -255,10 +258,6 @@ namespace UAICampo.UI.Controllers
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPagePassword;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.Label labelDate;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Label labelPosition;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label labelTeam;
         private System.Windows.Forms.TextBox textBox3;
@@ -267,5 +266,9 @@ namespace UAICampo.UI.Controllers
         private System.Windows.Forms.Label labelMail;
         private Password_Change password_Change1;
         private System.Windows.Forms.TabPage tabPageAchievements;
+        private System.Windows.Forms.TabPage tabPageSkills;
+        private System.Windows.Forms.Button buttonAdd;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

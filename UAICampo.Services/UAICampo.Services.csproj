@@ -58,6 +58,7 @@
     <Compile Include="UI_Validation.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserInstance.cs" />
+    <Compile Include="UserPropuesto.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UAICampo.Abstractions\UAICampo.Abstractions.csproj">

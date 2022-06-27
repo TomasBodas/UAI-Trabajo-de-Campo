@@ -34,9 +34,9 @@ namespace UAICampo.UI
             // 
             // equipoController1
             // 
-            this.equipoController1.Location = new System.Drawing.Point(42, 12);
+            this.equipoController1.Location = new System.Drawing.Point(28, 12);
             this.equipoController1.Name = "equipoController1";
-            this.equipoController1.Size = new System.Drawing.Size(351, 462);
+            this.equipoController1.Size = new System.Drawing.Size(386, 459);
             this.equipoController1.TabIndex = 0;
             // 
             // frmEquipoManager
@@ -49,6 +49,7 @@ namespace UAICampo.UI
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "frmEquipoManager";
             this.Text = "frmEquipoManager";
+            this.Load += new System.EventHandler(this.frmEquipoManager_Load);
             this.ResumeLayout(false);
 
         }

@@ -38,8 +38,8 @@ namespace UAICampo.UI
         private void buttonRegister_Click(object sender, EventArgs e)
         {
             USERNAME = textBoxUsername.Text;
-            PASSWORD = textBoxEmail.Text;
-            EMAIL = textBoxPassword.Text;
+            PASSWORD = textBoxPassword.Text;
+            EMAIL = textBoxEmail.Text;
 
             if (!string.IsNullOrEmpty(textBoxPassword.Text) || !string.IsNullOrEmpty(textBoxConfirmPassword.Text))
             {

@@ -15,8 +15,8 @@ namespace UAICampo.BLL
     public class BLL_UserManager
     {
         //SQL Connection
-        DAL_User_SQL dal_user = new DAL_User_SQL();
-        DAL_Profile_SQL dal_profile = new DAL_Profile_SQL();
+       static  DAL_User_SQL dal_user = new DAL_User_SQL();
+        static DAL_Profile_SQL dal_profile = new DAL_Profile_SQL();
         DAL_Language_SQL dal_language = new DAL_Language_SQL();
 
         public IUser createUser(string username, string password, string email)
@@ -85,9 +85,22 @@ namespace UAICampo.BLL
         {
             return dal_user.unblockAccount(user);
         }
-        public List<Profile> getUserProfile(User user)
+        public List<Profile> getUserProfiles(User user)
         {
             return dal_profile.getUserProfiles(user.Id);
+        }
+
+        public static Profile getUserProfile(User user)
+        {
+            return dal_profile.getUserProfile(user.Id);
+        }
+        public Profile getProfileByName(string name)
+        {
+            return dal_profile.getProfileByName(name);
+        }
+        public static Profile getProfileById(int id)
+        {
+            return dal_profile.getProfileById(id);
         }
         public List<Profile> getNonAsignedProfileList(User user)
         {
@@ -105,6 +118,11 @@ namespace UAICampo.BLL
         {
             return dal_profile.getAllProfiles();
         }
+
+        public List<Profile> getBusinessProfileList()
+        {
+            return dal_profile.getBusinessProfileList();
+        }
         public List<User> GetUsers()
         {
             List<User> userList = dal_user.GetAll().ToList();
@@ -116,6 +134,10 @@ namespace UAICampo.BLL
             }
 
             return fullDetailUserList;
+        }
+        public static User FindByUsername(string name)
+        {
+            return dal_user.findByUsername(name);
         }
         public bool setProfileLicense(Profile profile, Component license)
         {

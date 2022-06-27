@@ -23,6 +23,8 @@ namespace UAICampo.UI
         frmLanguageEditor frmLanguageEditor = null;
         frmLicenseManager frmLicenseManager = null;
         frmProfileManager frmProfileManager = null;
+        FrmRegister FrmRegister = null;
+        frmEquipo frmEquipo = null;
         frmUserManager frmUserManager = null;
         frmProfile frmChangePassword = null;
         BLL_SessionManager sessionBLL;
@@ -119,7 +121,23 @@ namespace UAICampo.UI
                 List<Services.Composite.Component> licenses = new List<Services.Composite.Component>();
 
                 licenses = userSetProfile.getAllLicenses();
-
+                var adminCheck = licenses.Find(x => x.Id == 2);
+                var supervisorCheck = licenses.Find(x => x.Id == 4);
+                var teamOwnerCheck = licenses.Find(x => x.Id == 3);
+                var productOwnerCheck = licenses.Find(x => x.Id == 6);
+                if (supervisorCheck != null)
+                {
+                    supervisorToolStripMenuItem.Visible = true;
+                }
+                if (adminCheck != null)
+                {
+                    administratorToolStripMenuItem.Visible = true;
+                    supervisorToolStripMenuItem.Visible = true;
+                }
+                if (teamOwnerCheck == null && productOwnerCheck == null)
+                {
+                    tabControl1.TabPages.Remove(tabPageLeader);
+                }
                 foreach (var controller in controllers)
                 {
                     if (controller.Key.LicenseId == 0 || licenses.Any(t => t.Id == controller.Key.LicenseId))
@@ -230,6 +248,43 @@ namespace UAICampo.UI
             }
         }
 
+        private void teamManagerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (frmEquipo == null)
+            {
+                frmEquipo = new frmEquipo();
+                frmEquipo.FormClosed += new FormClosedEventHandler(frmEquipo_FormClosed);
+                frmEquipo.Show();
+            }
+            else
+            {
+                frmEquipo.BringToFront();
+            }
+        }
+
+        private void addNewAccountToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FrmRegister == null)
+            {
+                FrmRegister = new FrmRegister();
+                FrmRegister.FormClosed += new FormClosedEventHandler(FrmRegister_FormClosed);
+                FrmRegister.Show();
+            }
+            else
+            {
+                FrmRegister.BringToFront();
+            }
+        }
+
+        private void FrmRegister_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FrmRegister = null;
+        }
+
+        private void frmEquipo_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmEquipo = null;
+        }
         private void frmUser_FormClosed(object sender, FormClosedEventArgs e)
         {
             frmUserManager = null;

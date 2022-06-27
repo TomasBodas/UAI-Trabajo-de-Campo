@@ -47,6 +47,9 @@ namespace UAICampo.UI
             this.userManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.profileManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.licenseManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.supervisorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.teamManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addNewAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageTask = new System.Windows.Forms.TabPage();
             this.tareasController1 = new UAICampo.UI.Controllers.TareasController();
@@ -131,7 +134,8 @@ namespace UAICampo.UI
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.profileToolStripMenuItem,
-            this.administratorToolStripMenuItem});
+            this.administratorToolStripMenuItem,
+            this.supervisorToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(1007, 24);
@@ -171,6 +175,7 @@ namespace UAICampo.UI
             this.administratorToolStripMenuItem.Name = "administratorToolStripMenuItem";
             this.administratorToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
             this.administratorToolStripMenuItem.Text = "Administrator";
+            this.administratorToolStripMenuItem.Visible = false;
             // 
             // languageEditorToolStripMenuItem
             // 
@@ -199,6 +204,30 @@ namespace UAICampo.UI
             this.licenseManagerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.licenseManagerToolStripMenuItem.Text = "License Manager";
             this.licenseManagerToolStripMenuItem.Click += new System.EventHandler(this.licenseManagerToolStripMenuItem_Click);
+            // 
+            // supervisorToolStripMenuItem
+            // 
+            this.supervisorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.teamManagerToolStripMenuItem,
+            this.addNewAccountToolStripMenuItem});
+            this.supervisorToolStripMenuItem.Name = "supervisorToolStripMenuItem";
+            this.supervisorToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
+            this.supervisorToolStripMenuItem.Text = "Supervisor";
+            this.supervisorToolStripMenuItem.Visible = false;
+            // 
+            // teamManagerToolStripMenuItem
+            // 
+            this.teamManagerToolStripMenuItem.Name = "teamManagerToolStripMenuItem";
+            this.teamManagerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.teamManagerToolStripMenuItem.Text = "Team Manager";
+            this.teamManagerToolStripMenuItem.Click += new System.EventHandler(this.teamManagerToolStripMenuItem_Click);
+            // 
+            // addNewAccountToolStripMenuItem
+            // 
+            this.addNewAccountToolStripMenuItem.Name = "addNewAccountToolStripMenuItem";
+            this.addNewAccountToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addNewAccountToolStripMenuItem.Text = "Add new account";
+            this.addNewAccountToolStripMenuItem.Click += new System.EventHandler(this.addNewAccountToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
@@ -317,5 +346,8 @@ namespace UAICampo.UI
         private System.Windows.Forms.TabPage tabPageLeader;
         private Controllers.TareasController tareasController1;
         private Equipo_Manager equipo_Manager1;
+        private System.Windows.Forms.ToolStripMenuItem supervisorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem teamManagerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addNewAccountToolStripMenuItem;
     }
 }

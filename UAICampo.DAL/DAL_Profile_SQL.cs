@@ -94,6 +94,39 @@ namespace UAICampo.DAL
             return profileList;
         }
 
+        public Profile getUserProfile(int userId)
+        {
+            Profile profile = null;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {COLUMN_PROFILE_IDPROFILE}, {COLUMN_PROFILE_NAME}, {COLUMN_PROFILE_DESC} " +
+                                $" FROM {TABLE_PROFILE} " +
+                                $" INNER JOIN {TABLE_USER_PROFILE} " +
+                                $" ON {TABLE_USER_PROFILE}.{COLUMN_USER_PROFIL_IDPROFILE} = {TABLE_PROFILE}.{COLUMN_PROFILE_IDPROFILE}" +
+                                $" WHERE {TABLE_USER_PROFILE}.{COLUMN_USER_PROFIL_IDUSER} = {userId}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+
+                            profile = new Profile(new Object[] { sqlReader[0], sqlReader[1], sqlReader[2] });
+                        }
+                    }
+
+                    sqlReader.Close();
+                }
+            }
+
+            return profile;
+        }
         public List<Profile> getNonUserProfiles(User user)
         {
             List<Profile> profileList = new List<Profile>();
@@ -194,6 +227,40 @@ namespace UAICampo.DAL
 
                 string query = $"SELECT {COLUMN_PROFILE_IDPROFILE}, {COLUMN_PROFILE_NAME}, {COLUMN_PROFILE_DESC} " +
                                 $" FROM {TABLE_PROFILE} ";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+
+                            profileList.Add(new Profile(new Object[] { sqlReader[0], sqlReader[1], sqlReader[2] }));
+                        }
+                    }
+
+                    sqlReader.Close();
+                }
+            }
+
+            return profileList;
+        }
+
+        public List<Profile> getBusinessProfileList()
+        {
+            List<Profile> profileList = new List<Profile>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {COLUMN_PROFILE_IDPROFILE}, {COLUMN_PROFILE_NAME}, {COLUMN_PROFILE_DESC} " +
+                                $" FROM {TABLE_PROFILE} " +
+                                $" WHERE {COLUMN_PROFILE_IDPROFILE} NOT LIKE 1" +
+                                $" AND {COLUMN_PROFILE_IDPROFILE} NOT LIKE 2" +
+                                $" AND {COLUMN_PROFILE_IDPROFILE} NOT LIKE 4";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
@@ -337,6 +404,66 @@ namespace UAICampo.DAL
             }
 
             return success;
+        }
+
+        public Profile getProfileByName(string name)
+        {
+            Profile profile = null;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {COLUMN_PROFILE_IDPROFILE}, {COLUMN_PROFILE_NAME}, {COLUMN_PROFILE_DESC}" +
+                                $" FROM {TABLE_PROFILE}" +
+                                $" WHERE {COLUMN_PROFILE_NAME} = {PARAM_PROFILE_NAME}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_PROFILE_NAME, name);
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            profile = new Profile(new object[] { sqlReader[0], sqlReader[1], sqlReader[2] });
+                        }
+                    }
+                }
+            }
+
+            return profile;
+        }
+
+        public Profile getProfileById(int id)
+        {
+            Profile profile = null;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {COLUMN_PROFILE_IDPROFILE}, {COLUMN_PROFILE_NAME}, {COLUMN_PROFILE_DESC}" +
+                                $" FROM {TABLE_PROFILE}" +
+                                $" WHERE {COLUMN_PROFILE_IDPROFILE} = {PARAM_PROFILE_IDPROFILE}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_PROFILE_IDPROFILE, id);
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            profile = new Profile(new object[] { sqlReader[0], sqlReader[1], sqlReader[2] });
+                        }
+                    }
+                }
+            }
+
+            return profile;
         }
         public User Save(User Entity)
         {

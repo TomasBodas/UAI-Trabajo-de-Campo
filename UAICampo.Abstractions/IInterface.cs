@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace UAICampo.Abstractions
 {
-    public abstract class IUser : IEntity
+    public abstract class IInterface : IEntity
     {
         public int Id { get; set; }
-
-        public string Username { get; set; }
     }
 }

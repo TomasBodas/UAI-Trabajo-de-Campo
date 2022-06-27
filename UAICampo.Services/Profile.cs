@@ -11,7 +11,10 @@ namespace UAICampo.Services
     public class Profile : IProfile
     {
         public List<Component> Licences;
+        public Profile()
+        {
 
+        }
         public Profile(object[] itemArray)
         {
             this.ProfileId = (int)itemArray[0];
