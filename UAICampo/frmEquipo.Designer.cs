@@ -73,6 +73,7 @@ namespace UAICampo.UI
             this.buttonModify.TabIndex = 3;
             this.buttonModify.Text = "Modify";
             this.buttonModify.UseVisualStyleBackColor = true;
+            this.buttonModify.Click += new System.EventHandler(this.buttonModify_Click);
             // 
             // buttonDelete
             // 

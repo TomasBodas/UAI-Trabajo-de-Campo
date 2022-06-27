@@ -69,7 +69,7 @@ namespace UAICampo.DAL
                     {
                         while (sqlReader.Read())
                         {
-                            reconocimiento.Add(new Reconocimiento(new object[] { (int)sqlReader[0], (string)sqlReader[1], (string)sqlReader[2], (string)sqlReader[3] }));
+                            reconocimiento.Add(new Reconocimiento(new object[] { (int)sqlReader[0], (string)sqlReader[1], (DateTime)sqlReader[2], (int)sqlReader[3] }));
                         }
                     }
                     sqlReader.Close();
@@ -102,7 +102,7 @@ namespace UAICampo.DAL
                     {
                         while (sqlReader.Read())
                         {
-                            reconocimiento.Add(new Reconocimiento(new object[] { (int)sqlReader[0], (string)sqlReader[1], (string)sqlReader[2], (string)sqlReader[3] }));
+                            reconocimiento.Add(new Reconocimiento(new object[] { (int)sqlReader[0], (string)sqlReader[1], (DateTime)sqlReader[2], (int)sqlReader[3] }));
                         }
                     }
                     sqlReader.Close();
@@ -135,7 +135,7 @@ namespace UAICampo.DAL
                     {
                         while (sqlReader.Read())
                         {
-                            reconocimiento.Add(new Reconocimiento(new object[] { (int)sqlReader[0], (string)sqlReader[1], (string)sqlReader[2], (string)sqlReader[3] }));
+                            reconocimiento.Add(new Reconocimiento(new object[] { (int)sqlReader[0], (string)sqlReader[1], (DateTime)sqlReader[2], (int)sqlReader[3] }));
                         }
                     }
                     sqlReader.Close();

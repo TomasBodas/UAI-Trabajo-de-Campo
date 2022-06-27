@@ -21,6 +21,7 @@ namespace UAICampo.UI
         List<UserPropuesto> usuarioPropuestos;
         Equipo eq;
         IProfile pu;
+        frmEquipoManager frm;
         public frmProposal()
         {
             InitializeComponent();
@@ -30,7 +31,7 @@ namespace UAICampo.UI
             InitializeComponent();
             eq = equipo;
             pu = puesto;
-
+            frm = frmEquipoManager;
             fillRecommended(equipo, puesto);
         }
 
@@ -81,6 +82,25 @@ namespace UAICampo.UI
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
             fillRecommended(eq, pu);
+        }
+
+        private void buttonSelect_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewProposal.SelectedRows.Count == 0)
+            {
+                return;
+            }
+
+            var user = BLL_UserManager.FindById(int.Parse(dataGridViewProposal.SelectedRows[0].Cells["Id"].Value.ToString())); ;
+
+            var position = BLL_UserManager.getProfileById(eq.puestos.FindAll(p => p.Key == pu && p.Value == null)[0].Key.ProfileId);
+
+           eq.puestos.Remove(eq.puestos.FindAll(p => p.Key == pu && p.Value == null)[0]);
+           eq.puestos.Add(new KeyValuePair<IProfile, IUser>(position, user));
+           
+
+            frm.updateGrid();
+            this.Close();
         }
 
         //private void buttonFilter_Click(object sender, EventArgs e)

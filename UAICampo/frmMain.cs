@@ -122,7 +122,7 @@ namespace UAICampo.UI
 
                 licenses = userSetProfile.getAllLicenses();
                 var adminCheck = licenses.Find(x => x.Id == 2);
-                var supervisorCheck = licenses.Find(x => x.Id == 4);
+                var supervisorCheck = licenses.Find(x => x.Id == 17);
                 var teamOwnerCheck = licenses.Find(x => x.Id == 3);
                 var productOwnerCheck = licenses.Find(x => x.Id == 6);
                 if (supervisorCheck != null)

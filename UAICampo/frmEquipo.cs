@@ -53,5 +53,27 @@ namespace UAICampo.UI
         {
             frmEquipoManager = null;
         }
+
+        private void buttonModify_Click(object sender, EventArgs e)
+        {
+            if (frmEquipoManager == null)
+            {
+                frmEquipoManager = new frmEquipoManager();
+                Equipo selectedEquipo = BLL_EquipoManager.FindByName(comboBox1.SelectedItem.ToString());
+
+                if (selectedEquipo == null)
+                {
+                    return;
+                }
+
+                frmEquipoManager.selectedEquipo = selectedEquipo;
+                frmEquipoManager.FormClosed += new FormClosedEventHandler(frmEquipoManager_FormClosed);
+                frmEquipoManager.Show();
+            }
+            else
+            {
+                frmEquipoManager.BringToFront();
+            }
+        }
     }
 }

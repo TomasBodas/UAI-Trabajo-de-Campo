@@ -30,6 +30,7 @@ namespace UAICampo.UI
         private void InitializeComponent()
         {
             this.groupBoxScores = new System.Windows.Forms.GroupBox();
+            this.buttonRefresh = new System.Windows.Forms.Button();
             this.groupBoxSearch = new System.Windows.Forms.GroupBox();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -48,7 +49,6 @@ namespace UAICampo.UI
             this.CantidadObjetivosNoCumplidos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CantidadReconocimientos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelProposal = new System.Windows.Forms.Label();
-            this.buttonRefresh = new System.Windows.Forms.Button();
             this.groupBoxScores.SuspendLayout();
             this.groupBoxSearch.SuspendLayout();
             this.groupBoxPosition.SuspendLayout();
@@ -68,6 +68,16 @@ namespace UAICampo.UI
             this.groupBoxScores.TabIndex = 6;
             this.groupBoxScores.TabStop = false;
             this.groupBoxScores.Text = "Scores";
+            // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.Location = new System.Drawing.Point(30, 91);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(104, 23);
+            this.buttonRefresh.TabIndex = 11;
+            this.buttonRefresh.Text = "Refresh";
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
             // groupBoxSearch
             // 
@@ -134,6 +144,7 @@ namespace UAICampo.UI
             this.buttonSelect.TabIndex = 3;
             this.buttonSelect.Text = "Select";
             this.buttonSelect.UseVisualStyleBackColor = true;
+            this.buttonSelect.Click += new System.EventHandler(this.buttonSelect_Click);
             // 
             // dataGridViewProposal
             // 
@@ -207,16 +218,6 @@ namespace UAICampo.UI
             this.labelProposal.Size = new System.Drawing.Size(137, 35);
             this.labelProposal.TabIndex = 5;
             this.labelProposal.Text = "Proposal";
-            // 
-            // buttonRefresh
-            // 
-            this.buttonRefresh.Location = new System.Drawing.Point(30, 91);
-            this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(104, 23);
-            this.buttonRefresh.TabIndex = 11;
-            this.buttonRefresh.Text = "Refresh";
-            this.buttonRefresh.UseVisualStyleBackColor = true;
-            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
             // frmProposal
             // 

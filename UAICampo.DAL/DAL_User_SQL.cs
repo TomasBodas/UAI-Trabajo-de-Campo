@@ -416,7 +416,63 @@ namespace UAICampo.DAL.SQL
 
         public User FindById(int Id)
         {
-            throw new NotImplementedException();
+            User user = null;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT {TABLE_user}.{COLUMN_USER_ID}, {TABLE_user}.{COLUMN_USER_USERNAME}, {TABLE_user}.{COLUMN_USER_EMAIL}, {TABLE_userStatus}.{COLUMN_USERSTATUS_BLOCKED}, {TABLE_userStatus}.{COLUMN_USERSTATUS_ATTEMPTS}" +
+                                $" FROM {TABLE_user}" +
+                                $" INNER JOIN {TABLE_userStatus} ON {TABLE_user}.{COLUMN_USER_ID} = {TABLE_userStatus}.{COLUMN_USERSTATUS_FK_ACCOUNT}" +
+                                $" WHERE {TABLE_user}.{COLUMN_USER_ID} = '{Id}'";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            user = new User(new object[] {(int) sqlReader[0],
+                                                    (string) sqlReader[1],
+                                                    (string) sqlReader[2]});
+
+                            user.IsBlocked = (bool)sqlReader[3];
+                            user.Attempts = (int)sqlReader[4];
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+            return user;
+        }
+
+        public List<IUser> getPositions(int teamId)
+        {
+            List<IUser> users = new List<IUser>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"SELECT account.id, account.username FROM account INNER JOIN account_profile ON account_profile.id_account = account.id INNER JOIN account_team ON account_team.id_account = account.id WHERE account_team.id_team= {teamId}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            users.Add(new User(new object[] { (int)sqlReader[0], (string)sqlReader[1], (string)sqlReader[2] }));
+                        }
+                    }
+                }
+            }
+
+            return users;
         }
         public void Delete(int Id)
         {

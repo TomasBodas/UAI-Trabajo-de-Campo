@@ -18,8 +18,13 @@ namespace UAICampo.BLL
         {
             var users = propuestaDAL.GetForPosition();
 
-            foreach (var usuarioPropuesto in users)
+            foreach (var usuarioPropuesto in users.ToList())
             {
+                if (equipo.puestos.Where(o => (o.Value != null && o.Value.Id == usuarioPropuesto.Id)).Count() > 0)
+                {
+                    users.RemoveAll(x => x.Id == usuarioPropuesto.Id);
+                    continue;
+                }
                 usuarioPropuesto.PorcentajeObjetivosCumplidos = Math.Round(calcularCumplidos(usuarioPropuesto), 2);
                 usuarioPropuesto.PromedioReconocimiento = Math.Round(calcularReconocimiento(usuarioPropuesto), 2);
                 usuarioPropuesto.PromedioReconocimientoDeSuperiores = Math.Round(calcularReconocimientoSuperiores(usuarioPropuesto), 2);

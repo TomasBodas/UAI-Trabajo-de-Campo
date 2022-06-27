@@ -89,7 +89,10 @@ namespace UAICampo.BLL
         {
             return dal_profile.getUserProfiles(user.Id);
         }
-
+        public static List<IUser> getPositions(int teamId)
+        {
+            return dal_user.getPositions(teamId);
+        }
         public static Profile getUserProfile(User user)
         {
             return dal_profile.getUserProfile(user.Id);
@@ -138,6 +141,10 @@ namespace UAICampo.BLL
         public static User FindByUsername(string name)
         {
             return dal_user.findByUsername(name);
+        }
+        public static User FindById(int id)
+        {
+            return dal_user.FindById(id);
         }
         public bool setProfileLicense(Profile profile, Component license)
         {

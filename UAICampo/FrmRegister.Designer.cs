@@ -96,7 +96,7 @@ namespace UAICampo.UI
             this.buttonRegister.Location = new System.Drawing.Point(155, 160);
             this.buttonRegister.Name = "buttonRegister";
             this.buttonRegister.Size = new System.Drawing.Size(75, 23);
-            this.buttonRegister.TabIndex = 6;
+            this.buttonRegister.TabIndex = 7;
             this.buttonRegister.Text = "Register";
             this.buttonRegister.UseVisualStyleBackColor = true;
             this.buttonRegister.Click += new System.EventHandler(this.buttonRegister_Click);
@@ -123,7 +123,7 @@ namespace UAICampo.UI
             this.textBoxConfirmPassword.Name = "textBoxConfirmPassword";
             this.textBoxConfirmPassword.PasswordChar = '*';
             this.textBoxConfirmPassword.Size = new System.Drawing.Size(131, 20);
-            this.textBoxConfirmPassword.TabIndex = 8;
+            this.textBoxConfirmPassword.TabIndex = 6;
             // 
             // label1
             // 
@@ -137,6 +137,7 @@ namespace UAICampo.UI
             // 
             // FrmRegister
             // 
+            this.AcceptButton = this.buttonRegister;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UAICampo.UI.Properties.Resources.background;
