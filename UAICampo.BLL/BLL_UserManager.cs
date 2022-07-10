@@ -20,6 +20,10 @@ namespace UAICampo.BLL
         DAL_Profile_SQL dal_profile = new DAL_Profile_SQL();
         DAL_Language_SQL dal_language = new DAL_Language_SQL();
 
+        private static readonly int LICENSE_ADMIN = 2;
+        private static readonly int LICENSE_PRACTITIONER = 16;
+        private static readonly int LICENSE_PATIENT = 17;
+
         string DEFAULT_PACIENT_PROFILE_NAME = "Pacient";
         string DEFAULT_PRACTICIONER_PROFILE_NAME = "Practitioner";
 
@@ -86,7 +90,11 @@ namespace UAICampo.BLL
         }
         public bool unblockAccount(User user)
         {
-            return dal_user.unblockAccount(user);
+            if (validateLicense(LICENSE_ADMIN))
+            {
+                return dal_user.unblockAccount(user);
+            }
+            else { return false; }
         }
         public List<Profile> getUserProfile(User user)
         {
@@ -126,19 +134,37 @@ namespace UAICampo.BLL
         }
         public bool setProfileLicense(Profile profile, Component license)
         {
-            return dal_profile.addProfileLicense(profile, license);
+            if (validateLicense(LICENSE_ADMIN))
+            {
+                return dal_profile.addProfileLicense(profile, license);
+            }
+            else { return false; }
+            
         }
         public bool revokeProfileLicense(Profile profile, Component license)
         {
-            return dal_profile.revokeProfileLicense(profile, license);
+            if (validateLicense(LICENSE_ADMIN))
+            {
+                return dal_profile.revokeProfileLicense(profile, license);
+            }
+            else { return false; }
         }
         public bool createProfile(string profileName, string profileDesc)
         {
-            return dal_profile.createProfile(profileName, profileDesc);
+            if (validateLicense(LICENSE_ADMIN))
+            {
+                return dal_profile.createProfile(profileName, profileDesc);
+            }
+            else { return false; }
+            
         }
         public bool deleteProfile(Profile profile)
         {
-            return dal_profile.deleteProfile(profile);
+            if (validateLicense(LICENSE_ADMIN))
+            {
+                return dal_profile.deleteProfile(profile);
+            }
+            else { return false; }
         }
         public bool changePassword(User user, string password)
         {
@@ -172,11 +198,19 @@ namespace UAICampo.BLL
         }
         public bool addProcedure(Procedure procedure, User user)
         {
-            return dal_user.addProcedure(procedure, user);
+            if (validateLicense(LICENSE_PRACTITIONER))
+            {
+                return dal_user.addProcedure(procedure, user);
+            }
+            else {return false;}
         }
         public bool removeProcedure(Procedure procedure)
         {
-            return dal_user.removeProcedure(procedure);
+            if (validateLicense(LICENSE_PRACTITIONER))
+            {
+                return dal_user.removeProcedure(procedure);
+            }
+            else  {return false;}
         }
         public List<User> searchPractitionerResults(Speciality speciality, Province province)
         {
@@ -184,7 +218,11 @@ namespace UAICampo.BLL
         }
         public List<Appointment> getAppointments(User user)
         {
-            return dal_user.getAppointmentsPractitioner(user);
+            if (validateLicense(LICENSE_PRACTITIONER))
+            {
+                return dal_user.getAppointmentsPractitioner(user);
+            }
+            else { return null; }
         }
         public List<Appointment> getClientAppointments(User user)
         {
@@ -192,11 +230,40 @@ namespace UAICampo.BLL
         }
         public bool confirmTurn(Appointment appointment)
         {
-            return dal_user.confirmTurn(appointment);
+            if (validateLicense(LICENSE_PRACTITIONER))
+            {
+                return dal_user.confirmTurn(appointment);
+            }
+            else { return false; }
+        }
+        public bool cancelTurn(Appointment appointment)
+        {
+            if (validateLicense(LICENSE_PRACTITIONER))
+            {
+                return dal_user.cancelTurn(appointment);
+            }
+            else { return false; }
         }
         public bool addNewAppointment(Appointment appointment)
         {
             return dal_user.addNewAppointment(appointment);
+        }
+
+        private bool validateLicense(int requiredLicenseId)
+        {
+            List<Component> licenseList = new List<Component>();
+            bool access = false;
+
+            foreach (Profile profile in UserInstance.getInstance().user.profileList)
+            {
+                licenseList.AddRange(profile.getAllLicenses());
+            }
+
+            if (licenseList.Any(x => x.Id == requiredLicenseId)) 
+            {
+                access = true;
+            }
+            return access;
         }
     }
 }

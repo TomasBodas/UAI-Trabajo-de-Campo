@@ -24,6 +24,16 @@ namespace UAICampo.Services
             this.Email = email;
             this.Password = password;
         }
+        public User(int id, string username, string email, string name, string lastName, DateTime birthdate, int dni) : base()
+        {
+            this.Id = id;
+            this.Username = username;
+            this.Email = email;
+            this.Name = name;
+            this.LastName = lastName;
+            this.Birthdate = birthdate;
+            this.Dni = dni;
+        }
         public User(string username, string password, string email,  string name, string lastName, DateTime birthdate, int dni) : base()
         {
             this.Username = username;

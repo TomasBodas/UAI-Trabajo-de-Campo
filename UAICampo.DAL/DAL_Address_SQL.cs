@@ -59,7 +59,9 @@ namespace UAICampo.DAL
                     {
                         while (sqlReader.Read())
                         {
-                            provinces.Add(new Province(new object[] { (int)sqlReader[0], (string)sqlReader[1] }));
+                            int id = (int)sqlReader["Id"];
+                            string name = (string)sqlReader["name"];
+                            provinces.Add(new Province(id, name));
                         }
                     }
                     sqlReader.Close();

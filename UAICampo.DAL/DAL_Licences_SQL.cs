@@ -139,7 +139,11 @@ namespace UAICampo.DAL
                     {
                         while (sqlReader.Read())
                         {
-                            foundLicenses.Add(new Composite((int)sqlReader[0], sqlReader[1] as string, sqlReader[2] as string));
+                            int id = (int) sqlReader["id"];
+                            string name = (string) sqlReader["name"];
+                            string description = (string) sqlReader["description"];
+                            foundLicenses.Add(new Composite(id, name, description));
+                            //foundLicenses.Add(new Composite((int)sqlReader[0], sqlReader[1] as string, sqlReader[2] as string));
                         }
                     }
                 }
@@ -168,7 +172,11 @@ namespace UAICampo.DAL
                     {
                         while (sqlReader.Read())
                         {
-                            foundLicenses = (new Composite((int)sqlReader[0], sqlReader[1] as string, sqlReader[2] as string));
+                            int id = (int)sqlReader["id"];
+                            string name = (string)sqlReader["name"];
+                            string description = (string)sqlReader["description"];
+                            foundLicenses = new Composite(id, name, description);
+                            //foundLicenses = (new Composite((int)sqlReader[0], sqlReader[1] as string, sqlReader[2] as string));
                         }
                     }
                 }

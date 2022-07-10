@@ -13,6 +13,10 @@ namespace UAICampo.BLL
     {
         static DAL_Licences_SQL dal = new DAL_Licences_SQL();
 
+        private static readonly int LICENSE_ADMIN = 2;
+        private static readonly int LICENSE_PRACTITIONER = 16;
+        private static readonly int LICENSE_PATIENT = 17;
+
         //Retrieve all master licenses asociated with a specific profile from DB
         public void getProfileLicences(Profile profile)
         {
@@ -48,25 +52,31 @@ namespace UAICampo.BLL
         //Used to create a new Master -> Slave relation to be persisted
         public void updateRelationships(int master, int slave)
         {
-            dal.addRelationship(master, slave);   
+            if (validateLicense(LICENSE_ADMIN))
+            {
+                dal.addRelationship(master, slave);
+            }
         }
 
         public void removeRelationship(Component slaveLicense)
         {
-            //First retrieve license master from DB.
-            Composite MasterLicense = (Composite)dal.getMasterLicense(slaveLicense);
-            getAllLicences(MasterLicense);
-
-            //Then, recursively delete all master-Slave relations
-            foreach (Composite childLicense in MasterLicense.child)
+            if (validateLicense(LICENSE_ADMIN))
             {
-                dal.removeRelationship(MasterLicense.Id, slaveLicense.Id);
+                //First retrieve license master from DB.
+                Composite MasterLicense = (Composite)dal.getMasterLicense(slaveLicense);
+                getAllLicences(MasterLicense);
 
-                if (childLicense.child.Count > 0)
+                //Then, recursively delete all master-Slave relations
+                foreach (Composite childLicense in MasterLicense.child)
                 {
-                    foreach (Composite childChildLicense in childLicense.child)
+                    dal.removeRelationship(MasterLicense.Id, slaveLicense.Id);
+
+                    if (childLicense.child.Count > 0)
                     {
-                        removeRelationship(childChildLicense);
+                        foreach (Composite childChildLicense in childLicense.child)
+                        {
+                            removeRelationship(childChildLicense);
+                        }
                     }
                 }
             }
@@ -74,12 +84,20 @@ namespace UAICampo.BLL
 
         public bool addNewLicense(Component license)
         {
-            return dal.addNewLicense(license);
+            if (validateLicense(LICENSE_ADMIN))
+            {
+                return dal.addNewLicense(license);
+            }
+            else { return false; }
         }
 
         public bool removeLicense(Component license)
         {
-            return dal.removeLicense(license);
+            if (validateLicense(LICENSE_ADMIN))
+            {
+                return dal.removeLicense(license);
+            }
+            else { return false; }
         }
 
         //Used to delete Master -> Slave Relation recursively
@@ -102,11 +120,25 @@ namespace UAICampo.BLL
         {
             return dal.findLIcenseById(Id);
         }
-
-        
         public List<Component> getAll()
         {
             return dal.getAllLicenses();
+        }
+        private bool validateLicense(int requiredLicenseId)
+        {
+            List<Component> licenseList = new List<Component>();
+            bool access = false;
+
+            foreach (Profile profile in UserInstance.getInstance().user.profileList)
+            {
+                licenseList.AddRange(profile.getAllLicenses());
+            }
+
+            if (licenseList.Any(x => x.Id == requiredLicenseId))
+            {
+                access = true;
+            }
+            return access;
         }
     }
 }

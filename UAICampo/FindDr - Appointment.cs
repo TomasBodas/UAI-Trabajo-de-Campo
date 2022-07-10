@@ -43,6 +43,7 @@ namespace UAICampo.UI
 
             SetControllerTags();
             ValidateForm();
+            dataGridColorLayer();
 
             //subscribe form as observer to user subject
             if (UserInstance.getInstance().user != null)
@@ -56,20 +57,43 @@ namespace UAICampo.UI
         {
             getMyAppointments();
             loadDataGridView();
+            dataGridColorLayer();
+            dataGridView1.Refresh();
         }
 
         private void getMyAppointments()
         {
             appointments = userManagerBll.getAppointments(UserInstance.getInstance().user);
+
+            foreach (Appointment appointment in appointments)
+            {
+                User client = appointment.Client as User;
+                User practitioner = appointment.Practitioner as User;
+                Address office = appointment.Office as Address;
+                Procedure procedure = appointment.Procedure as Procedure;
+
+                appointment.ClientName = $"{client.LastName} {client.Name}";
+                appointment.PractitionerName = $"{practitioner.LastName} {practitioner.Name}";
+                appointment.OfficeDir = $"{office.Address1} - {office.Address2} - {office.AddressNumber}";
+                appointment.ProcedureName = $"{procedure.Name}";
+
+            }
         }
         private void loadDataGridView()
         {
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = appointments;
+
+
+            dataGridView1.Columns["Id"].Visible = false;
             dataGridView1.Columns["Client"].Visible = false;
             dataGridView1.Columns["Practitioner"].Visible = false;
             dataGridView1.Columns["Office"].Visible = false;
             dataGridView1.Columns["Procedure"].Visible = false;
+            dataGridView1.Columns["ClientId"].Visible = false;
+            dataGridView1.Columns["PractitionerId"].Visible = false;
+            dataGridView1.Columns["OfficeId"].Visible = false;
+            dataGridView1.Columns["ProcedureId"].Visible = false;
 
             
         }
@@ -109,8 +133,39 @@ namespace UAICampo.UI
                 {
                     getMyAppointments();
                     loadDataGridView();
+                    dataGridColorLayer();
                 }
             }
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            if (selectedAppointment != null)
+            {
+                if (userManagerBll.cancelTurn(selectedAppointment))
+                {
+                    getMyAppointments();
+                    loadDataGridView();
+                    dataGridColorLayer();
+                }
+            }
+        }
+
+        private void dataGridColorLayer()
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                Appointment currentRow = row.DataBoundItem as Appointment;
+                if (currentRow.Confirmed == false)
+                {
+                    row.DefaultCellStyle.BackColor = Color.LightSalmon;
+                }
+                else if (currentRow.Confirmed == true)
+                {
+                    row.DefaultCellStyle.BackColor = Color.LightGreen;
+                }
+            }
+            dataGridView1.Refresh();
         }
         private void ValidateForm()
         {
@@ -177,6 +232,12 @@ namespace UAICampo.UI
 
             ////General controllers------------------------------------------------------------------------------------
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Confirm"), button_confirm));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Cancel"), buttonCancel));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Patient"), groupBoxClient));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Office"), groupBoxOffice));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Procedure"), groupBoxProcedure));
         }
+
+        
     }
 }

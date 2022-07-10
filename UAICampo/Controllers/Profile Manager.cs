@@ -124,10 +124,8 @@ namespace UAICampo.UI.Controllers
                 }
                 catch (Exception)
                 { }
-
             }
         }
-
         private void button_AssignLicense_Click(object sender, EventArgs e)
         {
             if (selectedProfile != null && selectedLicense != null)

@@ -94,6 +94,14 @@ namespace UAICampo.DAL
                         while (sqlReader.Read())
                         {
 
+                            //var p = new Profile()
+                            //{
+                            //    Desc = sqlReader.GetString(sqlReader.GetOrdinal("desc"))
+                            //};
+
+
+
+
                             profileList.Add( new Profile(new Object[] { sqlReader[0], sqlReader[1], sqlReader[2]}));
                         }
                     }
@@ -184,12 +192,15 @@ namespace UAICampo.DAL
             {
                 sqlConnection.Open();
 
+                
+
                 string query = $"INSERT INTO {TABLE_USER_PROFILE} ({COLUMN_USER_PROFIL_IDPROFILE}, {COLUMN_USER_PROFIL_IDUSER})" +
                                 $" VALUES ( {profile.ProfileId}, {user.Id})";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
                     int count = sqlCommand.ExecuteNonQuery();
+
                     if (count == 1)
                     {
                         success = true;

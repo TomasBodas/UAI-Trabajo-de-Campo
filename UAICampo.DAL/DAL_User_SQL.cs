@@ -159,16 +159,20 @@ namespace UAICampo.DAL.SQL
                     {
                         while (sqlReader.Read())
                         {
-                            user = new User(new object[] {(int) sqlReader[0],
-                                                    (string) sqlReader[1],
-                                                    (string) sqlReader[2],
-                                                    (string) sqlReader[3],
-                                                    (string) sqlReader[4], 
-                                                    (DateTime) sqlReader[5], 
-                                                    (int) sqlReader[6]});
+                            int userId = (int)sqlReader["id"];
+                            string userName = (string)sqlReader["name"];
+                            string userLastname = (string)sqlReader["LastName"];
+                            DateTime userBirthday = (DateTime)sqlReader["birthdate"];
+                            int userDni = (int)sqlReader["dni"];
+                            string userUsername = (string)sqlReader["username"];
+                            string userEmail = (string)sqlReader["email"];
 
-                            user.IsBlocked = (bool)sqlReader[7];
-                            user.Attempts = (int)sqlReader[8];
+                            bool userBlocked = (bool)sqlReader["isBlocked"];
+                            int userAttempts = (int)sqlReader["attempts"];
+
+                            user = new User(userId, userUsername, userEmail, userName, userLastname, userBirthday, userDni);
+                            user.IsBlocked = userBlocked;
+                            user.Attempts = userAttempts;
                         }
                     }
                     sqlReader.Close();
@@ -184,11 +188,6 @@ namespace UAICampo.DAL.SQL
             using (sqlConnection = new SqlConnection(CONNECTION_STRING))
             {
                 sqlConnection.Open();
-
-                //string query = $"SELECT {COLUMN_PASSWORD_PASSHASH}" +
-                //                $" FROM {TABLE_password}" +
-                //                $" WHERE {TABLE_password}.{COLUMN_PASSWORD_FK_ACCOUNT} = {pId}";
-
                 string query = $"SELECT TOP 1 {TABLE_password}.{COLUMN_PASSWORD_PASSHASH}" +
                                 $" FROM {TABLE_password}" +
                                 $" WHERE {TABLE_password}.{COLUMN_PASSWORD_FK_ACCOUNT} = {PARAM_USERSTATUS_KF_ACCOUNT}" +
@@ -203,7 +202,7 @@ namespace UAICampo.DAL.SQL
                     {
                         while (sqlReader.Read())
                         {
-                            storesPass = (string)sqlReader[0];
+                            storesPass = (string)sqlReader["passHash"];
                             storesPass = storesPass.Replace(" ", string.Empty);
                         }
                     }
@@ -265,10 +264,8 @@ namespace UAICampo.DAL.SQL
                     sqlReader.Close();
                 }
             }
-            
             return id;
         }
-
         public User Save(User Entity)
         {
             Entity.IsBlocked = false;
@@ -308,7 +305,6 @@ namespace UAICampo.DAL.SQL
 
             return Entity;
         }
-
         public void SavePassword(User Entity)
         {
             using (sqlConnection = new SqlConnection(CONNECTION_STRING))
@@ -329,7 +325,6 @@ namespace UAICampo.DAL.SQL
                 sqlConnection.Close();
             }
         }
-
         public void SaveStatus(User Entity)
         {
             using (sqlConnection = new SqlConnection(CONNECTION_STRING))
@@ -351,7 +346,6 @@ namespace UAICampo.DAL.SQL
                 sqlConnection.Close();
             }
         }
-
         public void UpdateLanguage(User Entity, Language language)
         {
             using (sqlConnection = new SqlConnection(CONNECTION_STRING))
@@ -371,8 +365,6 @@ namespace UAICampo.DAL.SQL
             }
 
         }
-
-        //needs implementation
         public IList<User> GetAll()
         {
 
@@ -392,13 +384,22 @@ namespace UAICampo.DAL.SQL
                     {
                         while (sqlReader.Read())
                         {
-                            userList.Add(new User(new object[] {(int) sqlReader[0],
-                                                    (string) sqlReader[1],
-                                                    (string) sqlReader[2],
-                                                    (string) sqlReader[3],
-                                                    (string) sqlReader[4],
-                                                    (DateTime) sqlReader[5],
-                                                    (int) sqlReader[6]}));
+                            int userId = (int)sqlReader["id"];
+                            string userName = (string)sqlReader["name"];
+                            string userLastname = (string)sqlReader["LastName"];
+                            DateTime userBirthday = (DateTime)sqlReader["birthdate"];
+                            int userDni = (int)sqlReader["dni"];
+                            string userUsername = (string)sqlReader["username"];
+                            string userEmail = (string)sqlReader["email"];
+
+                            userList.Add(new User(userId, userUsername, userEmail, userName, userLastname, userBirthday, userDni));
+                            //userList.Add(new User(new object[] {(int) sqlReader[0],
+                            //                        (string) sqlReader[1],
+                            //                        (string) sqlReader[2],
+                            //                        (string) sqlReader[3],
+                            //                        (string) sqlReader[4],
+                            //                        (DateTime) sqlReader[5],
+                            //                        (int) sqlReader[6]}));
                         }
                     }
                     sqlReader.Close();
@@ -407,7 +408,6 @@ namespace UAICampo.DAL.SQL
 
             return userList.ToList();
         }
-
         public bool blockAccount(User user)
         {
             bool success = false;
@@ -434,7 +434,6 @@ namespace UAICampo.DAL.SQL
 
             return success;
         }
-
         public bool unblockAccount(User user)
         {
             bool success = false;
@@ -528,11 +527,19 @@ namespace UAICampo.DAL.SQL
 
                         while (sqlReader.Read())
                         {
-                            address.Address1 = (string)sqlReader[0];
-                            address.Address2 = (string)sqlReader[1];
-                            address.AddressNumber = (int)sqlReader[2];
-                            province.name = (string)sqlReader[3];
-                            province.id = (int)sqlReader[4];
+                            string Address1 = (string)sqlReader["Address1"];
+                            string Address2 = (string)sqlReader["Address2"];
+                            int AddressNumber = (int)sqlReader["AddressNumber"];
+
+                            string ProvinceName = (string) sqlReader["name"];
+                            int ProvinceId = (int)sqlReader["Id"];
+
+                            address.Address1 = Address1;
+                            address.Address2 = Address2;
+                            address.AddressNumber = AddressNumber;
+
+                            province.id = ProvinceId;
+                            province.name = ProvinceName;
 
                             address.Province = province;
                         }
@@ -577,12 +584,21 @@ namespace UAICampo.DAL.SQL
                             address = new Address();
                             province = new Province();
 
-                            address.Address1 = (string)sqlReader[0];
-                            address.Address2 = (string)sqlReader[1];
-                            address.AddressNumber = (int)sqlReader[2];
-                            province.name = (string)sqlReader[3];
-                            province.id = (int)sqlReader[4];
-                            address.Id = (int)sqlReader[5];
+                            int AddressId = (int)sqlReader["id"];
+                            string Address1 = (string)sqlReader["Address1"];
+                            string Address2 = (string)sqlReader["Address2"];
+                            int AddressNumber = (int)sqlReader["AddressNumber"];
+
+                            int ProvinceId = (int)sqlReader["Id"];
+                            string ProvinceName = (string)sqlReader["name"];
+                            
+                            address.Id = AddressId;
+                            address.Address1 = Address1;
+                            address.Address2 = Address2;
+                            address.AddressNumber = AddressNumber;
+
+                            province.id = ProvinceId;
+                            province.name = ProvinceName;
 
                             address.Province = province;
 
@@ -595,7 +611,6 @@ namespace UAICampo.DAL.SQL
 
             return addressList;
         }
-
         public bool addUserAddress(Address address, User user)
         {
             bool success = false;
@@ -712,12 +727,12 @@ namespace UAICampo.DAL.SQL
                     {
                         while (sqlReader.Read())
                         {
-                            Speciality spec = new Speciality();
-                            spec.Id = (int)sqlReader[0];
-                            spec.Name = (string)sqlReader[1];
-                            spec.Description = (string)sqlReader[2];
+                            int Id = (int)sqlReader["id"];
+                            string Name = (string)sqlReader["name"];
+                            string Description = (string)sqlReader["description"];
 
-                            specialities.Add(spec);
+                            specialities.Add(new Speciality(Id, Name, Description));
+                            
                         }
                     }
                     sqlReader.Close();
@@ -747,13 +762,11 @@ namespace UAICampo.DAL.SQL
                     {
                         while (sqlReader.Read())
                         {
-                            Procedure proc = new Procedure();
-                            proc.Id = (int)sqlReader[0];
-                            proc.Name = (string)sqlReader[1];
-                            proc.Desc = (string)sqlReader[2];
-                            proc.Price = (double)sqlReader[3];
-
-                            procedures.Add(proc);
+                            int Id = (int)sqlReader["id"];
+                            string Name = (string)sqlReader["Name"];
+                            string Description = (string)sqlReader["Description"];
+                            double Cost = (double)sqlReader["Cost"];
+                            procedures.Add(new Procedure(Id, Name, Description, Cost));
                         }
                     }
                     sqlReader.Close();
@@ -846,7 +859,8 @@ namespace UAICampo.DAL.SQL
                                      $" {TABLE_user}.{COLUMN_USER_NAME}," +
                                      $" {TABLE_user}.{COLUMN_USER_LASTNAME}," +
                                      $" {TABLE_user}.{COLUMN_USER_EMAIL}," +
-                                     $" {TABLE_user}.{COLUMN_USER_DNI}" +
+                                     $" {TABLE_user}.{COLUMN_USER_DNI}," +
+                                     $" {TABLE_user}.{COLUMN_USER_BIRTHDATE}" +
                               $" FROM {TABLE_user}" +
                               $" INNER JOIN {TABLE_ACCOUNT_SPECIALITY} ON {TABLE_ACCOUNT_SPECIALITY}.{COLUMN_ACCOUNT_SPECIALITY_FKACCOUNT} = {TABLE_user}.{COLUMN_USER_ID}" +
                               $" INNER JOIN {TABLE_SPECIALITY} ON {TABLE_SPECIALITY}.{COLUMN_MEDICALSPEC_ID} = {TABLE_ACCOUNT_SPECIALITY}.{COLUMN_ACCOUNT_SPECIALITY_FKSPECIALITY}" +
@@ -865,15 +879,17 @@ namespace UAICampo.DAL.SQL
                     {
                         while (sqlReader.Read())
                         {
-                            User foundUser = new User();
-                            foundUser.Id = (int)sqlReader[0];
-                            foundUser.Username = (string)sqlReader[1];
-                            foundUser.Name = (string)sqlReader[2];
-                            foundUser.LastName = (string)sqlReader[3];
-                            foundUser.Email = (string)sqlReader[4];
-                            foundUser.Dni = (int)sqlReader[5];
+                            int userId = (int)sqlReader["id"];
+                            string userName = (string)sqlReader["name"];
+                            string userLastname = (string)sqlReader["LastName"];
+                            DateTime userBirthday = (DateTime)sqlReader["birthdate"];
+                            int userDni = (int)sqlReader["dni"];
+                            string userUsername = (string)sqlReader["username"];
+                            string userEmail = (string)sqlReader["email"];
 
-                            userList.Add(foundUser);
+                            User user = new User(userId, userUsername, userEmail, userName, userLastname, userBirthday, userDni);
+
+                            userList.Add(user);
                         }
                     }
                     sqlReader.Close();
@@ -914,16 +930,16 @@ namespace UAICampo.DAL.SQL
                     {
                         while (sqlReader.Read())
                         {
-                            Appointment appointment = new Appointment();
-                            appointment.Id = (int)sqlReader[0];
-                            appointment.ClientId= (int)sqlReader[1];
-                            appointment.PractitionerId = (int)sqlReader[2];
-                            appointment.OfficeId = (int)sqlReader[3];
-                            appointment.ProcedureId = (int)sqlReader[4];
-                            appointment.TimeReserved = (DateTime)sqlReader[5];
-                            appointment.TimeProcedure = (DateTime)sqlReader[6];
-                            appointment.Confirmed = (bool)sqlReader[7];
+                            int Id = (int)sqlReader["id"];
+                            int ClientId = (int)sqlReader["FK_Account"];
+                            int PractitionerId = (int)sqlReader["FK_Practitioner"];
+                            int OfficeId = (int)sqlReader["FK_Office"];
+                            int ProcedureId = (int)sqlReader["FK_Procedure"];
+                            DateTime TimeReserved = (DateTime)sqlReader["TimeProcess"];
+                            DateTime TimeProcedure = (DateTime)sqlReader["TimeAppointment"];
+                            bool Confirmed = (bool)sqlReader["Confirmed"];
 
+                            Appointment appointment = new Appointment(Id, ClientId, PractitionerId, OfficeId, ProcedureId, TimeReserved, TimeProcedure, Confirmed);
 
                             appointments.Add(appointment);
                         }
@@ -973,18 +989,16 @@ namespace UAICampo.DAL.SQL
                     {
                         while (sqlReader.Read())
                         {
-                            Appointment appointment = new Appointment();
-                            appointment.Id = (int)sqlReader[0];
-                            appointment.ClientId = (int)sqlReader[1];
-                            appointment.PractitionerId = (int)sqlReader[2];
-                            appointment.OfficeId = (int)sqlReader[3];
-                            appointment.ProcedureId = (int)sqlReader[4];
-                            appointment.TimeReserved = (DateTime)sqlReader[5];
-                            appointment.TimeProcedure = (DateTime)sqlReader[6];
-                            appointment.Confirmed = (bool)sqlReader[7];
+                            int Id = (int)sqlReader["id"];
+                            int ClientId = (int)sqlReader["FK_Account"];
+                            int PractitionerId = (int)sqlReader["FK_Practitioner"];
+                            int OfficeId = (int)sqlReader["FK_Office"];
+                            int ProcedureId = (int)sqlReader["FK_Procedure"];
+                            DateTime TimeReserved = (DateTime)sqlReader["TimeProcess"];
+                            DateTime TimeProcedure = (DateTime)sqlReader["TimeAppointment"];
+                            bool Confirmed = (bool)sqlReader["Confirmed"];
 
-
-                            appointments.Add(appointment);
+                            appointments.Add(new Appointment(Id, ClientId, PractitionerId, OfficeId, ProcedureId, TimeReserved, TimeProcedure, Confirmed));
                         }
                     }
                     sqlReader.Close();
@@ -1038,7 +1052,6 @@ namespace UAICampo.DAL.SQL
             }
             return user;
         }
-
         public Address FindOfficeById(int Id)
         {
             Address address = null;
@@ -1070,14 +1083,16 @@ namespace UAICampo.DAL.SQL
 
                         while (sqlReader.Read())
                         {
-                            address.Address1 = (string)sqlReader[0];
-                            address.Address2 = (string)sqlReader[1];
-                            address.AddressNumber = (int)sqlReader[2];
-                            province.name = (string)sqlReader[3];
-                            province.id = (int)sqlReader[4];
-                            address.Id = (int)sqlReader[5];
+                            int AddressId = (int)sqlReader["id"];
+                            string Address1 = (string)sqlReader["Address1"];
+                            string Address2 = (string)sqlReader["Address2"];
+                            int AddressNumber = (int)sqlReader["AddressNumber"];
 
-                            address.Province = province;
+                            int ProvinceId = (int)sqlReader["Id"];
+                            string ProvinceName = (string)sqlReader["name"];
+
+                            address = new Address(AddressId, Address1, Address2, AddressNumber);
+                            address.Province = new Province(ProvinceId, ProvinceName);
                         }
                     }
                     sqlConnection.Close();
@@ -1108,11 +1123,11 @@ namespace UAICampo.DAL.SQL
                     {
                         while (sqlReader.Read())
                         {
-                            procedure = new Procedure();
-                            procedure.Id = (int)sqlReader[0];
-                            procedure.Name = (string)sqlReader[1];
-                            procedure.Desc = (string)sqlReader[2];
-                            procedure.Price = (double)sqlReader[3];
+                            int Id = (int)sqlReader["id"];
+                            string Name = (string)sqlReader["Name"];
+                            string Description = (string)sqlReader["Description"];
+                            double Cost = (double)sqlReader["Cost"];
+                            procedure = new Procedure(Id, Name, Description, Cost);
                         }
                     }
                     sqlReader.Close();
@@ -1169,6 +1184,31 @@ namespace UAICampo.DAL.SQL
                 sqlConnection.Open();
                 string query = $"UPDATE {TABLE_APPOINTMENT}" +
                                 $" SET {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_CONFIRMED} = 1" +
+                                $" WHERE {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_ID} = {PARAM_APPOINTMENT_ID}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_APPOINTMENT_ID, appointment.Id);
+
+                    int count = sqlCommand.ExecuteNonQuery();
+                    if (count == 1)
+                    {
+                        success = true;
+                    }
+                }
+            }
+
+            return success;
+        }
+        public bool cancelTurn(Appointment appointment)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+                string query = $"UPDATE {TABLE_APPOINTMENT}" +
+                                $" SET {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_CONFIRMED} = 0" +
                                 $" WHERE {TABLE_APPOINTMENT}.{COLUMN_APPOINTMENT_ID} = {PARAM_APPOINTMENT_ID}";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
