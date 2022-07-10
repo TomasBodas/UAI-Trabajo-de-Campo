@@ -80,6 +80,12 @@
     <Compile Include="Controllers\License Manager.Designer.cs">
       <DependentUpon>License Manager.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\Profiles_Manager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controllers\Profiles_Manager.Designer.cs">
+      <DependentUpon>Profiles_Manager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\ProposalController.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -237,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\License Manager.resx">
       <DependentUpon>License Manager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\Profiles_Manager.resx">
+      <DependentUpon>Profiles_Manager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\ProposalController.resx">
       <DependentUpon>ProposalController.cs</DependentUpon>

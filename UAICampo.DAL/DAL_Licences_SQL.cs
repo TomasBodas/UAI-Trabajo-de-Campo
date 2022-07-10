@@ -9,7 +9,7 @@ using UAICampo.Services;
 
 namespace UAICampo.DAL
 {
-    public class DAL_Licences_SQL : DAL_Abstract<Profile>
+    public class DAL_Licences_SQL : DAL_Connection, DAL_Abstract<Profile>
     {
         private static readonly string CONNECTION_STRING = DataBaseServices.getConnectionString();
 
@@ -61,6 +61,118 @@ namespace UAICampo.DAL
                     }
                 }
             }
+        }
+
+        public List<Component> getUserLicence(User user)
+        {
+            List<Component> list = new List<Component>();
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string Query = $"SELECT {COLUMN_LICENCES_ID}, {COLUMN_LICENCES_NAME}, {COLUMN_LICENCES_DESCRIPTION} from license inner join dbo.account_license ON account_license.id_license = license.id where account_license.id_account = {user.Id}";
+
+                using (sqlCommand = new SqlCommand(Query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            list.Add(castDTO(sqlReader));
+                        }
+                    }
+                }
+            }
+            return list;
+        }
+
+        public void getUserLicences(User user)
+        {
+
+            conn.Open();
+            string Query = $"SELECT {COLUMN_LICENCES_ID}, {COLUMN_LICENCES_NAME}, {COLUMN_LICENCES_DESCRIPTION} from license inner join dbo.account_license ON account_license.id_license = license.id where account_license.id_account = {user.Id}";
+
+            using (sqlCommand = new SqlCommand(Query, conn))
+            {
+                sqlReader = sqlCommand.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        user.Licenses.Add(castDTO(sqlReader));
+                    }
+                }
+            }
+            conn.Close();
+        }
+
+        public bool addUserLicense(User user, Component license)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"insert into account_license (id_account, id_license) values ({user.Id},{license.Id})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    //sqlCommand.Parameters.AddWithValue(PARAM_PROFILE_LICENSE_idProfile, profile.ProfileId);
+                    //sqlCommand.Parameters.AddWithValue(PARAM_PROFILE_LICENSE_idLicense, license.Id);
+
+                    int count = sqlCommand.ExecuteNonQuery();
+                    if (count == 1)
+                    {
+                        success = true;
+                    }
+                }
+
+                sqlConnection.Close();
+            }
+
+            return success;
+        }
+
+        public bool revokeProfileLicense(User user, Component license)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"delete from account_license where id_account = {user.Id} and id_license = {license.Id}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    //sqlCommand.Parameters.AddWithValue(PARAM_PROFILE_LICENSE_idProfile, profile.ProfileId);
+                    //sqlCommand.Parameters.AddWithValue(PARAM_PROFILE_LICENSE_idLicense, license.Id);
+
+                    int count = sqlCommand.ExecuteNonQuery();
+                    if (count == 1)
+                    {
+                        success = true;
+                    }
+                }
+
+                sqlConnection.Close();
+            }
+
+            return success;
+        }
+
+        public Composite castDTO(SqlDataReader data)
+        {
+            Composite result = new Composite();
+            result.Id = Convert.ToInt32(data["id"]);
+            result.Name = data["name"].ToString();
+            result.Description = data["description"].ToString();
+
+            return result;
         }
 
         public bool hasChild(Component component)

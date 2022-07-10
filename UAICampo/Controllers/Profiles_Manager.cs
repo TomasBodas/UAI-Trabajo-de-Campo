@@ -15,7 +15,7 @@ using Microsoft.VisualBasic;
 
 namespace UAICampo.UI.Controllers
 {
-    public partial class Profile_Manager : UserControl, IObserver
+    public partial class Profiles_Manager : UserControl, IObserver
     {
         List<KeyValuePair<Tag, Control>> controllers = new List<KeyValuePair<Tag, Control>>();
 
@@ -31,7 +31,7 @@ namespace UAICampo.UI.Controllers
         Component selectedLicense = null;
         Component selectedProfileLicense = null;
 
-        public Profile_Manager()
+        public Profiles_Manager()
         {
             InitializeComponent();
 

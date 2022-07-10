@@ -8,6 +8,7 @@ using UAICampo.DAL;
 using UAICampo.Services;
 using Microsoft.VisualBasic;
 using UAICampo.DAL.SQL;
+using UAICampo.Services.Composite;
 
 namespace UAICampo.BLL
 {
@@ -19,6 +20,7 @@ namespace UAICampo.BLL
             DAL_User_SQL dalUser = new DAL_User_SQL();
             DAL_Profile_SQL dalProfile = new DAL_Profile_SQL();
             DAL_Language_SQL dalLanguages = new DAL_Language_SQL();
+            DAL_Licences_SQL dalLicenses = new DAL_Licences_SQL();
 
             BLL_Licences bllLicenses = new BLL_Licences();
 
@@ -40,14 +42,19 @@ namespace UAICampo.BLL
                     //Search for all user profiles.
                     user.profileList = dalProfile.getUserProfiles(user.Id);
 
-                    //Retrieve composite pattern defined licences por each user profile
-                    if (user.profileList.Count > 0)
-                    {
-                        foreach (Profile profile in user.profileList)
-                        {
-                            bllLicenses.getProfileLicences(profile);
-                        }
-                    }
+                    ////Retrieve composite pattern defined licences por each user profile
+                    //if (user.profileList.Count > 0)
+                    //{
+                    //    foreach (Profile profile in user.profileList)
+                    //    {
+                    //        bllLicenses.getProfileLicences(profile);
+                    //    }
+                    //}
+
+                    //License
+                    user.Licenses = dalLicenses.getUserLicence(user);
+                    //Recursive licenses
+                    bllLicenses.getUserLicences(user);
 
                     //Get user selected language
                     user.language = dalLanguages.getUserLanguage(user);

@@ -102,19 +102,6 @@ namespace UAICampo.UI.Controllers
         }
         private void treeView_License_MouseUp(object sender, MouseEventArgs e)
         {
-            if (treeView_License.SelectedNode != null && treeView_License.SelectedNode.Tag != null)
-            {
-                Component license = bLL_Licences.SearchLicenseById((int)treeView_License.SelectedNode.Tag);
-
-                selectedLicense = license;
-
-                if (license != null)
-                {
-                    label_LicenseId.Text = license.Id.ToString();
-                    labelLicenseName.Text = license.Name;
-                    label_LicenseDescription.Text = license.Description;
-                }
-            }
         }
 
         private void button_addChildLicense_Click(object sender, EventArgs e)
@@ -165,43 +152,47 @@ namespace UAICampo.UI.Controllers
         {
             if (selectedLicense != null)
             {
-                try
+                if (selectedLicense.Name != "Admin")
                 {
-                    //First retrieve the persistance tree from de DB
-                    Component PersistanceTree = bLL_Licences.getLicensePersistanceTree();
-
-                    //Then, we get the list of all licenses currently in the persistance tree
-                    List<Component> PersistanceTreeLicenseTree = PersistanceTree.GetAllChildren().ToList();
-
-                    //Then, we search the list, until we find the same license as the one selected by the user
-                    foreach (Component license in PersistanceTreeLicenseTree)
+                    try
                     {
-                        //If we find the license, we add the selected orphan license as its child.
-                        if (license.Id == selectedLicense.Id)
+                        //First retrieve the persistance tree from de DB
+                        Component PersistanceTree = bLL_Licences.getLicensePersistanceTree();
+
+                        //Then, we get the list of all licenses currently in the persistance tree
+                        List<Component> PersistanceTreeLicenseTree = PersistanceTree.GetAllChildren().ToList();
+
+                        //Then, we search the list, until we find the same license as the one selected by the user
+                        foreach (Component license in PersistanceTreeLicenseTree)
                         {
-                            //We send both IDs to be persisted in the relationship table.
-                            bLL_Licences.removeRelationship(license);
-
-                            BLL_LogManager.addMessage(new Log
+                            //If we find the license, we add the selected orphan license as its child.
+                            if (license.Id == selectedLicense.Id)
                             {
-                                Date = DateTime.Now,
-                                Code = "LICENSE_TO_LICENSEPOOL_OK",
-                                Description = String.Format($"Account {UserInstance.getInstance().user.Username} moved license to orphan license pool" +
-                                $" License ID: {license.Id}"),
-                                Type = LogType.Control,
-                                User = UserInstance.getInstance().user
-                            }); ;
-                        }
-                    }
+                                //We send both IDs to be persisted in the relationship table.
+                                bLL_Licences.removeRelationship(license);
 
-                    //After that, we refresh the UI
-                    loadTreeView();
-                    loadLicensePool();
+                                BLL_LogManager.addMessage(new Log
+                                {
+                                    Date = DateTime.Now,
+                                    Code = "LICENSE_TO_LICENSEPOOL_OK",
+                                    Description = String.Format($"Account {UserInstance.getInstance().user.Username} moved license to orphan license pool" +
+                                    $" License ID: {license.Id}"),
+                                    Type = LogType.Control,
+                                    User = UserInstance.getInstance().user
+                                }); ;
+                            }
+                        }
+
+                        //After that, we refresh the UI
+                        loadTreeView();
+                        loadLicensePool();
+                    }
+                    catch (Exception)
+                    { }
                 }
-                catch (Exception)
-                { }
             }
         }
+     
 
         //Add new license
         //You can only add licenses into de License pool
@@ -332,6 +323,24 @@ namespace UAICampo.UI.Controllers
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "LicenseId"), label_Title_LicenseId));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "LicenseName"), label_Title_LicenseName));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "LicenseDesc"), label_Title_LicenseDesc));
+        }
+
+        private void treeView_License_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+            if (treeView_License.SelectedNode != null && treeView_License.SelectedNode.Tag != null)
+            {
+                Component license = bLL_Licences.SearchLicenseById((int)treeView_License.SelectedNode.Tag);
+
+                selectedLicense = license;
+
+                if (license != null)
+                {
+                    label_LicenseId.Text = license.Id.ToString();
+                    labelLicenseName.Text = license.Name;
+                    label_LicenseDescription.Text = license.Description;
+                }
+            }
         }
     }
 }

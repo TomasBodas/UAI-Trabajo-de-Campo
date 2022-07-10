@@ -31,6 +31,8 @@ namespace UAICampo.UI
             bllUser = new BLL_UserManager();
             SetControllerTags();
 
+
+
             if (UserInstance.getInstance().user != null)
             {
                 UserInstance.getInstance().user.Add(this);
@@ -58,7 +60,7 @@ namespace UAICampo.UI
             //    textBoxTeamName.Text = selectedEquipo.Name;
             //    textBoxLevel.Text = selectedEquipo.Value.ToString();
 
-            //   List<IUser> users = BLL_UserManager.getPositions(selectedEquipo.Id);
+            //    List<IUser> users = BLL_UserManager.getPositions(selectedEquipo.Id);
             //    foreach (IUser user in users)
             //    {
             //        selectedEquipo.puestos

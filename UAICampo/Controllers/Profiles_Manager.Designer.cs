@@ -1,7 +1,7 @@
 ﻿
 namespace UAICampo.UI.Controllers
 {
-    partial class Profile_Manager
+    partial class Profiles_Manager
     {
         /// <summary> 
         /// Required designer variable.

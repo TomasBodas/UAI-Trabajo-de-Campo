@@ -25,7 +25,7 @@ namespace UAICampo.UI
         frmProfileManager frmProfileManager = null;
         FrmRegister FrmRegister = null;
         frmEquipo frmEquipo = null;
-        frmUserManager frmUserManager = null;
+        frmProfileManager frmUserManager = null;
         frmProfile frmChangePassword = null;
         BLL_SessionManager sessionBLL;
         BLL_LanguageManager languageBLL;
@@ -40,7 +40,6 @@ namespace UAICampo.UI
 
             if (UserInstance.getInstance().userIsLoggedIn())
             {
-                userSetProfile = UserInstance.getInstance().user.profileList[0];
             }
 
             SetControllerTags();
@@ -108,7 +107,6 @@ namespace UAICampo.UI
             administratorToolStripMenuItem.Text = selectedLanguage.translate("Administrator");
             changePasswordToolStripMenuItem.Text = selectedLanguage.translate("Information");
             languageEditorToolStripMenuItem.Text = selectedLanguage.translate("LanguageEditor");
-            profileManagerToolStripMenuItem.Text = selectedLanguage.translate("ProfileManager");
             licenseManagerToolStripMenuItem.Text = selectedLanguage.translate("LicenseManager");
             userManagerToolStripMenuItem.Text = selectedLanguage.translate("UserManager");
             logoutToolStripMenuItem.Text = selectedLanguage.translate("Logout");
@@ -120,7 +118,7 @@ namespace UAICampo.UI
 
                 List<Services.Composite.Component> licenses = new List<Services.Composite.Component>();
 
-                licenses = userSetProfile.getAllLicenses();
+                licenses = UserInstance.getInstance().user.getAllLicenses();
                 var adminCheck = licenses.Find(x => x.Id == 2);
                 var supervisorCheck = licenses.Find(x => x.Id == 17);
                 var teamOwnerCheck = licenses.Find(x => x.Id == 3);
@@ -196,7 +194,7 @@ namespace UAICampo.UI
         {
             if (frmUserManager == null)
             {
-                frmUserManager = new frmUserManager();
+                frmUserManager = new frmProfileManager();
                 frmUserManager.FormClosed += new FormClosedEventHandler(frmUser_FormClosed);
                 frmUserManager.Show();
             }

@@ -45,7 +45,6 @@ namespace UAICampo.UI
             this.administratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.profileManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.licenseManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.supervisorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.teamManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -170,7 +169,6 @@ namespace UAICampo.UI
             this.administratorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.languageEditorToolStripMenuItem,
             this.userManagerToolStripMenuItem,
-            this.profileManagerToolStripMenuItem,
             this.licenseManagerToolStripMenuItem});
             this.administratorToolStripMenuItem.Name = "administratorToolStripMenuItem";
             this.administratorToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
@@ -180,28 +178,21 @@ namespace UAICampo.UI
             // languageEditorToolStripMenuItem
             // 
             this.languageEditorToolStripMenuItem.Name = "languageEditorToolStripMenuItem";
-            this.languageEditorToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.languageEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.languageEditorToolStripMenuItem.Text = "Language Editor";
             this.languageEditorToolStripMenuItem.Click += new System.EventHandler(this.languageEditorToolStripMenuItem_Click);
             // 
             // userManagerToolStripMenuItem
             // 
             this.userManagerToolStripMenuItem.Name = "userManagerToolStripMenuItem";
-            this.userManagerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.userManagerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.userManagerToolStripMenuItem.Text = "User Manager";
             this.userManagerToolStripMenuItem.Click += new System.EventHandler(this.userManagerToolStripMenuItem_Click);
-            // 
-            // profileManagerToolStripMenuItem
-            // 
-            this.profileManagerToolStripMenuItem.Name = "profileManagerToolStripMenuItem";
-            this.profileManagerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
-            this.profileManagerToolStripMenuItem.Text = "Profile Manager";
-            this.profileManagerToolStripMenuItem.Click += new System.EventHandler(this.profileManagerToolStripMenuItem_Click);
             // 
             // licenseManagerToolStripMenuItem
             // 
             this.licenseManagerToolStripMenuItem.Name = "licenseManagerToolStripMenuItem";
-            this.licenseManagerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.licenseManagerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.licenseManagerToolStripMenuItem.Text = "License Manager";
             this.licenseManagerToolStripMenuItem.Click += new System.EventHandler(this.licenseManagerToolStripMenuItem_Click);
             // 
@@ -218,14 +209,14 @@ namespace UAICampo.UI
             // teamManagerToolStripMenuItem
             // 
             this.teamManagerToolStripMenuItem.Name = "teamManagerToolStripMenuItem";
-            this.teamManagerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.teamManagerToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.teamManagerToolStripMenuItem.Text = "Team Manager";
             this.teamManagerToolStripMenuItem.Click += new System.EventHandler(this.teamManagerToolStripMenuItem_Click);
             // 
             // addNewAccountToolStripMenuItem
             // 
             this.addNewAccountToolStripMenuItem.Name = "addNewAccountToolStripMenuItem";
-            this.addNewAccountToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addNewAccountToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.addNewAccountToolStripMenuItem.Text = "Add new account";
             this.addNewAccountToolStripMenuItem.Click += new System.EventHandler(this.addNewAccountToolStripMenuItem_Click);
             // 
@@ -339,7 +330,6 @@ namespace UAICampo.UI
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageTask;
         private System.Windows.Forms.ToolStripMenuItem userManagerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem profileManagerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem licenseManagerToolStripMenuItem;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private Controllers.LanguageController languageController2;

@@ -24,6 +24,26 @@ namespace UAICampo.BLL
             }
         }
 
+        public void getUserLicences(User user)
+        {
+            dal.getUserLicences(user);
+
+            foreach (Component userLicence in user.Licenses)
+            {
+                getAllLicences(userLicence);
+            }
+        }
+
+        public bool setUserLicense(User user, Component license)
+        {
+            return dal.addUserLicense(user, license);
+        }
+
+        public bool revokeUserLicense(User user, Component license)
+        {
+            return dal.revokeProfileLicense(user, license);
+        }
+
         //Recursive method to retrieve all child licenses recursively from DB
         public void getAllLicences(Component component)
         {
@@ -62,7 +82,7 @@ namespace UAICampo.BLL
             {
                 dal.removeRelationship(MasterLicense.Id, slaveLicense.Id);
 
-                if (childLicense.child.Count > 0)
+                if (childLicense.child.Count > 0 && childLicense.Name == slaveLicense.Name)
                 {
                     foreach (Composite childChildLicense in childLicense.child)
                     {

@@ -34,9 +34,9 @@ namespace UAICampo.UI
             // 
             // profile_Manager1
             // 
-            this.profile_Manager1.Location = new System.Drawing.Point(12, 12);
+            this.profile_Manager1.Location = new System.Drawing.Point(14, 12);
             this.profile_Manager1.Name = "profile_Manager1";
-            this.profile_Manager1.Size = new System.Drawing.Size(686, 438);
+            this.profile_Manager1.Size = new System.Drawing.Size(1076, 418);
             this.profile_Manager1.TabIndex = 0;
             // 
             // frmProfileManager
@@ -44,7 +44,7 @@ namespace UAICampo.UI
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UAICampo.UI.Properties.Resources.background2;
-            this.ClientSize = new System.Drawing.Size(708, 457);
+            this.ClientSize = new System.Drawing.Size(1102, 439);
             this.Controls.Add(this.profile_Manager1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "frmProfileManager";

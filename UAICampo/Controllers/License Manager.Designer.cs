@@ -51,6 +51,7 @@ namespace UAICampo.UI.Controllers
             this.treeView_License.Name = "treeView_License";
             this.treeView_License.Size = new System.Drawing.Size(389, 264);
             this.treeView_License.TabIndex = 0;
+            this.treeView_License.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_License_AfterSelect);
             this.treeView_License.MouseUp += new System.Windows.Forms.MouseEventHandler(this.treeView_License_MouseUp);
             // 
             // label_TItle

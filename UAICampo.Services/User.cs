@@ -13,9 +13,11 @@ namespace UAICampo.Services
     public class User : IUser, ISubject
     {
         public List<Profile> profileList;
+        public List<Component> Licenses;
         public User()
         {
             profileList = new List<Profile>();
+            Licenses = new List<Component>();
         }
 
         public User( string username, string password, string email) : base()
@@ -23,19 +25,20 @@ namespace UAICampo.Services
             this.Username = username;
             this.Password = password;
             this.Email = email;
+            Licenses = new List<Component>();
         }
         public User(object[] itemArray) : base()
         {
             this.Id = (int)itemArray[0];
             this.Username = (string)itemArray[1];
             this.Email = (string)itemArray[2];
+            Licenses = new List<Component>();
         }
 
         public string Email { get; set; }
         public bool IsBlocked { get; set; }
         public int Attempts { get; set; }
         public string Password { get; set; }
-        public IList<Component> Licenses { get; set; }
         public Language language { get; set; }
 
         public List<IObserver> subscribers = new List<IObserver>();
@@ -59,6 +62,18 @@ namespace UAICampo.Services
             {
                 subscriber.Update();
             }
+        }
+
+        public List<Component> getAllLicenses()
+        {
+            List<Component> LicensesList = new List<Component>();
+            LicensesList.AddRange(Licenses);
+
+            foreach (Component component in Licenses)
+            {
+                LicensesList.AddRange(component.GetAllChildren());
+            }
+            return LicensesList;
         }
     }
 }
