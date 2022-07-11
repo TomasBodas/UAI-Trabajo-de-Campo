@@ -85,7 +85,7 @@ namespace UAICampo.UI
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(124, 98);
+            this.textBoxPassword.Location = new System.Drawing.Point(138, 98);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(131, 20);
@@ -119,7 +119,7 @@ namespace UAICampo.UI
             // 
             // textBoxConfirmPassword
             // 
-            this.textBoxConfirmPassword.Location = new System.Drawing.Point(124, 124);
+            this.textBoxConfirmPassword.Location = new System.Drawing.Point(138, 124);
             this.textBoxConfirmPassword.Name = "textBoxConfirmPassword";
             this.textBoxConfirmPassword.PasswordChar = '*';
             this.textBoxConfirmPassword.Size = new System.Drawing.Size(131, 20);

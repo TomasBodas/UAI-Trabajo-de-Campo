@@ -52,10 +52,10 @@ namespace UAICampo.UI
             this.addNewAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageTask = new System.Windows.Forms.TabPage();
+            this.tareasController1 = new UAICampo.UI.Controllers.TareasController();
             this.tabPageLeader = new System.Windows.Forms.TabPage();
             this.equipo_Manager1 = new UAICampo.UI.Equipo_Manager();
             this.languageController2 = new UAICampo.UI.Controllers.LanguageController();
-            this.tareasController1 = new UAICampo.UI.Controllers.TareasController();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -156,14 +156,14 @@ namespace UAICampo.UI
             // changePasswordToolStripMenuItem
             // 
             this.changePasswordToolStripMenuItem.Name = "changePasswordToolStripMenuItem";
-            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.changePasswordToolStripMenuItem.Text = "Information";
             this.changePasswordToolStripMenuItem.Click += new System.EventHandler(this.changePasswordToolStripMenuItem_Click);
             // 
             // logoutToolStripMenuItem
             // 
             this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
-            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.logoutToolStripMenuItem.Text = "Logout";
             this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
             // 
@@ -220,14 +220,14 @@ namespace UAICampo.UI
             // teamManagerToolStripMenuItem
             // 
             this.teamManagerToolStripMenuItem.Name = "teamManagerToolStripMenuItem";
-            this.teamManagerToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.teamManagerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.teamManagerToolStripMenuItem.Text = "Team Manager";
             this.teamManagerToolStripMenuItem.Click += new System.EventHandler(this.teamManagerToolStripMenuItem_Click);
             // 
             // addNewAccountToolStripMenuItem
             // 
             this.addNewAccountToolStripMenuItem.Name = "addNewAccountToolStripMenuItem";
-            this.addNewAccountToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.addNewAccountToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addNewAccountToolStripMenuItem.Text = "Add new account";
             this.addNewAccountToolStripMenuItem.Click += new System.EventHandler(this.addNewAccountToolStripMenuItem_Click);
             // 
@@ -256,6 +256,14 @@ namespace UAICampo.UI
             this.tabPageTask.TabIndex = 0;
             this.tabPageTask.Text = "My Tasks";
             // 
+            // tareasController1
+            // 
+            this.tareasController1.BackColor = System.Drawing.SystemColors.Control;
+            this.tareasController1.Location = new System.Drawing.Point(26, 24);
+            this.tareasController1.Name = "tareasController1";
+            this.tareasController1.Size = new System.Drawing.Size(896, 322);
+            this.tareasController1.TabIndex = 0;
+            // 
             // tabPageLeader
             // 
             this.tabPageLeader.BackgroundImage = global::UAICampo.UI.Properties.Resources.background;
@@ -283,14 +291,6 @@ namespace UAICampo.UI
             this.languageController2.Name = "languageController2";
             this.languageController2.Size = new System.Drawing.Size(40, 26);
             this.languageController2.TabIndex = 18;
-            // 
-            // tareasController1
-            // 
-            this.tareasController1.BackColor = System.Drawing.SystemColors.Control;
-            this.tareasController1.Location = new System.Drawing.Point(26, 24);
-            this.tareasController1.Name = "tareasController1";
-            this.tareasController1.Size = new System.Drawing.Size(896, 322);
-            this.tareasController1.TabIndex = 0;
             // 
             // pictureBox1
             // 

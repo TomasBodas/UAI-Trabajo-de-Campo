@@ -71,9 +71,14 @@ namespace UAICampo.UI.Controllers
             //Second value: Word Tag, used for language runtime changes
 
             //General controllers------------------------------------------------------------------------------------
-            //controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "LicenseList"), label_Title_License));
-            //controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "ProfileList"), label_Title_Profile));
-            //controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "LicenseList"), label_Title_ProfileLicenses));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Profile"), labelProfileLicense));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Profile"), labelProfile));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Username"), labelUsername));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Team"), labelTeam));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Information"), tabPageInformation));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "ChangePassword"), tabPagePassword));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Skills"), tabPageSkills));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Achievements"), tabPageAchievements));
         }
 
         private void ProfileUser_Load(object sender, EventArgs e)

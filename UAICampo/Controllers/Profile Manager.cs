@@ -198,6 +198,8 @@ namespace UAICampo.UI.Controllers
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "LicenseList"), label_Title_License));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "ProfileList"), label_Title_Profile));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "LicenseList"), label_Title_ProfileLicenses));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Block"), button_BlockUser));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Unblock"), button_unblockUser));
         }
 
         private void button_BlockUser_Click(object sender, EventArgs e)

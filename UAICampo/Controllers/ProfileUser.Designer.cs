@@ -39,13 +39,13 @@ namespace UAICampo.UI.Controllers
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.labelMail = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelUsername = new System.Windows.Forms.Label();
             this.tabPagePassword = new System.Windows.Forms.TabPage();
-            this.tabPageAchievements = new System.Windows.Forms.TabPage();
             this.tabPageSkills = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.buttonAdd = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.tabPageAchievements = new System.Windows.Forms.TabPage();
             this.password_Change1 = new UAICampo.UI.Controllers.Password_Change();
             this.tabControlProfile.SuspendLayout();
             this.tabPageInformation.SuspendLayout();
@@ -85,7 +85,7 @@ namespace UAICampo.UI.Controllers
             this.tabPageInformation.Controls.Add(this.textBox2);
             this.tabPageInformation.Controls.Add(this.labelMail);
             this.tabPageInformation.Controls.Add(this.textBox1);
-            this.tabPageInformation.Controls.Add(this.label1);
+            this.tabPageInformation.Controls.Add(this.labelUsername);
             this.tabPageInformation.Location = new System.Drawing.Point(4, 22);
             this.tabPageInformation.Name = "tabPageInformation";
             this.tabPageInformation.Padding = new System.Windows.Forms.Padding(3);
@@ -156,15 +156,15 @@ namespace UAICampo.UI.Controllers
             this.textBox1.Size = new System.Drawing.Size(127, 23);
             this.textBox1.TabIndex = 1;
             // 
-            // label1
+            // labelUsername
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(49, 87);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 17);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Username";
+            this.labelUsername.AutoSize = true;
+            this.labelUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelUsername.Location = new System.Drawing.Point(49, 87);
+            this.labelUsername.Name = "labelUsername";
+            this.labelUsername.Size = new System.Drawing.Size(73, 17);
+            this.labelUsername.TabIndex = 0;
+            this.labelUsername.Text = "Username";
             // 
             // tabPagePassword
             // 
@@ -176,15 +176,6 @@ namespace UAICampo.UI.Controllers
             this.tabPagePassword.TabIndex = 1;
             this.tabPagePassword.Text = "Change Password";
             this.tabPagePassword.UseVisualStyleBackColor = true;
-            // 
-            // tabPageAchievements
-            // 
-            this.tabPageAchievements.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAchievements.Name = "tabPageAchievements";
-            this.tabPageAchievements.Size = new System.Drawing.Size(329, 288);
-            this.tabPageAchievements.TabIndex = 2;
-            this.tabPageAchievements.Text = "Achievements";
-            this.tabPageAchievements.UseVisualStyleBackColor = true;
             // 
             // tabPageSkills
             // 
@@ -198,13 +189,14 @@ namespace UAICampo.UI.Controllers
             this.tabPageSkills.Text = "Skills";
             this.tabPageSkills.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // buttonAdd
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(23, 73);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(281, 194);
-            this.dataGridView1.TabIndex = 0;
+            this.buttonAdd.Location = new System.Drawing.Point(229, 33);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdd.TabIndex = 2;
+            this.buttonAdd.Text = "Add";
+            this.buttonAdd.UseVisualStyleBackColor = true;
             // 
             // comboBox1
             // 
@@ -214,14 +206,22 @@ namespace UAICampo.UI.Controllers
             this.comboBox1.Size = new System.Drawing.Size(185, 21);
             this.comboBox1.TabIndex = 1;
             // 
-            // buttonAdd
+            // dataGridView1
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(229, 33);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonAdd.TabIndex = 2;
-            this.buttonAdd.Text = "Add";
-            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(23, 73);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(281, 194);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // tabPageAchievements
+            // 
+            this.tabPageAchievements.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAchievements.Name = "tabPageAchievements";
+            this.tabPageAchievements.Size = new System.Drawing.Size(329, 288);
+            this.tabPageAchievements.TabIndex = 2;
+            this.tabPageAchievements.Text = "Achievements";
+            this.tabPageAchievements.UseVisualStyleBackColor = true;
             // 
             // password_Change1
             // 
@@ -256,7 +256,7 @@ namespace UAICampo.UI.Controllers
         private System.Windows.Forms.TabControl tabControlProfile;
         private System.Windows.Forms.TabPage tabPageInformation;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelUsername;
         private System.Windows.Forms.TabPage tabPagePassword;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label labelTeam;

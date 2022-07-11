@@ -208,6 +208,8 @@ namespace UAICampo.UI.Controllers
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "UserList"), label_title_UserList));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "UserProfileList"), label_title_UserProfile));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "ProfileList"), label_title_ProfilePool));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "AddProfile"), button_addProfile));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "RemoveProfile"), button_removeProfile));
         }
 
         private void dataGridView_user_CellContentClick(object sender, DataGridViewCellEventArgs e)

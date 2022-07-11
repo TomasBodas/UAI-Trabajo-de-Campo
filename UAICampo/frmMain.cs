@@ -109,8 +109,14 @@ namespace UAICampo.UI
             changePasswordToolStripMenuItem.Text = selectedLanguage.translate("Information");
             languageEditorToolStripMenuItem.Text = selectedLanguage.translate("LanguageEditor");
             licenseManagerToolStripMenuItem.Text = selectedLanguage.translate("LicenseManager");
-            userManagerToolStripMenuItem.Text = selectedLanguage.translate("UserManager");
+            userManagerToolStripMenuItem.Text = selectedLanguage.translate("ProfileManager");
             logoutToolStripMenuItem.Text = selectedLanguage.translate("Logout");
+            profileManagerToolStripMenuItem.Text = selectedLanguage.translate("UserManager");
+            supervisorToolStripMenuItem.Text = selectedLanguage.translate("Options");
+            teamManagerToolStripMenuItem.Text = selectedLanguage.translate("TeamManager");
+            addNewAccountToolStripMenuItem.Text = selectedLanguage.translate("AddAccount");
+            tabPageTask.Text = selectedLanguage.translate("MyTasks");
+            tabPageLeader.Text = selectedLanguage.translate("TeamSettings");
         }
         private void ValidateForm()
         {
