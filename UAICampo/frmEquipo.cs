@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UAICampo.BE;
 using UAICampo.BLL;
+using UAICampo.Services;
 
 namespace UAICampo.UI
 {
@@ -26,13 +27,7 @@ namespace UAICampo.UI
 
         private void frmEquipo_Load(object sender, EventArgs e)
         {
-            equipos = bllEquipo.getAll().ToList();
-
-            comboBox1.Items.Clear();
-            foreach (var item in equipos)
-            {
-                comboBox1.Items.Add(item.Name);
-            }
+            updateEquipoList();
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -74,6 +69,32 @@ namespace UAICampo.UI
             {
                 frmEquipoManager.BringToFront();
             }
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedIndex == -1)
+            {
+                return;
+            }
+            bllEquipo.Delete(int.Parse((comboBox1.SelectedItem as ComboboxItem).Value.ToString()));
+            updateEquipoList();
+        }
+
+        private void updateEquipoList()
+        {
+            equipos = bllEquipo.getAll().ToList();
+
+            comboBox1.DisplayMember = "Text";
+            comboBox1.ValueMember = "Value";
+
+            var items = new List<Object>();
+            foreach (Equipo equipo in equipos)
+            {
+                items.Add(new ComboboxItem { Text = equipo.Name, Value = equipo.Id });
+            }
+
+            comboBox1.DataSource = items;
         }
     }
 }

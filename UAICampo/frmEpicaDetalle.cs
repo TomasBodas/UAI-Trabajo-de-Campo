@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UAICampo.UI.Controllers
+namespace UAICampo.UI
 {
-    public partial class SearchUserController : UserControl
+    public partial class frmEpicaDetalle : Form
     {
-        public SearchUserController()
+        public frmEpicaDetalle()
         {
             InitializeComponent();
-        }
-
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

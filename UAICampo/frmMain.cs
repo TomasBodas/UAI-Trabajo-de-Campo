@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UAICampo.Abstractions;
 using UAICampo.Abstractions.Observer;
 using UAICampo.BLL;
 using UAICampo.Services;
@@ -25,7 +26,7 @@ namespace UAICampo.UI
         frmProfileManager frmProfileManager = null;
         FrmRegister FrmRegister = null;
         frmEquipo frmEquipo = null;
-        frmProfileManager frmUserManager = null;
+        frmUserManager frmUserManager = null;
         frmProfile frmChangePassword = null;
         BLL_SessionManager sessionBLL;
         BLL_LanguageManager languageBLL;
@@ -117,12 +118,15 @@ namespace UAICampo.UI
             {
 
                 List<Services.Composite.Component> licenses = new List<Services.Composite.Component>();
-
+                IEquipo selectedEquipo = BLL_EquipoManager.getUserTeam(UserInstance.getInstance().user);
                 licenses = UserInstance.getInstance().user.getAllLicenses();
                 var adminCheck = licenses.Find(x => x.Id == 2);
-                var supervisorCheck = licenses.Find(x => x.Id == 17);
-                var teamOwnerCheck = licenses.Find(x => x.Id == 3);
-                var productOwnerCheck = licenses.Find(x => x.Id == 6);
+                var supervisorCheck = licenses.Find(x => x.Id == 16);
+                var teamOwnerCheck = licenses.Find(x => x.Id == 17);
+                if (selectedEquipo.Id == 0)
+                {
+                    tabControl1.Visible = false;
+                }
                 if (supervisorCheck != null)
                 {
                     supervisorToolStripMenuItem.Visible = true;
@@ -132,7 +136,7 @@ namespace UAICampo.UI
                     administratorToolStripMenuItem.Visible = true;
                     supervisorToolStripMenuItem.Visible = true;
                 }
-                if (teamOwnerCheck == null && productOwnerCheck == null)
+                if (teamOwnerCheck == null)
                 {
                     tabControl1.TabPages.Remove(tabPageLeader);
                 }
@@ -194,7 +198,7 @@ namespace UAICampo.UI
         {
             if (frmUserManager == null)
             {
-                frmUserManager = new frmProfileManager();
+                frmUserManager = new frmUserManager();
                 frmUserManager.FormClosed += new FormClosedEventHandler(frmUser_FormClosed);
                 frmUserManager.Show();
             }
@@ -340,6 +344,20 @@ namespace UAICampo.UI
                 {
                     Application.Exit();
                 }
+            }
+        }
+
+        private void profileManagerToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            if (frmProfileManager == null)
+            {
+                frmProfileManager = new frmProfileManager();
+                frmProfileManager.FormClosed += new FormClosedEventHandler(frmProfile_FormClosed);
+                frmProfileManager.Show();
+            }
+            else
+            {
+                frmProfileManager.BringToFront();
             }
         }
     }

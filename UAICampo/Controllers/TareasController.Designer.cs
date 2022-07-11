@@ -40,6 +40,7 @@ namespace UAICampo.UI.Controllers
             this.buttonAddTask = new System.Windows.Forms.Button();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.buttonArchive = new System.Windows.Forms.Button();
+            this.buttonDetails2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelTareas
@@ -62,12 +63,13 @@ namespace UAICampo.UI.Controllers
             // 
             // buttonDetails
             // 
-            this.buttonDetails.Location = new System.Drawing.Point(404, 204);
+            this.buttonDetails.Location = new System.Drawing.Point(785, 289);
             this.buttonDetails.Name = "buttonDetails";
             this.buttonDetails.Size = new System.Drawing.Size(75, 23);
             this.buttonDetails.TabIndex = 3;
             this.buttonDetails.Text = "Details";
             this.buttonDetails.UseVisualStyleBackColor = true;
+            this.buttonDetails.Click += new System.EventHandler(this.buttonDetails_Click);
             // 
             // buttonAssign
             // 
@@ -77,6 +79,7 @@ namespace UAICampo.UI.Controllers
             this.buttonAssign.TabIndex = 4;
             this.buttonAssign.Text = "<";
             this.buttonAssign.UseVisualStyleBackColor = true;
+            this.buttonAssign.Visible = false;
             // 
             // buttonDeassign
             // 
@@ -86,6 +89,7 @@ namespace UAICampo.UI.Controllers
             this.buttonDeassign.TabIndex = 4;
             this.buttonDeassign.Text = ">";
             this.buttonDeassign.UseVisualStyleBackColor = true;
+            this.buttonDeassign.Visible = false;
             // 
             // buttonFinalize
             // 
@@ -95,6 +99,7 @@ namespace UAICampo.UI.Controllers
             this.buttonFinalize.TabIndex = 4;
             this.buttonFinalize.Text = "Finalize";
             this.buttonFinalize.UseVisualStyleBackColor = true;
+            this.buttonFinalize.Visible = false;
             // 
             // listBox2
             // 
@@ -122,6 +127,7 @@ namespace UAICampo.UI.Controllers
             this.buttonAddTask.TabIndex = 3;
             this.buttonAddTask.Text = "Add Task";
             this.buttonAddTask.UseVisualStyleBackColor = true;
+            this.buttonAddTask.Click += new System.EventHandler(this.buttonAddTask_Click);
             // 
             // buttonRefresh
             // 
@@ -131,6 +137,7 @@ namespace UAICampo.UI.Controllers
             this.buttonRefresh.TabIndex = 3;
             this.buttonRefresh.Text = "Refresh";
             this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
             // buttonArchive
             // 
@@ -140,11 +147,23 @@ namespace UAICampo.UI.Controllers
             this.buttonArchive.TabIndex = 4;
             this.buttonArchive.Text = "Archive";
             this.buttonArchive.UseVisualStyleBackColor = true;
+            this.buttonArchive.Visible = false;
+            // 
+            // buttonDetails2
+            // 
+            this.buttonDetails2.Location = new System.Drawing.Point(32, 289);
+            this.buttonDetails2.Name = "buttonDetails2";
+            this.buttonDetails2.Size = new System.Drawing.Size(75, 23);
+            this.buttonDetails2.TabIndex = 5;
+            this.buttonDetails2.Text = "Details";
+            this.buttonDetails2.UseVisualStyleBackColor = true;
+            this.buttonDetails2.Click += new System.EventHandler(this.buttonDetails2_Click);
             // 
             // TareasController
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonDetails2);
             this.Controls.Add(this.buttonArchive);
             this.Controls.Add(this.buttonFinalize);
             this.Controls.Add(this.buttonDeassign);
@@ -157,7 +176,8 @@ namespace UAICampo.UI.Controllers
             this.Controls.Add(this.labelEquipoTareas);
             this.Controls.Add(this.labelTareas);
             this.Name = "TareasController";
-            this.Size = new System.Drawing.Size(896, 309);
+            this.Size = new System.Drawing.Size(896, 326);
+            this.Load += new System.EventHandler(this.TareasController_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -176,5 +196,6 @@ namespace UAICampo.UI.Controllers
         private System.Windows.Forms.Button buttonAddTask;
         private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.Button buttonArchive;
+        private System.Windows.Forms.Button buttonDetails2;
     }
 }

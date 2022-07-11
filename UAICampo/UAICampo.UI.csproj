@@ -80,12 +80,6 @@
     <Compile Include="Controllers\License Manager.Designer.cs">
       <DependentUpon>License Manager.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\Profiles_Manager.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controllers\Profiles_Manager.Designer.cs">
-      <DependentUpon>Profiles_Manager.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\ProposalController.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -145,6 +139,12 @@
     </Compile>
     <Compile Include="frmBusqueda.Designer.cs">
       <DependentUpon>frmBusqueda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmEpicaDetalle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEpicaDetalle.Designer.cs">
+      <DependentUpon>frmEpicaDetalle.cs</DependentUpon>
     </Compile>
     <Compile Include="frmEquipoManager.cs">
       <SubType>Form</SubType>
@@ -244,9 +244,6 @@
     <EmbeddedResource Include="Controllers\License Manager.resx">
       <DependentUpon>License Manager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controllers\Profiles_Manager.resx">
-      <DependentUpon>Profiles_Manager.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controllers\ProposalController.resx">
       <DependentUpon>ProposalController.cs</DependentUpon>
     </EmbeddedResource>
@@ -279,6 +276,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmBusqueda.resx">
       <DependentUpon>frmBusqueda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEpicaDetalle.resx">
+      <DependentUpon>frmEpicaDetalle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmEquipoManager.resx">
       <DependentUpon>frmEquipoManager.cs</DependentUpon>

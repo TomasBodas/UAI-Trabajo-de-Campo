@@ -30,8 +30,6 @@ namespace UAICampo.UI.Controllers
         private void InitializeComponent()
         {
             this.dataGridView_user = new System.Windows.Forms.DataGridView();
-            this.button_BlockUser = new System.Windows.Forms.Button();
-            this.button_unblockUser = new System.Windows.Forms.Button();
             this.label_title_UserList = new System.Windows.Forms.Label();
             this.dataGridView_userProfile = new System.Windows.Forms.DataGridView();
             this.label_title_UserProfile = new System.Windows.Forms.Label();
@@ -39,6 +37,8 @@ namespace UAICampo.UI.Controllers
             this.button_assignProfile = new System.Windows.Forms.Button();
             this.button_revokeProfile = new System.Windows.Forms.Button();
             this.label_title_ProfilePool = new System.Windows.Forms.Label();
+            this.button_addProfile = new System.Windows.Forms.Button();
+            this.button_removeProfile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_user)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_userProfile)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_GeneralProfileList)).BeginInit();
@@ -60,26 +60,6 @@ namespace UAICampo.UI.Controllers
             this.dataGridView_user.TabIndex = 0;
             this.dataGridView_user.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_user_CellContentClick);
             this.dataGridView_user.SelectionChanged += new System.EventHandler(this.dataGridView_user_SelectionChanged);
-            // 
-            // button_BlockUser
-            // 
-            this.button_BlockUser.Location = new System.Drawing.Point(564, 66);
-            this.button_BlockUser.Name = "button_BlockUser";
-            this.button_BlockUser.Size = new System.Drawing.Size(75, 23);
-            this.button_BlockUser.TabIndex = 1;
-            this.button_BlockUser.Text = "Block";
-            this.button_BlockUser.UseVisualStyleBackColor = true;
-            this.button_BlockUser.Click += new System.EventHandler(this.button_BlockUser_Click);
-            // 
-            // button_unblockUser
-            // 
-            this.button_unblockUser.Location = new System.Drawing.Point(564, 108);
-            this.button_unblockUser.Name = "button_unblockUser";
-            this.button_unblockUser.Size = new System.Drawing.Size(75, 23);
-            this.button_unblockUser.TabIndex = 2;
-            this.button_unblockUser.Text = "Unblock";
-            this.button_unblockUser.UseVisualStyleBackColor = true;
-            this.button_unblockUser.Click += new System.EventHandler(this.button_unblockUser_Click);
             // 
             // label_title_UserList
             // 
@@ -160,10 +140,32 @@ namespace UAICampo.UI.Controllers
             this.label_title_ProfilePool.TabIndex = 9;
             this.label_title_ProfilePool.Text = "label1";
             // 
+            // button_addProfile
+            // 
+            this.button_addProfile.Location = new System.Drawing.Point(564, 66);
+            this.button_addProfile.Name = "button_addProfile";
+            this.button_addProfile.Size = new System.Drawing.Size(75, 23);
+            this.button_addProfile.TabIndex = 10;
+            this.button_addProfile.Text = "Add Profile";
+            this.button_addProfile.UseVisualStyleBackColor = true;
+            this.button_addProfile.Click += new System.EventHandler(this.button_addProfile_Click);
+            // 
+            // button_removeProfile
+            // 
+            this.button_removeProfile.Location = new System.Drawing.Point(557, 108);
+            this.button_removeProfile.Name = "button_removeProfile";
+            this.button_removeProfile.Size = new System.Drawing.Size(87, 23);
+            this.button_removeProfile.TabIndex = 11;
+            this.button_removeProfile.Text = "Remove Profile";
+            this.button_removeProfile.UseVisualStyleBackColor = true;
+            this.button_removeProfile.Click += new System.EventHandler(this.button_removeProfile_Click);
+            // 
             // User_Manager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.button_removeProfile);
+            this.Controls.Add(this.button_addProfile);
             this.Controls.Add(this.label_title_ProfilePool);
             this.Controls.Add(this.button_revokeProfile);
             this.Controls.Add(this.button_assignProfile);
@@ -171,8 +173,6 @@ namespace UAICampo.UI.Controllers
             this.Controls.Add(this.label_title_UserProfile);
             this.Controls.Add(this.dataGridView_userProfile);
             this.Controls.Add(this.label_title_UserList);
-            this.Controls.Add(this.button_unblockUser);
-            this.Controls.Add(this.button_BlockUser);
             this.Controls.Add(this.dataGridView_user);
             this.Name = "User_Manager";
             this.Size = new System.Drawing.Size(1024, 387);
@@ -188,8 +188,6 @@ namespace UAICampo.UI.Controllers
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView_user;
-        private System.Windows.Forms.Button button_BlockUser;
-        private System.Windows.Forms.Button button_unblockUser;
         private System.Windows.Forms.Label label_title_UserList;
         private System.Windows.Forms.DataGridView dataGridView_userProfile;
         private System.Windows.Forms.Label label_title_UserProfile;
@@ -197,5 +195,7 @@ namespace UAICampo.UI.Controllers
         private System.Windows.Forms.Button button_assignProfile;
         private System.Windows.Forms.Button button_revokeProfile;
         private System.Windows.Forms.Label label_title_ProfilePool;
+        private System.Windows.Forms.Button button_addProfile;
+        private System.Windows.Forms.Button button_removeProfile;
     }
 }

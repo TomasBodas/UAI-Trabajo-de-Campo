@@ -4,8 +4,10 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UAICampo.Abstractions;
 using UAICampo.BE;
 using UAICampo.Services;
+using static UAICampo.BE.Tarea;
 
 namespace UAICampo.DAL
 {
@@ -119,11 +121,188 @@ namespace UAICampo.DAL
         }
 
 
-        public Tarea Save(Tarea Entity)
+        public Tarea Save(Tarea t)
         {
-            throw new NotImplementedException();
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"insert into task (title, description, dateCreated, state, archived, value, dateDeadline, FK_team_task, FK_epic_task ) " +
+                                $"values ('{t.Title}', '{t.Description}', convert(datetime, '{t.DateCreated}'), {0}, {0}, {t.Value}, convert(datetime, '{t.DateDeadline}'), {t.Equipo.Id}, {t.EpicaId})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.ExecuteNonQuery();
+                }
+
+                return t;
+            }
         }
 
+        public Epica SaveEpic(Epica Entity)
+        {
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO epic (title, description)" +
+                                $" VALUES ('{Entity.Name}', '{Entity.Description}')";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+
+                    sqlCommand.ExecuteNonQuery();
+                }
+
+                return Entity;
+            }
+        }
+        public List<Epica> getAllEpics()
+        {
+            List<Epica> epics = new List<Epica>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"select * from epic";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            epics.Add(new Epica(new object[] { (int)sqlReader[0], (string)sqlReader[1], (string)sqlReader[2]}));
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+
+            return epics.ToList();
+        }
+        public List<Tarea> getTasksByTeam(IEquipo eq)
+        {
+            List<Tarea> tareas = new List<Tarea>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"select id, title, description, dateCreated, dateDeadline, dateFinished, value, state, archived, FK_epic_task from task where FK_team_task = {eq.Id} and FK_account_task is null";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            tareas.Add(castDTO(sqlReader));
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+
+            return tareas.ToList();
+        }
+
+        public List<Tarea> getTasksByUser(IEquipo eq, User user)
+        {
+            List<Tarea> tareas = new List<Tarea>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"select id, title, description, dateCreated, dateDeadline, dateFinished, value, state, archived, FK_epic_task from task where FK_team_task = {eq.Id} and FK_account_task = {user.Id}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            tareas.Add(castDTO(sqlReader));
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+
+            return tareas.ToList();
+        }
+
+        public Tarea castDTO(SqlDataReader data)
+        {
+            Tarea result = new Tarea();
+            result.Id = Convert.ToInt32(data["id"]);
+            result.Title = data["title"].ToString();
+            result.Description = data["description"].ToString();
+            result.DateCreated = Convert.ToDateTime(data["dateCreated"]);
+            result.DateDeadline = Convert.ToDateTime(data["dateDeadline"]);
+            //result.DateFinished = Convert.ToDateTime(data["dateFinished"]);
+            result.Value = Convert.ToInt32(data["value"]);
+            result.State = (StateType)Convert.ToInt32(data["state"]);
+            result.Archived = Convert.ToBoolean(data["archived"]);
+            result.EpicaId = Convert.ToInt32(data["FK_epic_task"]);
+            return result;
+        }
+
+        public IUser getUserTask(Tarea Entity)
+        {
+            User user = new User();
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"select account.id, account.username, account.email from account join task on FK_account_task = account.id where task.title = '{Entity.Title}'";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            user = new User(new object[] { sqlReader[0], sqlReader[1], sqlReader[2] });
+                        }
+                    }
+                }
+
+                return user;
+            }
+        }
+
+        public bool assignMember(string tareatitle, int usId)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"update task set FK_account_task = {usId} where title = '{tareatitle}'";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    int result = sqlCommand.ExecuteNonQuery();
+                    if (result == 1)
+                    {
+                        success = true;
+                    }
+                }
+
+                sqlConnection.Close();
+            }
+
+            return success;
+        }
         public IList<Tarea> GetAll()
         {
             throw new NotImplementedException();
@@ -131,7 +310,30 @@ namespace UAICampo.DAL
 
         public Tarea FindById(int Id)
         {
-            throw new NotImplementedException();
+
+            Tarea tarea = null;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"select id, title, description, dateCreated, dateDeadline, dateFinished, value, state, archived, FK_epic_task from task where id = {Id}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            tarea = castDTO(sqlReader);
+
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+            return tarea;
         }
 
         public void Delete(int Id)

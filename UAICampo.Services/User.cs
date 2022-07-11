@@ -39,6 +39,7 @@ namespace UAICampo.Services
         public bool IsBlocked { get; set; }
         public int Attempts { get; set; }
         public string Password { get; set; }
+        public IEquipo Equipo { get; set; }
         public Language language { get; set; }
 
         public List<IObserver> subscribers = new List<IObserver>();

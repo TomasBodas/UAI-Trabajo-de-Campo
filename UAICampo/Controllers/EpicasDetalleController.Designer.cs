@@ -30,9 +30,9 @@ namespace UAICampo.UI.Controllers
         private void InitializeComponent()
         {
             this.labelEpicDetail = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtTitle = new System.Windows.Forms.TextBox();
             this.labelTitle = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtDescription = new System.Windows.Forms.TextBox();
             this.labelDescription = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonAccept = new System.Windows.Forms.Button();
@@ -48,13 +48,13 @@ namespace UAICampo.UI.Controllers
             this.labelEpicDetail.TabIndex = 29;
             this.labelEpicDetail.Text = "Epic details";
             // 
-            // textBox2
+            // txtTitle
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox2.Location = new System.Drawing.Point(131, 82);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(288, 23);
-            this.textBox2.TabIndex = 28;
+            this.txtTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.txtTitle.Location = new System.Drawing.Point(131, 82);
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(288, 23);
+            this.txtTitle.TabIndex = 28;
             // 
             // labelTitle
             // 
@@ -66,14 +66,14 @@ namespace UAICampo.UI.Controllers
             this.labelTitle.TabIndex = 27;
             this.labelTitle.Text = "Title";
             // 
-            // textBox1
+            // txtDescription
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox1.Location = new System.Drawing.Point(131, 120);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(288, 108);
-            this.textBox1.TabIndex = 26;
+            this.txtDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.txtDescription.Location = new System.Drawing.Point(131, 120);
+            this.txtDescription.Multiline = true;
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(288, 108);
+            this.txtDescription.TabIndex = 26;
             // 
             // labelDescription
             // 
@@ -93,6 +93,7 @@ namespace UAICampo.UI.Controllers
             this.buttonCancel.TabIndex = 30;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // buttonAccept
             // 
@@ -102,6 +103,7 @@ namespace UAICampo.UI.Controllers
             this.buttonAccept.TabIndex = 31;
             this.buttonAccept.Text = "Accept";
             this.buttonAccept.UseVisualStyleBackColor = true;
+            this.buttonAccept.Click += new System.EventHandler(this.buttonAccept_Click);
             // 
             // EpicasDetalleController
             // 
@@ -110,9 +112,9 @@ namespace UAICampo.UI.Controllers
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonAccept);
             this.Controls.Add(this.labelEpicDetail);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txtTitle);
             this.Controls.Add(this.labelTitle);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.labelDescription);
             this.Name = "EpicasDetalleController";
             this.Size = new System.Drawing.Size(446, 297);
@@ -124,9 +126,9 @@ namespace UAICampo.UI.Controllers
         #endregion
 
         private System.Windows.Forms.Label labelEpicDetail;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.Label labelTitle;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.Label labelDescription;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonAccept;

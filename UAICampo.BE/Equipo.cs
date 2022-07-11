@@ -7,7 +7,7 @@ using UAICampo.Abstractions;
 
 namespace UAICampo.BE
 {
-    public class Equipo : IInterface
+    public class Equipo : IEquipo
     {
         public Equipo()
         {
@@ -19,7 +19,7 @@ namespace UAICampo.BE
             this.Name = (string)itemArray[1];
             this.Value = (int)itemArray[2];
         }
-        public string Name { get; set; }
+        
         public int Value = 1;
 
         public List<KeyValuePair<IProfile, IUser>> puestos = new List<KeyValuePair<IProfile, IUser>>();

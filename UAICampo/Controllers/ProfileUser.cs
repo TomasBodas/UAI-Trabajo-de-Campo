@@ -80,7 +80,8 @@ namespace UAICampo.UI.Controllers
         {
             textBox1.Text = UserInstance.getInstance().user.Username;
             textBox2.Text = UserInstance.getInstance().user.Email;
-            textBox3.Text = UserInstance.getInstance().user.profileList.FirstOrDefault().ProfileName;
+            textBox3.Text = UserInstance.getInstance().user.profileList.Count() == 0 ? "" : UserInstance.getInstance().user.profileList.FirstOrDefault().ProfileName;
+            textBox4.Text = UserInstance.getInstance().user.Equipo.Name == null ? "" : UserInstance.getInstance().user.Equipo.Name;
 
         }
     }

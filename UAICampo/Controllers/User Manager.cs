@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,6 +19,8 @@ namespace UAICampo.UI.Controllers
     {
         BLL_UserManager bll_userManager;
         BLL_LanguageManager languageBLL;
+        Profile selectedProfile = null;
+        List<Profile> profileList;
 
         User selectedUser;
         List<KeyValuePair<Tag, Control>> controllers = new List<KeyValuePair<Tag, Control>>();
@@ -29,8 +32,6 @@ namespace UAICampo.UI.Controllers
             bll_userManager = new BLL_UserManager();
             languageBLL = new BLL_LanguageManager();
 
-            button_BlockUser.Enabled = false;
-            button_unblockUser.Enabled = false;
 
             SetControllerTags();
 
@@ -54,16 +55,6 @@ namespace UAICampo.UI.Controllers
                 {
                     selectedUser = dataGridView_user.SelectedRows[0].DataBoundItem as User;
 
-                    if (selectedUser.IsBlocked)
-                    {
-                        button_unblockUser.Enabled = true;
-                        button_BlockUser.Enabled = false;
-                    }
-                    else
-                    {
-                        button_unblockUser.Enabled = false;
-                        button_BlockUser.Enabled = true;
-                    }
                     updateUserPofileList(selectedUser);
                     updateGeneralProfileList(selectedUser);
                 }
@@ -78,7 +69,6 @@ namespace UAICampo.UI.Controllers
             dataGridView_user.DataSource = null;
             dataGridView_user.DataSource = bll_userManager.GetUsers();
 
-            dataGridView_user.Columns["Licenses"].Visible = false;
             dataGridView_user.Columns["Password"].Visible = false;
             dataGridView_user.Columns["language"].Visible = false;
         }
@@ -214,8 +204,6 @@ namespace UAICampo.UI.Controllers
             //Second value: Word Tag, used for language runtime changes
 
             //General controllers------------------------------------------------------------------------------------
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Block"), button_BlockUser));
-            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Unblock"), button_unblockUser));
             //-------------------------------------------------------------------------------------------------------
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "UserList"), label_title_UserList));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "UserProfileList"), label_title_UserProfile));
@@ -226,5 +214,50 @@ namespace UAICampo.UI.Controllers
         {
 
         }
+
+        private void button_addProfile_Click(object sender, EventArgs e)
+        {
+            string profileName = Interaction.InputBox("Profile", "profile name");
+            string description = Interaction.InputBox("Description", "profile description");
+            string value = Interaction.InputBox("Value", "value");
+
+            if (profileName != "" && description != "" && value != "")
+            {
+                if (bll_userManager.createProfile(profileName, description, int.Parse(value)))
+                {
+                    loadProfileList();
+                }
+            }
+        }
+
+        private void button_removeProfile_Click(object sender, EventArgs e)
+        {
+
+            Profile selectedProfile = null;
+            try
+            {
+                if (dataGridView_GeneralProfileList.Rows[0] != null)
+                {
+                    selectedProfile = dataGridView_GeneralProfileList.SelectedRows[0].DataBoundItem as Profile;
+                }
+
+                if (selectedProfile != null & selectedUser != null)
+                {
+                    if (bll_userManager.deleteProfile(selectedProfile))
+                    {
+                        loadProfileList();
+                    }
+                }
+            }
+            catch (Exception)
+            { }
+        }
+        private void loadProfileList()
+        {
+            profileList = bll_userManager.getProfileList();
+            dataGridView_GeneralProfileList.DataSource = null;
+            dataGridView_GeneralProfileList.DataSource = profileList;
+        }
+
     }
 }

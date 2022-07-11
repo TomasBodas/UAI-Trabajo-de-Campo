@@ -154,9 +154,9 @@ namespace UAICampo.BLL
         {
             return dal_profile.revokeProfileLicense(profile, license);
         }
-        public bool createProfile(string profileName, string profileDesc)
+        public bool createProfile(string profileName, string profileDesc, int value)
         {
-            return dal_profile.createProfile(profileName, profileDesc);
+            return dal_profile.createProfile(profileName, profileDesc, value);
         }
         public bool deleteProfile(Profile profile)
         {

@@ -53,20 +53,17 @@ namespace UAICampo.UI
             }
 
 
-            //if (selectedEquipo.Id != 0)
-            //{
-            //    btnPropose.Visible = false;
+            if (selectedEquipo.Id != 0)
+            {
+                //btnPropose.Visible = false;
 
-            //    textBoxTeamName.Text = selectedEquipo.Name;
-            //    textBoxLevel.Text = selectedEquipo.Value.ToString();
+                textBoxTeamName.Text = selectedEquipo.Name;
+                textBoxLevel.Text = selectedEquipo.Value.ToString();
 
-            //    List<IUser> users = BLL_UserManager.getPositions(selectedEquipo.Id);
-            //    foreach (IUser user in users)
-            //    {
-            //        selectedEquipo.puestos
-            //    }
-            //    updateGrid();
-            //}
+                //List<IUser> users = BLL_UserManager.getPositions(selectedEquipo.Id);
+                selectedEquipo.puestos = BLL_EquipoManager.getTeam(selectedEquipo);
+                updateGrid();
+            }
         }
 
 

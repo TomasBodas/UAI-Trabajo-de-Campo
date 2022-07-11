@@ -9,6 +9,10 @@ namespace UAICampo.BE
 {
     public class Epica : IInterface
     {
+        public Epica()
+        {
+
+        }
         public Epica(object[] itemArray)
         {
             this.Id = (int)itemArray[0];

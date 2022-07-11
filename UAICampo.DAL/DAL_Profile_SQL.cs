@@ -340,7 +340,7 @@ namespace UAICampo.DAL
 
             return success;
         }
-        public bool createProfile(string profileName, string profileDesc)
+        public bool createProfile(string profileName, string profileDesc, int value)
         {
             bool success = false;
 
@@ -348,8 +348,8 @@ namespace UAICampo.DAL
             {
                 sqlConnection.Open();
 
-                string query = $"INSERT INTO {TABLE_PROFILE} ({COLUMN_PROFILE_NAME}, {COLUMN_PROFILE_DESC})" +
-                                $" VALUES ( {PARAM_PROFILE_NAME}, {PARAM_PROFILE_DESC})";
+                string query = $"INSERT INTO {TABLE_PROFILE} ({COLUMN_PROFILE_NAME}, {COLUMN_PROFILE_DESC}, value)" +
+                                $" VALUES ( {PARAM_PROFILE_NAME}, {PARAM_PROFILE_DESC}, {value})";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
@@ -380,8 +380,6 @@ namespace UAICampo.DAL
                                 $" BEGIN TRY" +
                                     $" DELETE FROM {TABLE_USER_PROFILE}" +
                                     $" WHERE {TABLE_USER_PROFILE}.{COLUMN_USER_PROFIL_IDPROFILE} = {profile.ProfileId}" +
-                                    $" DELETE FROM {TABLE_PROFILE_LICENSE}" +
-                                    $" WHERE {TABLE_PROFILE_LICENSE}.{COLUMN_PROFILE_LICENSE_idProfile} = {profile.ProfileId}" +
                                     $" DELETE FROM {TABLE_PROFILE}" +
                                     $" WHERE {TABLE_PROFILE}.{COLUMN_PROFILE_IDPROFILE} = {profile.ProfileId}" +
                                     $" COMMIT TRANSACTION profileDel" +
@@ -394,7 +392,7 @@ namespace UAICampo.DAL
                 {
 
                     int count = sqlCommand.ExecuteNonQuery();
-                    if (count == 3)
+                    if (count == 1)
                     {
                         success = true;
                     }
@@ -444,7 +442,7 @@ namespace UAICampo.DAL
             {
                 sqlConnection.Open();
 
-                string query = $"SELECT {COLUMN_PROFILE_IDPROFILE}, {COLUMN_PROFILE_NAME}, {COLUMN_PROFILE_DESC}" +
+                string query = $"SELECT {COLUMN_PROFILE_IDPROFILE}, {COLUMN_PROFILE_NAME}, {COLUMN_PROFILE_DESC}, value" +
                                 $" FROM {TABLE_PROFILE}" +
                                 $" WHERE {COLUMN_PROFILE_IDPROFILE} = {PARAM_PROFILE_IDPROFILE}";
 
@@ -457,7 +455,7 @@ namespace UAICampo.DAL
                     {
                         while (sqlReader.Read())
                         {
-                            profile = new Profile(new object[] { sqlReader[0], sqlReader[1], sqlReader[2] });
+                            profile = new Profile(new object[] { sqlReader[0], sqlReader[1], sqlReader[2]});
                         }
                     }
                 }

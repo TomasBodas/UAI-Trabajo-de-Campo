@@ -11,5 +11,6 @@ namespace UAICampo.Abstractions
         public int ProfileId { get; set; }
         public string ProfileName { get; set; }
         public string Desc { get; set; }
+        public int Value { get; set; }
     }
 }
