@@ -27,6 +27,10 @@ namespace UAICampo.Services
             {
                 UserInstance.getInstance().user = null;
             }
+            else
+            {
+                Interaction.MsgBox("No user logged in.");
+            }
         }
     }
 }

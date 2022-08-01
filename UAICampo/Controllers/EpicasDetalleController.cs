@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UAICampo.BE;
 using UAICampo.BLL;
+using UAICampo.Services;
 
 namespace UAICampo.UI.Controllers
 {
@@ -38,6 +39,14 @@ namespace UAICampo.UI.Controllers
             BLL_TareasManager.SaveEpic(epica);
 
             Interaction.MsgBox("Epic created");
+            BLL_LogManager.addMessage(new Log
+            {
+                Date = DateTime.Now,
+                Code = "EPIC_CREATED",
+                Description = String.Format("Epic created."),
+                Type = LogType.Control,
+                User = UserInstance.getInstance().user
+            });
             ((Form)this.TopLevelControl).Close();
         }
 

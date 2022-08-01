@@ -174,6 +174,7 @@ namespace UAICampo.UI.Controllers
             this.buttonAccept.TabIndex = 26;
             this.buttonAccept.Text = "Accept";
             this.buttonAccept.UseVisualStyleBackColor = true;
+            this.buttonAccept.Click += new System.EventHandler(this.buttonAccept_Click);
             // 
             // buttonCancel
             // 

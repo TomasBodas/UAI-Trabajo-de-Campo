@@ -54,7 +54,7 @@ namespace UAICampo.UI.Controllers
             var items2 = new List<Object>();
             foreach (Tarea tarea in tareas)
             {
-                items2.Add(new ComboboxItem { Text = tarea.Description, Value = tarea.Id });
+                items2.Add(new ComboboxItem { Text = tarea.Title, Value = tarea.Id });
 
             }
 
@@ -70,7 +70,7 @@ namespace UAICampo.UI.Controllers
             var items2 = new List<Object>();
             foreach (Tarea tarea in tareas)
             {
-                    items2.Add(new ComboboxItem { Text = tarea.Description, Value = tarea.Id });
+                    items2.Add(new ComboboxItem { Text = tarea.Title, Value = tarea.Id });
                 
             }
 
@@ -155,6 +155,36 @@ namespace UAICampo.UI.Controllers
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "TeamTasks"), labelEquipoTareas));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Refresh"), buttonRefresh));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "AddTask"), buttonAddTask));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Finalize"), buttonFinalize));
+
+        }
+
+        private void buttonFinalize_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem == null)
+            {
+                return;
+            }
+
+            Tarea tarea = new Tarea
+            {
+                Id = int.Parse((listBox1.SelectedItem as ComboboxItem).Value.ToString())
+            };
+            BLL_TareasManager.archive(tarea);
+            BLL_LogManager.addMessage(new Log
+            {
+                Date = DateTime.Now,
+                Code = "TASK_FINISHED",
+                Description = String.Format("Task finished"),
+                Type = LogType.Control,
+                User = UserInstance.getInstance().user
+            });
+
+            updateMyList();
+        }
+
+        private void buttonAssign_Click(object sender, EventArgs e)
+        {
 
         }
     }

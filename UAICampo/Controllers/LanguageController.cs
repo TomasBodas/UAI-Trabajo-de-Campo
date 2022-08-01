@@ -51,6 +51,15 @@ namespace UAICampo.UI.Controllers
 
                         //Notify user observers
                         UserInstance.getInstance().user.Notification();
+
+                        BLL_LogManager.addMessage(new Log
+                        {
+                            Date = DateTime.Now,
+                            Code = "LANGUAGE_CHANGE",
+                            Description = String.Format("Language changed."),
+                            Type = LogType.Control,
+                            User = UserInstance.getInstance().user
+                        });
                     }
                 }
             }

@@ -21,5 +21,10 @@ namespace UAICampo.UI.Controllers
         {
 
         }
+
+        private void buttonAccept_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

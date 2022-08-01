@@ -38,6 +38,12 @@ namespace UAICampo.BLL
         {
             return dalTareas.Save(tarea);
         }
+
+        public static bool archive(Tarea tarea)
+        {
+            return dalTareas.archive(tarea);
+        }
+
         public static Epica SaveEpic(Epica e)
         {
             return dalTareas.SaveEpic(e);

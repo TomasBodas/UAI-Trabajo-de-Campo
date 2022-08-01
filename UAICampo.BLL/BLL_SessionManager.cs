@@ -42,15 +42,6 @@ namespace UAICampo.BLL
                     //Search for all user profiles.
                     user.profileList = dalProfile.getUserProfiles(user.Id);
 
-                    ////Retrieve composite pattern defined licences por each user profile
-                    //if (user.profileList.Count > 0)
-                    //{
-                    //    foreach (Profile profile in user.profileList)
-                    //    {
-                    //        bllLicenses.getProfileLicences(profile);
-                    //    }
-                    //}
-
                     //License
                     user.Licenses = dalLicenses.getUserLicence(user);
                     //Recursive licenses

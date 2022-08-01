@@ -21,7 +21,6 @@ namespace UAICampo.UI
         List<KeyValuePair<Tag, Control>> controllers = new List<KeyValuePair<Tag, Control>>();
         BLL_LanguageManager bllLanguage;
         private static BLL_UserManager bllUserManager;
-        private static UI_Validation validations;
 
 
         private string USERNAME = "";
@@ -44,7 +43,6 @@ namespace UAICampo.UI
         private void FrmRegister_Load(object sender, EventArgs e)
         {
             bllUserManager = new BLL_UserManager();
-            validations = new UI_Validation();
         }
 
         private void buttonRegister_Click(object sender, EventArgs e)

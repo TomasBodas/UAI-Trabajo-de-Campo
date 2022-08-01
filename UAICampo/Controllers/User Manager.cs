@@ -19,7 +19,6 @@ namespace UAICampo.UI.Controllers
     {
         BLL_UserManager bll_userManager;
         BLL_LanguageManager languageBLL;
-        Profile selectedProfile = null;
         List<Profile> profileList;
 
         User selectedUser;
@@ -81,7 +80,7 @@ namespace UAICampo.UI.Controllers
         private void updateGeneralProfileList(User selectedUser)
         {
             dataGridView_GeneralProfileList.DataSource = null;
-            dataGridView_GeneralProfileList.DataSource = bll_userManager.getNonAsignedProfileList(selectedUser);
+            dataGridView_GeneralProfileList.DataSource = bll_userManager.getNonAssignedProfileList(selectedUser);
         }
 
         private void button_BlockUser_Click(object sender, EventArgs e)

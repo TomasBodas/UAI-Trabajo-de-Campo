@@ -206,16 +206,40 @@ namespace UAICampo.UI
             if (selectedEquipo.Id != 0)
             {
                 BLL_EquipoManager.Update(selectedEquipo);
+                BLL_LogManager.addMessage(new Log
+                {
+                    Date = DateTime.Now,
+                    Code = "TEAM_UPDATED",
+                    Description = String.Format("Team {0} updated succesfully", selectedEquipo.Name),
+                    Type = LogType.Control,
+                    User = UserInstance.getInstance().user
+                });
             }
             else
             {
                 if (BLL_EquipoManager.ifExists(textBoxTeamName.Text))
                 {
                     Interaction.MsgBox("Team name already exists");
+                    BLL_LogManager.addMessage(new Log
+                    {
+                        Date = DateTime.Now,
+                        Code = "TEAM_NAME_ERROR",
+                        Description = String.Format("Team {0} already exists.", selectedEquipo.Name),
+                        Type = LogType.Error,
+                        User = UserInstance.getInstance().user
+                    });
                     return;
                 }
 
                 BLL_EquipoManager.createTeam(selectedEquipo);
+                BLL_LogManager.addMessage(new Log
+                {
+                    Date = DateTime.Now,
+                    Code = "TEAM_CREATED",
+                    Description = String.Format("Team {0} created succesfully", selectedEquipo.Name),
+                    Type = LogType.Control,
+                    User = UserInstance.getInstance().user
+                });
             }
 
             this.Close();

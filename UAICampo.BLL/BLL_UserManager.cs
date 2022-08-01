@@ -105,7 +105,7 @@ namespace UAICampo.BLL
         {
             return dal_profile.getProfileById(id);
         }
-        public List<Profile> getNonAsignedProfileList(User user)
+        public List<Profile> getNonAssignedProfileList(User user)
         {
             return dal_profile.getNonUserProfiles(user);
         }

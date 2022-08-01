@@ -25,8 +25,7 @@ namespace UAICampo.UI.Controllers
 
         List<Profile> profileList;
         List<Component> licenseList;
-
-        Profile selectedProfile = null;
+        
         User selectedUser = null;
         Component selectedLicense = null;
         Component selectedProfileLicense = null;

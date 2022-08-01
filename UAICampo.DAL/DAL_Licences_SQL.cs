@@ -90,7 +90,6 @@ namespace UAICampo.DAL
 
         public void getUserLicences(User user)
         {
-
             conn.Open();
             string Query = $"SELECT {COLUMN_LICENCES_ID}, {COLUMN_LICENCES_NAME}, {COLUMN_LICENCES_DESCRIPTION} from license inner join dbo.account_license ON account_license.id_license = license.id where account_license.id_account = {user.Id}";
 

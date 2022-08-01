@@ -80,6 +80,7 @@ namespace UAICampo.UI.Controllers
             this.buttonAssign.Text = "<";
             this.buttonAssign.UseVisualStyleBackColor = true;
             this.buttonAssign.Visible = false;
+            this.buttonAssign.Click += new System.EventHandler(this.buttonAssign_Click);
             // 
             // buttonDeassign
             // 
@@ -93,13 +94,13 @@ namespace UAICampo.UI.Controllers
             // 
             // buttonFinalize
             // 
-            this.buttonFinalize.Location = new System.Drawing.Point(404, 233);
+            this.buttonFinalize.Location = new System.Drawing.Point(281, 289);
             this.buttonFinalize.Name = "buttonFinalize";
             this.buttonFinalize.Size = new System.Drawing.Size(75, 23);
             this.buttonFinalize.TabIndex = 4;
             this.buttonFinalize.Text = "Finalize";
             this.buttonFinalize.UseVisualStyleBackColor = true;
-            this.buttonFinalize.Visible = false;
+            this.buttonFinalize.Click += new System.EventHandler(this.buttonFinalize_Click);
             // 
             // listBox2
             // 

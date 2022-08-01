@@ -67,6 +67,14 @@ namespace UAICampo.UI
 			}
 
 			Interaction.MsgBox("Task created");
+			BLL_LogManager.addMessage(new Log
+			{
+				Date = DateTime.Now,
+				Code = "TASK_CREATED",
+				Description = String.Format("Task created"),
+				Type = LogType.Control,
+				User = UserInstance.getInstance().user
+			});
 			this.Close();
 		}
 
@@ -119,7 +127,7 @@ namespace UAICampo.UI
         {
 			updateTrabajadoresList();
 
-			if (tarea.Id != 0)
+			if (tarea != null)
 			{
 				//btnPropose.Visible = false;
 
@@ -132,5 +140,10 @@ namespace UAICampo.UI
 				//dateTimePickerFinshed.Value = Convert.ToDateTime(tarea.DateFinished);
 			}
 		}
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+			this.Close();
+        }
     }
 }

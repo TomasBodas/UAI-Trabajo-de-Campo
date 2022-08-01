@@ -20,7 +20,6 @@ namespace UAICampo.UI
     {
         List<KeyValuePair<Tag, Control>> controllers = new List<KeyValuePair<Tag, Control>>();
 
-        Profile userSetProfile;
         frmLanguageEditor frmLanguageEditor = null;
         frmLicenseManager frmLicenseManager = null;
         frmProfileManager frmProfileManager = null;
@@ -66,16 +65,7 @@ namespace UAICampo.UI
                 ValidateForm();
             }
         }
-        private bool isWindowOpen(string name)
-        {
-            foreach (Form frm in Application.OpenForms)
-            {
-                if (frm != null && frm.Name == name)
-                    return true;
-            }
 
-            return false;
-        }
         public void Update()
         {
             selectedLanguage = UserInstance.getInstance().user.language;

@@ -218,7 +218,7 @@ namespace UAICampo.DAL
             {
                 sqlConnection.Open();
 
-                string query = $"select id, title, description, dateCreated, dateDeadline, dateFinished, value, state, archived, FK_epic_task from task where FK_team_task = {eq.Id} and FK_account_task = {user.Id}";
+                string query = $"select id, title, description, dateCreated, dateDeadline, dateFinished, value, state, archived, FK_epic_task from task where FK_team_task = {eq.Id} and FK_account_task = {user.Id} and archived = 0";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
@@ -288,6 +288,31 @@ namespace UAICampo.DAL
                 sqlConnection.Open();
 
                 string query = $"update task set FK_account_task = {usId} where title = '{tareatitle}'";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    int result = sqlCommand.ExecuteNonQuery();
+                    if (result == 1)
+                    {
+                        success = true;
+                    }
+                }
+
+                sqlConnection.Close();
+            }
+
+            return success;
+        }
+
+        public bool archive(Tarea tarea)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"update task set archived = 1 where id = {tarea.Id}";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
