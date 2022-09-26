@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BitacoraController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controllers\BitacoraController.Designer.cs">
+      <DependentUpon>BitacoraController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\EpicasDetalleController.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -228,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Administrator\frmUserManager.resx">
       <DependentUpon>frmUserManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\BitacoraController.resx">
+      <DependentUpon>BitacoraController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\EpicasDetalleController.resx">
       <DependentUpon>EpicasDetalleController.cs</DependentUpon>

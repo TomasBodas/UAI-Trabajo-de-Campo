@@ -16,5 +16,9 @@ namespace UAICampo.BLL
 		{
 			return dalLog.Save(message);
 		}
+		public static IList<Log> getAll()
+		{
+			return dalLog.GetAll();
+		}
 	}
 }

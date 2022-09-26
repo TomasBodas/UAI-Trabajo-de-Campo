@@ -9,6 +9,14 @@ namespace UAICampo.Services
 {
     public class Log : ILog
     {
+        public Log(string code, string description, LogType type, DateTime date, IUser user)
+        {
+            Code = code;
+            Description = description;
+            Type = type;
+            Date = date;
+            User = user;
+        }
         public DateTime Date;
         public string Code;
         public string Description;

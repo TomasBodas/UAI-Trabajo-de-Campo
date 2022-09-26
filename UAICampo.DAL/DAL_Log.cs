@@ -32,6 +32,7 @@ namespace UAICampo.DAL
 
         private SqlConnection sqlConnection;
         private SqlCommand sqlCommand;
+        private SqlDataReader sqlReader;
 
         public void Delete(int Id)
         {
@@ -45,7 +46,31 @@ namespace UAICampo.DAL
 
         public IList<Log> GetAll()
         {
-            throw new NotImplementedException();
+            List<Log> licenses = new List<Log>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $" SELECT {TABLE_log} ({COLUMN_LOG_DATE}, {COLUMN_LOG_CODE}, {COLUMN_LOG_DESCRIPTION}, {COLUMN_LOG_TYPE}, {COLUMN_LOG_FK_USER})" +
+                                $" FROM {TABLE_log}";
+
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            licenses.Add(new Log((string)sqlReader[0], sqlReader[1] as string, (LogType)sqlReader[2], (DateTime)sqlReader[3], (User)sqlReader[4]));
+                        }
+                    }
+                }
+            }
+
+            return licenses;
         }
 
         public Log Save(Log Entity)
