@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,21 +15,19 @@ using UAICampo.Services.Observer;
 
 namespace UAICampo.UI.Controllers
 {
-    public partial class BitacoraController : UserControl, IObserver
+    public partial class BackupController : UserControl, IObserver
     {
         List<KeyValuePair<Tag, Control>> controllers = new List<KeyValuePair<Tag, Control>>();
         BLL_LanguageManager bllLanguage;
-        BLL_UserManager bllUser;
-        BLL_LogManager bllLog;
-        IList<Log> logList;
-        public BitacoraController()
+        BLL_BackupManager bllBackup;
+        private OpenFileDialog openFileDialog1;
+        Language selectedLanguage;
+
+        public BackupController()
         {
             InitializeComponent();
             bllLanguage = new BLL_LanguageManager();
-            bllUser = new BLL_UserManager();
-            bllLog = new BLL_LogManager();
-            logList = new List<Log>();
-
+            bllBackup = new BLL_BackupManager();
             SetControllerTags();
 
             if (UserInstance.getInstance().user != null)
@@ -54,8 +53,7 @@ namespace UAICampo.UI.Controllers
 
         public void Update()
         {
-            Language selectedLanguage = UserInstance.getInstance().user.language;
-
+            selectedLanguage = UserInstance.getInstance().user.language;
             bllLanguage.loadLanguageWords(selectedLanguage);
 
             foreach (var controller in controllers)
@@ -80,25 +78,53 @@ namespace UAICampo.UI.Controllers
             }
         }
 
-        private void BitacoraController_Load(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            updateGrid();
-        }
-
-        public void updateGrid()
-        {
-            dataGridView1.Rows.Clear();
-            var filter = string.IsNullOrEmpty(textBox1.Text) ? null : textBox1.Text;
-            logList = bllLog.getAll(dateTimePicker1.Value, dateTimePicker2.Value, filter);
-            foreach (var item in logList)
+            if (MessageBox.Show(selectedLanguage.translate("Confirmation"), selectedLanguage.translate("Confirm"), MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                dataGridView1.Rows.Add(item.Code, item.Description, item.Type, item.Date, item.User);
+                if (bllBackup.backup())
+                {
+                    MessageBox.Show("Backup created");
+                }
+                MessageBox.Show("Backup error!");
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            updateGrid();
+            openFileDialog1 = new OpenFileDialog
+            {
+                Filter = "Database backups (*.bak)|*.bak",
+                Title = "Open database backup",
+                InitialDirectory = Directory.GetCurrentDirectory(),
+            };
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if (MessageBox.Show(selectedLanguage.translate("Confirmation"), selectedLanguage.translate("Confirm"), MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    if (bllBackup.restore(openFileDialog1.FileName))
+                    {
+                        MessageBox.Show("Database restored");
+                    }
+                    MessageBox.Show("Restore error!");
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            BLL_DVManager.actualizarDV();
+            MessageBox.Show("DV restored");
+        }
+
+        private void BackupController_Load(object sender, EventArgs e)
+        {
+            string[] errors = BLL_DVManager.obtenerErrores().Split('\n');
+            foreach (string error in errors)
+            {
+                listBox1.Items.Add(error);
+            }
         }
     }
 }

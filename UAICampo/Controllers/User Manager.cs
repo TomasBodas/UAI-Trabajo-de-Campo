@@ -97,7 +97,7 @@ namespace UAICampo.UI.Controllers
                         Code = "ACCOUNT_BLOCKED_OK",
                         Description = String.Format($"Account {UserInstance.getInstance().user.Username} blocked the account ID:{selectedUser.Id} - Username:{selectedUser.Username}"),
                         Type = LogType.Control,
-                        User = UserInstance.getInstance().user
+                        User = UserInstance.getInstance().user.Id
                     });
                 }
             }
@@ -117,7 +117,7 @@ namespace UAICampo.UI.Controllers
                         Code = "ACCOUNT_UNBLOCKED_OK",
                         Description = String.Format($"Account {UserInstance.getInstance().user.Username} unblocked the account ID:{selectedUser.Id} - Username:{selectedUser.Username}"),
                         Type = LogType.Control,
-                        User = UserInstance.getInstance().user
+                        User = UserInstance.getInstance().user.Id
                     });
                 }
             }

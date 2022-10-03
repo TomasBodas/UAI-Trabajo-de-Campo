@@ -84,7 +84,7 @@ namespace UAICampo.UI.Controllers
                         Code = "PASSWORD_CHANGE_OK",
                         Description = String.Format($"Account {UserInstance.getInstance().user.Username} changed its password successfully"),
                         Type = LogType.Control,
-                        User = UserInstance.getInstance().user
+                        User = UserInstance.getInstance().user.Id
                     });
                 }
                 else 
@@ -97,7 +97,7 @@ namespace UAICampo.UI.Controllers
                         Code = "PASSWORD_CHANGE_ERROR",
                         Description = String.Format($"Account {UserInstance.getInstance().user.Username} COULD NOT CHANGE ITS PASSWORD"),
                         Type = LogType.Control,
-                        User = UserInstance.getInstance().user
+                        User = UserInstance.getInstance().user.Id
                     });
                 }
             }

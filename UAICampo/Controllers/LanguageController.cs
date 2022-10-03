@@ -58,7 +58,7 @@ namespace UAICampo.UI.Controllers
                             Code = "LANGUAGE_CHANGE",
                             Description = String.Format("Language changed."),
                             Type = LogType.Control,
-                            User = UserInstance.getInstance().user
+                            User = UserInstance.getInstance().user.Id
                         });
                     }
                 }

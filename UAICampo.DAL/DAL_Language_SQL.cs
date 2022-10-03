@@ -217,6 +217,7 @@ namespace UAICampo.DAL.SQL
 
                 sqlConnection.Close();
             }
+            wordChange(tag, word, languageId, "Added");
         }
 
         public void addWordBulk(Dictionary<string, string> template, int languageId)
@@ -265,9 +266,10 @@ namespace UAICampo.DAL.SQL
 
                 sqlConnection.Close();
             }
+            wordChange(tag, word, languageId, "Updated");
         }
 
-        public void deleteWord(string tag, string languageId)
+        public void deleteWord(string tag, int languageId)
         {
             using (sqlConnection = new SqlConnection(CONNECTION_STRING))
             {
@@ -283,6 +285,32 @@ namespace UAICampo.DAL.SQL
                     sqlCommand.Parameters.AddWithValue(PARAM_WORDS_LANGUAGE, languageId);
                     sqlReader = sqlCommand.ExecuteReader();
                 }
+            }
+            wordChange(tag, "deleted", languageId, "Added");
+        }
+
+        public void wordChange(string tag, string word, int languageId, string change)
+        {
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"INSERT INTO wordsChanges ({COLUMN_WORDS_TAG}, {COLUMN_WORDS_WORD}, {COLUMN_WORDS_LANGUAGE}, date, change, accountId)" +
+                                $" VALUES ({PARAM_WORDS_TAG},{PARAM_WORDS_WORD},{PARAM_WORDS_LANGUAGE}, @date, @change, @accountId)";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.Parameters.AddWithValue(PARAM_WORDS_TAG, tag);
+                    sqlCommand.Parameters.AddWithValue(PARAM_WORDS_WORD, word);
+                    sqlCommand.Parameters.AddWithValue(PARAM_WORDS_LANGUAGE, languageId);
+                    sqlCommand.Parameters.AddWithValue("@date", DateTime.Now);
+                    sqlCommand.Parameters.AddWithValue("@change", change);
+                    sqlCommand.Parameters.AddWithValue("@accountId", UserInstance.getInstance().user.Id);
+
+                    sqlCommand.ExecuteNonQuery();
+                }
+
+                sqlConnection.Close();
             }
         }
 

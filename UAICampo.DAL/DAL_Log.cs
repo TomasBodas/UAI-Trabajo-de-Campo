@@ -44,7 +44,7 @@ namespace UAICampo.DAL
             throw new NotImplementedException();
         }
 
-        public IList<Log> GetAll()
+        public IList<Log> GetAll(DateTime? from = null, DateTime? to = null, string type = null)
         {
             List<Log> licenses = new List<Log>();
 
@@ -52,8 +52,18 @@ namespace UAICampo.DAL
             {
                 sqlConnection.Open();
 
-                string query = $" SELECT {TABLE_log} ({COLUMN_LOG_DATE}, {COLUMN_LOG_CODE}, {COLUMN_LOG_DESCRIPTION}, {COLUMN_LOG_TYPE}, {COLUMN_LOG_FK_USER})" +
+                string query = $" SELECT {COLUMN_LOG_CODE}, {COLUMN_LOG_DESCRIPTION}, {COLUMN_LOG_TYPE}, {COLUMN_LOG_DATE}, {COLUMN_LOG_FK_USER}" +
                                 $" FROM {TABLE_log}";
+
+                if (from != null)
+                {
+                    query += $" WHERE {COLUMN_LOG_DATE} BETWEEN '{from?.ToString("yyyy-MM-dd")}' AND '{to?.ToString("yyyy-MM-dd")}'";
+                }
+
+                if (type != null)
+                {
+                    query += $" AND {COLUMN_LOG_TYPE} LIKE '%{type}%'";
+                }
 
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
@@ -64,7 +74,7 @@ namespace UAICampo.DAL
                     {
                         while (sqlReader.Read())
                         {
-                            licenses.Add(new Log((string)sqlReader[0], sqlReader[1] as string, (LogType)sqlReader[2], (DateTime)sqlReader[3], (User)sqlReader[4]));
+                            licenses.Add(new Log( new Object[] { sqlReader[0], sqlReader[1], sqlReader[2], sqlReader[3], sqlReader[4] }));
                         }
                     }
                 }
@@ -90,7 +100,7 @@ namespace UAICampo.DAL
                         sqlCommand.Parameters.AddWithValue(PARAM_LOG_CODE, Entity.Code);
                         sqlCommand.Parameters.AddWithValue(PARAM_LOG_DESCRIPTION, Entity.Description);
                         sqlCommand.Parameters.AddWithValue(PARAM_LOG_TYPE, Entity.Type.AsText());
-                        sqlCommand.Parameters.AddWithValue(PARAM_LOG_USERNAME, Entity.User.Id);
+                        sqlCommand.Parameters.AddWithValue(PARAM_LOG_USERNAME, Entity.User);
 
                         sqlCommand.ExecuteNonQuery();
                     }
@@ -98,8 +108,8 @@ namespace UAICampo.DAL
 
                 else
                 {
-                    string query = $"INSERT INTO {TABLE_log} ({COLUMN_LOG_DATE}, {COLUMN_LOG_CODE}, {COLUMN_LOG_DESCRIPTION}, {COLUMN_LOG_TYPE})" +
-                                     $" VALUES ({PARAM_LOG_DATE}, {PARAM_LOG_CODE}, {PARAM_LOG_DESCRIPTION}, {PARAM_LOG_TYPE})";
+                    string query = $"INSERT INTO {TABLE_log} ({COLUMN_LOG_DATE}, {COLUMN_LOG_CODE}, {COLUMN_LOG_DESCRIPTION}, {COLUMN_LOG_TYPE}, {COLUMN_LOG_FK_USER})" +
+                                    $" VALUES ({PARAM_LOG_DATE}, {PARAM_LOG_CODE}, {PARAM_LOG_DESCRIPTION}, {PARAM_LOG_TYPE}, {PARAM_LOG_USERNAME})";
 
                     using (sqlCommand = new SqlCommand(query, sqlConnection))
                     {
@@ -107,6 +117,7 @@ namespace UAICampo.DAL
                         sqlCommand.Parameters.AddWithValue(PARAM_LOG_CODE, Entity.Code);
                         sqlCommand.Parameters.AddWithValue(PARAM_LOG_DESCRIPTION, Entity.Description);
                         sqlCommand.Parameters.AddWithValue(PARAM_LOG_TYPE, Entity.Type.AsText());
+                        sqlCommand.Parameters.AddWithValue(PARAM_LOG_USERNAME, 0);
 
                         sqlCommand.ExecuteNonQuery();
                     }
@@ -118,5 +129,9 @@ namespace UAICampo.DAL
             return Entity;
         }
 
+        public IList<Log> GetAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -57,7 +57,7 @@ namespace UAICampo.BLL
                         Code = "LOGIN_OK",
                         Description = String.Format("Account {0} logged successfully", user.Username),
                         Type = LogType.Control,
-                        User = user
+                        User = user.Id
                     });
                 }
 
@@ -74,7 +74,7 @@ namespace UAICampo.BLL
                             Code = "BLOCKED",
                             Description = String.Format("Account {0} blocked due to repeated attempts.", user.Username),
                             Type = LogType.Warning,
-                            User = user
+                            User = user.Id
                         });
                     }
                     else
@@ -96,7 +96,7 @@ namespace UAICampo.BLL
                     Code = "LOGIN_ERROR",
                     Description = String.Format("Login error. Please try again."),
                     Type = LogType.Error,
-                    User = user
+                    User = user.Id
                 });
             }
         }
@@ -111,7 +111,7 @@ namespace UAICampo.BLL
                 Code = "LOGOUT",
                 Description = String.Format("Account {0} logged out", user.Username),
                 Type = LogType.Control,
-                User = user
+                User = user.Id
             });
             sm.logout();
             return true;

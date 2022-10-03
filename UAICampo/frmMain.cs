@@ -13,6 +13,7 @@ using UAICampo.BLL;
 using UAICampo.Services;
 using UAICampo.Services.Composite;
 using UAICampo.Services.Observer;
+using UAICampo.UI.Administrator;
 
 namespace UAICampo.UI
 {
@@ -27,6 +28,8 @@ namespace UAICampo.UI
         frmEquipo frmEquipo = null;
         frmUserManager frmUserManager = null;
         frmProfile frmChangePassword = null;
+        frmBitacora frmBitacora = null;
+        frmBackup frmBackup = null;
         BLL_SessionManager sessionBLL;
         BLL_LanguageManager languageBLL;
         Language selectedLanguage;
@@ -306,8 +309,16 @@ namespace UAICampo.UI
         {
             frmLanguageEditor = null;
         }
+        private void frmBitacora_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmBitacora = null;
+        }
+        private void frmBackup_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmBackup = null;
+        }
         #endregion
-          
+
         private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (UserInstance.getInstance().userIsLoggedIn())
@@ -354,6 +365,34 @@ namespace UAICampo.UI
             else
             {
                 frmProfileManager.BringToFront();
+            }
+        }
+
+        private void logToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (frmBitacora == null)
+            {
+                frmBitacora = new frmBitacora();
+                frmBitacora.FormClosed += new FormClosedEventHandler(frmBitacora_FormClosed);
+                frmBitacora.Show();
+            }
+            else
+            {
+                frmBitacora.BringToFront();
+            }
+        }
+
+        private void backupRestoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (frmBackup == null)
+            {
+                frmBackup = new frmBackup();
+                frmBackup.FormClosed += new FormClosedEventHandler(frmBackup_FormClosed);
+                frmBackup.Show();
+            }
+            else
+            {
+                frmBackup.BringToFront();
             }
         }
     }

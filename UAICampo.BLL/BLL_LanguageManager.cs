@@ -56,7 +56,7 @@ namespace UAICampo.BLL
           languageDal.updateWord(tag, word, languageId);
         }
 
-        public void deleteWord(string tag, string languageId)
+        public void deleteWord(string tag, int languageId)
         { 
             languageDal.deleteWord(tag, languageId);
         }

@@ -134,7 +134,7 @@ namespace UAICampo.UI.Controllers
                                 Description = String.Format($"Account {UserInstance.getInstance().user.Username} added a new license dependency" +
                                 $" Master License ID: {license.Id}, Slave License ID: {orphanLicense.Id}"),
                                 Type = LogType.Control,
-                                User = UserInstance.getInstance().user
+                                User = UserInstance.getInstance().user.Id
                             }); ;
                         }
                     }
@@ -178,7 +178,7 @@ namespace UAICampo.UI.Controllers
                                     Description = String.Format($"Account {UserInstance.getInstance().user.Username} moved license to orphan license pool" +
                                     $" License ID: {license.Id}"),
                                     Type = LogType.Control,
-                                    User = UserInstance.getInstance().user
+                                    User = UserInstance.getInstance().user.Id
                                 }); ;
                             }
                         }
@@ -219,7 +219,7 @@ namespace UAICampo.UI.Controllers
                         Code = "NEW_LICENSE_ADD_OK",
                         Description = String.Format($"Account {UserInstance.getInstance().user.Username} added a new license"),
                         Type = LogType.Control,
-                        User = UserInstance.getInstance().user
+                        User = UserInstance.getInstance().user.Id
                     });
 
                     loadTreeView();
@@ -233,7 +233,7 @@ namespace UAICampo.UI.Controllers
                         Code = "NEW_LICENSE_ADD_FAIL",
                         Description = String.Format($"Account {UserInstance.getInstance().user.Username} tried to add a new license"),
                         Type = LogType.Control,
-                        User = UserInstance.getInstance().user
+                        User = UserInstance.getInstance().user.Id
                     }); ;
                 }
             }
@@ -255,7 +255,7 @@ namespace UAICampo.UI.Controllers
                         Code = "NEW_LICENSE_DELETE_OK",
                         Description = String.Format($"Account {UserInstance.getInstance().user.Username} removed an existing license"),
                         Type = LogType.Control,
-                        User = UserInstance.getInstance().user
+                        User = UserInstance.getInstance().user.Id
                     }); ;
 
                     loadTreeView();
@@ -269,7 +269,7 @@ namespace UAICampo.UI.Controllers
                         Code = "NEW_LICENSE_DELETE_FAIL",
                         Description = String.Format($"Account {UserInstance.getInstance().user.Username} tried to remove an existing license"),
                         Type = LogType.Control,
-                        User = UserInstance.getInstance().user
+                        User = UserInstance.getInstance().user.Id
                     }); ;
                 }
             }

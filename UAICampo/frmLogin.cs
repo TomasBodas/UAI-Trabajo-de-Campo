@@ -11,6 +11,7 @@ using UAICampo.BLL;
 using UAICampo.Abstractions.Observer;
 using UAICampo.Services;
 using UAICampo.Abstractions;
+using UAICampo.UI.Administrator;
 
 namespace UAICampo.UI
 {
@@ -54,6 +55,13 @@ namespace UAICampo.UI
                 //this.parent.ValidateForm();
                 if (UserInstance.getInstance().userIsLoggedIn())
                 {
+
+                    //if (!BLL_DVManager.verificarDV())
+                    //{
+                    //        frmBackup error = new frmBackup();
+                    //        error.Show();
+                    //        return;
+                    //}
                     frmMain main = new frmMain();
                     main.Show();
                     this.Hide();

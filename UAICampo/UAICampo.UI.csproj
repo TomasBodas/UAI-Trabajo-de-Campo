@@ -50,6 +50,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administrator\frmBackup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrator\frmBackup.Designer.cs">
+      <DependentUpon>frmBackup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrator\frmBitacora.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrator\frmBitacora.Designer.cs">
+      <DependentUpon>frmBitacora.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\BackupController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controllers\BackupController.Designer.cs">
+      <DependentUpon>BackupController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\BitacoraController.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -226,6 +244,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Administrator\frmBackup.resx">
+      <DependentUpon>frmBackup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrator\frmBitacora.resx">
+      <DependentUpon>frmBitacora.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Administrator\frmLicenseManager.resx">
       <DependentUpon>frmLicenseManager.cs</DependentUpon>
     </EmbeddedResource>
@@ -234,6 +258,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Administrator\frmUserManager.resx">
       <DependentUpon>frmUserManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\BackupController.resx">
+      <DependentUpon>BackupController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\BitacoraController.resx">
       <DependentUpon>BitacoraController.cs</DependentUpon>

@@ -16,9 +16,9 @@ namespace UAICampo.BLL
 		{
 			return dalLog.Save(message);
 		}
-		public static IList<Log> getAll()
+		public IList<Log> getAll(DateTime from, DateTime to, string type = null)
 		{
-			return dalLog.GetAll();
+			return dalLog.GetAll(from, to, type);
 		}
 	}
 }

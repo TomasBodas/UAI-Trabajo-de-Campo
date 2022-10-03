@@ -177,7 +177,7 @@ namespace UAICampo.UI.Controllers
                 Code = "TASK_FINISHED",
                 Description = String.Format("Task finished"),
                 Type = LogType.Control,
-                User = UserInstance.getInstance().user
+                User = UserInstance.getInstance().user.Id
             });
 
             updateMyList();

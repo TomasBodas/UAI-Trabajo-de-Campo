@@ -47,6 +47,7 @@ namespace UAICampo.UI
             this.userManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.licenseManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.profileManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.supervisorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.teamManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,6 +58,7 @@ namespace UAICampo.UI
             this.equipo_Manager1 = new UAICampo.UI.Equipo_Manager();
             this.languageController2 = new UAICampo.UI.Controllers.LanguageController();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.backupRestoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip.SuspendLayout();
@@ -173,7 +175,9 @@ namespace UAICampo.UI
             this.languageEditorToolStripMenuItem,
             this.userManagerToolStripMenuItem,
             this.licenseManagerToolStripMenuItem,
-            this.profileManagerToolStripMenuItem});
+            this.profileManagerToolStripMenuItem,
+            this.logToolStripMenuItem,
+            this.backupRestoreToolStripMenuItem});
             this.administratorToolStripMenuItem.Name = "administratorToolStripMenuItem";
             this.administratorToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
             this.administratorToolStripMenuItem.Text = "Administrator";
@@ -182,30 +186,37 @@ namespace UAICampo.UI
             // languageEditorToolStripMenuItem
             // 
             this.languageEditorToolStripMenuItem.Name = "languageEditorToolStripMenuItem";
-            this.languageEditorToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.languageEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.languageEditorToolStripMenuItem.Text = "Language Editor";
             this.languageEditorToolStripMenuItem.Click += new System.EventHandler(this.languageEditorToolStripMenuItem_Click);
             // 
             // userManagerToolStripMenuItem
             // 
             this.userManagerToolStripMenuItem.Name = "userManagerToolStripMenuItem";
-            this.userManagerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.userManagerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.userManagerToolStripMenuItem.Text = "Profile Manager";
             this.userManagerToolStripMenuItem.Click += new System.EventHandler(this.userManagerToolStripMenuItem_Click);
             // 
             // licenseManagerToolStripMenuItem
             // 
             this.licenseManagerToolStripMenuItem.Name = "licenseManagerToolStripMenuItem";
-            this.licenseManagerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.licenseManagerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.licenseManagerToolStripMenuItem.Text = "License Manager";
             this.licenseManagerToolStripMenuItem.Click += new System.EventHandler(this.licenseManagerToolStripMenuItem_Click);
             // 
             // profileManagerToolStripMenuItem
             // 
             this.profileManagerToolStripMenuItem.Name = "profileManagerToolStripMenuItem";
-            this.profileManagerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.profileManagerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.profileManagerToolStripMenuItem.Text = "User Manager";
             this.profileManagerToolStripMenuItem.Click += new System.EventHandler(this.profileManagerToolStripMenuItem_Click_1);
+            // 
+            // logToolStripMenuItem
+            // 
+            this.logToolStripMenuItem.Name = "logToolStripMenuItem";
+            this.logToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.logToolStripMenuItem.Text = "Log";
+            this.logToolStripMenuItem.Click += new System.EventHandler(this.logToolStripMenuItem_Click);
             // 
             // supervisorToolStripMenuItem
             // 
@@ -220,14 +231,14 @@ namespace UAICampo.UI
             // teamManagerToolStripMenuItem
             // 
             this.teamManagerToolStripMenuItem.Name = "teamManagerToolStripMenuItem";
-            this.teamManagerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.teamManagerToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.teamManagerToolStripMenuItem.Text = "Team Manager";
             this.teamManagerToolStripMenuItem.Click += new System.EventHandler(this.teamManagerToolStripMenuItem_Click);
             // 
             // addNewAccountToolStripMenuItem
             // 
             this.addNewAccountToolStripMenuItem.Name = "addNewAccountToolStripMenuItem";
-            this.addNewAccountToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addNewAccountToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.addNewAccountToolStripMenuItem.Text = "Add new account";
             this.addNewAccountToolStripMenuItem.Click += new System.EventHandler(this.addNewAccountToolStripMenuItem_Click);
             // 
@@ -302,6 +313,13 @@ namespace UAICampo.UI
             this.pictureBox1.TabIndex = 19;
             this.pictureBox1.TabStop = false;
             // 
+            // backupRestoreToolStripMenuItem
+            // 
+            this.backupRestoreToolStripMenuItem.Name = "backupRestoreToolStripMenuItem";
+            this.backupRestoreToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.backupRestoreToolStripMenuItem.Text = "Backup/Restore";
+            this.backupRestoreToolStripMenuItem.Click += new System.EventHandler(this.backupRestoreToolStripMenuItem_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -364,5 +382,7 @@ namespace UAICampo.UI
         private Equipo_Manager equipo_Manager1;
         private Controllers.TareasController tareasController1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripMenuItem logToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem backupRestoreToolStripMenuItem;
     }
 }

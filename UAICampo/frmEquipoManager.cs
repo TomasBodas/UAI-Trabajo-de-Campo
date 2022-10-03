@@ -212,7 +212,7 @@ namespace UAICampo.UI
                     Code = "TEAM_UPDATED",
                     Description = String.Format("Team {0} updated succesfully", selectedEquipo.Name),
                     Type = LogType.Control,
-                    User = UserInstance.getInstance().user
+                    User = UserInstance.getInstance().user.Id
                 });
             }
             else
@@ -226,7 +226,7 @@ namespace UAICampo.UI
                         Code = "TEAM_NAME_ERROR",
                         Description = String.Format("Team {0} already exists.", selectedEquipo.Name),
                         Type = LogType.Error,
-                        User = UserInstance.getInstance().user
+                        User = UserInstance.getInstance().user.Id
                     });
                     return;
                 }
@@ -238,7 +238,7 @@ namespace UAICampo.UI
                     Code = "TEAM_CREATED",
                     Description = String.Format("Team {0} created succesfully", selectedEquipo.Name),
                     Type = LogType.Control,
-                    User = UserInstance.getInstance().user
+                    User = UserInstance.getInstance().user.Id
                 });
             }
 

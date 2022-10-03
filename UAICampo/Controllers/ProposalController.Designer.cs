@@ -31,14 +31,6 @@ namespace UAICampo.UI.Controllers
         {
             this.labelProposal = new System.Windows.Forms.Label();
             this.dataGridViewProposal = new System.Windows.Forms.DataGridView();
-            this.groupBoxScores = new System.Windows.Forms.GroupBox();
-            this.groupBoxSearch = new System.Windows.Forms.GroupBox();
-            this.buttonSearch = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.groupBoxPosition = new System.Windows.Forms.GroupBox();
-            this.buttonFilter = new System.Windows.Forms.Button();
-            this.comboBoxPosition = new System.Windows.Forms.ComboBox();
-            this.buttonSelect = new System.Windows.Forms.Button();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Profile = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,6 +40,14 @@ namespace UAICampo.UI.Controllers
             this.PromedioReconocimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CantidadObjetivosNoCumplidos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CantidadReconocimientos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBoxScores = new System.Windows.Forms.GroupBox();
+            this.groupBoxSearch = new System.Windows.Forms.GroupBox();
+            this.buttonSearch = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.groupBoxPosition = new System.Windows.Forms.GroupBox();
+            this.buttonFilter = new System.Windows.Forms.Button();
+            this.comboBoxPosition = new System.Windows.Forms.ComboBox();
+            this.buttonSelect = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProposal)).BeginInit();
             this.groupBoxScores.SuspendLayout();
             this.groupBoxSearch.SuspendLayout();
@@ -81,6 +81,51 @@ namespace UAICampo.UI.Controllers
             this.dataGridViewProposal.Name = "dataGridViewProposal";
             this.dataGridViewProposal.Size = new System.Drawing.Size(642, 243);
             this.dataGridViewProposal.TabIndex = 2;
+            // 
+            // Id
+            // 
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            // 
+            // Username
+            // 
+            this.Username.HeaderText = "Username";
+            this.Username.Name = "Username";
+            // 
+            // Profile
+            // 
+            this.Profile.HeaderText = "Profile";
+            this.Profile.Name = "Profile";
+            // 
+            // Value
+            // 
+            this.Value.HeaderText = "Value";
+            this.Value.Name = "Value";
+            // 
+            // PromedioReconocimientoSuperiores
+            // 
+            this.PromedioReconocimientoSuperiores.HeaderText = "Promedio Reconocimiento Superiores";
+            this.PromedioReconocimientoSuperiores.Name = "PromedioReconocimientoSuperiores";
+            // 
+            // PorcentajeObjetivosCumplidos
+            // 
+            this.PorcentajeObjetivosCumplidos.HeaderText = "Porcentaje Objetivos Cumplidos";
+            this.PorcentajeObjetivosCumplidos.Name = "PorcentajeObjetivosCumplidos";
+            // 
+            // PromedioReconocimiento
+            // 
+            this.PromedioReconocimiento.HeaderText = "Promedio Reconocimiento";
+            this.PromedioReconocimiento.Name = "PromedioReconocimiento";
+            // 
+            // CantidadObjetivosNoCumplidos
+            // 
+            this.CantidadObjetivosNoCumplidos.HeaderText = "Cantidad Objetivos No Cumplidos";
+            this.CantidadObjetivosNoCumplidos.Name = "CantidadObjetivosNoCumplidos";
+            // 
+            // CantidadReconocimientos
+            // 
+            this.CantidadReconocimientos.HeaderText = "Cantidad Reconocimientos";
+            this.CantidadReconocimientos.Name = "CantidadReconocimientos";
             // 
             // groupBoxScores
             // 
@@ -158,51 +203,7 @@ namespace UAICampo.UI.Controllers
             this.buttonSelect.TabIndex = 3;
             this.buttonSelect.Text = "Select";
             this.buttonSelect.UseVisualStyleBackColor = true;
-            // 
-            // Id
-            // 
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            // 
-            // Username
-            // 
-            this.Username.HeaderText = "Username";
-            this.Username.Name = "Username";
-            // 
-            // Profile
-            // 
-            this.Profile.HeaderText = "Profile";
-            this.Profile.Name = "Profile";
-            // 
-            // Value
-            // 
-            this.Value.HeaderText = "Value";
-            this.Value.Name = "Value";
-            // 
-            // PromedioReconocimientoSuperiores
-            // 
-            this.PromedioReconocimientoSuperiores.HeaderText = "Promedio Reconocimiento Superiores";
-            this.PromedioReconocimientoSuperiores.Name = "PromedioReconocimientoSuperiores";
-            // 
-            // PorcentajeObjetivosCumplidos
-            // 
-            this.PorcentajeObjetivosCumplidos.HeaderText = "Porcentaje Objetivos Cumplidos";
-            this.PorcentajeObjetivosCumplidos.Name = "PorcentajeObjetivosCumplidos";
-            // 
-            // PromedioReconocimiento
-            // 
-            this.PromedioReconocimiento.HeaderText = "Promedio Reconocimiento";
-            this.PromedioReconocimiento.Name = "PromedioReconocimiento";
-            // 
-            // CantidadObjetivosNoCumplidos
-            // 
-            this.CantidadObjetivosNoCumplidos.HeaderText = "Cantidad Objetivos No Cumplidos";
-            this.CantidadObjetivosNoCumplidos.Name = "CantidadObjetivosNoCumplidos";
-            // 
-            // CantidadReconocimientos
-            // 
-            this.CantidadReconocimientos.HeaderText = "Cantidad Reconocimientos";
-            this.CantidadReconocimientos.Name = "CantidadReconocimientos";
+            this.buttonSelect.Click += new System.EventHandler(this.buttonSelect_Click);
             // 
             // ProposalController
             // 

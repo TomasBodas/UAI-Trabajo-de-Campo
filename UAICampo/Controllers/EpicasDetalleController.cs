@@ -45,7 +45,7 @@ namespace UAICampo.UI.Controllers
                 Code = "EPIC_CREATED",
                 Description = String.Format("Epic created."),
                 Type = LogType.Control,
-                User = UserInstance.getInstance().user
+                User = UserInstance.getInstance().user.Id
             });
             ((Form)this.TopLevelControl).Close();
         }

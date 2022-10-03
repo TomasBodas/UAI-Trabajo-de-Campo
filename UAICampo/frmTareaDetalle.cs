@@ -73,7 +73,7 @@ namespace UAICampo.UI
 				Code = "TASK_CREATED",
 				Description = String.Format("Task created"),
 				Type = LogType.Control,
-				User = UserInstance.getInstance().user
+				User = UserInstance.getInstance().user.Id
 			});
 			this.Close();
 		}

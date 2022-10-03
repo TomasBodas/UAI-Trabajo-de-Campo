@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL_BackupManager.cs" />
+    <Compile Include="BLL_DVManager.cs" />
     <Compile Include="BLL_EquipoManager.cs" />
     <Compile Include="BLL_LanguageManager.cs" />
     <Compile Include="BLL_LogManager.cs" />

@@ -46,5 +46,10 @@ namespace UAICampo.UI.Controllers
 
             fillRecommended(equipo, puesto);
         }
+
+        private void buttonSelect_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

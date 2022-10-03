@@ -53,7 +53,7 @@ namespace UAICampo.BLL
                         Code = "USER_CREATED",
                         Description = String.Format("Account {0} created successfully", user.Username),
                         Type = LogType.Control,
-                        User = user
+                        User = user.Id
                     });
                 }
                 catch (Exception)
@@ -70,7 +70,7 @@ namespace UAICampo.BLL
                     Code = "USERNAME_ERROR",
                     Description = String.Format("Username already exists"),
                     Type = LogType.Warning,
-                    User = user
+                    User = user.Id
                 });
             }
 

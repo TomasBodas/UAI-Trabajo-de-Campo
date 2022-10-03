@@ -9,7 +9,22 @@ namespace UAICampo.Services
 {
     public class Log : ILog
     {
-        public Log(string code, string description, LogType type, DateTime date, IUser user)
+        public Log()
+        {
+
+        }
+
+        public Log(object[] itemArray)
+        {
+            this.Code = (string)itemArray[0];
+            this.Description = (string)itemArray[1];
+            var type = (string)itemArray[2];
+            this.Type = (LogType)Enum.Parse(typeof(LogType), type);
+            this.Date = (DateTime)itemArray[3];
+            this.User = (int?)itemArray[4];
+        }
+
+        public Log(string code, string description, LogType type, DateTime date, int user)
         {
             Code = code;
             Description = description;
@@ -21,7 +36,7 @@ namespace UAICampo.Services
         public string Code;
         public string Description;
         public LogType Type;
-        public IUser User;
+        public int? User;
     }
 
     public enum LogType
