@@ -56,7 +56,61 @@ namespace UAICampo.DAL
                     {
                         while (sqlReader.Read())
                         {
-                            tareas.Add(new Tarea(new object[] { (int)sqlReader[0], (string)sqlReader[1], (string)sqlReader[2], (string)sqlReader[3], (string)sqlReader[4], (string)sqlReader[5], (string)sqlReader[6], (string)sqlReader[7], (string)sqlReader[8] }));
+                            tareas.Add(new Tarea(new object[] { sqlReader[0], sqlReader[1], sqlReader[2], sqlReader[3], sqlReader[4], sqlReader[5], sqlReader[6], sqlReader[7], sqlReader[8] }));
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+
+            return tareas.ToList();
+        }
+
+        public List<Tarea> getFinishedByTeam(IEquipo equipo)
+        {
+            List<Tarea> tareas = new List<Tarea>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"select task.id, task.title, task.description, task.dateCreated, task.dateDeadline, task.dateFinished, task.value, task.state, task.archived, task.FK_account_task, task.FK_epic_task, task.FK_team_task from task WHERE task.FK_team_task = {equipo.Id} AND task.archived = 1 AND task.state = {2} AND task.dateFinished >= DATEADD(DAY, -15, GETDATE()) ORDER BY task.id DESC";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            tareas.Add(new Tarea(new object[] { sqlReader[0], sqlReader[1], sqlReader[2], sqlReader[3], sqlReader[4], sqlReader[5], sqlReader[6], sqlReader[7], sqlReader[8] }));
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+
+            return tareas.ToList();
+        }
+
+        public List<Tarea> getUnfinishedByTeam(IEquipo equipo)
+        {
+            List<Tarea> tareas = new List<Tarea>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"select task.id, task.title, task.description, task.dateCreated, task.dateDeadline, task.dateFinished, task.value, task.state, task.archived, task.FK_account_task, task.FK_epic_task, task.FK_team_task from task WHERE task.FK_team_task = {equipo.Id} AND task.archived != 1 AND task.state != {2} AND task.dateCreated >= DATEADD(DAY, -15, GETDATE()) ORDER BY task.id DESC";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            tareas.Add(new Tarea(new object[] { sqlReader[0], sqlReader[1], sqlReader[2], sqlReader[3], sqlReader[4], sqlReader[5], sqlReader[6], sqlReader[7], sqlReader[8] }));
                         }
                     }
                     sqlReader.Close();
@@ -74,7 +128,7 @@ namespace UAICampo.DAL
             {
                 sqlConnection.Open();
 
-                string query = $"select task.id, task.title, task.description, task.dateCreated, task.dateDeadline, task.dateFinished, task.value, task.state, task.archived, task.FK_account_task, task.FK_epic_task, task.FK_team_task from task WHERE task.FK_account_task = {user.Id} AND task.archived = 1 AND task.state = 'Closed' ORDER BY task.id DESC";
+                string query = $"select task.id, task.title, task.description, task.dateCreated, task.dateDeadline, task.dateFinished, task.value, task.state, task.archived, task.FK_account_task, task.FK_epic_task, task.FK_team_task from task WHERE task.FK_account_task = {user.Id} AND task.archived = 1 AND task.state = {2} ORDER BY task.id DESC";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
@@ -83,7 +137,7 @@ namespace UAICampo.DAL
                     {
                         while (sqlReader.Read())
                         {
-                            tareas.Add(new Tarea(new object[] { (int)sqlReader[0], (string)sqlReader[1], (string)sqlReader[2], (string)sqlReader[3], (string)sqlReader[4], (string)sqlReader[5], (string)sqlReader[6], (string)sqlReader[7], (string)sqlReader[8] }));
+                            tareas.Add(new Tarea(new object[] { sqlReader[0], sqlReader[1], sqlReader[2], sqlReader[3], sqlReader[4], sqlReader[5], sqlReader[6], sqlReader[7], sqlReader[8] }));
                         }
                     }
                     sqlReader.Close();
@@ -279,7 +333,7 @@ namespace UAICampo.DAL
             }
         }
 
-        public bool assignMember(string tareatitle, int usId)
+        public bool assignMember(Tarea tarea, int usId)
         {
             bool success = false;
 
@@ -287,7 +341,32 @@ namespace UAICampo.DAL
             {
                 sqlConnection.Open();
 
-                string query = $"update task set FK_account_task = {usId} where title = '{tareatitle}'";
+                string query = $"update task set FK_account_task = {usId} where id = '{tarea.Id}'";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    int result = sqlCommand.ExecuteNonQuery();
+                    if (result == 1)
+                    {
+                        success = true;
+                    }
+                }
+
+                sqlConnection.Close();
+            }
+
+            return success;
+        }
+
+        public bool deassignMember(Tarea tarea, int usId)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"update task set FK_account_task = NULL where id = '{tarea.Id}'";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
@@ -312,7 +391,7 @@ namespace UAICampo.DAL
             {
                 sqlConnection.Open();
 
-                string query = $"update task set archived = 1 where id = {tarea.Id}";
+                string query = $"update task set archived = 1, dateFinished = '{DateTime.Now}', state = {2} where id = {tarea.Id}";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
@@ -331,6 +410,30 @@ namespace UAICampo.DAL
         public IList<Tarea> GetAll()
         {
             throw new NotImplementedException();
+        }
+
+        public bool updateTask(Tarea tarea)
+        {
+            bool success = false;
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"update task set title = '{tarea.Title}', description = '{tarea.Description}', dateCreated = '{tarea.DateCreated}', dateDeadline = '{tarea.DateDeadline}', dateFinished = '{tarea.DateFinished}', value = {tarea.Value}, state = {(int)tarea.State}, FK_epic_task = {tarea.EpicaId}, FK_account_task = {tarea.User.Id} where id = {tarea.Id}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    int result = sqlCommand.ExecuteNonQuery();
+                    if (result == 1)
+                    {
+                        success = true;
+                    }
+                }
+
+                sqlConnection.Close();
+            }
+            return success;
         }
 
         public Tarea FindById(int Id)
@@ -363,7 +466,19 @@ namespace UAICampo.DAL
 
         public void Delete(int Id)
         {
-            throw new NotImplementedException();
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"DELETE" +
+                                $" FROM task" +
+                                $" WHERE id = {Id}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+                }
+            }
         }
         #endregion
 

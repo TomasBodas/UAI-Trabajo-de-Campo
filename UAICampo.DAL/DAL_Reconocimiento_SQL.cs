@@ -164,5 +164,21 @@ namespace UAICampo.DAL
         {
             throw new NotImplementedException();
         }
+
+        public void Send(int senderId, int receivedId, string achievementName, int achievementValue, DateTime date)
+        {
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"insert into achievement (description, date, value, FK_sender_achievement, FK_receiver_achievement) " +
+                                $"values ('{achievementName}', '{date}', {achievementValue}, {senderId}, {receivedId})";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

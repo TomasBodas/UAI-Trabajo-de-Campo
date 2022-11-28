@@ -9,6 +9,10 @@ namespace UAICampo.BE
 {
     public class Reconocimiento : IInterface
     {
+        public Reconocimiento()
+        {
+
+        }
         public Reconocimiento(object[] itemArray)
         {
             this.Id = (int)itemArray[0];

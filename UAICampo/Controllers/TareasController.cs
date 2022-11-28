@@ -48,7 +48,7 @@ namespace UAICampo.UI.Controllers
 
         }
         public void updateTeamList()
-        { 
+        {
             IEquipo selectedEquipo = BLL_EquipoManager.getUserTeam(UserInstance.getInstance().user);
             List<Tarea> tareas = BLL_TareasManager.getTasksByTeam((Equipo)selectedEquipo);
             var items2 = new List<Object>();
@@ -70,8 +70,8 @@ namespace UAICampo.UI.Controllers
             var items2 = new List<Object>();
             foreach (Tarea tarea in tareas)
             {
-                    items2.Add(new ComboboxItem { Text = tarea.Title, Value = tarea.Id });
-                
+                items2.Add(new ComboboxItem { Text = tarea.Title, Value = tarea.Id });
+
             }
 
             listBox1.DisplayMember = "Text";
@@ -107,7 +107,7 @@ namespace UAICampo.UI.Controllers
 
             int objId = int.Parse((listBox1.SelectedItem as ComboboxItem).Value.ToString());
 
-            frmTareaDetalle detObj = new frmTareaDetalle { tarea = BLL_TareasManager.FindById(objId) };
+            frmTareaDetalle detObj = new frmTareaDetalle { tarea = BLL_TareasManager.FindById(objId), user = UserInstance.getInstance().user };
             detObj.Show();
         }
 
@@ -156,6 +156,7 @@ namespace UAICampo.UI.Controllers
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Refresh"), buttonRefresh));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "AddTask"), buttonAddTask));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Finalize"), buttonFinalize));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Delete"), button1));
 
         }
 
@@ -185,7 +186,56 @@ namespace UAICampo.UI.Controllers
 
         private void buttonAssign_Click(object sender, EventArgs e)
         {
+            if (listBox2.SelectedItem == null)
+            {
+                return;
+            }
 
+            Tarea tarea = new Tarea
+            {
+                Id = int.Parse((listBox2.SelectedItem as ComboboxItem).Value.ToString())
+            };
+            BLL_TareasManager.assignMember(tarea, UserInstance.getInstance().user.Id);
+            updateTeamList();
+            updateMyList();
+        }
+
+        private void buttonDeassign_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem == null)
+            {
+                return;
+            }
+
+            Tarea tarea = new Tarea
+            {
+                Id = int.Parse((listBox1.SelectedItem as ComboboxItem).Value.ToString())
+            };
+            BLL_TareasManager.deassignMember(tarea, UserInstance.getInstance().user.Id);
+            updateTeamList();
+            updateMyList();
+        }
+
+        private void buttonArchive_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (listBox2.SelectedItem == null)
+            {
+                return;
+            }
+
+            Tarea tarea = new Tarea
+            {
+                Id = int.Parse((listBox2.SelectedItem as ComboboxItem).Value.ToString())
+            };
+            BLL_TareasManager.delete(tarea);
+            MessageBox.Show("Task deleted sucessfully.");
+            updateTeamList();
+            updateMyList();
         }
     }
 }

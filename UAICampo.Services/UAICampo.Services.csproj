@@ -49,6 +49,7 @@
     <Compile Include="DataBaseServices.cs" />
     <Compile Include="Encrypt.cs" />
     <Compile Include="EnumerationExtensions.cs" />
+    <Compile Include="WordChangelog.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="Profile.cs" />

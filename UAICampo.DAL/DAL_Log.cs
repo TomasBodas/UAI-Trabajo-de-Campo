@@ -129,9 +129,64 @@ namespace UAICampo.DAL
             return Entity;
         }
 
+        public List<WordChangelog> GetAllChangelog(DateTime? from = null, DateTime? to = null, string type = null)
+        {
+            List<WordChangelog> licenses = new List<WordChangelog>();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $" SELECT id, tag, word, FK_language_words, date, change, accountId, wordId" +
+                                $" FROM wordsChanges";
+
+                if (from != null)
+                {
+                    query += $" WHERE {COLUMN_LOG_DATE} BETWEEN '{from?.ToString("yyyy-MM-dd")}' AND '{to?.ToString("yyyy-MM-dd")}'";
+                }
+
+                if (type != null)
+                {
+                    query += $" AND change LIKE '%{type}%'";
+                }
+
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            licenses.Add(new WordChangelog(new Object[] { sqlReader[0], sqlReader[1], sqlReader[2], sqlReader[3], sqlReader[4], sqlReader[5], sqlReader[6], sqlReader[7] }));
+                        }
+                    }
+                }
+            }
+
+            return licenses;
+        }
+
         public IList<Log> GetAll()
         {
             throw new NotImplementedException();
+        }
+
+        public void RestoreWord(WordChangelog row)
+        {
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+                string query = $"UPDATE words" +
+                                $" SET  tag = '{row.Tag}', word = '{row.Word}', FK_language_words = {row.FK_Language_Words}" +
+                                $" WHERE id = {row.Id}";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

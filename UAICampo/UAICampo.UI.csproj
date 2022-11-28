@@ -36,7 +36,28 @@
     </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="MigraDoc.DocumentObjectModel, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.5147\lib\net20\MigraDoc.DocumentObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.Rendering, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.5147\lib\net20\MigraDoc.Rendering.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.RtfRendering, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.5147\lib\net20\MigraDoc.RtfRendering.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -62,11 +83,29 @@
     <Compile Include="Administrator\frmBitacora.Designer.cs">
       <DependentUpon>frmBitacora.cs</DependentUpon>
     </Compile>
+    <Compile Include="Administrator\frmChangelog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrator\frmChangelog.Designer.cs">
+      <DependentUpon>frmChangelog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AchievementController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controllers\AchievementController.Designer.cs">
+      <DependentUpon>AchievementController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\BackupController.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controllers\BackupController.Designer.cs">
       <DependentUpon>BackupController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\ChangelogController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controllers\ChangelogController.Designer.cs">
+      <DependentUpon>ChangelogController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\BitacoraController.cs">
       <SubType>UserControl</SubType>
@@ -103,12 +142,6 @@
     </Compile>
     <Compile Include="Controllers\License Manager.Designer.cs">
       <DependentUpon>License Manager.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\ProposalController.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controllers\ProposalController.Designer.cs">
-      <DependentUpon>ProposalController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\SearchUserController.cs">
       <SubType>UserControl</SubType>
@@ -236,6 +269,12 @@
     <Compile Include="frmEquipo.Designer.cs">
       <DependentUpon>frmEquipo.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSprint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSprint.Designer.cs">
+      <DependentUpon>frmSprint.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTareaDetalle.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,6 +289,9 @@
     <EmbeddedResource Include="Administrator\frmBitacora.resx">
       <DependentUpon>frmBitacora.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Administrator\frmChangelog.resx">
+      <DependentUpon>frmChangelog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Administrator\frmLicenseManager.resx">
       <DependentUpon>frmLicenseManager.cs</DependentUpon>
     </EmbeddedResource>
@@ -259,8 +301,14 @@
     <EmbeddedResource Include="Administrator\frmUserManager.resx">
       <DependentUpon>frmUserManager.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\AchievementController.resx">
+      <DependentUpon>AchievementController.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controllers\BackupController.resx">
       <DependentUpon>BackupController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\ChangelogController.resx">
+      <DependentUpon>ChangelogController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\BitacoraController.resx">
       <DependentUpon>BitacoraController.cs</DependentUpon>
@@ -279,9 +327,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\License Manager.resx">
       <DependentUpon>License Manager.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controllers\ProposalController.resx">
-      <DependentUpon>ProposalController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\SearchUserController.resx">
       <DependentUpon>SearchUserController.cs</DependentUpon>
@@ -337,6 +382,9 @@
     <EmbeddedResource Include="frmEquipo.resx">
       <DependentUpon>frmEquipo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmSprint.resx">
+      <DependentUpon>frmSprint.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmTareaDetalle.resx">
       <DependentUpon>frmTareaDetalle.cs</DependentUpon>
     </EmbeddedResource>
@@ -350,6 +398,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

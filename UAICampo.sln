@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UAICampo.Services", "UAICam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UAICampo.Abstractions", "UAICampo.Abstractions\UAICampo.Abstractions.csproj", "{623FD6F6-143A-4CF9-9F26-0E52DC20BC00}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{9C26189E-2CF0-4927-8AAD-CD8ABB55A951}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,8 @@ Global
 		{623FD6F6-143A-4CF9-9F26-0E52DC20BC00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{623FD6F6-143A-4CF9-9F26-0E52DC20BC00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{623FD6F6-143A-4CF9-9F26-0E52DC20BC00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C26189E-2CF0-4927-8AAD-CD8ABB55A951}.Debug|Any CPU.ActiveCfg = Debug
+		{9C26189E-2CF0-4927-8AAD-CD8ABB55A951}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

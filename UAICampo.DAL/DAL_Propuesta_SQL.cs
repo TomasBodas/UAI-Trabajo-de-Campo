@@ -91,6 +91,33 @@ namespace UAICampo.DAL
 
             return userList;
         }
+        public UserPropuesto FindByUsernameExists(string name)
+        {
+
+            UserPropuesto userList = new UserPropuesto();
+
+            using (sqlConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                sqlConnection.Open();
+
+                string query = $"select account.id, account.username, account.email from account LEFT JOIN account_team ON account.id = account_team.id_account LEFT JOIN account_profile on account.id = account_profile.id_account WHERE account.username = '{name}' AND id_profile NOT LIKE 1 AND id_profile NOT LIKE 2 AND id_profile NOT LIKE 4";
+
+                using (sqlCommand = new SqlCommand(query, sqlConnection))
+                {
+                    sqlReader = sqlCommand.ExecuteReader();
+                    if (sqlReader.HasRows)
+                    {
+                        while (sqlReader.Read())
+                        {
+                            userList = new UserPropuesto(new object[] { (int)sqlReader[0], (string)sqlReader[1] });
+                        }
+                    }
+                    sqlReader.Close();
+                }
+            }
+
+            return userList;
+        }
         public void Delete(int Id)
         {
             throw new NotImplementedException();

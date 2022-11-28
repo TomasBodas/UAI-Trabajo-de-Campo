@@ -12,6 +12,7 @@ using UAICampo.Abstractions.Observer;
 using UAICampo.BLL;
 using UAICampo.Services;
 using UAICampo.Services.Observer;
+using UAICampo.UI.Administrator;
 
 namespace UAICampo.UI.Controllers
 {
@@ -21,7 +22,9 @@ namespace UAICampo.UI.Controllers
         BLL_LanguageManager bllLanguage;
         BLL_BackupManager bllBackup;
         private OpenFileDialog openFileDialog1;
+        private SaveFileDialog saveFileDialog1;
         Language selectedLanguage;
+        frmChangelog frmChangelog = null;
 
         public BackupController()
         {
@@ -46,7 +49,8 @@ namespace UAICampo.UI.Controllers
             //Second value: Word Tag, used for language runtime changes
 
             //General controllers------------------------------------------------------------------------------------
-            //controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "LicenseList"), label_Title_License));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "RestoreDV"), button3));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Changelog"), button4));
             //controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "ProfileList"), label_Title_Profile));
             //controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "LicenseList"), label_Title_ProfileLicenses));
         }
@@ -80,13 +84,26 @@ namespace UAICampo.UI.Controllers
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(selectedLanguage.translate("Confirmation"), selectedLanguage.translate("Confirm"), MessageBoxButtons.YesNo) == DialogResult.Yes)
+            saveFileDialog1 = new SaveFileDialog
             {
-                if (bllBackup.backup())
+                Filter = "Database backups (*.bak)|*.bak",
+                Title = "Create database backup",
+                InitialDirectory = Directory.GetCurrentDirectory(),
+            };
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if (MessageBox.Show(selectedLanguage.translate("Confirmation"), selectedLanguage.translate("Confirm"), MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    MessageBox.Show("Backup created");
+                    if (bllBackup.backup(saveFileDialog1.FileName))
+                    {
+                        MessageBox.Show("Backup created");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Backup error!");
+                    }
                 }
-                MessageBox.Show("Backup error!");
             }
         }
 
@@ -125,6 +142,25 @@ namespace UAICampo.UI.Controllers
             {
                 listBox1.Items.Add(error);
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (frmChangelog == null)
+            {
+                frmChangelog = new frmChangelog();
+                frmChangelog.FormClosed += new FormClosedEventHandler(frmChangelog_FormClosed);
+                frmChangelog.Show();
+            }
+            else
+            {
+                frmChangelog.BringToFront();
+            }
+        }
+
+        private void frmChangelog_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmChangelog = null;
         }
     }
 }

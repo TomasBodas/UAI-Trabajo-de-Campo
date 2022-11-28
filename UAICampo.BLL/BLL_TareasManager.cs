@@ -20,6 +20,16 @@ namespace UAICampo.BLL
 
         }
 
+        public static List<Tarea> getFinishedByTeam(IEquipo eq)
+        {
+            return dalTareas.getFinishedByTeam(eq);
+        }
+
+        public static List<Tarea> getUnfinishedByTeam(IEquipo eq)
+        {
+            return dalTareas.getUnfinishedByTeam(eq);
+        }
+
         public static List<Tarea> getAccomplished(User us)
         {
             return dalTareas.getAccomplished(us);
@@ -44,6 +54,11 @@ namespace UAICampo.BLL
             return dalTareas.archive(tarea);
         }
 
+        public static void delete(Tarea tarea)
+        {
+           dalTareas.Delete(tarea.Id);
+        }
+
         public static Epica SaveEpic(Epica e)
         {
             return dalTareas.SaveEpic(e);
@@ -57,6 +72,12 @@ namespace UAICampo.BLL
             return dalTareas.getAllEpics();
         }
 
+        public static bool updateTask(Tarea tarea)
+        {
+            bool result = dalTareas.updateTask(tarea);
+            return result;
+        }
+
         public static bool assignMember(Tarea tarea, int userId)
         {
             IUser user = getUserTask(tarea);
@@ -65,7 +86,27 @@ namespace UAICampo.BLL
                 return false;
             }
 
-            bool result = dalTareas.assignMember(tarea.Title, userId);
+            bool result = dalTareas.assignMember(tarea, userId);
+
+            if (result)
+            {
+                tarea.User = new User
+                {
+                    Id = userId
+                };
+            }
+            return result;
+        }
+
+        public static bool deassignMember(Tarea tarea, int userId)
+        {
+            IUser user = getUserTask(tarea);
+            if (user.Id != 0)
+            {
+                return false;
+            }
+
+            bool result = dalTareas.deassignMember(tarea, userId);
 
             if (result)
             {

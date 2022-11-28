@@ -38,9 +38,17 @@ namespace UAICampo.BLL
             return users;
         }
 
-        public static UserPropuesto GetSpecific(string name, IProfile profile = null)
+        public static UserPropuesto GetSpecific(string name, bool exists, IProfile profile = null)
         {
-            var usuarioPropuesto = propuestaDAL.FindByUsername(name);
+            var usuarioPropuesto = new UserPropuesto();
+            if (exists == true)
+            {
+                usuarioPropuesto = propuestaDAL.FindByUsernameExists(name);
+            }
+            else
+            { 
+              usuarioPropuesto = propuestaDAL.FindByUsername(name);
+            }
             usuarioPropuesto.PorcentajeObjetivosCumplidos = Math.Round(calcularCumplidos(usuarioPropuesto), 2);
             usuarioPropuesto.PromedioReconocimiento = Math.Round(calcularReconocimiento(usuarioPropuesto), 2);
             usuarioPropuesto.PromedioReconocimientoDeSuperiores = Math.Round(calcularReconocimientoSuperiores(usuarioPropuesto), 2);

@@ -48,23 +48,28 @@ namespace UAICampo.UI
             this.licenseManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.profileManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eventLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changelogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.backupRestoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.supervisorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.teamManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageTask = new System.Windows.Forms.TabPage();
-            this.tareasController1 = new UAICampo.UI.Controllers.TareasController();
+            this.tareasController2 = new UAICampo.UI.Controllers.TareasController();
             this.tabPageLeader = new System.Windows.Forms.TabPage();
-            this.equipo_Manager1 = new UAICampo.UI.Equipo_Manager();
-            this.languageController2 = new UAICampo.UI.Controllers.LanguageController();
+            this.equipo_Manager2 = new UAICampo.UI.Equipo_Manager();
+            this.tabAchievements = new System.Windows.Forms.TabPage();
+            this.achievementController1 = new UAICampo.UI.Controllers.AchievementController();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.backupRestoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.languageController1 = new UAICampo.UI.Controllers.LanguageController();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageTask.SuspendLayout();
             this.tabPageLeader.SuspendLayout();
+            this.tabAchievements.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -186,37 +191,61 @@ namespace UAICampo.UI
             // languageEditorToolStripMenuItem
             // 
             this.languageEditorToolStripMenuItem.Name = "languageEditorToolStripMenuItem";
-            this.languageEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.languageEditorToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.languageEditorToolStripMenuItem.Text = "Language Editor";
             this.languageEditorToolStripMenuItem.Click += new System.EventHandler(this.languageEditorToolStripMenuItem_Click);
             // 
             // userManagerToolStripMenuItem
             // 
             this.userManagerToolStripMenuItem.Name = "userManagerToolStripMenuItem";
-            this.userManagerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.userManagerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.userManagerToolStripMenuItem.Text = "Profile Manager";
             this.userManagerToolStripMenuItem.Click += new System.EventHandler(this.userManagerToolStripMenuItem_Click);
             // 
             // licenseManagerToolStripMenuItem
             // 
             this.licenseManagerToolStripMenuItem.Name = "licenseManagerToolStripMenuItem";
-            this.licenseManagerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.licenseManagerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.licenseManagerToolStripMenuItem.Text = "License Manager";
             this.licenseManagerToolStripMenuItem.Click += new System.EventHandler(this.licenseManagerToolStripMenuItem_Click);
             // 
             // profileManagerToolStripMenuItem
             // 
             this.profileManagerToolStripMenuItem.Name = "profileManagerToolStripMenuItem";
-            this.profileManagerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.profileManagerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.profileManagerToolStripMenuItem.Text = "User Manager";
             this.profileManagerToolStripMenuItem.Click += new System.EventHandler(this.profileManagerToolStripMenuItem_Click_1);
             // 
             // logToolStripMenuItem
             // 
+            this.logToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.eventLogToolStripMenuItem,
+            this.changelogToolStripMenuItem});
             this.logToolStripMenuItem.Name = "logToolStripMenuItem";
-            this.logToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.logToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.logToolStripMenuItem.Text = "Log";
             this.logToolStripMenuItem.Click += new System.EventHandler(this.logToolStripMenuItem_Click);
+            // 
+            // eventLogToolStripMenuItem
+            // 
+            this.eventLogToolStripMenuItem.Name = "eventLogToolStripMenuItem";
+            this.eventLogToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.eventLogToolStripMenuItem.Text = "Event Log";
+            this.eventLogToolStripMenuItem.Click += new System.EventHandler(this.eventLogToolStripMenuItem_Click);
+            // 
+            // changelogToolStripMenuItem
+            // 
+            this.changelogToolStripMenuItem.Name = "changelogToolStripMenuItem";
+            this.changelogToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.changelogToolStripMenuItem.Text = "Changelog";
+            this.changelogToolStripMenuItem.Click += new System.EventHandler(this.changelogToolStripMenuItem_Click);
+            // 
+            // backupRestoreToolStripMenuItem
+            // 
+            this.backupRestoreToolStripMenuItem.Name = "backupRestoreToolStripMenuItem";
+            this.backupRestoreToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.backupRestoreToolStripMenuItem.Text = "Backup/Restore";
+            this.backupRestoreToolStripMenuItem.Click += new System.EventHandler(this.backupRestoreToolStripMenuItem_Click);
             // 
             // supervisorToolStripMenuItem
             // 
@@ -249,6 +278,7 @@ namespace UAICampo.UI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPageTask);
             this.tabControl1.Controls.Add(this.tabPageLeader);
+            this.tabControl1.Controls.Add(this.tabAchievements);
             this.tabControl1.Location = new System.Drawing.Point(12, 37);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -259,7 +289,7 @@ namespace UAICampo.UI
             // 
             this.tabPageTask.BackColor = System.Drawing.Color.LightSkyBlue;
             this.tabPageTask.BackgroundImage = global::UAICampo.UI.Properties.Resources.background;
-            this.tabPageTask.Controls.Add(this.tareasController1);
+            this.tabPageTask.Controls.Add(this.tareasController2);
             this.tabPageTask.Location = new System.Drawing.Point(4, 22);
             this.tabPageTask.Name = "tabPageTask";
             this.tabPageTask.Padding = new System.Windows.Forms.Padding(3);
@@ -267,18 +297,18 @@ namespace UAICampo.UI
             this.tabPageTask.TabIndex = 0;
             this.tabPageTask.Text = "My Tasks";
             // 
-            // tareasController1
+            // tareasController2
             // 
-            this.tareasController1.BackColor = System.Drawing.SystemColors.Control;
-            this.tareasController1.Location = new System.Drawing.Point(26, 24);
-            this.tareasController1.Name = "tareasController1";
-            this.tareasController1.Size = new System.Drawing.Size(896, 322);
-            this.tareasController1.TabIndex = 0;
+            this.tareasController2.BackColor = System.Drawing.SystemColors.Control;
+            this.tareasController2.Location = new System.Drawing.Point(24, 17);
+            this.tareasController2.Name = "tareasController2";
+            this.tareasController2.Size = new System.Drawing.Size(896, 326);
+            this.tareasController2.TabIndex = 0;
             // 
             // tabPageLeader
             // 
             this.tabPageLeader.BackgroundImage = global::UAICampo.UI.Properties.Resources.background;
-            this.tabPageLeader.Controls.Add(this.equipo_Manager1);
+            this.tabPageLeader.Controls.Add(this.equipo_Manager2);
             this.tabPageLeader.Location = new System.Drawing.Point(4, 22);
             this.tabPageLeader.Name = "tabPageLeader";
             this.tabPageLeader.Size = new System.Drawing.Size(949, 359);
@@ -286,22 +316,32 @@ namespace UAICampo.UI
             this.tabPageLeader.Text = "Team Leader";
             this.tabPageLeader.UseVisualStyleBackColor = true;
             // 
-            // equipo_Manager1
+            // equipo_Manager2
             // 
-            this.equipo_Manager1.BackColor = System.Drawing.SystemColors.Control;
-            this.equipo_Manager1.Location = new System.Drawing.Point(28, 25);
-            this.equipo_Manager1.Name = "equipo_Manager1";
-            this.equipo_Manager1.Size = new System.Drawing.Size(238, 169);
-            this.equipo_Manager1.TabIndex = 0;
+            this.equipo_Manager2.BackColor = System.Drawing.SystemColors.Control;
+            this.equipo_Manager2.Location = new System.Drawing.Point(24, 15);
+            this.equipo_Manager2.Name = "equipo_Manager2";
+            this.equipo_Manager2.Size = new System.Drawing.Size(238, 169);
+            this.equipo_Manager2.TabIndex = 0;
             // 
-            // languageController2
+            // tabAchievements
             // 
-            this.languageController2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.languageController2.BackColor = System.Drawing.SystemColors.Control;
-            this.languageController2.Location = new System.Drawing.Point(0, 428);
-            this.languageController2.Name = "languageController2";
-            this.languageController2.Size = new System.Drawing.Size(40, 26);
-            this.languageController2.TabIndex = 18;
+            this.tabAchievements.BackgroundImage = global::UAICampo.UI.Properties.Resources.background;
+            this.tabAchievements.Controls.Add(this.achievementController1);
+            this.tabAchievements.Location = new System.Drawing.Point(4, 22);
+            this.tabAchievements.Name = "tabAchievements";
+            this.tabAchievements.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAchievements.Size = new System.Drawing.Size(949, 359);
+            this.tabAchievements.TabIndex = 2;
+            this.tabAchievements.Text = "Achievements";
+            this.tabAchievements.UseVisualStyleBackColor = true;
+            // 
+            // achievementController1
+            // 
+            this.achievementController1.Location = new System.Drawing.Point(76, 60);
+            this.achievementController1.Name = "achievementController1";
+            this.achievementController1.Size = new System.Drawing.Size(279, 141);
+            this.achievementController1.TabIndex = 0;
             // 
             // pictureBox1
             // 
@@ -313,12 +353,12 @@ namespace UAICampo.UI
             this.pictureBox1.TabIndex = 19;
             this.pictureBox1.TabStop = false;
             // 
-            // backupRestoreToolStripMenuItem
+            // languageController1
             // 
-            this.backupRestoreToolStripMenuItem.Name = "backupRestoreToolStripMenuItem";
-            this.backupRestoreToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.backupRestoreToolStripMenuItem.Text = "Backup/Restore";
-            this.backupRestoreToolStripMenuItem.Click += new System.EventHandler(this.backupRestoreToolStripMenuItem_Click);
+            this.languageController1.Location = new System.Drawing.Point(0, 424);
+            this.languageController1.Name = "languageController1";
+            this.languageController1.Size = new System.Drawing.Size(36, 32);
+            this.languageController1.TabIndex = 20;
             // 
             // frmMain
             // 
@@ -326,7 +366,7 @@ namespace UAICampo.UI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1007, 452);
-            this.Controls.Add(this.languageController2);
+            this.Controls.Add(this.languageController1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusStrip1);
@@ -347,6 +387,7 @@ namespace UAICampo.UI
             this.tabControl1.ResumeLayout(false);
             this.tabPageTask.ResumeLayout(false);
             this.tabPageLeader.ResumeLayout(false);
+            this.tabAchievements.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -384,5 +425,12 @@ namespace UAICampo.UI
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripMenuItem logToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem backupRestoreToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem eventLogToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changelogToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabAchievements;
+        private Controllers.AchievementController achievementController1;
+        private Controllers.TareasController tareasController2;
+        private Equipo_Manager equipo_Manager2;
+        private Controllers.LanguageController languageController1;
     }
 }

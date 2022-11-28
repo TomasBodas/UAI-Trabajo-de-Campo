@@ -26,5 +26,10 @@ namespace UAICampo.BLL
         {
             return dalReconocimiento.getLastReceived(us);
         }
+
+        public static void Send(int senderId, int receivedId, string achievementName, int achievementValue, DateTime date)
+        {
+           dalReconocimiento.Send(senderId, receivedId, achievementName, achievementValue, date);
+        }
     }
 }

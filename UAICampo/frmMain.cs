@@ -29,6 +29,7 @@ namespace UAICampo.UI
         frmUserManager frmUserManager = null;
         frmProfile frmChangePassword = null;
         frmBitacora frmBitacora = null;
+        frmChangelog frmChangelog = null;
         frmBackup frmBackup = null;
         BLL_SessionManager sessionBLL;
         BLL_LanguageManager languageBLL;
@@ -110,6 +111,7 @@ namespace UAICampo.UI
             addNewAccountToolStripMenuItem.Text = selectedLanguage.translate("AddAccount");
             tabPageTask.Text = selectedLanguage.translate("MyTasks");
             tabPageLeader.Text = selectedLanguage.translate("TeamSettings");
+            tabAchievements.Text = selectedLanguage.translate("Achievements");
         }
         private void ValidateForm()
         {
@@ -313,6 +315,10 @@ namespace UAICampo.UI
         {
             frmBitacora = null;
         }
+        private void frmChangelog_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmChangelog = null;
+        }
         private void frmBackup_FormClosed(object sender, FormClosedEventArgs e)
         {
             frmBackup = null;
@@ -370,16 +376,6 @@ namespace UAICampo.UI
 
         private void logToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (frmBitacora == null)
-            {
-                frmBitacora = new frmBitacora();
-                frmBitacora.FormClosed += new FormClosedEventHandler(frmBitacora_FormClosed);
-                frmBitacora.Show();
-            }
-            else
-            {
-                frmBitacora.BringToFront();
-            }
         }
 
         private void backupRestoreToolStripMenuItem_Click(object sender, EventArgs e)
@@ -393,6 +389,34 @@ namespace UAICampo.UI
             else
             {
                 frmBackup.BringToFront();
+            }
+        }
+
+        private void eventLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (frmBitacora == null)
+            {
+                frmBitacora = new frmBitacora();
+                frmBitacora.FormClosed += new FormClosedEventHandler(frmBitacora_FormClosed);
+                frmBitacora.Show();
+            }
+            else
+            {
+                frmBitacora.BringToFront();
+            }
+        }
+
+        private void changelogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (frmChangelog == null)
+            {
+                frmChangelog = new frmChangelog();
+                frmChangelog.FormClosed += new FormClosedEventHandler(frmChangelog_FormClosed);
+                frmChangelog.Show();
+            }
+            else
+            {
+                frmChangelog.BringToFront();
             }
         }
     }

@@ -22,7 +22,7 @@ namespace UAICampo.DAL
             return value.ToString("yyyyMMdd");
         }
 
-        public bool Backup()
+        public bool Backup(string filename)
         {
             using (sqlConnection = new SqlConnection(CONNECTION_STRING))
             {
@@ -30,7 +30,7 @@ namespace UAICampo.DAL
                 {
                     sqlConnection.Open();
 
-                    string query = $"BACKUP DATABASE Campo TO DISK = 'D:\backups\bkp-{getTimestamp(DateTime.Now)}.bak'";
+                    string query = $"BACKUP DATABASE Campo TO DISK = '{filename}'";
 
                     using (sqlCommand = new SqlCommand(query, sqlConnection))
                     {

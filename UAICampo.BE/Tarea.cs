@@ -34,11 +34,18 @@ namespace UAICampo.BE
             this.Description = (string)itemArray[2];
             this.DateCreated = (DateTime?)itemArray[3];
             this.DateDeadline = (DateTime?)itemArray[4];
-            this.DateFinished = (DateTime?)itemArray[5];
+            if (itemArray[5] == DBNull.Value)
+            {
+                this.DateFinished = null;
+            }
+            else
+            {
+                this.DateFinished = (DateTime?)itemArray[5];
+            }
             this.Value = (int)itemArray[6];
-            this.State = (StateType)itemArray[7];
+            this.State = (StateType)Convert.ToInt32(itemArray[7]);
             this.Archived = (bool)itemArray[8];
-            this.EpicaId = (int)itemArray[9];
+            //this.EpicaId = (int)itemArray[9];
         }
         public string Title { get; set; }
         public string Description { get; set; }

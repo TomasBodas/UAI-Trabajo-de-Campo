@@ -37,6 +37,7 @@ namespace UAICampo.UI.Controllers
             this.button_deleteLanguage = new System.Windows.Forms.Button();
             this.label_addLanguage = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,10 +113,21 @@ namespace UAICampo.UI.Controllers
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 8;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(284, 440);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Delete word";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // LanguageEditorController
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label_addLanguage);
             this.Controls.Add(this.button_deleteLanguage);
@@ -142,5 +154,6 @@ namespace UAICampo.UI.Controllers
         private System.Windows.Forms.Button button_deleteLanguage;
         private System.Windows.Forms.Label label_addLanguage;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button1;
     }
 }

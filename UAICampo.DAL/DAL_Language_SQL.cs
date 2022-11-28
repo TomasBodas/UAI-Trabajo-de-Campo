@@ -199,25 +199,26 @@ namespace UAICampo.DAL.SQL
 
         public void addWord(string tag, string word, int languageId)
         {
+            var wordId = 0;
             using (sqlConnection = new SqlConnection(CONNECTION_STRING))
             {
                 sqlConnection.Open();
 
                 string query = $"INSERT INTO {TABLE_words} ({COLUMN_WORDS_TAG}, {COLUMN_WORDS_WORD}, {COLUMN_WORDS_LANGUAGE})" +
-                                $" VALUES ({PARAM_WORDS_TAG},{PARAM_WORDS_WORD},{PARAM_WORDS_LANGUAGE})";
+                                $" VALUES ({PARAM_WORDS_TAG},{PARAM_WORDS_WORD},{PARAM_WORDS_LANGUAGE})" +
+                                $" SELECT SCOPE_IDENTITY()";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
                     sqlCommand.Parameters.AddWithValue(PARAM_WORDS_TAG, tag);
                     sqlCommand.Parameters.AddWithValue(PARAM_WORDS_WORD, word);
                     sqlCommand.Parameters.AddWithValue(PARAM_WORDS_LANGUAGE, languageId);
-
-                    sqlCommand.ExecuteNonQuery();
+                    wordId = (int)sqlCommand.ExecuteScalar();
                 }
 
                 sqlConnection.Close();
             }
-            wordChange(tag, word, languageId, "Added");
+            wordChange(tag, word, languageId, "Added", wordId);
         }
 
         public void addWordBulk(Dictionary<string, string> template, int languageId)
@@ -247,12 +248,14 @@ namespace UAICampo.DAL.SQL
 
         public void updateWord(string tag, string word, int languageId)
         {
+            var wordId = 0;
             using (sqlConnection = new SqlConnection(CONNECTION_STRING))
             {
                 sqlConnection.Open();
 
                 string query = $"UPDATE {TABLE_words}" +
                                 $" SET {COLUMN_WORDS_WORD} = {PARAM_WORDS_WORD}" +
+                                $" OUTPUT INSERTED.id" +
                                 $" WHERE {COLUMN_WORDS_TAG} = {PARAM_WORDS_TAG} AND {COLUMN_WORDS_LANGUAGE} = {PARAM_WORDS_LANGUAGE}";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
@@ -261,42 +264,44 @@ namespace UAICampo.DAL.SQL
                     sqlCommand.Parameters.AddWithValue(PARAM_WORDS_WORD, word);
                     sqlCommand.Parameters.AddWithValue(PARAM_WORDS_LANGUAGE, languageId);
 
-                    sqlCommand.ExecuteNonQuery();
+                    wordId = (int)sqlCommand.ExecuteScalar();
                 }
 
                 sqlConnection.Close();
             }
-            wordChange(tag, word, languageId, "Updated");
+            wordChange(tag, word, languageId, "Updated", wordId);
         }
 
-        public void deleteWord(string tag, int languageId)
+        public void deleteWord(string tag, string word, int languageId)
         {
+            var wordId = 0;
             using (sqlConnection = new SqlConnection(CONNECTION_STRING))
             {
                 sqlConnection.Open();
 
                 string query = $"DELETE" +
                                 $" FROM {TABLE_words}" +
-                                 $" WHERE {COLUMN_WORDS_TAG} = {PARAM_WORDS_TAG} AND {COLUMN_WORDS_LANGUAGE} = {PARAM_WORDS_LANGUAGE}";
+                                 $" WHERE {COLUMN_WORDS_TAG} = {PARAM_WORDS_TAG} AND {COLUMN_WORDS_WORD} = {PARAM_WORDS_WORD} AND {COLUMN_WORDS_LANGUAGE} = {PARAM_WORDS_LANGUAGE}";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
                     sqlCommand.Parameters.AddWithValue(PARAM_WORDS_TAG, tag);
                     sqlCommand.Parameters.AddWithValue(PARAM_WORDS_LANGUAGE, languageId);
-                    sqlReader = sqlCommand.ExecuteReader();
+                    sqlCommand.Parameters.AddWithValue(PARAM_WORDS_WORD, word);
+                    sqlCommand.ExecuteNonQuery();
                 }
             }
-            wordChange(tag, "deleted", languageId, "Added");
+            wordChange(tag, word, languageId, "Deleted", wordId);
         }
 
-        public void wordChange(string tag, string word, int languageId, string change)
+        public void wordChange(string tag, string word, int languageId, string change, int wordId)
         {
             using (sqlConnection = new SqlConnection(CONNECTION_STRING))
             {
                 sqlConnection.Open();
 
-                string query = $"INSERT INTO wordsChanges ({COLUMN_WORDS_TAG}, {COLUMN_WORDS_WORD}, {COLUMN_WORDS_LANGUAGE}, date, change, accountId)" +
-                                $" VALUES ({PARAM_WORDS_TAG},{PARAM_WORDS_WORD},{PARAM_WORDS_LANGUAGE}, @date, @change, @accountId)";
+                string query = $"INSERT INTO wordsChanges ({COLUMN_WORDS_TAG}, {COLUMN_WORDS_WORD}, {COLUMN_WORDS_LANGUAGE}, date, change, accountId, wordId)" +
+                                $" VALUES ({PARAM_WORDS_TAG},{PARAM_WORDS_WORD},{PARAM_WORDS_LANGUAGE}, @date, @change, @accountId, @wordId)";
 
                 using (sqlCommand = new SqlCommand(query, sqlConnection))
                 {
@@ -306,6 +311,7 @@ namespace UAICampo.DAL.SQL
                     sqlCommand.Parameters.AddWithValue("@date", DateTime.Now);
                     sqlCommand.Parameters.AddWithValue("@change", change);
                     sqlCommand.Parameters.AddWithValue("@accountId", UserInstance.getInstance().user.Id);
+                    sqlCommand.Parameters.AddWithValue("@wordId", wordId);
 
                     sqlCommand.ExecuteNonQuery();
                 }

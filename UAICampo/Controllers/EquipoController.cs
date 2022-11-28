@@ -83,9 +83,18 @@ namespace UAICampo.UI.Controllers
             //Second value: Word Tag, used for language runtime changes
 
             //General controllers------------------------------------------------------------------------------------
-            //controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "LicenseList"), label_Title_License));
-            //controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "ProfileList"), label_Title_Profile));
-            //controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "LicenseList"), label_Title_ProfileLicenses));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "TeamDetails"), labelTeam));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Name"), labelTeamName));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Level"), labelLevel));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Propose"), btnPropose));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Members"), groupBoxMembers));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Position"), groupBoxPosition));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Profile"), btnProfile));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Accept"), buttonAccept));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Cancel"), buttonCancel));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Add"), btnAdd));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Add"), buttonAddPosition));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Remove"), btnRemove));
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -151,6 +160,11 @@ namespace UAICampo.UI.Controllers
             BLL_PropuestaManager.proposeTeam(selectedEquipo, int.Parse(textBoxLevel.Text));
 
             updateGrid();
+        }
+
+        private void btnProfile_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

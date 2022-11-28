@@ -41,6 +41,7 @@ namespace UAICampo.UI.Controllers
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.buttonArchive = new System.Windows.Forms.Button();
             this.buttonDetails2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelTareas
@@ -79,7 +80,6 @@ namespace UAICampo.UI.Controllers
             this.buttonAssign.TabIndex = 4;
             this.buttonAssign.Text = "<";
             this.buttonAssign.UseVisualStyleBackColor = true;
-            this.buttonAssign.Visible = false;
             this.buttonAssign.Click += new System.EventHandler(this.buttonAssign_Click);
             // 
             // buttonDeassign
@@ -90,7 +90,7 @@ namespace UAICampo.UI.Controllers
             this.buttonDeassign.TabIndex = 4;
             this.buttonDeassign.Text = ">";
             this.buttonDeassign.UseVisualStyleBackColor = true;
-            this.buttonDeassign.Visible = false;
+            this.buttonDeassign.Click += new System.EventHandler(this.buttonDeassign_Click);
             // 
             // buttonFinalize
             // 
@@ -149,6 +149,7 @@ namespace UAICampo.UI.Controllers
             this.buttonArchive.Text = "Archive";
             this.buttonArchive.UseVisualStyleBackColor = true;
             this.buttonArchive.Visible = false;
+            this.buttonArchive.Click += new System.EventHandler(this.buttonArchive_Click);
             // 
             // buttonDetails2
             // 
@@ -160,10 +161,21 @@ namespace UAICampo.UI.Controllers
             this.buttonDetails2.UseVisualStyleBackColor = true;
             this.buttonDetails2.Click += new System.EventHandler(this.buttonDetails2_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(404, 204);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Delete";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // TareasController
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonDetails2);
             this.Controls.Add(this.buttonArchive);
             this.Controls.Add(this.buttonFinalize);
@@ -198,5 +210,6 @@ namespace UAICampo.UI.Controllers
         private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.Button buttonArchive;
         private System.Windows.Forms.Button buttonDetails2;
+        private System.Windows.Forms.Button button1;
     }
 }

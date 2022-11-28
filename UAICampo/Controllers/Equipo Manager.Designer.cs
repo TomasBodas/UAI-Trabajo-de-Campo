@@ -34,12 +34,14 @@ namespace UAICampo.UI
             this.groupBoxLeader = new System.Windows.Forms.GroupBox();
             this.buttonScores = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.finishSprint = new System.Windows.Forms.Button();
             this.groupBoxTeams.SuspendLayout();
             this.groupBoxLeader.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxTeams
             // 
+            this.groupBoxTeams.Controls.Add(this.buttonScores);
             this.groupBoxTeams.Controls.Add(this.buttonDetails);
             this.groupBoxTeams.Location = new System.Drawing.Point(15, 17);
             this.groupBoxTeams.Name = "groupBoxTeams";
@@ -60,7 +62,7 @@ namespace UAICampo.UI
             // 
             // groupBoxLeader
             // 
-            this.groupBoxLeader.Controls.Add(this.buttonScores);
+            this.groupBoxLeader.Controls.Add(this.finishSprint);
             this.groupBoxLeader.Controls.Add(this.button2);
             this.groupBoxLeader.Location = new System.Drawing.Point(15, 96);
             this.groupBoxLeader.Name = "groupBoxLeader";
@@ -71,13 +73,14 @@ namespace UAICampo.UI
             // 
             // buttonScores
             // 
-            this.buttonScores.Location = new System.Drawing.Point(96, 19);
+            this.buttonScores.Location = new System.Drawing.Point(95, 24);
             this.buttonScores.Name = "buttonScores";
             this.buttonScores.Size = new System.Drawing.Size(93, 23);
             this.buttonScores.TabIndex = 0;
             this.buttonScores.Text = "Member scores";
             this.buttonScores.UseVisualStyleBackColor = true;
             this.buttonScores.Visible = false;
+            this.buttonScores.Click += new System.EventHandler(this.buttonScores_Click);
             // 
             // button2
             // 
@@ -88,6 +91,16 @@ namespace UAICampo.UI
             this.button2.Text = "Create Epic";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // finishSprint
+            // 
+            this.finishSprint.Location = new System.Drawing.Point(96, 19);
+            this.finishSprint.Name = "finishSprint";
+            this.finishSprint.Size = new System.Drawing.Size(92, 23);
+            this.finishSprint.TabIndex = 2;
+            this.finishSprint.Text = "Finish Sprint";
+            this.finishSprint.UseVisualStyleBackColor = true;
+            this.finishSprint.Click += new System.EventHandler(this.finishSprint_Click);
             // 
             // Equipo_Manager
             // 
@@ -111,5 +124,6 @@ namespace UAICampo.UI
         private System.Windows.Forms.GroupBox groupBoxLeader;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button buttonScores;
+        private System.Windows.Forms.Button finishSprint;
     }
 }

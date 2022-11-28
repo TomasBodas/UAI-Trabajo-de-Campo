@@ -21,6 +21,7 @@ namespace UAICampo.UI
         List<KeyValuePair<Tag, Control>> controllers = new List<KeyValuePair<Tag, Control>>();
         BLL_LanguageManager bllLanguage;
         frmEpicaDetalle frmEpica;
+        frmSprint frmSprint;
         frmEquipoManager frmEquipoManager = null;
         public Equipo_Manager()
         {
@@ -82,6 +83,11 @@ namespace UAICampo.UI
             frmEpica = null;
         }
 
+        private void frmSprint_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmSprint = null;
+        }
+
         public void Update()
         {
             Language selectedLanguage = UserInstance.getInstance().user.language;
@@ -124,7 +130,26 @@ namespace UAICampo.UI
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "CreateEpic"), button2));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "ManageTeams"), groupBoxTeams));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "LeaderActions"), groupBoxLeader));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "FinishSprint"), finishSprint));
+        }
 
+        private void buttonScores_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void finishSprint_Click(object sender, EventArgs e)
+        {
+            if (frmSprint == null)
+            {
+                frmSprint = new frmSprint();
+                frmSprint.FormClosed += new FormClosedEventHandler(frmSprint_FormClosed);
+                frmSprint.Show();
+            }
+            else
+            {
+                frmSprint.BringToFront();
+            }
         }
     }
 }

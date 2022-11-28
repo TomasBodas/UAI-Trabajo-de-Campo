@@ -47,9 +47,10 @@ namespace UAICampo.UI.Controllers
             //Second value: Word Tag, used for language runtime changes
 
             //General controllers------------------------------------------------------------------------------------
-            //controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "LicenseList"), label_Title_License));
-            //controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "ProfileList"), label_Title_Profile));
-            //controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "LicenseList"), label_Title_ProfileLicenses));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "From"), label1));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "To"), label2));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Type"), label3));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "Search"), button1));
         }
 
         public void Update()

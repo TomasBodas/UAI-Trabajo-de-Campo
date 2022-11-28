@@ -10,9 +10,9 @@ namespace UAICampo.BLL
     public class BLL_BackupManager
     {
         DAL_Backup dalBackup = new DAL_Backup();
-        public bool backup()
+        public bool backup(string filename)
         {
-            if (dalBackup.Backup())
+            if (dalBackup.Backup(filename))
             {
                 return true;
             }

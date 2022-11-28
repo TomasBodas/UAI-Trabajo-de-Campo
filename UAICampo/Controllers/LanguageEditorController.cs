@@ -58,6 +58,11 @@ namespace UAICampo.UI.Controllers
         }
         private void button1_Click_1(object sender, EventArgs e)
         {
+            UpdateGrid();
+        }
+
+        private void UpdateGrid()
+        {
             dataGridView1.Rows.Clear();
             string selectedLanguage = comboBox1.SelectedItem.ToString();
             language = languages.Find(item => item.Name == selectedLanguage);
@@ -149,6 +154,13 @@ namespace UAICampo.UI.Controllers
             //-------------------------------------------------------------------------------------------------------
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "AddLanguage"), label_addLanguage));
             controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "ChooseLanguage"), label_chooseLanguage));
+            controllers.Add(new KeyValuePair<Tag, Control>(new Services.Tag(0, "DeleteWord"), button1));
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            languageBLL.deleteWord(dataGridView1.SelectedRows[0].Cells[0].Value.ToString(), dataGridView1.SelectedRows[0].Cells[1].Value.ToString(), language.Id);
+            UpdateGrid();
         }
     }
 }
