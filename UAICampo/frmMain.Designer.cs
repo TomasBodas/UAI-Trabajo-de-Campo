@@ -54,6 +54,14 @@ namespace UAICampo.UI
             this.supervisorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.teamManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.userManualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.teamCreationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.taskCreationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.achievementsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.administrativeOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageTask = new System.Windows.Forms.TabPage();
             this.tareasController2 = new UAICampo.UI.Controllers.TareasController();
@@ -144,7 +152,8 @@ namespace UAICampo.UI
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.profileToolStripMenuItem,
             this.administratorToolStripMenuItem,
-            this.supervisorToolStripMenuItem});
+            this.supervisorToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(1007, 24);
@@ -270,6 +279,69 @@ namespace UAICampo.UI
             this.addNewAccountToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.addNewAccountToolStripMenuItem.Text = "Add new account";
             this.addNewAccountToolStripMenuItem.Click += new System.EventHandler(this.addNewAccountToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.userManualToolStripMenuItem,
+            this.detailsToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // userManualToolStripMenuItem
+            // 
+            this.userManualToolStripMenuItem.Name = "userManualToolStripMenuItem";
+            this.userManualToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.userManualToolStripMenuItem.Text = "User Manual";
+            this.userManualToolStripMenuItem.Click += new System.EventHandler(this.userManualToolStripMenuItem_Click);
+            // 
+            // detailsToolStripMenuItem
+            // 
+            this.detailsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainMenuToolStripMenuItem,
+            this.teamCreationToolStripMenuItem,
+            this.taskCreationToolStripMenuItem,
+            this.achievementsToolStripMenuItem,
+            this.administrativeOptionsToolStripMenuItem});
+            this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
+            this.detailsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.detailsToolStripMenuItem.Text = "Details";
+            // 
+            // mainMenuToolStripMenuItem
+            // 
+            this.mainMenuToolStripMenuItem.Name = "mainMenuToolStripMenuItem";
+            this.mainMenuToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.mainMenuToolStripMenuItem.Text = "1. Main Menu";
+            this.mainMenuToolStripMenuItem.Click += new System.EventHandler(this.mainMenuToolStripMenuItem_Click);
+            // 
+            // teamCreationToolStripMenuItem
+            // 
+            this.teamCreationToolStripMenuItem.Name = "teamCreationToolStripMenuItem";
+            this.teamCreationToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.teamCreationToolStripMenuItem.Text = "2. Team Creation";
+            this.teamCreationToolStripMenuItem.Click += new System.EventHandler(this.teamCreationToolStripMenuItem_Click);
+            // 
+            // taskCreationToolStripMenuItem
+            // 
+            this.taskCreationToolStripMenuItem.Name = "taskCreationToolStripMenuItem";
+            this.taskCreationToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.taskCreationToolStripMenuItem.Text = "3. Task Creation";
+            this.taskCreationToolStripMenuItem.Click += new System.EventHandler(this.taskCreationToolStripMenuItem_Click);
+            // 
+            // achievementsToolStripMenuItem
+            // 
+            this.achievementsToolStripMenuItem.Name = "achievementsToolStripMenuItem";
+            this.achievementsToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.achievementsToolStripMenuItem.Text = "4. Achievements";
+            this.achievementsToolStripMenuItem.Click += new System.EventHandler(this.achievementsToolStripMenuItem_Click);
+            // 
+            // administrativeOptionsToolStripMenuItem
+            // 
+            this.administrativeOptionsToolStripMenuItem.Name = "administrativeOptionsToolStripMenuItem";
+            this.administrativeOptionsToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.administrativeOptionsToolStripMenuItem.Text = "5. Administrative Options";
+            this.administrativeOptionsToolStripMenuItem.Click += new System.EventHandler(this.administrativeOptionsToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
@@ -432,5 +504,13 @@ namespace UAICampo.UI
         private Controllers.TareasController tareasController2;
         private Equipo_Manager equipo_Manager2;
         private Controllers.LanguageController languageController1;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem userManualToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem detailsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mainMenuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem teamCreationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem taskCreationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem achievementsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem administrativeOptionsToolStripMenuItem;
     }
 }

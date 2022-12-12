@@ -44,7 +44,7 @@ namespace UAICampo.DAL
             throw new NotImplementedException();
         }
 
-        public IList<Log> GetAll(DateTime? from = null, DateTime? to = null, string type = null)
+        public IList<Log> GetAll(DateTime? from = null, DateTime? to = null, string type = null, string user = null)
         {
             List<Log> licenses = new List<Log>();
 
@@ -63,6 +63,11 @@ namespace UAICampo.DAL
                 if (type != null)
                 {
                     query += $" AND {COLUMN_LOG_TYPE} LIKE '%{type}%'";
+                }
+
+                if (user != null)
+                {
+                    query += $" AND {COLUMN_LOG_FK_USER} LIKE {user}";
                 }
 
 
@@ -129,7 +134,7 @@ namespace UAICampo.DAL
             return Entity;
         }
 
-        public List<WordChangelog> GetAllChangelog(DateTime? from = null, DateTime? to = null, string type = null)
+        public List<WordChangelog> GetAllChangelog(DateTime? from = null, DateTime? to = null, string type = null, string user = null)
         {
             List<WordChangelog> licenses = new List<WordChangelog>();
 
@@ -148,6 +153,11 @@ namespace UAICampo.DAL
                 if (type != null)
                 {
                     query += $" AND change LIKE '%{type}%'";
+                }
+
+                if (user != null)
+                {
+                    query += $" AND accountId LIKE {user}";
                 }
 
 

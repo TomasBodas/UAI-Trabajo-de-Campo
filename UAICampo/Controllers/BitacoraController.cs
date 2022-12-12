@@ -90,7 +90,8 @@ namespace UAICampo.UI.Controllers
         {
             dataGridView1.Rows.Clear();
             var filter = string.IsNullOrEmpty(textBox1.Text) ? null : textBox1.Text;
-            logList = bllLog.getAll(dateTimePicker1.Value, dateTimePicker2.Value, filter);
+            string user = string.IsNullOrEmpty(textBox2.Text) ? null : textBox2.Text;
+            logList = bllLog.getAll(dateTimePicker1.Value, dateTimePicker2.Value, filter, user);
             foreach (var item in logList)
             {
                 dataGridView1.Rows.Add(item.Code, item.Description, item.Type, item.Date, item.User);

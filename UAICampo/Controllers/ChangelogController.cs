@@ -91,7 +91,8 @@ namespace UAICampo.UI.Controllers
         public void updateGrid()
         {
             var filter = string.IsNullOrEmpty(textBox1.Text) ? null : textBox1.Text;
-            logList = bllLog.getAllChangelog(dateTimePicker1.Value, dateTimePicker2.Value, filter);
+            string user = string.IsNullOrEmpty(textBox2.Text) ? null : textBox2.Text;
+            logList = bllLog.getAllChangelog(dateTimePicker1.Value, dateTimePicker2.Value, filter, user);
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = logList;
             //foreach (var item in logList)

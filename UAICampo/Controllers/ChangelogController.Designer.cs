@@ -38,6 +38,8 @@ namespace UAICampo.UI.Controllers
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,7 +101,7 @@ namespace UAICampo.UI.Controllers
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(418, 14);
+            this.button1.Location = new System.Drawing.Point(435, 13);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 7;
@@ -109,7 +111,7 @@ namespace UAICampo.UI.Controllers
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(362, 43);
+            this.button2.Location = new System.Drawing.Point(435, 41);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 8;
@@ -117,10 +119,28 @@ namespace UAICampo.UI.Controllers
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(272, 46);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(32, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "User:";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(312, 42);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 9;
+            // 
             // ChangelogController
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
@@ -150,5 +170,7 @@ namespace UAICampo.UI.Controllers
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }

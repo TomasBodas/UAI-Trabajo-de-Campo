@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -99,6 +100,14 @@ namespace UAICampo.UI
             }
 
             profileToolStripMenuItem.Text = selectedLanguage.translate("Profile");
+            helpToolStripMenuItem.Text = selectedLanguage.translate("Help");
+            userManualToolStripMenuItem.Text = selectedLanguage.translate("UserManual");
+            detailsToolStripMenuItem.Text = selectedLanguage.translate("Details");
+            mainMenuToolStripMenuItem.Text = selectedLanguage.translate("MainMenu");
+            teamCreationToolStripMenuItem.Text = selectedLanguage.translate("TeamCreation");
+            taskCreationToolStripMenuItem.Text = selectedLanguage.translate("TaskCreation");
+            achievementsToolStripMenuItem.Text = selectedLanguage.translate("Achievements");
+            administrativeOptionsToolStripMenuItem.Text = selectedLanguage.translate("Administrator");
             administratorToolStripMenuItem.Text = selectedLanguage.translate("Administrator");
             changePasswordToolStripMenuItem.Text = selectedLanguage.translate("Information");
             languageEditorToolStripMenuItem.Text = selectedLanguage.translate("LanguageEditor");
@@ -418,6 +427,37 @@ namespace UAICampo.UI
             {
                 frmChangelog.BringToFront();
             }
+        }
+
+        String ruta = Application.StartupPath.ToString();
+        private void userManualToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(ruta + "\\Ayuda\\Manual De Apoyo.pdf");
+        }
+
+        private void mainMenuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(ruta + "\\Ayuda\\1. Main Menu.pdf");
+        }
+
+        private void teamCreationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(ruta + "\\Ayuda\\2. Team Creation.pdf");
+        }
+
+        private void taskCreationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(ruta + "\\Ayuda\\3. Task Creation.pdf");
+        }
+
+        private void achievementsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(ruta + "\\Ayuda\\4. Achievements.pdf");
+        }
+
+        private void administrativeOptionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(ruta + "\\Ayuda\\5. Administrator.pdf");
         }
     }
 }

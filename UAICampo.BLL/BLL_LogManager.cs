@@ -18,13 +18,13 @@ namespace UAICampo.BLL
 		{
 			return dalLog.Save(message);
 		}
-		public IList<Log> getAll(DateTime from, DateTime to, string type = null)
+		public IList<Log> getAll(DateTime from, DateTime to, string type = null, string user = null)
 		{
-			return dalLog.GetAll(from, to, type);
+			return dalLog.GetAll(from, to, type, user);
 		}
-		public List<WordChangelog> getAllChangelog(DateTime from, DateTime to, string type = null)
+		public List<WordChangelog> getAllChangelog(DateTime from, DateTime to, string type = null, string user = null)
 		{
-			return dalLog.GetAllChangelog(from, to, type);
+			return dalLog.GetAllChangelog(from, to, type, user);
 		}
 
 		public void RestoreWord(WordChangelog row)
